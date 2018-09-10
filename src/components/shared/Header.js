@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import Cart from "../customer/Cart";
+import Images from "../../images/product_1.jpg";
+import Logo from '../../images/GrizzlyStoreLogo.png';
 
 class Header extends Component {
     render() {
@@ -14,11 +16,11 @@ class Header extends Component {
                                 <div className="col">
                                     <div
                                         className="header_content d-flex flex-row align-items-center justify-content-start">
-                                        <div className="logo"><a><Link to='/'>Sublime</Link></a></div>
+                                        <div className="logo"><a><Link to='/'><img className="header_logo" src={Logo} alt=""/></Link></a></div>
                                         <nav className="main_nav">
-                                            <ul>
-                                                <li className="hassubs active">
-                                                    <a><Link to='/'>Home</Link></a>
+                                            <ul className="nav_header_group_link">
+                                                <li className="hassubs nav_header_links">
+                                                    <a className="nav_links"><Link to='/'>Home</Link></a>
                                                     <ul>
                                                         <li><a><Link to='/category'>Categories</Link></a></li>
                                                         <li><a><Link to='/product'>Product</Link></a></li>
@@ -27,19 +29,20 @@ class Header extends Component {
                                                         <li><a><Link to='/contact'>Contact</Link></a></li>
                                                     </ul>
                                                 </li>
-                                                <li className="hassubs">
-                                                    <a><Link to='/category'>Categories</Link></a>
+                                                <li className="hassubs nav_header_links">
+                                                    <a className="nav_links"><Link to='/category'>Categories</Link></a>
                                                     <ul>
+                                                        <li><a><Link to='/category'>Art</Link></a></li>
+                                                        <li><a><Link to='/category'>Clothing</Link></a></li>
+                                                        <li><a><Link to='/category'>Home</Link></a></li>
+                                                        <li><a><Link to='/category'>Jewellery</Link></a></li>
+                                                        <li><a><Link to='/category'>Technology</Link></a></li>
                                                         <li><a><Link to='/category'>Toys</Link></a></li>
-                                                        <li><a><Link to='/category'>Smartphones</Link></a></li>
-                                                        <li><a><Link to='/category'>Electrical</Link></a></li>
-                                                        <li><a><Link to='/category'>Household</Link></a></li>
-                                                        <li><a><Link to='/category'>Bears</Link></a></li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="#">Accessories</a></li>
-                                                <li><a href="#">Offers</a></li>
-                                                <li><a><Link to='/contact'>Contact</Link></a></li>
+                                                <li className="nav_header_links">
+                                                    <a className="nav_links" href="#">Sales</a>
+                                                </li>
                                             </ul>
                                         </nav>
                                         <div className="header_extra ml-auto">
