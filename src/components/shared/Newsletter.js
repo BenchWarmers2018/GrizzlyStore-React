@@ -1,6 +1,30 @@
 import React, { Component } from 'react';
 
 class Newsletter extends Component {
+
+    constructor(props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+        this.state = { random: 0 };
+    }
+
+    handleClick () {
+
+        const facts = [
+            "Panda",
+            "Koala",
+            "Polar",
+            "Hi",
+            "My",
+            "Name",
+            "Is",
+            "Julia"
+        ];
+
+        const randomNumber = Math.floor(Math.random()*facts.length);
+        this.setState({ random:facts[randomNumber] });
+    }
+
     render() {
         return(
                 <div className="newsletter">
@@ -21,14 +45,13 @@ class Newsletter extends Component {
 
                         <div className="container">
                             <div className="row flex-center">
-                                <button id="button" className="btn-large new-quote-button" onClick="getFact()">New
-                                    Quote
+                                <button id="button" className="btn-large new-quote-button"  onClick={this.handleClick.bind(this)}>
+                                    New Quote
                                 </button>
                             </div>
-
                             <div className="row flex-center">
                                 <main className="card">
-                                    <p className="quote card-body center" id="bearFactSection">...</p>
+                                    <p className="quote card-body center" id="bearFactSection">{this.state.random}</p>
                                 </main>
                             </div>
 
