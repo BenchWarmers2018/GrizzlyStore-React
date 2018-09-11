@@ -9,9 +9,7 @@ class Header extends Component {
     render() {
         return (
             <div>
-
                 <header className="header">
-
                     <div className="header_container" style={{backgroundImage: "url(" + HeaderImage + ")"}}>
 
                         <div className="container">
@@ -39,7 +37,7 @@ class Header extends Component {
                                                     </ul>
                                                 </li>
                                                 <li className="nav_header_links">
-                                                    <a className="nav_links" href="/sales">Sales</a>
+                                                    <a className="nav_links" href="/sales">Sale</a>
                                                 </li>
                                             </ul>
                                         </nav>
@@ -86,51 +84,42 @@ class Header extends Component {
                         </ul>
                     </div>
                 </header>
+
+                {/*This is where the side navigation starts for small screens...*/}
+
+                {/*Adding more lines cause it makes it more viewable to know where the navigation for mobile starts*/}
+
+                {/* ¯\_(ツ)_/¯ */}
+
                 <div className="menu menu_mm trans_300">
                     <div className="menu_container menu_mm">
                         <div className="page_menu_content">
-
-                            <div className="page_menu_search menu_mm">
-                                <form action="#">
-                                    <input type="search" required="required" className="page_menu_search_input menu_mm"
-                                           placeholder="Search for products..."/>
-                                </form>
-                            </div>
                             <ul className="page_menu_nav menu_mm">
                                 <li className="page_menu_item has-children menu_mm">
-                                    <a>Home<i className="fa fa-angle-down"></i></a>
-                                    <ul className="page_menu_selection menu_mm">
-                                        <li className="page_menu_item menu_mm"><a><Link to='/category'>Categories</Link><i
-                                            className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a><Link to='/product'>Product</Link><i
-                                            className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a><Link to='/cart'>Cart</Link><i
-                                            className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a><Link to='/checkout'>Check out</Link><i
-                                            className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a><Link to='/contact'>Contact</Link><i
-                                            className="fa fa-angle-down"></i></a></li>
-                                    </ul>
+                                    <a className="nav_header_links"><Link to='/'>Home</Link></a>
                                 </li>
+
                                 <li className="page_menu_item has-children menu_mm">
-                                    <a >Categories<i className="fa fa-angle-down"></i></a>
+                                    <a className="nav_header_links"><Link to='/product'>All Items</Link></a>
+                                </li>
+
+                                <li className="page_menu_item has-children menu_mm">
+                                    <a className="nav_header_links" href="categories.html">Categories<i className="fa fa-angle-down"></i></a>
                                     <ul className="page_menu_selection menu_mm">
-                                        <li className="page_menu_item menu_mm"><a><Link to='/category'>Categories</Link><i
+                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
                                             className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a><Link to='/category'>Categories</Link><i
+                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
                                             className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a><Link to='/category'>Categories</Link><i
+                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
                                             className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a ><Link to='/category'>Categories</Link><i
+                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
                                             className="fa fa-angle-down"></i></a></li>
                                     </ul>
                                 </li>
-                                <li className="page_menu_item menu_mm"><a>Accessories<i
-                                    className="fa fa-angle-down"></i></a></li>
-                                <li className="page_menu_item menu_mm"><a>Offers<i
-                                    className="fa fa-angle-down"></i></a></li>
-                                <li className="page_menu_item menu_mm"><a><Link to='/contact'>Contact</Link><i
-                                    className="fa fa-angle-down"></i></a></li>
+
+                                <li className="page_menu_item has-children menu_mm">
+                                    <a className="nav_header_links"><Link to='/sale'>Sale</Link></a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -146,7 +135,6 @@ class Header extends Component {
                         </ul>
                     </div>
                 </div>
-
             </div>
         );
     }
