@@ -95,13 +95,13 @@ class Header extends Component {
                     <div className="menu_container menu_mm">
                         <div className="page_menu_content">
                             <ul className="page_menu_nav menu_mm">
-                                <li className="page_menu_item has-children menu_mm">
                                     <a className="nav_header_links"><Link to='/'>Home</Link></a>
-                                </li>
 
-                                <li className="page_menu_item has-children menu_mm">
+                                <li className="page_menu_item">
                                     <a className="nav_header_links"><Link to='/product'>All Items</Link></a>
                                 </li>
+
+                                {/*dropdown not working as intended at the moment */}
 
                                 <li className="page_menu_item has-children menu_mm">
                                     <a className="nav_header_links" href="categories.html">Categories<i className="fa fa-angle-down"></i></a>
@@ -116,10 +116,7 @@ class Header extends Component {
                                             className="fa fa-angle-down"></i></a></li>
                                     </ul>
                                 </li>
-
-                                <li className="page_menu_item has-children menu_mm">
                                     <a className="nav_header_links"><Link to='/sale'>Sale</Link></a>
-                                </li>
                             </ul>
                         </div>
                     </div>
