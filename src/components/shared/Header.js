@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Cart from "../customer/Cart";
 import Images from "../../images/product_1.jpg";
 import Logo from '../../images/GrizzlyStoreLogo.png';
+import HeaderImage from "../../images/polar_bear_header.jpg";
 
 class Header extends Component {
     render() {
@@ -10,7 +11,9 @@ class Header extends Component {
             <div>
 
                 <header className="header">
-                    <div className="header_container">
+
+                    <div className="header_container" style={{backgroundImage: "url(" + HeaderImage + ")"}}>
+
                         <div className="container">
                             <div className="row">
                                 <div className="col">
@@ -21,9 +24,9 @@ class Header extends Component {
                                             <ul className="nav_header_group_link">
                                                 <li className="hassubs nav_header_links">
                                                     <a className="nav_links"><Link to='/'>Home</Link></a>
-                                                    <ul>
+                                                    <ul className="nav_dropdown">
+                                                        <li><a><Link to='/product'>All Items</Link></a></li>
                                                         <li><a><Link to='/category'>Categories</Link></a></li>
-                                                        <li><a><Link to='/product'>Product</Link></a></li>
                                                         <li><a><Link to='/cart'>Cart</Link></a></li>
                                                         <li><a><Link to='/checkout'>Check out</Link></a></li>
                                                         <li><a><Link to='/contact'>Contact</Link></a></li>
@@ -31,7 +34,7 @@ class Header extends Component {
                                                 </li>
                                                 <li className="hassubs nav_header_links">
                                                     <a className="nav_links"><Link to='/category'>Categories</Link></a>
-                                                    <ul>
+                                                    <ul className="nav_dropdown">
                                                         <li><a><Link to='/category'>Art</Link></a></li>
                                                         <li><a><Link to='/category'>Clothing</Link></a></li>
                                                         <li><a><Link to='/category'>Home</Link></a></li>

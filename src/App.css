@@ -14,6 +14,20 @@
   text-decoration: none;
 }
 
+
+.nav_dropdown{
+  min-width: 100px;
+}
+
+.nav_dropdown li{
+  min-width: 100px;
+}
+.nav_dropdown li:hover{
+  transform: scale(1.1);
+  text-decoration: none;
+  min-width: 100px;
+}
+
 .nav_header_links:link{
   text-decoration: none;
   color: black;
@@ -30,6 +44,7 @@
 .main_nav{
   top: 50%;
   bottom:50%;
+  min-width: 100px;
 }
 
 .App {
@@ -61,6 +76,10 @@
   to { transform: rotate(360deg); }
 }
 
+.header_container{
+  background-size: 100% 200%;
+  background: center;
+}
 .header_content{
   max-height: 100px;
   min-height: 100px;

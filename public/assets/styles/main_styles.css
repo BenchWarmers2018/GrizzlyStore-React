@@ -832,7 +832,7 @@ section
 }
 .home_slider_content_container
 {
-	position: absolute;
+	position: relative;
 	left: 0;
 	top: 32.3%;
 	width: 100%;
