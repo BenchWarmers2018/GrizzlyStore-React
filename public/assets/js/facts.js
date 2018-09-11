@@ -6,7 +6,11 @@ let facts = [
 
 // Generate random quote
 
-function getFact() {
+export function getFact() {
     const randomNumber = Math.floor(Math.random() * facts.length);
-    document.getElementById("bearFactSection").innerhtml = facts[randomNumber];
+
+    let randomFact = facts[randomNumber];
+    return randomFact;
+
+    // document.getElementById("bearFactSection").innerhtml = facts[randomNumber];
 }
