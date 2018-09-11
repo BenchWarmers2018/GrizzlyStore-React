@@ -41,19 +41,18 @@ class Header extends Component {
                                                     </ul>
                                                 </li>
                                                 <li className="nav_header_links">
-                                                    <a className="nav_links" href="#">Sales</a>
+                                                    <a className="nav_links" href="/sales">Sales</a>
                                                 </li>
                                             </ul>
                                         </nav>
                                         <div className="header_extra ml-auto">
                                             <div className="shopping_cart">
-                                                <a ><Link to='/cart'>Cart</Link>
+                                                <a className="nav_links"><Link to='/cart'>Cart</Link>
                                                     <span>(0)</span>
                                                 </a>
                                             </div>
                                             <div className="search">
                                                 <div className="search_icon">
-
                                                 </div>
                                             </div>
                                             <div className="hamburger"><i className="fa fa-bars" aria-hidden="true"></i></div>

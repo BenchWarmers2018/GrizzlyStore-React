@@ -88,7 +88,7 @@ class Cart extends Component {
                             <div className="col">
                                 <div
                                     className="cart_buttons d-flex flex-lg-row flex-column align-items-start justify-content-start">
-                                    <div className="button continue_shopping_button"><a href="#">Continue shopping</a>
+                                    <div className="button continue_shopping_button"><a href="/">Continue shopping</a>
                                     </div>
                                     <div className="cart_buttons_right ml-lg-auto">
                                         <div className="button clear_cart_button"><a href="#">Clear cart</a></div>
@@ -156,7 +156,7 @@ class Cart extends Component {
                                             </li>
                                         </ul>
                                     </div>
-                                    <div className="button checkout_button"><a href="#">Proceed to checkout</a></div>
+                                    <div className="button checkout_button"><a href="/checkout">Proceed to checkout</a></div>
                                 </div>
                             </div>
                         </div>
