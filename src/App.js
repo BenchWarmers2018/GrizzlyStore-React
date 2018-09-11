@@ -7,6 +7,7 @@ import Newsletter from "./components/shared/Newsletter";
 import Main from "./components/Main";
 
 
+
 class App extends Component {
     render() {
         return (
