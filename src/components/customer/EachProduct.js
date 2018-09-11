@@ -8,14 +8,21 @@ class EachProduct extends Component {
     render() {
         return (
             <div className="padding-header">
+
+                {/*Content image*/}
                 <div className="product_details">
                     <div className="container">
                         <div className="row details_row">
-                            <div className="details_image">
-                                <div className="col-lg-4">
-                                    <img src={ Product } />
+
+                            <div className="col-lg-6">
+                                <div className="details_image">
+
+                                    <img className="details_image_large" src={ Product } />
                                 </div>
                             </div>
+
+                            {/*Content Description*/}
+
                             <div className="col-lg-6">
                                 <div className="details_content">
                                     <div className="details_name">Bear Phone</div>
