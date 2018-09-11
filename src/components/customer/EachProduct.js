@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Background from "../../images/categories.jpg";
 import Product from "../../images/details_1.jpg";
+import HeaderImage from "../../images/polar_bear_header.jpg";
 
 class EachProduct extends Component {
     render() {
@@ -10,6 +11,11 @@ class EachProduct extends Component {
                 <div className="product_details">
                     <div className="container">
                         <div className="row details_row">
+                            <div className="details_image">
+                                <div className="col-lg-4">
+                                    <img src={ Product } />
+                                </div>
+                            </div>
                             <div className="col-lg-6">
                                 <div className="details_content">
                                     <div className="details_name">Bear Phone</div>
