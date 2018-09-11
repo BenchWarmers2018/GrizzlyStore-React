@@ -95,3 +95,8 @@
 .logo{
   max-width: 350px;
 }
+
+.footer_background {
+  background-repeat: no-repeat;
+  background-size:cover;
+}
