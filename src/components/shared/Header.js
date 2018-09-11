@@ -1,56 +1,54 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import Cart from "../customer/Cart";
+import Images from "../../images/product_1.jpg";
+import Logo from '../../images/GrizzlyStoreLogo.png';
+import HeaderImage from "../../images/polar_bear_header.jpg";
 
 class Header extends Component {
     render() {
         return (
             <div>
-
                 <header className="header">
-                    <div className="header_container">
+                    <div className="header_container" style={{backgroundImage: "url(" + HeaderImage + ")"}}>
+
                         <div className="container">
                             <div className="row">
                                 <div className="col">
                                     <div
                                         className="header_content d-flex flex-row align-items-center justify-content-start">
-                                        <div className="logo"><a><Link to='/'>Sublime</Link></a></div>
+                                        <div className="logo"><a><Link to='/'><img className="header_logo" src={Logo} alt=""/></Link></a></div>
                                         <nav className="main_nav">
-                                            <ul>
-                                                <li className="hassubs active">
-                                                    <a><Link to='/'>Home</Link></a>
-                                                    <ul>
-                                                        <li><a><Link to='/category'>Categories</Link></a></li>
-                                                        <li><a><Link to='/product'>Product</Link></a></li>
-                                                        <li><a><Link to='/cart'>Cart</Link></a></li>
-                                                        <li><a><Link to='/checkout'>Check out</Link></a></li>
-                                                        <li><a><Link to='/contact'>Contact</Link></a></li>
-                                                    </ul>
+                                            <ul className="nav_header_group_link">
+                                                <li className="nav_header_links">
+                                                    <a className="nav_links"><Link to='/'>Home</Link></a>
                                                 </li>
-                                                <li className="hassubs">
-                                                    <a><Link to='/category'>Categories</Link></a>
-                                                    <ul>
+                                                <li className="nav_header_links">
+                                                    <a className="nav_links"><Link to='/product'>All Items</Link></a></li>
+                                                <li className="hassubs nav_header_links">
+                                                    <a className="nav_links"><Link to='/category'>Categories</Link></a>
+                                                    <ul className="nav_dropdown">
+                                                        <li><a><Link to='/category'>Art</Link></a></li>
+                                                        <li><a><Link to='/category'>Clothing</Link></a></li>
+                                                        <li><a><Link to='/category'>Home</Link></a></li>
+                                                        <li><a><Link to='/category'>Jewellery</Link></a></li>
+                                                        <li><a><Link to='/category'>Technology</Link></a></li>
                                                         <li><a><Link to='/category'>Toys</Link></a></li>
-                                                        <li><a><Link to='/category'>Smartphones</Link></a></li>
-                                                        <li><a><Link to='/category'>Electrical</Link></a></li>
-                                                        <li><a><Link to='/category'>Household</Link></a></li>
-                                                        <li><a><Link to='/category'>Bears</Link></a></li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="#">Accessories</a></li>
-                                                <li><a href="#">Offers</a></li>
-                                                <li><a><Link to='/contact'>Contact</Link></a></li>
+                                                <li className="nav_header_links">
+                                                    <a className="nav_links" href="/sales">Sale</a>
+                                                </li>
                                             </ul>
                                         </nav>
                                         <div className="header_extra ml-auto">
                                             <div className="shopping_cart">
-                                                <a ><Link to='/cart'>Cart</Link>
+                                                <a className="nav_links"><Link to='/cart'>Cart</Link>
                                                     <span>(0)</span>
                                                 </a>
                                             </div>
                                             <div className="search">
                                                 <div className="search_icon">
-
                                                 </div>
                                             </div>
                                             <div className="hamburger"><i className="fa fa-bars" aria-hidden="true"></i></div>
@@ -86,51 +84,39 @@ class Header extends Component {
                         </ul>
                     </div>
                 </header>
+
+                {/*This is where the side navigation starts for small screens...*/}
+
+                {/*Adding more lines cause it makes it more viewable to know where the navigation for mobile starts*/}
+
+                {/* ¯\_(ツ)_/¯ */}
+
                 <div className="menu menu_mm trans_300">
                     <div className="menu_container menu_mm">
                         <div className="page_menu_content">
-
-                            <div className="page_menu_search menu_mm">
-                                <form action="#">
-                                    <input type="search" required="required" className="page_menu_search_input menu_mm"
-                                           placeholder="Search for products..."/>
-                                </form>
-                            </div>
                             <ul className="page_menu_nav menu_mm">
+                                    <a className="nav_header_links"><Link to='/'>Home</Link></a>
+
+                                <li className="page_menu_item">
+                                    <a className="nav_header_links"><Link to='/product'>All Items</Link></a>
+                                </li>
+
+                                {/*dropdown not working as intended at the moment */}
+
                                 <li className="page_menu_item has-children menu_mm">
-                                    <a>Home<i className="fa fa-angle-down"></i></a>
+                                    <a className="nav_header_links" href="categories.html">Categories<i className="fa fa-angle-down"></i></a>
                                     <ul className="page_menu_selection menu_mm">
-                                        <li className="page_menu_item menu_mm"><a><Link to='/category'>Categories</Link><i
+                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
                                             className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a><Link to='/product'>Product</Link><i
+                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
                                             className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a><Link to='/cart'>Cart</Link><i
+                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
                                             className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a><Link to='/checkout'>Check out</Link><i
-                                            className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a><Link to='/contact'>Contact</Link><i
+                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
                                             className="fa fa-angle-down"></i></a></li>
                                     </ul>
                                 </li>
-                                <li className="page_menu_item has-children menu_mm">
-                                    <a >Categories<i className="fa fa-angle-down"></i></a>
-                                    <ul className="page_menu_selection menu_mm">
-                                        <li className="page_menu_item menu_mm"><a><Link to='/category'>Categories</Link><i
-                                            className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a><Link to='/category'>Categories</Link><i
-                                            className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a><Link to='/category'>Categories</Link><i
-                                            className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a ><Link to='/category'>Categories</Link><i
-                                            className="fa fa-angle-down"></i></a></li>
-                                    </ul>
-                                </li>
-                                <li className="page_menu_item menu_mm"><a>Accessories<i
-                                    className="fa fa-angle-down"></i></a></li>
-                                <li className="page_menu_item menu_mm"><a>Offers<i
-                                    className="fa fa-angle-down"></i></a></li>
-                                <li className="page_menu_item menu_mm"><a><Link to='/contact'>Contact</Link><i
-                                    className="fa fa-angle-down"></i></a></li>
+                                    <a className="nav_header_links"><Link to='/sale'>Sale</Link></a>
                             </ul>
                         </div>
                     </div>
@@ -146,7 +132,6 @@ class Header extends Component {
                         </ul>
                     </div>
                 </div>
-
             </div>
         );
     }

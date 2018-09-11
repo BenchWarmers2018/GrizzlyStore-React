@@ -8,7 +8,6 @@ import EachProduct from "./customer/EachProduct";
 import Cart from "./customer/Cart";
 import Checkout from "./customer/Checkout";
 import OrderConfirmation from "./customer/OrderConfirmation";
-import Contact from "./customer/Contact";
 
 class Main extends Component {
     render() {
@@ -22,10 +21,7 @@ class Main extends Component {
                     <Route path='/cart' component={Cart} />
                     <Route path='/checkout' component={Checkout}/>
                     <Route path='/confirmation' component={OrderConfirmation}/>
-                    <Route path='/contact' component={Contact}/>
                     { /* More categories links here */ }
-
-
                 </Switch>
             </main>
         );
