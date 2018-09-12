@@ -1,0 +1,34 @@
+.home_slider_container{
+    margin-bottom: 100px;
+    /*position: absolute;*/
+    /*top: 100px;*/
+}
+
+.home_slider_background{
+    min-height: 100vh;
+    /*position: relative;*/
+    /*display:block;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    top: 200px;
+    /*background-size: contain;*/
+    background-repeat:no-repeat;
+
+}
+
+.testingcar{
+    min-height: 100vh;
+}
+
+
+.home{
+    padding: 0;
+}
+
+.products{
+    padding-top: 0px;
+}
+
+.carousel_image1{
+    height: 140%;
+}
