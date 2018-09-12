@@ -17,23 +17,23 @@ class Header extends Component {
                                 <div className="col">
                                     <div
                                         className="header_content d-flex flex-row align-items-center justify-content-start">
-                                        <div className="logo"><a><Link to='/'><img className="header_logo" src={Logo} alt=""/></Link></a></div>
+                                        <div className="logo"><Link to='/'><img className="header_logo" src={Logo} alt=""/></Link></div>
                                         <nav className="main_nav">
                                             <ul className="nav_header_group_link">
                                                 <li className="nav_header_links">
-                                                    <a className="nav_links"><Link to='/'>Home</Link></a>
+                                                    <Link className="nav_links" to='/'>Home</Link>
                                                 </li>
                                                 <li className="nav_header_links">
-                                                    <a className="nav_links"><Link to='/product'>All Items</Link></a></li>
+                                                    <Link className="nav_links" to='/product'>All Items</Link></li>
                                                 <li className="hassubs nav_header_links">
-                                                    <a className="nav_links"><Link to='/category'>Categories</Link></a>
+                                                    <Link className="nav_links" to='/category'>Categories</Link>
                                                     <ul className="nav_dropdown">
-                                                        <li><a><Link to='/category'>Art</Link></a></li>
-                                                        <li><a><Link to='/category'>Clothing</Link></a></li>
-                                                        <li><a><Link to='/category'>Home</Link></a></li>
-                                                        <li><a><Link to='/category'>Jewellery</Link></a></li>
-                                                        <li><a><Link to='/category'>Technology</Link></a></li>
-                                                        <li><a><Link to='/category'>Toys</Link></a></li>
+                                                        <li><Link to='/category'>Art</Link></li>
+                                                        <li><Link to='/category'>Clothing</Link></li>
+                                                        <li><Link to='/category'>Home</Link></li>
+                                                        <li><Link to='/category'>Jewellery</Link></li>
+                                                        <li><Link to='/category'>Technology</Link></li>
+                                                        <li><Link to='/category'>Toys</Link></li>
                                                     </ul>
                                                 </li>
                                                 <li className="nav_header_links">
@@ -43,9 +43,7 @@ class Header extends Component {
                                         </nav>
                                         <div className="header_extra ml-auto">
                                             <div className="shopping_cart">
-                                                <a className="nav_links"><Link to='/cart'>Cart</Link>
-                                                    <span>(0)</span>
-                                                </a>
+                                                <Link className="nav_links" to='/cart'>Cart <span>(0)</span></Link>
                                             </div>
                                             <div className="search">
                                                 <div className="search_icon">
@@ -95,10 +93,9 @@ class Header extends Component {
                     <div className="menu_container menu_mm">
                         <div className="page_menu_content">
                             <ul className="page_menu_nav menu_mm">
-                                    <a className="nav_header_links"><Link to='/'>Home</Link></a>
-
+                                    <Link className="nav_header_links" to='/'>Home</Link>
                                 <li className="page_menu_item">
-                                    <a className="nav_header_links"><Link to='/product'>All Items</Link></a>
+                                    <Link className="nav_header_links" to='/product'>All Items</Link>
                                 </li>
 
                                 {/*dropdown not working as intended at the moment */}
@@ -116,7 +113,7 @@ class Header extends Component {
                                             className="fa fa-angle-down"></i></a></li>
                                     </ul>
                                 </li>
-                                    <a className="nav_header_links"><Link to='/sale'>Sale</Link></a>
+                                    <Link className="nav_header_links" to='/sale'>Sale</Link>
                             </ul>
                         </div>
                     </div>

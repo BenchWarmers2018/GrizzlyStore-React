@@ -17,6 +17,8 @@ class App extends Component {
                 <Newsletter/>
                 <Footer/>
             </div>
+
+
         );
     }
 }
