@@ -53,9 +53,9 @@ class Newsletter extends Component {
                             <div className="container">
                                 <div className="row">
                                     <div className="container">
-                                        <blockquote className="shadow-lg p-3 mb-5 bg-white rounded block">
+                                        <blockquote className="quote-card">
                                             <p className="random_fact_card card-body center" id="bearFactSection" >
-                                                {this.state.randomFact}
+                                                <em>"{this.state.randomFact}"</em>
                                             </p>
                                             <div className="wrapper">
                                                 <button type="button" className="btn btn-outline-primary">Generate new quote</button>
