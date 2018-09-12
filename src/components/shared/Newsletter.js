@@ -47,12 +47,23 @@ class Newsletter extends Component {
                     <div className="row flex-center">
                         <main className="card random_fact_div">
                             <div className="newsletter_title random_fact_title">
-                                Bear Trivia
-                                <p >Click for more!</p>
+                                <strong>Bear Trivia</strong>
                             </div>
-                            <p className="random_fact_card card-body center" id="bearFactSection" >
-                                {this.state.randomFact}
-                            </p>
+
+                            <div className="container">
+                                <div className="row">
+                                    <div className="container">
+                                        <blockquote className="quote-card">
+                                            <p className="random_fact_card card-body center" id="bearFactSection" >
+                                                <em>"{this.state.randomFact}"</em>
+                                            </p>
+                                            <div className="wrapper">
+                                                <button type="button" className="btn btn-outline-primary">Generate new quote</button>
+                                            </div>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            </div>
                         </main>
                     </div>
 
