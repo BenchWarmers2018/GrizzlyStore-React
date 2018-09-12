@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import Cart from "../customer/Cart";
-import Images from "../../images/product_1.jpg";
-import Logo from '../../images/GrizzlyStoreLogo.png';
-import HeaderImage from "../../images/polar_bear_header.jpg";
+import Images from "../../images_sublime/product_1.jpg";
+import Logo from '../../images_sublime/GrizzlyStoreLogo.png';
+import HeaderImage from "../../images_sublime/polar_bear_header.jpg";
 
 class Header extends Component {
     render() {
@@ -24,7 +24,7 @@ class Header extends Component {
                                                     <Link className="nav_links" to='/'>Home</Link>
                                                 </li>
                                                 <li className="nav_header_links">
-                                                    <Link className="nav_links" to='/product'>All Items</Link></li>
+                                                    <Link className="nav_links" to='/items'>All Items</Link></li>
                                                 <li className="hassubs nav_header_links">
                                                     <Link className="nav_links" to='/category'>Categories</Link>
                                                     <ul className="nav_dropdown">
