@@ -101,16 +101,15 @@ class Header extends Component {
                                 {/*dropdown not working as intended at the moment */}
 
                                 <li className="page_menu_item has-children menu_mm">
-                                    <a className="nav_header_links" href="categories.html">Categories<i className="fa fa-angle-down"></i></a>
-                                    <ul className="page_menu_selection menu_mm">
-                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
-                                            className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
-                                            className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
-                                            className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
-                                            className="fa fa-angle-down"></i></a></li>
+
+                                    <a className="hassubs av_header_links" >Categories<i className="fa fa-angle-down"></i></a>
+                                    <ul className="nav_dropdown page_menu_selection menu_mm">
+                                        <li><Link to='/category'>Art</Link></li>
+                                        <li><Link to='/category'>Clothing</Link></li>
+                                        <li><Link to='/category'>Home</Link></li>
+                                        <li><Link to='/category'>Jewellery</Link></li>
+                                        <li><Link to='/category'>Technology</Link></li>
+                                        <li><Link to='/category'>Toys</Link></li>
                                     </ul>
                                 </li>
                                     <Link className="nav_header_links" to='/sale'>Sale</Link>
