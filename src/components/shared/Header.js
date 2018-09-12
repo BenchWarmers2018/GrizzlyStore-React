@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import Cart from "../customer/Cart";
-import Images from "../../images/product_1.jpg";
-import Logo from '../../images/GrizzlyStoreLogo.png';
-import HeaderImage from "../../images/polar_bear_header.jpg";
+import Images from "../../images_sublime/product_1.jpg";
+import Logo from '../../images_sublime/GrizzlyStoreLogo.png';
+import HeaderImage from "../../images_sublime/polar_bear_header.jpg";
 
 class Header extends Component {
     render() {
@@ -24,7 +24,7 @@ class Header extends Component {
                                                     <Link className="nav_links" to='/'>Home</Link>
                                                 </li>
                                                 <li className="nav_header_links">
-                                                    <Link className="nav_links" to='/product'>All Items</Link></li>
+                                                    <Link className="nav_links" to='/items'>All Items</Link></li>
                                                 <li className="hassubs nav_header_links">
                                                     <Link className="nav_links" to='/category'>Categories</Link>
                                                     <ul className="nav_dropdown">
@@ -101,16 +101,15 @@ class Header extends Component {
                                 {/*dropdown not working as intended at the moment */}
 
                                 <li className="page_menu_item has-children menu_mm">
-                                    <a className="nav_header_links" href="categories.html">Categories<i className="fa fa-angle-down"></i></a>
-                                    <ul className="page_menu_selection menu_mm">
-                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
-                                            className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
-                                            className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
-                                            className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
-                                            className="fa fa-angle-down"></i></a></li>
+
+                                    <a className="hassubs av_header_links" >Categories<i className="fa fa-angle-down"></i></a>
+                                    <ul className="nav_dropdown page_menu_selection menu_mm">
+                                        <li><Link to='/category'>Art</Link></li>
+                                        <li><Link to='/category'>Clothing</Link></li>
+                                        <li><Link to='/category'>Home</Link></li>
+                                        <li><Link to='/category'>Jewellery</Link></li>
+                                        <li><Link to='/category'>Technology</Link></li>
+                                        <li><Link to='/category'>Toys</Link></li>
                                     </ul>
                                 </li>
                                     <Link className="nav_header_links" to='/sale'>Sale</Link>

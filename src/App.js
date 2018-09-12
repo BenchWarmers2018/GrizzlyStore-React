@@ -10,13 +10,14 @@ import Main from "./components/Main";
 class App extends Component {
     render() {
         return (
-            <div className="super_container">
-                <Header/>
-                <Main/>
-                <Newsletter/>
-                <Footer/>
-            </div>
-
+                <div className="super_container">
+                    <div id="content-wrap">
+                        <Header/>
+                        <Main/>
+                        <Newsletter/>
+                    </div>
+                    <Footer/>
+                </div>
 
         );
     }
