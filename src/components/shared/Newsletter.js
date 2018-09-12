@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import bearFacts from './bearFacts.json';
-// import {getFact} from "../../../public/assets/js/facts";
-
 
 class Newsletter extends Component {
 
@@ -9,89 +7,55 @@ class Newsletter extends Component {
         super(props);
         this.handleClick = this.handleClick.bind(this);
         this.state = {
-            random: 0,
+            randomFact: "Bears are cool",
             randomFacts: bearFacts,
+            bearFactsArray: [],
         };
     }
 
-    // componentDidMount() {
-    //     fetch('./bearFacts.json')
-    //         .then(response => response.json())
-    //         .then(randomFacts => this.setState({ randomFacts }));
-    //
-    //
-    //     // fetch('./bearFacts.json')
-    //     //     .then(results => {
-    //     //         let
-    //     //
-    //     //     })
-    //
-    // }
+    componentDidMount() {
+        //looping through JSON objects to create array
+        for (let x in bearFacts.Facts)
+            this.state.bearFactsArray.push(bearFacts.Facts[x]);
 
+        const randomNumber = Math.floor(Math.random() * bearFacts.Facts.length);
 
-
+        //setting state to the fact chosen with a random number
+        this.setState({randomFact: this.state.bearFactsArray[randomNumber].fact});
+    }
 
     handleClick() {
 
+        const bearFactArray = [];
 
-        // let parsed = JSON.parse(bearFacts);
+        //looping through JSON objects to create array
+        for (let x in bearFacts.Facts)
+            bearFactArray.push(bearFacts.Facts[x]);
 
-        let bearFactsArray = [];
+        const randomNumber = Math.floor(Math.random() * bearFacts.Facts.length);
 
-        for(let x in bearFacts.Facts){
-            bearFactsArray.push(bearFacts.Facts[x]);
-        }
-
-        // let bearFactConvert = data.map((value, index) => {
-        //     return (
-        //         <div key={index}>
-        //             {Object.keys(value)[0]}
-        //         </div>
-        //     );
-        // });
-        //
-        // let pairs = [];
-        // for(let key in this.props.data){
-        //     pairs.push({key});
-        // }
-
-        // let bearFactArray = [];
-        // for (let i in bearFacts.Facts) {
-        //     bearFactArray.push(bearFacts.Facts[i].);
-        // }
-        console.log(bearFactsArray[1]);
-
-
-        // const randomNumber = Math.floor(Math.random() * bearFacts.Facts.length);
-        // console.log(randomNumber);
-        // console.log(bearFactArray.length);
-        //
-        // this.setState({random: bearFactArray[randomNumber].fact});
+        //setting state to the fact chosen with a random number
+        this.setState({randomFact: bearFactArray[randomNumber].fact});
     }
 
     render() {
         return (
             <div className="newsletter">
-                <div className="container">
-                    <div className="row">
-                        <div className="col">
-                            <div className="newsletter_border"></div>
-                        </div>
+
+
+                <div className="newsletter_container" onClick={this.handleClick}>
+                    <div className="row flex-center">
+                        <main className="card random_fact_div">
+                            <div className="newsletter_title random_fact_title">
+                                Bear Trivia
+                                <p >Click for more!</p>
+                            </div>
+                            <p className="random_fact_card card-body center" id="bearFactSection" >
+                                {this.state.randomFact}
+                            </p>
+                        </main>
                     </div>
 
-
-                    <div className="container">
-                        <div className="row flex-center">
-                            <main className="card random_fact_div">
-                                <div className="newsletter_title random_fact_title"
-                                     onClick={this.handleClick.bind(this)}>Bear Trivia
-                                </div>
-                                <p className="quote card-body center" id="bearFactSection"
-                                   onClick={this.handleClick.bind(this)}>{this.state.random}</p>
-                            </main>
-                        </div>
-
-                    </div>
                 </div>
             </div>
         );
