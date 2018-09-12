@@ -113,3 +113,22 @@
   text-align: center;
 
 }
+
+.newsletter{
+  padding: 0;
+  width: 100%;
+}
+
+.newsletter_title{
+  padding-top: 5%;
+}
+
+.newsletter_container{
+  width: 100%;
+
+}
+
+.random_fact_card{
+  text-align: center;
+  padding: 3% 10% 3% 10%;
+}
