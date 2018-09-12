@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Background from "../../images/categories.jpg";
+import Background from "../../images_sublime/categories.jpg";
 
 class Category extends Component {
     render() {
