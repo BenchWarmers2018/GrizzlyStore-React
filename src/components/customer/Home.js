@@ -5,7 +5,7 @@ import Slider1 from '../../images/grizzlywave.jpg';
 import Slider3 from '../../images/pandawave.jpg';
 import Slider2 from '../../images/polarwave.jpg';
 import Images from '../../images_sublime/product_1.jpg';
-
+import Slider from '../../images_sublime/home_slider_1.jpg';
 
 class Home extends Component {
     render() {
@@ -38,13 +38,12 @@ class Home extends Component {
 
                 {/*---------Carousel ENDS-------- */}
 
-
-                
                 <div className="products">
                     <div className="container">
                         <div className="row">
                             <div className="col">
-                                <div className="h1">Popular Items</div>
+                                <div className="container">
+                                <div className="page-header">Popular Items</div></div>
                                 <div className="product_grid">
                                     <div className="product">
                                         <div className="product_image"><img src={Images} alt=""/></div>
