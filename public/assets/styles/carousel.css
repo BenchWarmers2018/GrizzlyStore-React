@@ -1,27 +1,22 @@
-.home_slider_container{
-    margin-bottom: 100px;
-    /*position: absolute;*/
-    /*top: 100px;*/
-}
-
 .home_slider_background{
-    min-height: 100vh;
+    /*min-height: 100vh;*/
     /*position: relative;*/
     /*display:block;*/
     /*width: 100%;*/
     /*height: 100%;*/
-    top: 200px;
+    /*top: 200px;*/
     /*background-size: contain;*/
     background-repeat:no-repeat;
 
 }
 
-.testingcar{
-    min-height: 100vh;
-}
-
+/*.testingcar{*/
+    /*min-height: 100vh;*/
+/*}*/
 
 .home{
+    height: auto;
+    width: auto;
     padding: 0;
 }
 
@@ -29,23 +24,53 @@
     padding-top: 0px;
 }
 
-.carousel_image1{
-    height: 140%;
+.home_slider_container{
+    /*position: center;*/
+    /*padding-top: 100px;*/
+    /*background-position: center center;*/
+    /*margin-bottom: 50px;*/
+    /*min-height: 1081px;*/
+    /*height: 100vh;*/
+    width: 100vw;
+    top: 50px;
+    max-height: 500px;
+}
+
+.thumbs-wrapper{
+    display: none;
 }
 
 .legend {
 @include transition(all, .5s, ease-in-out);
     position: absolute;
-    bottom: 40px;
-    left: 50%;
+    bottom: 50% !important;
+    top: 30% !important;
+    left: 50% !important;
     margin-left: -45%;
     width: 90%;
     border-radius: 10px;
     background: none !important;
     color: #fff;
     padding: 10px;
-    font-size: 120px !important;
-    text-align: center;
-    opacity: 0.25;
+    /*font-size: 120px !important;*/
+    font-size: 6vw !important;
+    text-align: left !important;
+    opacity: 1.0 !important;
+    line-height: 90% !important;
+    text-shadow: 0 1px 0 black;
+    font-family: 'Raleway', sans-serif !important;
 @include transition(opacity, .35s, ease-in-out);
+}
+
+.control-dots{
+    bottom: 20% !important;
+    opacity: 0.55;
+}
+
+.control-arrow{
+    height: 100% !important;
+}
+
+.carousel_slide_div{
+    max-height: 500px;
 }
