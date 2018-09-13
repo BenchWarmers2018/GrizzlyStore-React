@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
-import Slider from '../../images/bearwave3.jpg';
+import Slider1 from '../../images/grizzlywave.jpg';
+import Slider3 from '../../images/pandawave.jpg';
+import Slider2 from '../../images/polarwave.jpg';
 import Images from '../../images_sublime/product_1.jpg';
 
 
@@ -9,33 +11,35 @@ class Home extends Component {
     render() {
         return (
             <div>
+
+
+                {/*---------Carousel BEGINS-------- */}
+
                 <div className="home">
                     <div className="home_slider_container">
-
-
-
-                        <Carousel className="carousel_container" autoPlay={true} infiniteLoop={true} transitionTime={1000}>
-                            <div className="carousel_slide_div">
-                                <img src={Slider} />
-                                <p className="legend">Welcome <br/>to the shop of
-                                <br/>BEAR necessities!</p>
-
+                        <Carousel className="carousel_container" autoPlay={true} infiniteLoop={true} transitionTime={1000}
+                        showStatus={false} showIndicators={false}>
+                            <div className="carousel_slide_div slide_bearwave_1">
+                                <img src={Slider1} />
+                                <p className="legend legend1">Welcome to the shop <br/>of
+                                BEAR necessities!</p>
                             </div>
                             <div className="carousel_slide_div">
-                                <img src={Slider} />
-                                <p className="legend">Legend2</p>
+                                <img src={Slider2} />
+                                <p className="legend legend2">ImPAWssibly low, <br/>unbeatable prices! </p>
                             </div>
                             <div className="carousel_slide_div">
-                                <img src={Slider} />
-                                <p className="legend">Legend3</p>
+                                <img src={Slider3} />
+                                <p className="legend legend3">Apologise for the <br/>unBEARable puns</p>
                             </div>
                         </Carousel>
-
-
                     </div>
                 </div>
 
+                {/*---------Carousel ENDS-------- */}
 
+
+                
                 <div className="products">
                     <div className="container">
                         <div className="row">
