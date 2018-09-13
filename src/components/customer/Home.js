@@ -4,17 +4,9 @@ import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
 import Slider from '../../images/bearwave3.jpg';
 import Images from '../../images_sublime/product_1.jpg';
 
+
 class Home extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            backgroundImage: Slider,
-        };
-    }
-
     render() {
-
         return (
             <div>
                 <div className="home">
@@ -39,6 +31,7 @@ class Home extends Component {
                             </div>
                         </Carousel>
 
+
                     </div>
                 </div>
 
@@ -47,10 +40,8 @@ class Home extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col">
-
+                                <div className="h1">Popular Items</div>
                                 <div className="product_grid">
-
-
                                     <div className="product">
                                         <div className="product_image"><img src={Images} alt=""/></div>
                                         <div className="product_extra product_new"><a href="categories.html">New</a>
@@ -129,9 +120,7 @@ class Home extends Component {
                                             <div className="product_price">$670</div>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                     </div>

@@ -9,7 +9,17 @@ class Cart extends Component {
             <div>
                 <div className="home">
                     <div className="home_container">
-                        <div className="home_background" style={{backgroundImage: "url(" + Background + ")"}}></div>
+                        <div className="breadcumb_area bg-img" style={{backgroundImage: "url(" + Background + ")"}}>
+                            <div className="container h-100">
+                                <div className="row h-100 align-items-center">
+                                    <div className="col-12">
+                                        <div className="page-title text-center">
+                                            <h2>All Products</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div className="home_content_container">
                             <div className="container">
                                 <div className="row">
