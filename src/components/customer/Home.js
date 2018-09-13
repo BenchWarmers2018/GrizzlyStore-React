@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 
 import Images from '../../images_sublime/product_1.jpg';
 import Slider from '../../images_sublime/home_slider_1.jpg';
-import Icon1 from '../../images_sublime/icon_1.svg';
-import Icon2 from '../../images_sublime/icon_2.svg';
-import Icon3 from '../../images_sublime/icon_3.svg';
 
 class Home extends Component {
     render() {
