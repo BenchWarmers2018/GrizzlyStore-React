@@ -1,27 +1,10 @@
-.home_slider_container{
-    margin-bottom: 100px;
-    /*position: absolute;*/
-    /*top: 100px;*/
-}
-
 .home_slider_background{
-    min-height: 100vh;
-    /*position: relative;*/
-    /*display:block;*/
-    /*width: 100%;*/
-    /*height: 100%;*/
-    top: 200px;
-    /*background-size: contain;*/
     background-repeat:no-repeat;
-
 }
-
-.testingcar{
-    min-height: 100vh;
-}
-
 
 .home{
+    height: auto;
+    width: auto;
     padding: 0;
 }
 
@@ -29,23 +12,46 @@
     padding-top: 0px;
 }
 
-.carousel_image1{
-    height: 140%;
+.home_slider_container{
+    width: 100vw;
+    max-height: 500px;
 }
 
-.legend {
-@include transition(all, .5s, ease-in-out);
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    margin-left: -45%;
-    width: 90%;
-    border-radius: 10px;
+.thumbs-wrapper{
+    display: none;
+}
+
+.legend{
+    bottom: 50% !important;
+    top: 30% !important;
+    left: 50% !important;
     background: none !important;
-    color: #fff;
-    padding: 10px;
-    font-size: 120px !important;
-    text-align: center;
-    opacity: 0.25;
-@include transition(opacity, .35s, ease-in-out);
+    font-size: 5vw !important;
+    opacity: 1.0 !important;
+    line-height: 90% !important;
+    font-family: 'Raleway', sans-serif !important;
+}
+
+
+.legend1 {
+
+    text-align: left !important;
+
+}
+
+.legend2 .legend3{
+     text-align: right!important;
+ }
+
+.control-dots{
+    top: 80% !important;
+    opacity: 0.55;
+}
+
+.control-arrow{
+    height: 100% !important;
+}
+
+.carousel_slide_div{
+    max-height: 300px;
 }
