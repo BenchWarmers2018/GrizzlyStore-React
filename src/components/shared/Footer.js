@@ -19,7 +19,7 @@ class Footer extends Component{
                         </div>
 
                         <div className="col-12 col-md-6">
-                            <p><strong>Contact Information:</strong></p>
+                            <p className="footer-contact"><strong>Contact Information:</strong></p>
                         </div>
                     </div>
                 </div>

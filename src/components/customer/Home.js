@@ -1,23 +1,18 @@
 import React, { Component } from 'react';
 
 import Images from '../../images_sublime/product_1.jpg';
-import Slider from '../../images_sublime/home_slider_1.jpg'
-import Icon1 from '../../images_sublime/icon_1.svg'
-import Icon2 from '../../images_sublime/icon_2.svg'
-import Icon3 from '../../images_sublime/icon_3.svg'
+import Slider from '../../images_sublime/home_slider_1.jpg';
+import Icon1 from '../../images_sublime/icon_1.svg';
+import Icon2 from '../../images_sublime/icon_2.svg';
+import Icon3 from '../../images_sublime/icon_3.svg';
 
 class Home extends Component {
     render() {
-
         return (
             <div>
                 <div className="home">
                     <div className="home_slider_container">
-
-
                         <div className="owl-carousel owl-theme home_slider">
-
-
                             <div className="owl-item home_slider_item">
                                 <div className="home_slider_background"
                                      style={{backgroundImage: "url(" + Slider + ")"}}></div>
@@ -111,7 +106,6 @@ class Home extends Component {
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -120,10 +114,8 @@ class Home extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col">
-
+                                <div className="h1">Popular Items</div>
                                 <div className="product_grid">
-
-
                                     <div className="product">
                                         <div className="product_image"><img src={Images} alt=""/></div>
                                         <div className="product_extra product_new"><a href="categories.html">New</a>
@@ -202,9 +194,7 @@ class Home extends Component {
                                             <div className="product_price">$670</div>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                     </div>

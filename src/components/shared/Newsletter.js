@@ -45,8 +45,6 @@ class Newsletter extends Component {
 
                 <div className="newsletter_container">
                     <div className="row flex-center">
-
-
                             <div className="container">
                                 <div className="row">
                                     <div className="container">
