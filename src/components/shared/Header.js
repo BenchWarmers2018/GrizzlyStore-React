@@ -18,15 +18,15 @@ class Header extends Component {
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
-                        <li className="col-lg-4 active">
-                            <Link to='/' className="nav-link">Home <span className="sr-only">(current)</span></Link>
+                        <li className="col-lg-4 active nav-item ">
+                            <Link to='/' className="nav-link">HOME</Link>
                         </li>
                         <li className="col-lg-4 nav-item">
-                            <Link to='/items' className="nav-link">Items</Link>
+                            <Link to='/items' className="nav-link">ITEMS</Link>
                         </li>
 
                         <li className="col-lg-4 nav-item">
-                            <Link to='/sale' className="nav-link">Sale</Link>
+                            <Link to='/sale' className="nav-link">SALE</Link>
                         </li>
                     </ul>
                 </div>
