@@ -80,11 +80,11 @@ class Cart extends Component {
                             <div className="col">
                                 <div
                                     className="cart_buttons d-flex flex-lg-row flex-column align-items-start justify-content-start">
-                                    <div className="button continue_shopping_button"><a href="/">Continue shopping</a>
+                                    <div className="button cart_button"><Link to='/'>Continue shopping</Link>
                                     </div>
                                     <div className="cart_buttons_right ml-lg-auto">
-                                        <div className="button clear_cart_button"><a href="#">Clear cart</a></div>
-                                        <div className="button update_cart_button"><a href="#">Update cart</a></div>
+                                        <div className="button cart_button"><a href="#">Clear cart</a></div>
+                                        <div className="button cart_button"><a href="#">Update cart</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -137,7 +137,7 @@ class Cart extends Component {
                                             </li>
                                         </ul>
                                     </div>
-                                    <div className="button checkout_button"><a href="/checkout">Proceed to checkout</a></div>
+                                    <div className="button cart_button"><a href="/checkout">Proceed to checkout</a></div>
                                 </div>
                             </div>
                         </div>

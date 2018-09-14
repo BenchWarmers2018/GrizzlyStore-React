@@ -52,6 +52,8 @@ class Header extends Component {
                     <div class="user-modal">
                         <div class="user-modal-container">
                             <ul class="switcher">
+                                {/*button for google log in here*/}
+                                <div className="g-signin2" data-onsuccess="onSignIn"></div>
                                 <li><a href="#">Sign in</a></li>
                                 <li><a href="#">New account</a></li>
                             </ul>
