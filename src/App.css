@@ -93,8 +93,13 @@
 
 }
 
+.pad-top {
+  padding-top: 25px;
+}
+
 .logo{
-  max-width: 350px;
+  max-width: 300px;
+  padding-right: 0;
 }
 
 .footer_background {

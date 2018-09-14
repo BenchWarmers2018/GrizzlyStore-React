@@ -9,30 +9,12 @@ class Cart extends Component {
             <div>
                 <div className="home">
                     <div className="home_container">
-                        <div className="breadcumb_area bg-img" style={{backgroundImage: "url(" + Background + ")"}}>
-                            <div className="container h-100">
-                                <div className="row h-100 align-items-center">
-                                    <div className="col-12">
-                                        <div className="page-title text-center">
-                                            <h2>All Products</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="home_content_container">
-                            <div className="container">
-                                <div className="row">
-                                    <div className="col">
-                                        <div className="home_content">
-                                            <div className="breadcrumbs">
-                                                <ul>
-                                                    <li><a>Home</a></li>
-                                                    <li><a>Categories</a></li>
-                                                    <li>Shopping Cart</li>
-                                                </ul>
-                                            </div>
-                                        </div>
+
+                        <div className="container h-100">
+                            <div className="row h-100 align-items-center">
+                                <div className="col-12">
+                                    <div className="page-title text-center">
+                                        <h1>Shopping Cart</h1>
                                     </div>
                                 </div>
                             </div>
@@ -77,14 +59,14 @@ class Cart extends Component {
                                             <div className="product_quantity clearfix">
                                                 <span>Qty</span>
                                                 <input id="quantity_input" type="text" pattern="[0-9]*" value="1"/>
-                                                    <div className="quantity_buttons">
-                                                        <div id="quantity_inc_button"
-                                                             className="quantity_inc quantity_control"><i
-                                                            className="fa fa-chevron-up" aria-hidden="true"></i></div>
-                                                        <div id="quantity_dec_button"
-                                                             className="quantity_dec quantity_control"><i
-                                                            className="fa fa-chevron-down" aria-hidden="true"></i></div>
-                                                    </div>
+                                                <div className="quantity_buttons">
+                                                    <div id="quantity_inc_button"
+                                                         className="quantity_inc quantity_control"><i
+                                                        className="fa fa-chevron-up" aria-hidden="true"></i></div>
+                                                    <div id="quantity_dec_button"
+                                                         className="quantity_dec quantity_control"><i
+                                                        className="fa fa-chevron-down" aria-hidden="true"></i></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -98,11 +80,11 @@ class Cart extends Component {
                             <div className="col">
                                 <div
                                     className="cart_buttons d-flex flex-lg-row flex-column align-items-start justify-content-start">
-                                    <div className="button continue_shopping_button"><a href="/">Continue shopping</a>
+                                    <div className="button cart_button"><Link to='/'>Continue shopping</Link>
                                     </div>
                                     <div className="cart_buttons_right ml-lg-auto">
-                                        <div className="button clear_cart_button"><a href="#">Clear cart</a></div>
-                                        <div className="button update_cart_button"><a href="#">Update cart</a></div>
+                                        <div className="button cart_button"><a href="#">Clear cart</a></div>
+                                        <div className="button cart_button"><a href="#">Update cart</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -117,33 +99,22 @@ class Cart extends Component {
                                     <div className="delivery_options">
                                         <label className="delivery_option clearfix">Next day delivery
                                             <input type="radio" name="radio"/>
-                                                <span className="checkmark"></span>
-                                                <span className="delivery_price">$4.99</span>
+                                            <span className="checkmark"></span>
+                                            <span className="delivery_price">$4.99</span>
                                         </label>
                                         <label className="delivery_option clearfix">Standard delivery
                                             <input type="radio" name="radio"/>
-                                                <span className="checkmark"></span>
-                                                <span className="delivery_price">$1.99</span>
+                                            <span className="checkmark"></span>
+                                            <span className="delivery_price">$1.99</span>
                                         </label>
                                         <label className="delivery_option clearfix">Personal pickup
                                             <input type="radio" checked="checked" name="radio"/>
-                                                <span className="checkmark"></span>
-                                                <span className="delivery_price">Free</span>
+                                            <span className="checkmark"></span>
+                                            <span className="delivery_price">Free</span>
                                         </label>
                                     </div>
                                 </div>
 
-
-                                <div className="coupon">
-                                    <div className="section_title">Coupon code</div>
-                                    <div className="section_subtitle">Enter your coupon code</div>
-                                    <div className="coupon_form_container">
-                                        <form action="#" id="coupon_form" className="coupon_form">
-                                            <input type="text" className="coupon_input" required="required"/>
-                                                <button className="button coupon_button"><span>Apply</span></button>
-                                        </form>
-                                    </div>
-                                </div>
                             </div>
 
                             <div className="col-lg-6 offset-lg-2">
@@ -166,7 +137,7 @@ class Cart extends Component {
                                             </li>
                                         </ul>
                                     </div>
-                                    <div className="button checkout_button"><a href="/checkout">Proceed to checkout</a></div>
+                                    <div className="button cart_button"><a href="/checkout">Proceed to checkout</a></div>
                                 </div>
                             </div>
                         </div>
