@@ -18,17 +18,37 @@ class Header extends Component {
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
-                        <li className="col-lg-4 active nav-item ">
+                        <li className="col-lg-3 active nav-item ">
                             <Link to='/' className="nav-link">HOME</Link>
                         </li>
-                        <li className="col-lg-4 nav-item">
+                        <li className="col-lg-3 nav-item">
                             <Link to='/items' className="nav-link">ITEMS</Link>
                         </li>
 
-                        <li className="col-lg-4 nav-item">
+                        <li className="col-lg-3 nav-item">
+                            <Link to='/items' className="nav-link">
+                                CATEGORY
+                            </Link>
+                        </li>
+
+                        <li className="col-lg-3 nav-item">
                             <Link to='/sale' className="nav-link">SALE</Link>
                         </li>
                     </ul>
+
+                    {/*Cart*/}
+                    <li className="navbar-text nav-item">
+                        <Link to='/cart' className="nav-link"><i className="fa fa-shopping-cart"></i>CART</Link>
+                    </li>
+
+                    {/*Authentication links start here*/}
+                    <li className="navbar-text nav-item">
+                        <Link to='/' className="nav-link">SIGN UP</Link>
+                    </li>
+
+                    <li className="navbar-text nav-item">
+                        <Link to='/' className="nav-link">LOGIN</Link>
+                    </li>
                 </div>
             </nav>
         );
