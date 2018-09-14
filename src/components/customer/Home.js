@@ -42,8 +42,11 @@ class Home extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col">
-                                <div className="container">
-                                <div className="page-header">Popular Items</div></div>
+                                <h1 className="pad-top">
+                                    Popular Items
+                                    <small className="text-muted"> Beary popular</small>
+                                </h1>
+                                <hr/>
                                 <div className="product_grid">
                                     <div className="product">
                                         <div className="product_image"><img src={Images} alt=""/></div>
