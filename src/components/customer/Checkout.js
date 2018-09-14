@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Background from '../../images/cart.jpg'
+import Background from '../../images_sublime/cart.jpg'
 
 class Checkout extends Component {
     render() {

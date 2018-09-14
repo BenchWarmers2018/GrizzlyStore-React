@@ -1,135 +1,134 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import Cart from "../customer/Cart";
-import Images from "../../images/product_1.jpg";
-import Logo from '../../images/GrizzlyStoreLogo.png';
-import HeaderImage from "../../images/polar_bear_header.jpg";
+import Images from "../../images_sublime/product_1.jpg";
+import Logo from '../../images_sublime/GrizzlyStoreLogo.png';
+import HeaderImage from "../../images_sublime/polar_bear_header.jpg";
 
 class Header extends Component {
     render() {
         return (
-            <div>
-                <header className="header">
-                    <div className="header_container" style={{backgroundImage: "url(" + HeaderImage + ")"}}>
+            <nav className="navbar navbar-expand-lg navbar-light justify-content-between">
+                <div className="logo"><Link to='/'><img className="header_logo" src={Logo} alt=""/></Link></div>
+                <button className="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
 
-                        <div className="container">
-                            <div className="row">
-                                <div className="col">
-                                    <div
-                                        className="header_content d-flex flex-row align-items-center justify-content-start">
-                                        <div className="logo"><Link to='/'><img className="header_logo" src={Logo} alt=""/></Link></div>
-                                        <nav className="main_nav">
-                                            <ul className="nav_header_group_link">
-                                                <li className="nav_header_links">
-                                                    <Link className="nav_links" to='/'>Home</Link>
-                                                </li>
-                                                <li className="nav_header_links">
-                                                    <Link className="nav_links" to='/product'>All Items</Link></li>
-                                                <li className="hassubs nav_header_links">
-                                                    <Link className="nav_links" to='/category'>Categories</Link>
-                                                    <ul className="nav_dropdown">
-                                                        <li><Link to='/category'>Art</Link></li>
-                                                        <li><Link to='/category'>Clothing</Link></li>
-                                                        <li><Link to='/category'>Home</Link></li>
-                                                        <li><Link to='/category'>Jewellery</Link></li>
-                                                        <li><Link to='/category'>Technology</Link></li>
-                                                        <li><Link to='/category'>Toys</Link></li>
-                                                    </ul>
-                                                </li>
-                                                <li className="nav_header_links">
-                                                    <a className="nav_links" href="/sales">Sale</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                        <div className="header_extra ml-auto">
-                                            <div className="shopping_cart">
-                                                <Link className="nav_links" to='/cart'>Cart <span>(0)</span></Link>
-                                            </div>
-                                            <div className="search">
-                                                <div className="search_icon">
-                                                </div>
-                                            </div>
-                                            <div className="hamburger"><i className="fa fa-bars" aria-hidden="true"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul className="navbar-nav mr-auto">
+                        <li className="col-lg-3 active nav-item ">
+                            <Link to='/' className="nav-link">HOME</Link>
+                        </li>
+                        <li className="col-lg-3 nav-item">
+                            <Link to='/items' className="nav-link">ITEMS</Link>
+                        </li>
 
-                    <div className="search_panel trans_300">
-                        <div className="container">
-                            <div className="row">
-                                <div className="col">
-                                    <div
-                                        className="search_panel_content d-flex flex-row align-items-center justify-content-end">
-                                        <form action="#">
-                                            <input type="text" className="search_input" placeholder="Search"
-                                                   required="required"/>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        <li className="col-lg-3 nav-item">
+                            <Link to='/items' className="nav-link">
+                                CATEGORY
+                            </Link>
+                        </li>
 
-                    <div className="header_social">
-                        <ul>
-                            <li><a href="#"><i className="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i className="fa fa-instagram" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i className="fa fa-facebook" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i className="fa fa-twitter" aria-hidden="true"></i></a></li>
-                        </ul>
-                    </div>
-                </header>
+                        <li className="col-lg-3 nav-item">
+                            <Link to='/sale' className="nav-link">SALE</Link>
+                        </li>
+                    </ul>
 
-                {/*This is where the side navigation starts for small screens...*/}
+                    {/*Cart*/}
+                    <li className="navbar-text nav-item">
+                        <Link to='/cart' className="nav-link"><i className="fa fa-shopping-cart"></i>CART</Link>
+                    </li>
 
-                {/*Adding more lines cause it makes it more viewable to know where the navigation for mobile starts*/}
+                    {/* Authentication links start here */}
 
-                {/* ¯\_(ツ)_/¯ */}
+                        <li className="main-nav navbar-text nav-item" data-toggle="modal" data-target="#exampleModal">
+                            <Link to='' className="nav-link signin">LOGIN</Link>
+                        </li>
 
-                <div className="menu menu_mm trans_300">
-                    <div className="menu_container menu_mm">
-                        <div className="page_menu_content">
-                            <ul className="page_menu_nav menu_mm">
-                                    <Link className="nav_header_links" to='/'>Home</Link>
-                                <li className="page_menu_item">
-                                    <Link className="nav_header_links" to='/product'>All Items</Link>
-                                </li>
 
-                                {/*dropdown not working as intended at the moment */}
-
-                                <li className="page_menu_item has-children menu_mm">
-                                    <a className="nav_header_links" href="categories.html">Categories<i className="fa fa-angle-down"></i></a>
-                                    <ul className="page_menu_selection menu_mm">
-                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
-                                            className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
-                                            className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
-                                            className="fa fa-angle-down"></i></a></li>
-                                        <li className="page_menu_item menu_mm"><a href="categories.html">Category<i
-                                            className="fa fa-angle-down"></i></a></li>
-                                    </ul>
-                                </li>
-                                    <Link className="nav_header_links" to='/sale'>Sale</Link>
+                    {/* Modal box starts here */}
+                    <div class="user-modal">
+                        <div class="user-modal-container">
+                            <ul class="switcher">
+                                {/*button for google log in here*/}
+                                <div className="g-signin2" data-onsuccess="onSignIn"></div>
+                                <li><a href="#">Sign in</a></li>
+                                <li><a href="#">New account</a></li>
                             </ul>
+
+                            <div id="login">
+                                <form class="form">
+                                    <p class="fieldset">
+                                        <label class="image-replace email" for="signin-email">E-mail</label>
+                                        <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail" />
+                                            <span class="error-message">An account with this email address does not exist!</span>
+                                    </p>
+
+                                    <p class="fieldset">
+                                        <label class="image-replace password" for="signin-password">Password</label>
+                                        <input class="full-width has-padding has-border" id="signin-password" type="password"  placeholder="Password" />
+                                            <span class="error-message">Wrong password! Try again.</span>
+                                    </p>
+
+                                    <p class="fieldset">
+                                        <input class="full-width" type="submit" value="Login" />
+                                    </p>
+                                </form>
+
+                                <p class="form-bottom-message"><a href="#0">Forgot your password?</a></p>
+                            </div>
+
+                            <div id="signup">
+                                <form class="form">
+                                    <p class="fieldset">
+                                        <label class="image-replace username" for="signup-username">Username</label>
+                                        <input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username" />
+                                            <span class="error-message">Your username can only contain numeric and alphabetic symbols!</span>
+                                    </p>
+
+                                    <p class="fieldset">
+                                        <label class="image-replace email" for="signup-email">E-mail</label>
+                                        <input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail" />
+                                            <span class="error-message">Enter a valid email address!</span>
+                                    </p>
+
+                                    <p class="fieldset">
+                                        <label class="image-replace password" for="signup-password">Password</label>
+                                        <input class="full-width has-padding has-border" id="signup-password" type="password"  placeholder="Password" />
+                                            <span class="error-message">Your password has to be at least 6 characters long!</span>
+                                    </p>
+
+                                    <p class="fieldset">
+                                        <input class="full-width has-padding" type="submit" value="Create account" />
+                                    </p>
+                                </form>
+
+
+
+                            {/*Stretch goals*/}
+                            <div id="reset-password">
+                                <p class="form-message">Lost your password? Please enter your email address.<br /> You will receive a link to create a new password.</p>
+
+                            <form class="form">
+                                <p class="fieldset">
+                                    <label class="image-replace email" for="reset-email">E-mail</label>
+                                    <input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail" />
+                                        <span class="error-message">An account with this email does not exist!</span>
+                                </p>
+
+                                <p class="fieldset">
+                                    <input class="full-width has-padding" type="submit" value="Reset password" />
+                                </p>
+                            </form>
+                            </div>
                         </div>
-                    </div>
-
-                    <div className="menu_close"><i className="fa fa-times" aria-hidden="true"></i></div>
-
-                    <div className="menu_social">
-                        <ul>
-                            <li><a href="#"><i className="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i className="fa fa-instagram" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i className="fa fa-facebook" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i className="fa fa-twitter" aria-hidden="true"></i></a></li>
-                        </ul>
+                        <a href="#0" class="close-form">Close</a>
                     </div>
                 </div>
-            </div>
+                </div>
+            </nav>
         );
     }
 }

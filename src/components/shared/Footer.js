@@ -1,27 +1,29 @@
 import React, { Component } from 'react';
-import FooterImage from '../../images/polar_bear_footer.jpg';
+import GrizzlyStoreFooter from '../../images_sublime/GrizzlyStoreLogoFooter.png';
 
 class Footer extends Component{
     render() {
         return (
-            <div>
-                <div className="footer_overlay"></div>
-                <footer className="footer">
-                    <div className="footer_background" style={{backgroundImage: "url(" + FooterImage + ")"}}></div>
-                    <div className="container">
-                        <div className="row">
-                            <div className="col">
-                                <div className="footer_content d-flex flex-lg-row flex-column align-items-center justify-content-lg-start justify-content-center">
-                                    <div className="footer_logo text-sm-left"><a href="#">Grizzly Store.</a></div>
-                                    <div className="footer_logo text-sm-left">
-                                        Contact Information: <br /> 95 Bear Avenue, <br /> Victoria, Australia 3000
-                                    </div>
+            <footer className="footer_area clearfix">
+                <div className="container">
+                    <div className="row">
+
+                        <div className="col-12 col-md-6">
+                            <div className="single_widget_area d-flex mb-30">
+
+                                <div className="footer-logo mr-50">
+                                    <img src={GrizzlyStoreFooter} alt=""/>
                                 </div>
+
                             </div>
                         </div>
+
+                        <div className="col-12 col-md-6">
+                            <p className="footer-contact"><strong>Contact Information:</strong></p>
+                        </div>
                     </div>
-                </footer>
-            </div>
+                </div>
+            </footer>
         );
     }
 

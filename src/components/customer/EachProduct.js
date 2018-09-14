@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Background from "../../images/categories.jpg";
-import Product from "../../images/details_1.jpg";
-import HeaderImage from "../../images/polar_bear_header.jpg";
+import Background from "../../images_sublime/categories.jpg";
+import Product from "../../images_sublime/details_1.jpg";
+import HeaderImage from "../../images_sublime/polar_bear_header.jpg";
 
 class EachProduct extends Component {
     render() {
@@ -16,7 +16,6 @@ class EachProduct extends Component {
 
                             <div className="col-lg-6">
                                 <div className="details_image">
-
                                     <img className="details_image_large" src={ Product } />
                                 </div>
                             </div>
@@ -54,16 +53,6 @@ class EachProduct extends Component {
                                         </div>
                                         <div className="button cart_button"><a href="#">Add to cart</a></div>
                                     </div>
-
-                                    <div className="details_share">
-                                        <span>Share:</span>
-                                        <ul>
-                                            <li><a href="#"><i className="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                                            <li><a href="#"><i className="fa fa-instagram" aria-hidden="true"></i></a></li>
-                                            <li><a href="#"><i className="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                            <li><a href="#"><i className="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                        </ul>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -71,11 +60,72 @@ class EachProduct extends Component {
                         <div className="row description_row">
                             <div className="col">
                                 <div className="description_title_container">
-                                    <div className="description_title">Description</div>
+                                    <div className="description_title"><strong>Description</strong></div>
                                 </div>
                                 <div className="description_text">
-                                    <p>¯\_(ツ)_/¯</p>
+                                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                                        tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                                        Phasellus id nisi quis justo tempus mollis sed et dui. In hac habitasse platea
+                                        dictumst. Suspendisse ultrices mauris diam. Nullam sed aliquet elit. Mauris
+                                        consequat nisi ut mauris efficitur lacinia.</p>
                                     <br />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/*Suggested Products*/}
+
+                <div className="products">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col text-center">
+                                <div className="products_title"><strong>Suggested Products</strong></div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col">
+
+                                <div className="product_grid">
+
+                                    <div className="product">
+                                        <div className="product_image"><img src={Product} /></div>
+                                        <div className="product_extra product_new">
+                                        </div>
+                                        <div className="product_content">
+                                            <div className="product_title">Smart Phone</div>
+                                            <div className="product_price">$670</div>
+                                        </div>
+                                    </div>
+
+                                    <div className="product">
+                                        <div className="product_image"><img src={Product} /></div>
+                                        <div className="product_extra product_sale">
+                                        </div>
+                                        <div className="product_content">
+                                            <div className="product_title">Smart Phone</div>
+                                            <div className="product_price">$520</div>
+                                        </div>
+                                    </div>
+
+                                    <div className="product">
+                                        <div className="product_image"><img src={Product} /></div>
+                                        <div className="product_content">
+                                            <div className="product_title">Smart Phone</div>
+                                            <div className="product_price">$710</div>
+                                        </div>
+                                    </div>
+
+                                    <div className="product">
+                                        <div className="product_image"><img src={Product} /></div>
+                                        <div className="product_content">
+                                            <div className="product_title">Smart Phone</div>
+                                            <div className="product_price">$330</div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
