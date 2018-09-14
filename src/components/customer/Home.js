@@ -1,129 +1,50 @@
 import React, { Component } from 'react';
-
+import { Carousel } from 'react-responsive-carousel';
+import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
+import Slider1 from '../../images/grizzlywave.jpg';
+import Slider3 from '../../images/pandawave.jpg';
+import Slider2 from '../../images/polarwave.jpg';
 import Images from '../../images_sublime/product_1.jpg';
-import Slider from '../../images_sublime/home_slider_1.jpg'
-import Icon1 from '../../images_sublime/icon_1.svg'
-import Icon2 from '../../images_sublime/icon_2.svg'
-import Icon3 from '../../images_sublime/icon_3.svg'
+import Slider from '../../images_sublime/home_slider_1.jpg';
 
 class Home extends Component {
     render() {
-
         return (
             <div>
+
+
+                {/*---------Carousel BEGINS-------- */}
+
                 <div className="home">
                     <div className="home_slider_container">
-
-
-                        <div className="owl-carousel owl-theme home_slider">
-
-
-                            <div className="owl-item home_slider_item">
-                                <div className="home_slider_background"
-                                     style={{backgroundImage: "url(" + Slider + ")"}}></div>
-                                <div className="home_slider_content_container">
-                                    <div className="container">
-                                        <div className="row">
-                                            <div className="col">
-                                                <div className="home_slider_content" data-animation-in="fadeIn"
-                                                     data-animation-out="animate-out fadeOut">
-                                                    <div className="home_slider_title">A new Online Shop experience.
-                                                    </div>
-                                                    <div className="home_slider_subtitle">Lorem ipsum dolor sit amet,
-                                                        consectetur adipiscing elit. Nullam a ultricies metus. Sed nec
-                                                        molestie eros. Sed viverra velit venenatis fermentum luctus.
-                                                    </div>
-                                                    <div className="button button_light home_button"><a href="#">Shop
-                                                        Now</a></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <Carousel className="carousel_container" autoPlay={true} infiniteLoop={true} transitionTime={1000}
+                        showStatus={false} showIndicators={false}>
+                            <div className="carousel_slide_div slide_bearwave_1">
+                                <img src={Slider1} />
+                                <p className="legend legend1">Welcome to the shop <br/>of
+                                BEAR necessities!</p>
                             </div>
-
-
-                            <div className="owl-item home_slider_item">
-                                <div className="home_slider_background"
-                                     style={{backgroundImage: "url(" + Slider + ")"}}></div>
-                                <div className="home_slider_content_container">
-                                    <div className="container">
-                                        <div className="row">
-                                            <div className="col">
-                                                <div className="home_slider_content" data-animation-in="fadeIn"
-                                                     data-animation-out="animate-out fadeOut">
-                                                    <div className="home_slider_title">A new Online Shop experience.
-                                                    </div>
-                                                    <div className="home_slider_subtitle">Lorem ipsum dolor sit amet,
-                                                        consectetur adipiscing elit. Nullam a ultricies metus. Sed nec
-                                                        molestie eros. Sed viverra velit venenatis fermentum luctus.
-                                                    </div>
-                                                    <div className="button button_light home_button"><a href="#">Shop
-                                                        Now</a></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div className="carousel_slide_div">
+                                <img src={Slider2} />
+                                <p className="legend legend2">ImPAWssibly low, <br/>unbeatable prices! </p>
                             </div>
-
-
-                            <div className="owl-item home_slider_item">
-                                <div className="home_slider_background"
-                                     style={{backgroundImage: "url(" + Slider + ")"}}></div>
-                                <div className="home_slider_content_container">
-                                    <div className="container">
-                                        <div className="row">
-                                            <div className="col">
-                                                <div className="home_slider_content" data-animation-in="fadeIn"
-                                                     data-animation-out="animate-out fadeOut">
-                                                    <div className="home_slider_title">A new Online Shop experience.
-                                                    </div>
-                                                    <div className="home_slider_subtitle">Lorem ipsum dolor sit amet,
-                                                        consectetur adipiscing elit. Nullam a ultricies metus. Sed nec
-                                                        molestie eros. Sed viverra velit venenatis fermentum luctus.
-                                                    </div>
-                                                    <div className="button button_light home_button"><a href="#">Shop
-                                                        Now</a></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div className="carousel_slide_div">
+                                <img src={Slider3} />
+                                <p className="legend legend3">Apologise for the <br/>unBEARable puns</p>
                             </div>
-
-                        </div>
-
-
-
-                        <div className="home_slider_dots_container">
-                            <div className="container">
-                                <div className="row">
-                                    <div className="col">
-                                        <div className="home_slider_dots">
-                                            <ul id="home_slider_custom_dots" className="home_slider_custom_dots">
-                                                <li className="home_slider_custom_dot active">01.</li>
-                                                <li className="home_slider_custom_dot">02.</li>
-                                                <li className="home_slider_custom_dot">03.</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                        </Carousel>
                     </div>
                 </div>
 
+                {/*---------Carousel ENDS-------- */}
 
                 <div className="products">
                     <div className="container">
                         <div className="row">
                             <div className="col">
-
+                                <div className="container">
+                                <div className="page-header">Popular Items</div></div>
                                 <div className="product_grid">
-
-
                                     <div className="product">
                                         <div className="product_image"><img src={Images} alt=""/></div>
                                         <div className="product_extra product_new"><a href="categories.html">New</a>
@@ -202,9 +123,7 @@ class Home extends Component {
                                             <div className="product_price">$670</div>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                     </div>
