@@ -1,0 +1,8 @@
+.button-center a div
+{
+  text-align: center;
+  width: 150%;
+  left: 80%;
+  display:block;
+  margin-left:200px;
+}
