@@ -6,6 +6,7 @@ import HeaderImage from "../../images_sublime/polar_bear_header.jpg";
 
 class EachProduct extends Component {
     render() {
+
         return (
             <div className="padding-header">
 

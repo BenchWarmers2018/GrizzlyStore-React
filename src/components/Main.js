@@ -3,7 +3,7 @@ import React from "react";
 import { Switch , Route } from "react-router-dom";
 import Home from "./customer/Home";
 import AllItems from "./customer/AllItems";
-import Category from "./customer/Category";
+import ItemSmart from "./customer/itemSmart";
 import EachProduct from "./customer/EachProduct";
 import Cart from "./customer/Cart";
 import Checkout from "./customer/Checkout";
@@ -19,7 +19,7 @@ class Main extends Component {
                 <Switch>
                     <Route exact path='/' component={Home}/>
                     <Route path='/items' component={AllItems} />
-                    <Route path='/category' component={Category}/>
+                    <Route path='/category' component={ItemSmart}/>
                     <Route path='/product' component={EachProduct}/>
                     <Route path='/cart' component={Cart} />
                     <Route path='/checkout' component={Checkout}/>

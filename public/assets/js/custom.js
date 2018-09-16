@@ -105,7 +105,7 @@ $(document).ready(function()
 			});
 
 			// add animate.css class(es) to the elements to be animated
-			function setAnimation ( _elem, _InOut )
+			function setAnimation( _elem, _InOut )
 			{
 				// Store all animationend event name in a string.
 				// cf animate.css documentation
