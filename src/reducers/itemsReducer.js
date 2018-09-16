@@ -1,9 +1,12 @@
-export default function reducer(state={
+const initialState = {
     items: [],
     fetching: false,
     fetched: false,
     error: null,
-}, action) {
+}
+
+
+export default function reducer(state=initialState, action) {
 
     switch (action.type) {
         case "FETCH_ITEMS": {
@@ -37,12 +40,14 @@ export default function reducer(state={
                 items: newItems,
             }
         }
-        case "DELETE_TWEET": {
+        case "DELETE_ITEM": {
             return {
                 ...state,
                 items: state.items.filter(item => item.idItem !== action.payload),
             }
         }
+        default:
+            return state;
     }
 
     return state

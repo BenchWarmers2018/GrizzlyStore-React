@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from "react-redux"
 import { fetchItems } from "../../actions/itemsAction"
-
-const mapStateToProps = store => ({
-    items: store.items.items,
-    fetched: store.items.fetched,
-    fetching :store.items.fetching,
-    error: store.items.error,
-});
 
 class ItemSmart extends Component {
 
@@ -16,7 +10,7 @@ class ItemSmart extends Component {
     }
 
     componentWillMount() {
-        this.props.dispatch(fetchItems())
+        this.props.fetchItems();
     }
 
     render() {
@@ -91,4 +85,16 @@ class ItemSmart extends Component {
     }
 }
 
-export default connect(mapStateToProps)(ItemSmart);
+ItemSmart.propTypes= {
+    fetchItems: PropTypes.func.isRequired,
+    items: PropTypes.array.isRequired,
+}
+
+const mapStateToProps = state => ({
+    items: state.items.items,
+    fetched: state.items.fetched,
+    fetching :state.items.fetching,
+    error: state.items.error,
+});
+
+export default connect(mapStateToProps, { fetchItems } )(ItemSmart);
