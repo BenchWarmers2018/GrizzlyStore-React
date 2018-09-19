@@ -146,7 +146,8 @@
 	}
 	.product
 	{
-		width: calc((100% - 30px) / 2);
+		width: 100%;
+		/*width: calc((100% - 30px) / 2);*/
 	}
 	.icon_box
 	{
