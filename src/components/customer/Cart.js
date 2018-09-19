@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Background from '../../images_sublime/cart.jpg'
-import CartImage from '../../images_sublime/cart_1.jpg';
+import Background from '../../images/images_sublime/cart.jpg'
+import CartImage from '../../images/images_sublime/cart_1.jpg';
 
 class Cart extends Component {
     render() {

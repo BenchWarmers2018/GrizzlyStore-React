@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Background from "../../images_sublime/categories.jpg";
-import Product from "../../images_sublime/details_1.jpg";
-import HeaderImage from "../../images_sublime/polar_bear_header.jpg";
+import Product from "../../images/images_sublime/details_1.jpg";
 
 class EachProduct extends Component {
     render() {
