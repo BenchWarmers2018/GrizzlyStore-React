@@ -7,6 +7,8 @@ import Slider2 from '../../images/polarwave.jpg';
 import Images from '../../images_sublime/product_1.jpg';
 import Slider from '../../images_sublime/home_slider_1.jpg';
 import ItemSmartHome from './itemSmartHome';
+import Images from '../../images/images_sublime/product_1.jpg';
+import Slider from '../../images/images_sublime/home_slider_1.jpg';
 
 class Home extends Component {
     render() {
@@ -43,7 +45,7 @@ class Home extends Component {
 
                 <div className="products">
                     <div className="container">
-                        <div className="">
+                        <div className="row">
                             <div className="col">
                                 <h1 className="pad-top">
                                     Popular Items

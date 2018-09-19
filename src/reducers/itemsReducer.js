@@ -31,7 +31,7 @@ export default function reducer(state=initialState, action) {
         }
         case "UPDATE_ITEM": {
             const { idItem, itemName, itemDescription, itemImage, itemPrice, itemSalePercentage, last_modified } = action.payload
-            const newItems = [...state.tweets]
+            const newItems = [...state.items]
             const itemToUpdate = newItems.findIndex(item => item.idItem === idItem)
             newItems[itemToUpdate] = action.payload;
 

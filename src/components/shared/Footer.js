@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GrizzlyStoreFooter from '../../images_sublime/GrizzlyStoreLogoFooter.png';
+import GrizzlyStoreFooter from '../../images/images_sublime/GrizzlyStoreLogoFooter.png';
 
 class Footer extends Component{
     render() {

@@ -1,12 +1,37 @@
 import React, { Component } from 'react';
-import Background from "../../images_essence/bg-img/breadcumb.jpg"
-import { Link } from 'react-router-dom';
-import ItemSmart from './itemSmart';
+import Slider from 'react-rangeslider';
+import PropTypes from 'prop-types';
+import { connect } from "react-redux"
+import { fetchItems } from "../../actions/itemsAction"
+import { getVisibleItems } from "../../selectors/itemsSelector";
+import Background from "../../images/images_essence/bg-img/breadcumb.jpg";
+import {Link} from "react-router-dom";
+import ItemsChild from "./ItemsChild"
+import { filterText, category, startYear, endYear, sortBy } from '../../actions/filterActions';
 
+class Items extends Component {
 
-class AllItems extends Component {
+    constructor(props) {
+        super(props)
+    }
+
+    componentWillMount() {
+        this.props.dispatch(fetchItems());
+    }
+
     render() {
+
+        const items = this.props.items;
+        console.log(items);
+        console.log(this.props);
+
+
+        if(items.length == 0){
+            return <div><h2>No Items to display.</h2></div>
+        }
+
         return (
+
             <div className="container-fluid">
                 <div className="breadcumb_area bg-img" style={{backgroundImage: "url(" + Background + ")"}}>
                     <div className="container h-100">
@@ -67,58 +92,15 @@ class AllItems extends Component {
 
                                         <p className="widget-title2 mb-30">Price</p>
 
-                                        <div className="widget-desc">
-                                            <div className="slider-range">
-                                                <div data-min="49" data-max="360" data-unit="$"
-                                                     className="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
-                                                     data-value-min="49" data-value-max="360"
-                                                     data-label-result="Range:">
-                                                    <div
-                                                        className="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                                    <span className="ui-slider-handle ui-state-default ui-corner-all"
-                                                          tabIndex="0"></span>
-                                                    <span className="ui-slider-handle ui-state-default ui-corner-all"
-                                                          tabIndex="0"></span>
-                                                </div>
-                                                <div className="range-price">Range: $49.00 - $360.00</div>
-                                            </div>
+                                        <div data-role="rangeslider">
+                                            <Slider value={100}
+                                                    orientation="horizontal"/>
                                         </div>
                                     </div>
 
 
-                                    <div className="widget color mb-50">
-
-                                        <p className="widget-title2 mb-30">Color</p>
-                                        <div className="widget-desc">
-                                            <ul className="d-flex">
-                                                <li><a href="#" className="color1"></a></li>
-                                                <li><a href="#" className="color2"></a></li>
-                                                <li><a href="#" className="color3"></a></li>
-                                                <li><a href="#" className="color4"></a></li>
-                                                <li><a href="#" className="color5"></a></li>
-                                                <li><a href="#" className="color6"></a></li>
-                                                <li><a href="#" className="color7"></a></li>
-                                                <li><a href="#" className="color8"></a></li>
-                                                <li><a href="#" className="color9"></a></li>
-                                                <li><a href="#" className="color10"></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
 
 
-                                    <div className="widget brands mb-50">
-
-                                        <p className="widget-title2 mb-30">Brands</p>
-                                        <div className="widget-desc">
-                                            <ul>
-                                                <li><a href="#">Asos</a></li>
-                                                <li><a href="#">Mango</a></li>
-                                                <li><a href="#">River Island</a></li>
-                                                <li><a href="#">Topshop</a></li>
-                                                <li><a href="#">Zara</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 
@@ -127,33 +109,45 @@ class AllItems extends Component {
                                 <div className="shop_grid_product_area">
 
                                     {/* This is Sort dive*/}
-                                    <div className="row">
+                                    <div className="row" style={{backgroundColor:"#f8f9f9", marginBottom:"5%" }}>
                                         <div className="col-12">
                                             <div
-                                                className="product-topbar d-flex align-items-center justify-content-between">
+                                                className="product-topbar d-flex align-items-center justify-content-between row">
 
-                                                <div className="total-products">
-                                                    <p><span>186</span> products found</p>
+                                                <div className="total-products col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                                                    <p><span>{this.props.items.length}</span> Products found</p>
                                                 </div>
 
-                                                <div className="product-sorting d-flex">
+                                                <div
+                                                    className="search_panel_content d-flex flex-row align-items-center justify-content-between col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                                                        <input type="text" className="search_input" placeholder="Search"
+                                                               required="required" value={this.props.sortAndFilter.text}
+                                                               onChange={(e) => {
+                                                                   this.props.dispatch(filterText(e.target.value));
+                                                               }}/>
+                                                </div>
+
+
+                                                <div className="product-sorting align-items-center d-flex col-lg-4 col-md-12 col-sm-12 col-xs-12">
                                                     <p>Sort by:</p>
-                                                    <form action="#" method="get">
-                                                        <select name="select" id="sortByselect">
-                                                            <option value="value">Highest Rated</option>
-                                                            <option value="value">Newest</option>
-                                                            <option value="value">Price: $$ - $</option>
-                                                            <option value="value">Price: $ - $$</option>
+                                                        <select value={this.props.sortAndFilter.sortBy}
+                                                                onChange={(e) => {
+                                                                    this.props.dispatch(sortBy(e.target.value));
+                                                                }} id="sortByselect">
+                                                            <option value="title">Title</option>
+                                                            <option value="hightolow">Price: $$ - $</option>
+                                                            <option value="lowtohigh">Price: $ - $$</option>
                                                         </select>
-                                                        <input type="submit" className="d-none" value=""/>
-                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {/* This is products detailed div*/}
 
-                                <ItemSmart/>
+
+                                    {/* This is products child class that displays all the items*/}
+                                    <ItemsChild data={items} />
+                                    {/* End of child class */}
+
 
 
                                 </div>
@@ -180,4 +174,17 @@ class AllItems extends Component {
     }
 }
 
-export default AllItems;
+// Items.propTypes= {
+//     fetchItems: PropTypes.func.isRequired,
+//     items: PropTypes.array.isRequired,
+// }
+
+const mapStateToProps = state => ({
+    items: getVisibleItems(state.items.items, state.sortAndFilter),
+    sortAndFilter: state.sortAndFilter,
+    fetched: state.items.fetched,
+    fetching :state.items.fetching,
+    error: state.items.error,
+});
+
+export default connect(mapStateToProps)(Items);

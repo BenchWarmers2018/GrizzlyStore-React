@@ -6,7 +6,7 @@ import axios from 'axios';
 //
 //         axios.get("http://localhost:8080/items/all")
 //             .then((response) => {
-//                 dispatch({type: "FETCH_ITEMS_FULFILLED", payload: response.data})
+//                 dispatch({type: "FETCH_ITEMS_FULFILLED", payload: response.data.entities})
 //             })
 //             .catch((err) => {
 //                 dispatch({type: "FETCH_ITEMS_REJECTED", payload: err})
@@ -14,10 +14,12 @@ import axios from 'axios';
 //     }
 // }
 
+
+
 const arr = [
     {
         "idItem": 2,
-        "itemName": "Teddy1",
+        "itemName": "Teddy",
         "itemDescription": "Cutest teddy bear in the world",
         "itemImage": "<INSERT URL HERE>",
         "itemPrice": 10,
@@ -26,7 +28,7 @@ const arr = [
     },
     {
         "idItem": 3,
-        "itemName": "Teddy2",
+        "itemName": "ATeddy",
         "itemDescription": "Cutest teddy bear in Asia",
         "itemImage": "<INSERT URL HERE>",
         "itemPrice": 10,
@@ -35,16 +37,16 @@ const arr = [
     },
     {
         "idItem": 4,
-        "itemName": "Teddy3",
+        "itemName": "CTeddy",
         "itemDescription": "Cutest teddy bear in Europe",
         "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 10,
+        "itemPrice": 20,
         "itemSalePercentage": 0,
         "last_modified": "2018-09-14T04:08:15.000+0000"
     },
     {
         "idItem": 5,
-        "itemName": "Teddy4",
+        "itemName": "FTeddy",
         "itemDescription": "Cutest teddy bear in Australia",
         "itemImage": "<INSERT URL HERE>",
         "itemPrice": 10,
@@ -53,7 +55,7 @@ const arr = [
     },
     {
         "idItem": 6,
-        "itemName": "Teddy5",
+        "itemName": "Zeddy",
         "itemDescription": "Cutest teddy bear in America",
         "itemImage": "<INSERT URL HERE>",
         "itemPrice": 10,
@@ -62,16 +64,16 @@ const arr = [
     },
     {
         "idItem": 7,
-        "itemName": "Teddy6",
+        "itemName": "STeddy",
         "itemDescription": "Cutest teddy bear in Antartica",
         "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 10,
+        "itemPrice": 12,
         "itemSalePercentage": 0,
         "last_modified": "2018-09-14T04:08:15.000+0000"
     },
     {
         "idItem": 13,
-        "itemName": "Teddy1",
+        "itemName": "ETeddy",
         "itemDescription": "Cutest teddy bear in the world",
         "itemImage": "<INSERT URL HERE>",
         "itemPrice": 10,
@@ -80,7 +82,7 @@ const arr = [
     },
     {
         "idItem": 14,
-        "itemName": "Teddy2",
+        "itemName": "STeddy",
         "itemDescription": "Cutest teddy bear in Asia",
         "itemImage": "<INSERT URL HERE>",
         "itemPrice": 10,
@@ -89,25 +91,25 @@ const arr = [
     },
     {
         "idItem": 15,
-        "itemName": "Teddy3",
+        "itemName": "HTeddy",
         "itemDescription": "Cutest teddy bear in Europe",
         "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 10,
+        "itemPrice": 1,
         "itemSalePercentage": 0,
         "last_modified": "2018-09-14T04:08:15.000+0000"
     },
     {
         "idItem": 16,
-        "itemName": "Teddy4",
+        "itemName": "LTeddy",
         "itemDescription": "Cutest teddy bear in Australia",
         "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 10,
+        "itemPrice": 25,
         "itemSalePercentage": 10,
         "last_modified": "2018-09-14T04:08:15.000+0000"
     },
     {
         "idItem": 17,
-        "itemName": "Teddy5",
+        "itemName": "LTeddy",
         "itemDescription": "Cutest teddy bear in America",
         "itemImage": "<INSERT URL HERE>",
         "itemPrice": 10,
@@ -116,64 +118,64 @@ const arr = [
     },
     {
         "idItem": 18,
-        "itemName": "Teddy6",
+        "itemName": "VTeddy",
         "itemDescription": "Cutest teddy bear in Antartica",
         "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 10,
+        "itemPrice": 50,
         "itemSalePercentage": 0,
         "last_modified": "2018-09-14T04:08:15.000+0000"
     },
     {
         "idItem": 19,
-        "itemName": "Teddy7",
+        "itemName": "NTeddy",
         "itemDescription": "Cutest teddy bear in the Artic",
         "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 10,
+        "itemPrice": 19,
         "itemSalePercentage": 0,
         "last_modified": "2018-09-14T04:08:15.000+0000"
     },
     {
         "idItem": 20,
-        "itemName": "Teddy8",
+        "itemName": "NTeddy",
         "itemDescription": "Cutest teddy bear in Pluto",
         "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 10,
+        "itemPrice": 28,
         "itemSalePercentage": 0,
         "last_modified": "2018-09-14T04:08:15.000+0000"
     },
     {
         "idItem": 21,
-        "itemName": "Teddy9",
+        "itemName": "Teddy",
         "itemDescription": "Cutest teddy bear in Saturn",
         "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 10,
+        "itemPrice": 90,
         "itemSalePercentage": 0,
         "last_modified": "2018-09-14T04:08:15.000+0000"
     },
     {
         "idItem": 22,
-        "itemName": "Teddy10",
+        "itemName": "MTeddy",
         "itemDescription": "Cutest teddy bear in Venus",
         "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 10,
+        "itemPrice": 11,
         "itemSalePercentage": 0,
         "last_modified": "2018-09-14T04:08:15.000+0000"
     },
     {
         "idItem": 23,
-        "itemName": "Teddy11",
+        "itemName": "XTeddy",
         "itemDescription": "Cutest teddy bear in Mars",
         "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 10,
+        "itemPrice": 11,
         "itemSalePercentage": 0,
         "last_modified": "2018-09-14T04:08:15.000+0000"
     },
     {
         "idItem": 24,
-        "itemName": "Teddy12",
+        "itemName": "RTeddy",
         "itemDescription": "Cutest teddy bear in Mercury",
         "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 10,
+        "itemPrice": 67,
         "itemSalePercentage": 0,
         "last_modified": "2018-09-14T04:08:15.000+0000"
     }
