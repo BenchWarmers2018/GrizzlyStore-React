@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Cart from "../customer/Cart";
-import Images from "../../images_sublime/product_1.jpg";
-import Logo from '../../images_sublime/GrizzlyStoreLogo.png';
-import HeaderImage from "../../images_sublime/polar_bear_header.jpg";
+import Logo from '../../images/images_sublime/GrizzlyStoreLogo.png';
 
 class Header extends Component {
     render() {
@@ -94,6 +91,7 @@ class Header extends Component {
 
 
                     {/* Modal box starts here */}
+
                     <div class="user-modal">
                         <div class="user-modal-container">
                             <ul class="switcher">
@@ -106,71 +104,71 @@ class Header extends Component {
                             </ul>
 
                             <div id="login">
-                                <form class="form">
-                                    <p class="fieldset">
-                                        <label class="image-replace email" for="signin-email">E-mail</label>
-                                        <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail" />
-                                            <span class="error-message">An account with this email address does not exist!</span>
+                                <form className="form">
+                                    <p className="fieldset">
+                                        <label className="image-replace email" htmlFor="signin-email">E-mail</label>
+                                        <input className="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail" />
+                                            <span className="error-message">An account with this email address does not exist!</span>
                                     </p>
 
-                                    <p class="fieldset">
-                                        <label class="image-replace password" for="signin-password">Password</label>
-                                        <input class="full-width has-padding has-border" id="signin-password" type="password"  placeholder="Password" />
-                                            <span class="error-message">Wrong password! Try again.</span>
+                                    <p className="fieldset">
+                                        <label className="image-replace password" htmlFor="signin-password">Password</label>
+                                        <input className="full-width has-padding has-border" id="signin-password" type="password"  placeholder="Password" />
+                                            <span className="error-message">Wrong password! Try again.</span>
                                     </p>
 
-                                    <p class="fieldset">
-                                        <input class="full-width" type="submit" value="Login" />
+                                    <p className="fieldset">
+                                        <input className="full-width" type="submit" value="Login" />
                                     </p>
                                 </form>
 
-                                <p class="form-bottom-message"><a href="#0">Forgot your password?</a></p>
+                                <p className="form-bottom-message"><a href="#0">Forgot your password?</a></p>
                             </div>
 
                             <div id="signup">
-                                <form class="form">
-                                    <p class="fieldset">
-                                        <label class="image-replace username" for="signup-username">Username</label>
-                                        <input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username" />
-                                            <span class="error-message">Your username can only contain numeric and alphabetic symbols!</span>
+                                <form className="form">
+                                    <p className="fieldset">
+                                        <label className="image-replace username" htmlFor="signup-username">Username</label>
+                                        <input className="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username" />
+                                            <span className="error-message">Your username can only contain numeric and alphabetic symbols!</span>
                                     </p>
 
-                                    <p class="fieldset">
-                                        <label class="image-replace email" for="signup-email">E-mail</label>
-                                        <input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail" />
-                                            <span class="error-message">Enter a valid email address!</span>
+                                    <p className="fieldset">
+                                        <label className="image-replace email" htmlFor="signup-email">E-mail</label>
+                                        <input className="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail" />
+                                            <span className="error-message">Enter a valid email address!</span>
                                     </p>
 
-                                    <p class="fieldset">
-                                        <label class="image-replace password" for="signup-password">Password</label>
-                                        <input class="full-width has-padding has-border" id="signup-password" type="password"  placeholder="Password" />
-                                            <span class="error-message">Your password has to be at least 6 characters long!</span>
+                                    <p className="fieldset">
+                                        <label className="image-replace password" htmlFor="signup-password">Password</label>
+                                        <input className="full-width has-padding has-border" id="signup-password" type="password"  placeholder="Password" />
+                                            <span className="error-message">Your password has to be at least 6 characters long!</span>
                                     </p>
 
-                                    <p class="fieldset">
-                                        <input class="full-width has-padding" type="submit" value="Create account" />
+                                    <p className="fieldset">
+                                        <input className="full-width has-padding" type="submit" value="Create account" />
                                     </p>
                                 </form>
 
                             {/*Stretch goals*/}
 
                             <div id="reset-password">
-                                <p class="form-message">Lost your password? Please enter your email address.<br /> You will receive a link to create a new password.</p>
+                                <p className="form-message">Lost your password? Please enter your email address.<br /> You will receive a link to create a new password.</p>
 
-                            <form class="form">
-                                <p class="fieldset">
-                                    <label class="image-replace email" for="reset-email">E-mail</label>
-                                    <input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail" />
-                                        <span class="error-message">An account with this email does not exist!</span>
+                            <form className="form">
+                                <p className="fieldset">
+                                    <label className="image-replace email" htmlFor="reset-email">E-mail</label>
+                                    <input className="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail" />
+                                        <span className="error-message">An account with this email does not exist!</span>
                                 </p>
 
-                                <p class="fieldset">
-                                    <input class="full-width has-padding" type="submit" value="Reset password" />
+                                <p className="fieldset">
+                                    <input className="full-width has-padding" type="submit" value="Reset password" />
                                 </p>
                             </form>
                             </div>
                         </div>
-                        <a href="#0" class="close-form">Close</a>
+                        <a href="#0" className="close-form">Close</a>
                     </div>
                 </div>
                 </div>

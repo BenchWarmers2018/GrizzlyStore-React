@@ -4,8 +4,8 @@ import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
 import Slider1 from '../../images/grizzlywave.jpg';
 import Slider3 from '../../images/pandawave.jpg';
 import Slider2 from '../../images/polarwave.jpg';
-import Images from '../../images_sublime/product_1.jpg';
-import Slider from '../../images_sublime/home_slider_1.jpg';
+import Images from '../../images/images_sublime/product_1.jpg';
+import Slider from '../../images/images_sublime/home_slider_1.jpg';
 
 class Home extends Component {
     render() {
