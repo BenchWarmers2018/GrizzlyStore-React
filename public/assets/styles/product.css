@@ -1198,15 +1198,26 @@ section
 .product_grid
 {
 	margin-top: 88px;
+	width: 100%;
 }
+
 .product
 {
 	width: calc((100% - 90px) / 4);
 	margin-bottom: 59px;
+	padding: 20px;
+	display: block;
+	position: relative;
+	margin:0px;
+}
+
+.product div{
+	margin: 0;
+
 }
 .product_image
 {
-	width: 100%;
+	width: auto;
 }
 .product_image img
 {

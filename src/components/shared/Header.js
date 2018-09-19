@@ -14,42 +14,90 @@ class Header extends Component {
                 </button>
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav mr-auto">
-                        <li className="col-lg-3 active nav-item ">
-                            <Link to='/' className="nav-link">HOME</Link>
-                        </li>
-                        <li className="col-lg-3 nav-item">
-                            <Link to='/items' className="nav-link">ITEMS</Link>
-                        </li>
 
-                        <li className="col-lg-3 nav-item">
-                            <Link to='/items' className="nav-link">
-                                CATEGORY
-                            </Link>
-                        </li>
+                    {/*Old Nav Bar*/}
+                    {/*<ul className="navbar-nav mr-auto">*/}
+                        {/*<li className="col-lg-3 active nav-item nav-menu">*/}
+                            {/*<Link to='/' className="nav-link">HOME</Link>*/}
+                        {/*</li>*/}
+                        {/*<li className="col-lg-3 nav-item nav-menu">*/}
+                            {/*<Link to='/items' className="nav-link">ITEMS</Link>*/}
+                        {/*</li>*/}
 
-                        <li className="col-lg-3 nav-item">
-                            <Link to='/sale' className="nav-link">SALE</Link>
-                        </li>
-                    </ul>
+                        {/*<li className="col-lg-3 nav-item nav-menu">*/}
+                            {/*<Link to='/items' className="nav-menu nav-link">*/}
+                                {/*CATEGORY*/}
+                            {/*</Link>*/}
+                            {/*<ul className="nav-sub-menu">*/}
+                                {/*<li><Link to='/sale' className="nav-link">ITEMS</Link></li>*/}
+                                {/*<li>hi</li>*/}
+                                {/*<li>hi</li>*/}
+                            {/*</ul>*/}
+                        {/*</li>*/}
+                        {/*<li className="col-lg-3 nav-item nav-menu">*/}
+                            {/*<Link to='/sale' className="nav-link">SALE</Link>*/}
+                        {/*</li>*/}
+                    {/*</ul>*/}
 
-                    {/*Cart*/}
-                    <li className="navbar-text nav-item">
-                        <Link to='/cart' className="nav-link"><i className="fa fa-shopping-cart"></i>CART</Link>
-                    </li>
 
-                    {/* Authentication links start here */}
+                    {/*New Nav Bar*/}
+                    <div className="navbar-nav mr-auto navbar-collapse" id="navbarSupportedContent">
+                        <div className="nav-left-div navbar-collapse">
+                            <div className="dropdown">
+                                <button className="dropbtn nav-menu nav-link">
+                                    <Link to='/' className="nav-link">HOME</Link>
+                                </button>
+                            </div>
+                            <div className="dropdown">
+                                <button className="dropbtn nav-menu nav-link"><Link to='/items' className="nav-link">ITEMS</Link></button>
 
-                        <li className="main-nav navbar-text nav-item" data-toggle="modal" data-target="#exampleModal">
-                            <Link to='' className="nav-link signin">LOGIN</Link>
-                        </li>
+                            </div>
+                            <div className="dropdown">
+                                <button type="button" className="dropbtn "><Link to='/items' className="nav-menu nav-link dropdown-toggle" >
+                                    CATEGORY
+                                </Link></button>
+                                <div className="dropdown-content">
+                                    <a href="#">Art</a>
+                                    <a href="#">Fashion</a>
+                                    <a href="#">Electronics</a>
+                                    <a href="#">Home & Living</a>
+                                    <a href="#">Jewellery</a>
+                                    <a href="#">Toys</a>
+                                </div>
+                            </div>
+                            <div className="dropdown ">
+                                <button className="dropbtn nav-menu nav-link"><Link to='/sale' className="nav-link">SALE</Link></button>
+                            </div>
+                        </div>
+
+
+                        {/*Cart*/}
+                        <div className="nav-right-div navbar-collapse">
+                            <div className="dropdown ">
+                                <li className="dropdown ">
+                                    <Link to='/cart' className=" nav-link nav-menu nav-link"><i className="fa fa-shopping-cart"></i>CART</Link>
+                                </li>
+                            </div>
+
+                            {/* Authentication links start here */}
+                            <div className="dropdown ">
+                                <li className="dropdown main-nav" data-toggle="modal" data-target="#exampleModal">
+                                    <Link to='' className=" nav-link signin nav-menu">LOGIN</Link>
+                                </li>
+                            </div>
+                        </div>
+                    </div>
+
 
 
                     {/* Modal box starts here */}
-                    <div className="user-modal">
-                        <div className="user-modal-container">
-                            <ul className="switcher">
+
+                    <div class="user-modal">
+                        <div class="user-modal-container">
+                            <ul class="switcher">
+
                                 {/*button for google log in here*/}
+
                                 <div className="g-signin2" data-onsuccess="onSignIn"></div>
                                 <li><a href="#">Sign in</a></li>
                                 <li><a href="#">New account</a></li>
@@ -102,9 +150,8 @@ class Header extends Component {
                                     </p>
                                 </form>
 
-
-
                             {/*Stretch goals*/}
+
                             <div id="reset-password">
                                 <p className="form-message">Lost your password? Please enter your email address.<br /> You will receive a link to create a new password.</p>
 
