@@ -1,52 +1,6 @@
 #content-wrap{
   padding-bottom: 200px;
 }
-.nav_header_group_link{
-  margin: 0px;
-}
-
-.nav_header_links{
-  top: 50%;
-  bottom:50%;
-  margin-right: 30px;
-}
-
-.nav_header_links:hover{
-  transform: scale(1.1);
-  text-decoration: none;
-}
-
-.nav_dropdown{
-  min-width: 100px;
-}
-
-.nav_dropdown li{
-  min-width: 100px;
-}
-.nav_dropdown li:hover{
-  transform: scale(1.1);
-  text-decoration: none;
-  min-width: 100px;
-}
-
-.nav_header_links:link{
-  text-decoration: none;
-  color: black;
-}
-
-.nav_header_links a{
-  color: #6c6a74;
-}
-.nav_header_links a:hover{
-  color: black;
-  text-decoration: none;
-}
-
-.main_nav{
-  top: 50%;
-  bottom:50%;
-  min-width: 100px;
-}
 
 .App {
   text-align: center;
@@ -89,7 +43,9 @@
 .header_logo {
   width: 100%;
   height: 95%;
-  padding: 20px 0px 20px 0px;
+  min-height: 40px;
+  min-width: 240px;
+  padding: 10px 0px 10px 10px;
 
 }
 

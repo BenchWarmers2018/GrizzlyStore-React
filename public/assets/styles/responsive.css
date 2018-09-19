@@ -78,6 +78,7 @@
 	.main_nav
 	{
 		margin-left: 50px;
+		display: block !important;
 	}
 	.search
 	{
@@ -93,7 +94,7 @@
 4. 1100px
 ************/
 
-@media only screen and (max-width: 1100px)
+@media only screen and (max-width: 1100px) and (min-width: 1023px)
 {
 	
 }
@@ -102,9 +103,11 @@
 5. 1024px
 ************/
 
-@media only screen and (max-width: 1024px)
+@media only screen and (max-width: 1024px) and (min-width: 992px)
 {
-	
+	.main_nav{
+		display: block !important;
+	}
 }
 
 /************
