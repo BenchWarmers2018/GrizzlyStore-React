@@ -1083,11 +1083,13 @@ section
 	background: #FFFFFF;
 	padding-top: 99px;
 	z-index: 2;
+	display: inline-block;
 }
 .product
 {
 	width: calc((100% - 90px) / 4);
 	margin-bottom: 59px;
+	margin-right: 0px;
 }
 .product_image
 {

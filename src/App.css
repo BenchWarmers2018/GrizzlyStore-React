@@ -2,6 +2,51 @@
   padding-bottom: 200px;
 }
 
+.product-img-home{
+  max-width: 200px !important;
+}
+
+.add-to-cart-btn-home{
+  max-width: 200px !important;
+}
+
+.single-product-wrapper-home{
+  max-width: 200px !important;
+}
+
+.col-lg-4-home{
+  flex: 0 0 25%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .App {
   text-align: center;
 }

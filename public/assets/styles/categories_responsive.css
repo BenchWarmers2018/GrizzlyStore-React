@@ -143,6 +143,7 @@
 	.product
 	{
 		width: calc((100% - 30px) / 2);
+		margin: 0px;
 	}
 	.icon_box_col:not(:last-child)
 	{

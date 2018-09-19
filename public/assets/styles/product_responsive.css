@@ -147,7 +147,7 @@
 	.product
 	{
 		width: 100%;
-		/*width: calc((100% - 30px) / 2);*/
+		width: calc((100% - 30px) / 2);
 	}
 	.icon_box
 	{
@@ -305,6 +305,7 @@
 	.product
 	{
 		width: 100%;
+		margin: 0px;
 	}
 	.newsletter_title
 	{

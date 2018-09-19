@@ -6,6 +6,7 @@ import Slider3 from '../../images/pandawave.jpg';
 import Slider2 from '../../images/polarwave.jpg';
 import Images from '../../images_sublime/product_1.jpg';
 import Slider from '../../images_sublime/home_slider_1.jpg';
+import ItemSmartHome from './itemSmartHome';
 
 class Home extends Component {
     render() {
@@ -37,6 +38,8 @@ class Home extends Component {
                 </div>
 
                 {/*---------Carousel ENDS-------- */}
+
+                <ItemSmartHome/>
 
                 <div className="products">
                     <div className="container">
