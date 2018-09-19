@@ -40,7 +40,7 @@ class Home extends Component {
 
                 <div className="products">
                     <div className="container">
-                        <div className="">
+                        <div className="row">
                             <div className="col">
                                 <h1 className="pad-top">
                                     Popular Items
