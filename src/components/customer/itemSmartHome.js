@@ -19,7 +19,7 @@ class ItemSmart extends Component {
             r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
             return images;
         }
-        const images = importAll(require.context('../../images_essence/product-img', false, /\.(png|jpe?g|svg)$/));
+        const images = importAll(require.context('../../images/images_essence/product-img', false, /\.(png|jpe?g|svg)$/));
 
         const { items } = this.props;
         console.log(items);
@@ -28,11 +28,11 @@ class ItemSmart extends Component {
             return <div><h2>No Items to display.</h2></div>
         }
         return (
-            <div className="row">
+            <div className="row row-home">
 
                 {items.map(item =>
 
-                    <div key={item.idItem} className="col-12 col-sm-6 col-lg-4 col-lg-4-home">
+                    <div key={item.idItem} className="col-12 col-12-home col-sm-6 col-lg-4 col-lg-4-home">
                         <div className="single-product-wrapper single-product-wrapper-home">
 
                             <div className="product-img product-img-home">
@@ -48,9 +48,9 @@ class ItemSmart extends Component {
 
 
                             <div className="product-description">
-                                <span>{item.itemName}</span>
+                                {/*<span>{item.itemName}</span>*/}
                                 <a href="single-product-details.html">
-                                    <h6>{item.itemDescription}</h6>
+                                    <h6>{item.itemName}</h6>
                                 </a>
                                 {
                                     item.itemSalePercentage > 0 &&
@@ -63,12 +63,12 @@ class ItemSmart extends Component {
                                 }
 
 
-                                <div className="hover-content">
+                                {/*<div className="hover-content">*/}
 
-                                    <div className="add-to-cart-btn add-to-cart-btn-home">
-                                        <a href="#" className="btn essence-btn">Add to Cart</a>
-                                    </div>
-                                </div>
+                                    {/*<div className="add-to-cart-btn add-to-cart-btn-home">*/}
+                                        {/*<a href="#" className="btn essence-btn">Add to Cart</a>*/}
+                                    {/*</div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                     </div>
