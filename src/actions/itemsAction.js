@@ -1,18 +1,18 @@
 import axios from 'axios';
 
-// export function fetchItems() {
-//     return function(dispatch) {
-//         dispatch({type: "FETCH_ITEMS"});
-//
-//         axios.get("http://localhost:8080/items/all")
-//             .then((response) => {
-//                 dispatch({type: "FETCH_ITEMS_FULFILLED", payload: response.data.entities})
-//             })
-//             .catch((err) => {
-//                 dispatch({type: "FETCH_ITEMS_REJECTED", payload: err})
-//             })
-//     }
-// }
+export function fetchItems() {
+    return function(dispatch) {
+        dispatch({type: "FETCH_ITEMS"});
+
+        axios.get("http://localhost:8080/items/all")
+            .then((response) => {
+                dispatch({type: "FETCH_ITEMS_FULFILLED", payload: response.data.entities})
+            })
+            .catch((err) => {
+                dispatch({type: "FETCH_ITEMS_REJECTED", payload: err})
+            })
+    }
+}
 
 
 
@@ -181,12 +181,12 @@ const arr = [
     }
 ]
 
-export function fetchItems() {
-    return {
-        type: "FETCH_ITEMS_FULFILLED",
-        payload:arr
-    }
-}
+// export function fetchItems() {
+//     return {
+//         type: "FETCH_ITEMS_FULFILLED",
+//         payload:arr
+//     }
+// }
 
 
 
