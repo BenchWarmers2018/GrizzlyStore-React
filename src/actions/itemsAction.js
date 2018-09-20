@@ -14,177 +14,194 @@ import axios from 'axios';
 //     }
 // }
 
-
-
-const arr = [
-    {
-        "idItem": 2,
-        "itemName": "Teddy",
-        "itemDescription": "Cutest teddy bear in the world",
-        "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 10,
-        "itemSalePercentage": 0,
-        "last_modified": "2018-09-14T04:08:15.000+0000"
-    },
-    {
-        "idItem": 3,
-        "itemName": "ATeddy",
-        "itemDescription": "Cutest teddy bear in Asia",
-        "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 10,
-        "itemSalePercentage": 0,
-        "last_modified": "2018-09-14T04:08:15.000+0000"
-    },
-    {
-        "idItem": 4,
-        "itemName": "CTeddy",
-        "itemDescription": "Cutest teddy bear in Europe",
-        "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 20,
-        "itemSalePercentage": 0,
-        "last_modified": "2018-09-14T04:08:15.000+0000"
-    },
-    {
-        "idItem": 5,
-        "itemName": "FTeddy",
-        "itemDescription": "Cutest teddy bear in Australia",
-        "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 10,
-        "itemSalePercentage": 20,
-        "last_modified": "2018-09-14T04:08:15.000+0000"
-    },
-    {
-        "idItem": 6,
-        "itemName": "Zeddy",
-        "itemDescription": "Cutest teddy bear in America",
-        "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 10,
-        "itemSalePercentage": 0,
-        "last_modified": "2018-09-14T04:08:15.000+0000"
-    },
+const tempArr = [
     {
         "idItem": 7,
-        "itemName": "STeddy",
-        "itemDescription": "Cutest teddy bear in Antartica",
+        "category": {
+            "idCategory": 1,
+            "categoryName": "Jewellery",
+            "categoryDescription": "Show someone that you can't bear to be without them with one of our lovely bear themed jewellery pieces!",
+            "last_modified": "2018-09-20T13:09:49.000+0000"
+        },
+        "itemName": "Weddy",
+        "itemDescription": "Cutest teddy bear in the world",
         "itemImage": "<INSERT URL HERE>",
         "itemPrice": 12,
         "itemSalePercentage": 0,
-        "last_modified": "2018-09-14T04:08:15.000+0000"
+        "lastModified": "2018-09-20T13:09:49.000+0000"
+    },
+    {
+        "idItem": 8,
+        "category": {
+            "idCategory": 1,
+            "categoryName": "Jewellery",
+            "categoryDescription": "Show someone that you can't bear to be without them with one of our lovely bear themed jewellery pieces!",
+            "last_modified": "2018-09-20T13:09:49.000+0000"
+        },
+        "itemName": "Reddy2",
+        "itemDescription": "Cutest teddy bear in Asia",
+        "itemImage": "<INSERT URL HERE>",
+        "itemPrice": 14,
+        "itemSalePercentage": 25,
+        "lastModified": "2018-09-20T13:09:49.000+0000"
+    },
+    {
+        "idItem": 9,
+        "category": {
+            "idCategory": 2,
+            "categoryName": "Art",
+            "categoryDescription": "Fur all those with bearly any artistic talent, we have your back!",
+            "last_modified": "2018-09-20T13:09:49.000+0000"
+        },
+        "itemName": "Teddy3",
+        "itemDescription": "Cutest teddy bear in Europe",
+        "itemImage": "<INSERT URL HERE>",
+        "itemPrice": 16,
+        "itemSalePercentage": 0,
+        "lastModified": "2018-09-20T13:09:49.000+0000"
+    },
+    {
+        "idItem": 10,
+        "category": {
+            "idCategory": 2,
+            "categoryName": "Art",
+            "categoryDescription": "Fur all those with bearly any artistic talent, we have your back!",
+            "last_modified": "2018-09-20T13:09:49.000+0000"
+        },
+        "itemName": "Ueddy4",
+        "itemDescription": "Cutest teddy bear in Australia",
+        "itemImage": "<INSERT URL HERE>",
+        "itemPrice": 18,
+        "itemSalePercentage": 0,
+        "lastModified": "2018-09-20T13:09:49.000+0000"
+    },
+    {
+        "idItem": 11,
+        "category": {
+            "idCategory": 3,
+            "categoryName": "Clothing",
+            "categoryDescription": "Never get caught bearly  dressed with one of our adorable bear pieces!",
+            "last_modified": "2018-09-20T13:09:49.000+0000"
+        },
+        "itemName": "Oeddy5",
+        "itemDescription": "Cutest teddy bear in America",
+        "itemImage": "<INSERT URL HERE>",
+        "itemPrice": 11,
+        "itemSalePercentage": 30,
+        "lastModified": "2018-09-20T13:09:49.000+0000"
+    },
+    {
+        "idItem": 12,
+        "category": {
+            "idCategory": 3,
+            "categoryName": "Clothing",
+            "categoryDescription": "Never get caught bearly  dressed with one of our adorable bear pieces!",
+            "last_modified": "2018-09-20T13:09:49.000+0000"
+        },
+        "itemName": "Peddy6",
+        "itemDescription": "Cutest teddy bear in Antartica",
+        "itemImage": "<INSERT URL HERE>",
+        "itemPrice": 13,
+        "itemSalePercentage": 0,
+        "lastModified": "2018-09-20T13:09:49.000+0000"
     },
     {
         "idItem": 13,
-        "itemName": "ETeddy",
-        "itemDescription": "Cutest teddy bear in the world",
-        "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 10,
-        "itemSalePercentage": 0,
-        "last_modified": "2018-09-14T04:08:15.000+0000"
-    },
-    {
-        "idItem": 14,
-        "itemName": "STeddy",
-        "itemDescription": "Cutest teddy bear in Asia",
-        "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 10,
-        "itemSalePercentage": 5,
-        "last_modified": "2018-09-14T04:08:15.000+0000"
-    },
-    {
-        "idItem": 15,
-        "itemName": "HTeddy",
-        "itemDescription": "Cutest teddy bear in Europe",
-        "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 1,
-        "itemSalePercentage": 0,
-        "last_modified": "2018-09-14T04:08:15.000+0000"
-    },
-    {
-        "idItem": 16,
-        "itemName": "LTeddy",
-        "itemDescription": "Cutest teddy bear in Australia",
-        "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 25,
-        "itemSalePercentage": 10,
-        "last_modified": "2018-09-14T04:08:15.000+0000"
-    },
-    {
-        "idItem": 17,
-        "itemName": "LTeddy",
-        "itemDescription": "Cutest teddy bear in America",
-        "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 10,
-        "itemSalePercentage": 0,
-        "last_modified": "2018-09-14T04:08:15.000+0000"
-    },
-    {
-        "idItem": 18,
-        "itemName": "VTeddy",
-        "itemDescription": "Cutest teddy bear in Antartica",
-        "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 50,
-        "itemSalePercentage": 0,
-        "last_modified": "2018-09-14T04:08:15.000+0000"
-    },
-    {
-        "idItem": 19,
-        "itemName": "NTeddy",
+        "category": {
+            "idCategory": 4,
+            "categoryName": "Home",
+            "categoryDescription": "Have a bearly decorated house? Never fear! We are here!",
+            "last_modified": "2018-09-20T13:09:49.000+0000"
+        },
+        "itemName": "Veddy7",
         "itemDescription": "Cutest teddy bear in the Artic",
         "itemImage": "<INSERT URL HERE>",
         "itemPrice": 19,
-        "itemSalePercentage": 0,
-        "last_modified": "2018-09-14T04:08:15.000+0000"
+        "itemSalePercentage": 20,
+        "lastModified": "2018-09-20T13:09:49.000+0000"
     },
     {
-        "idItem": 20,
-        "itemName": "NTeddy",
+        "idItem": 14,
+        "category": {
+            "idCategory": 4,
+            "categoryName": "Home",
+            "categoryDescription": "Have a bearly decorated house? Never fear! We are here!",
+            "last_modified": "2018-09-20T13:09:49.000+0000"
+        },
+        "itemName": "Beddy8",
         "itemDescription": "Cutest teddy bear in Pluto",
         "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 28,
+        "itemPrice": 10,
         "itemSalePercentage": 0,
-        "last_modified": "2018-09-14T04:08:15.000+0000"
+        "lastModified": "2018-09-20T13:09:49.000+0000"
     },
     {
-        "idItem": 21,
-        "itemName": "Teddy",
+        "idItem": 15,
+        "category": {
+            "idCategory": 5,
+            "categoryName": "Toys",
+            "categoryDescription": "Come and bear witness to the most adorable collection of bear themed toys!",
+            "last_modified": "2018-09-20T13:09:49.000+0000"
+        },
+        "itemName": "Meddy9",
         "itemDescription": "Cutest teddy bear in Saturn",
         "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 90,
+        "itemPrice": 12,
         "itemSalePercentage": 0,
-        "last_modified": "2018-09-14T04:08:15.000+0000"
+        "lastModified": "2018-09-20T13:09:49.000+0000"
     },
     {
-        "idItem": 22,
-        "itemName": "MTeddy",
+        "idItem": 16,
+        "category": {
+            "idCategory": 5,
+            "categoryName": "Toys",
+            "categoryDescription": "Come and bear witness to the most adorable collection of bear themed toys!",
+            "last_modified": "2018-09-20T13:09:49.000+0000"
+        },
+        "itemName": "Ceddy10",
         "itemDescription": "Cutest teddy bear in Venus",
         "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 11,
+        "itemPrice": 18,
         "itemSalePercentage": 0,
-        "last_modified": "2018-09-14T04:08:15.000+0000"
+        "lastModified": "2018-09-20T13:09:49.000+0000"
     },
     {
-        "idItem": 23,
-        "itemName": "XTeddy",
+        "idItem": 17,
+        "category": {
+            "idCategory": 6,
+            "categoryName": "Technology",
+            "categoryDescription": "If you can't bear to live a life without technology or electronics, fill your void here!",
+            "last_modified": "2018-09-20T13:09:49.000+0000"
+        },
+        "itemName": "Meddy11",
         "itemDescription": "Cutest teddy bear in Mars",
         "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 11,
-        "itemSalePercentage": 0,
-        "last_modified": "2018-09-14T04:08:15.000+0000"
+        "itemPrice": 17,
+        "itemSalePercentage": 5,
+        "lastModified": "2018-09-20T13:09:49.000+0000"
     },
     {
-        "idItem": 24,
-        "itemName": "RTeddy",
+        "idItem": 18,
+        "category": {
+            "idCategory": 6,
+            "categoryName": "Technology",
+            "categoryDescription": "If you can't bear to live a life without technology or electronics, fill your void here!",
+            "last_modified": "2018-09-20T13:09:49.000+0000"
+        },
+        "itemName": "Qeddy12",
         "itemDescription": "Cutest teddy bear in Mercury",
         "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 67,
-        "itemSalePercentage": 0,
-        "last_modified": "2018-09-14T04:08:15.000+0000"
+        "itemPrice": 15,
+        "itemSalePercentage": 10,
+        "lastModified": "2018-09-20T13:09:49.000+0000"
     }
 ]
+
 
 export function fetchItems() {
     return {
         type: "FETCH_ITEMS_FULFILLED",
-        payload:arr
+        payload:tempArr
     }
 }
 

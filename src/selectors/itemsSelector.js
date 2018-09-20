@@ -10,7 +10,9 @@ export const getVisibleItems = (items, { text, category, minPrice, maxPrice, sor
         const minPriceMatch = typeof minPrice !== 'number' || minPrice <= item.itemPrice;
         const maxPriceMatch = typeof maxPrice !== 'number' || item.itemPrice <= maxPrice;
 
-        return textMatch && minPriceMatch && maxPriceMatch;
+        const categoryMatch = (item.category.categoryName.toLowerCase()===category) || (category==="");
+
+        return textMatch && minPriceMatch && maxPriceMatch && categoryMatch;
     }).sort((item1, item2) => {
         if (sortBy === 'title') {
             return item1.itemName.localeCompare(item2.itemName);
