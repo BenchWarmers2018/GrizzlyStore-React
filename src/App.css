@@ -2,73 +2,6 @@
   padding-bottom: 200px;
 }
 
-.product-img-home{
-  max-width: 200px !important;
-  max-height: 200px !important;
-}
-
-.add-to-cart-btn-home{
-  max-width: 200px !important;
-}
-
-.single-product-wrapper-home{
-  max-width: 200px !important;
-  /*padding: 40px;*/
-}
-
-.col-lg-4-home{
-  flex: 0 0 25%;
-  align-self: center;
-  /*width: auto;*/
-}
-
-.col-12-home{
-  max-width: 200px;
-  margin: 50px;
-  /*margin-right: 100px;*/
-
-
-  /*width: 100%;*/
-}
-
-.row-home{
-  align-items: center !important;
-  /*margin-left: 100px;*/
-  /*margin-top: 100px;*/
-  margin: 1%;
-  display: inline-block;
-  width: 100vw;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .App {
   text-align: center;
 }
@@ -226,5 +159,55 @@
 }
 
 
+/*********************************************************/
+/*Popular Items on HomePage*/
 
 
+.product-img-home{
+  max-width: 400px !important;
+  max-height: 400px !important;
+  min-width: 100px !important;
+}
+
+.col-lg-4-home{
+  flex: 0 0 25%;
+  align-self: center;
+  position: relative;
+}
+
+@media only screen and (max-width: 520px)
+{
+  .col-lg-4-home{
+    flex: 0 0 33.3333333%;
+  }
+}
+
+@media only screen and (max-width: 390px)
+{
+  .col-lg-4-home{
+    flex: 0 0 50%;
+  }
+}
+
+@media only screen and (max-width: 260px)
+{
+  .col-lg-4-home{
+    flex: 0 0 100%;
+  }
+}
+
+.whole-product-wrapper{
+  position: center;
+  padding: 10px;
+  width: 100%;
+  vertical-align: center !important;
+}
+
+.products2{
+  width: 100%;
+  background: #FFFFFF;
+  z-index: 2;
+  padding-top: 89px;
+}
+
+/*********************************************************/
