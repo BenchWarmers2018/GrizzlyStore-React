@@ -869,7 +869,7 @@ section
 
 .products
 {
-	width: 100%;
+	width: 100vw;
 	background: #FFFFFF;
 	z-index: 2;
 }
