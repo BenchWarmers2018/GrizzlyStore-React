@@ -1,6 +1,3 @@
-
-{/* Code for sorting and filtering */}
-
 export const getVisibleItems = (items, { text, category, minPrice, maxPrice, sortBy }) => {
     return items.filter(item => {
         const textMatch =
