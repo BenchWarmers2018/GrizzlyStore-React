@@ -14,33 +14,65 @@ class Items extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 5,
-            value2: 10,
-            value3: 10,
-            value4: {
-                min: 5,
-                max: 10,
+            chosenVal: {
+                min: 0,
+                max: 100,
             },
-            value5: {
-                min: 3,
-                max: 7,
+            maxAndMinValues: {
+                min: 0,
+                max: 100,
             },
+            times : 0,
         };
     }
 
     componentWillMount() {
         this.props.fetchItems();
+        // this.setState(prevState => ({
+        //     maxAndMinValues: {...this.state.maxAndMinValues, e}
+        // }));
+
     }
+
+
 
     changeCategory = (e) => {
         this.props.category(e.target.value);
     }
 
+    updatePrice = (e) => {
+        console.log(this.state.chosenVal.min);
+        this.props.minPrice(this.state.chosenVal.min);
+        this.props.maxPrice(this.state.chosenVal.max);
+    }
+    updateMaxAndMinValues = (e) => {
+        this.setState(prevState => ({
+            maxAndMinValues: {...this.state.maxAndMinValues, e}
+        }));
+        console.log(this.state);
+    }
 
     render() {
 
         const items = this.props.items;
-        console.log(this.props);
+
+        // if(items.length > 0)
+        // {
+        //     console.log("I was here with: ", items.length, " ", this.state.times);
+        //     if(this.state.times==1)
+        //     {
+        //         console.log("In here now.")
+        //         const minimum = Math.min(...this.props.items.map(item => item.itemPrice, 0));
+        //         const maximum = Math.max(...this.props.items.map(item => item.itemPrice, 0));
+        //         const arr={min: minimum, max: maximum}
+        //         this.updateMaxAndMinValues(arr);
+        //
+        //     }
+        //
+        // }
+
+
+
 
 
         return(
@@ -73,55 +105,55 @@ class Items extends Component {
                                     <div className="catagories-menu">
                                         <form>
                                             <div className="form-check">
-                                                <label form-check-label>
-                                                    <input type="radio" value="art" class="form-check-input"
+                                                <label>
+                                                    <input type="radio" value="art" className="form-check-input"
                                                            checked={this.props.sortAndFilter.category === "art"}
                                                            onChange={this.changeCategory}/>
                                                     Art
                                                 </label>
                                             </div>
                                             <div className="form-check">
-                                                <label form-check-label>
-                                                    <input type="radio" value="clothing" class="form-check-input"
+                                                <label>
+                                                    <input type="radio" value="clothing" className="form-check-input"
                                                            checked={this.props.sortAndFilter.category === "clothing"}
                                                            onChange={this.changeCategory}/>
                                                     Clothing
                                                 </label>
                                             </div>
                                             <div className="form-check">
-                                                <label form-check-label>
-                                                    <input type="radio" value="home" class="form-check-input"
+                                                <label>
+                                                    <input type="radio" value="home" className="form-check-input"
                                                            checked={this.props.sortAndFilter.category === "home"}
                                                            onChange={this.changeCategory}/>
                                                     Home
                                                 </label>
                                             </div>
                                             <div className="form-check">
-                                                <label form-check-label>
-                                                    <input type="radio" value="jewellery" class="form-check-input"
+                                                <label>
+                                                    <input type="radio" value="jewellery" className="form-check-input"
                                                            checked={this.props.sortAndFilter.category === "jewellery"}
                                                            onChange={this.changeCategory}/>
                                                     Jewellery
                                                 </label>
                                             </div>
                                             <div className="form-check">
-                                                <label form-check-label>
-                                                    <input type="radio" value="technology" class="form-check-input"
+                                                <label>
+                                                    <input type="radio" value="technology" className="form-check-input"
                                                            checked={this.props.sortAndFilter.category === "technology"}
                                                            onChange={this.changeCategory}/>
                                                     Technology
                                                 </label>
                                             </div>
                                             <div className="form-check">
-                                                <label form-check-label>
-                                                    <input type="radio" value="toys" class="form-check-input"
+                                                <label>
+                                                    <input type="radio" value="toys" className="form-check-input"
                                                            checked={this.props.sortAndFilter.category === "toys"}
                                                            onChange={this.changeCategory}/>
                                                     Toys
                                                 </label>
                                             </div>
                                             <div className="form-check">
-                                                <label form-check-label>
+                                                <label>
                                                     <input type="radio" value="" className="form-check-input"
                                                            checked={this.props.sortAndFilter.category === ""}
                                                            onChange={this.changeCategory}/>
@@ -140,15 +172,16 @@ class Items extends Component {
                                     <p className="widget-title2 mb-30">Price</p>
 
                                     <div>
+
                                         {/*Slider bar here to come.*/}
                                         <InputRange
                                             draggableTrack
-                                            maxValue={20}
-                                            minValue={0}
+                                            maxValue={this.state.maxAndMinValues.max}
+                                            minValue={this.state.maxAndMinValues.min}
                                             formatLabel={value => `$${value}`}
-                                            value={this.state.value4}
-                                            onChange={value => this.setState({ value4: value })}
-                                            onChangeComplete={value => console.log(value)} />
+                                            onChange={value => this.setState({ chosenVal: value })}
+                                            onChangeComplete={this.updatePrice}
+                                            value={this.state.chosenVal} />
                                     </div>
                                 </div>
                             </div>
@@ -196,7 +229,7 @@ class Items extends Component {
 
                                 {/* This is products child class that displays all the items*/}
 
-                                { this.props.items.length == 0 ? <h2>No items to diplay</h2> : <ItemsChild data={items}/>}
+                                { this.props.items.length === 0 ? <h2>No items to diplay</h2> : <ItemsChild data={items}/>}
 
                                 {/* End of child class */}
 
@@ -225,10 +258,10 @@ class Items extends Component {
     }
 }
 
-// Items.propTypes= {
-//     fetchItems: PropTypes.func.isRequired,
-//     items: PropTypes.array.isRequired,
-// }
+Items.propTypes= {
+    fetchItems: PropTypes.func.isRequired,
+    items: PropTypes.array.isRequired,
+}
 
 const mapStateToProps = state => ({
     items: getVisibleItems(state.items.items, state.sortAndFilter),
