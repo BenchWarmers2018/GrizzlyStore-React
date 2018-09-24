@@ -9,6 +9,7 @@ import SideBar from "./components/admin/pages/sidebar";
 import AdminMain from "./components/admin/adminMain"
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import * as axios from "axios";
 // import firebase from 'react-native-firebase';
 // import { GoogleSignin, GoogleSigninButton, statusCodes  } from 'react-native-google-signin';
 
@@ -16,6 +17,10 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 firebase.initializeApp({
     apiKey: "AIzaSyAj2rJNz3nFOC8hJS8b0mCzAkyqumwlMYY",
     authDomain: "grizzly-store-bw.firebaseapp.com",
+    databaseURL: "https://grizzly-store-bw.firebaseio.com",
+    projectId: "grizzly-store-bw",
+    storageBucket: "grizzly-store-bw.appspot.com",
+    messagingSenderId: "925784889995"
 })
 
 
@@ -25,6 +30,7 @@ class App extends Component {
         this.state = {
             isAdmin : false,
             isSignedIn : false,
+            user: null
         }
     }
 
@@ -41,11 +47,22 @@ class App extends Component {
     }
 
     componentDidMount() {
+        firebase.auth().onAuthStateChanged(user => {
+            this.setState({
+                isSignedIn : !!user
+            })
 
-        firebase.auth().onAuthStateChanged(user => {this.setState({isSignedIn : !!user})})
+            axios({
+                method: 'post',
+                url: 'localhost:8080/authenticate',
+                data: {
+                    uid: user.uid,
+                    displayName: user.displayName,
+                    email: user.email,
 
-
-    }
+                }
+            });
+        })}
 
         render()
         {
@@ -54,18 +71,16 @@ class App extends Component {
 
                     {this.state.isSignedIn ? (
 
-                        <span><div>Signed In!</div>
+                            <span><div>Signed In!</div>
                         <button onClick={() => firebase.auth().signOut()}>Sign Out!</button>
-
                         </span>
 
                         )
                         :
                         (
-
                             <StyledFirebaseAuth
-                               uiConfig={this.uiConfig}
-                               firebaseAuth={firebase.auth()}
+                                uiConfig={this.uiConfig}
+                                firebaseAuth={firebase.auth()}
                             />
 
                         )
