@@ -3,6 +3,7 @@ import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLi
 import '../../../node_modules/mdbreact/dist/css/mdb.css';
 import {Link} from "react-router-dom";
 import Logo from "../../images/images_sublime/GrizzlyStoreLogo.png";
+import LoginForm from "../shared/login/LoginForm.js";
 import { connect } from "react-redux"
 import { fetchAccounts } from "../../actions/accountAction"
 
@@ -13,6 +14,7 @@ class Header extends Component {
         this.state = {
             collapse: false,
             isWideEnough: false,
+            loginData: { emailAddress: '', password: '' }
             emailAddress: "",
             password: "",
         };
@@ -109,28 +111,7 @@ class Header extends Component {
                         </ul>
 
                         <div id="login">
-                            <form className="form">
-                                <p className="fieldset">
-                                    <label className="image-replace email" htmlFor="signin-email">E-mail</label>
-                                    <input className="full-width has-padding has-border" id="signin-email" type="email"
-                                           placeholder="E-mail"/>
-                                    <span
-                                        className="error-message">An account with this email address does not exist!</span>
-                                </p>
-
-                                <p className="fieldset">
-                                    <label className="image-replace password" htmlFor="signin-password">Password</label>
-                                    <input className="full-width has-padding has-border" id="signin-password"
-                                           type="password" placeholder="Password"/>
-                                    <span className="error-message">Wrong password! Try again.</span>
-                                </p>
-
-                                <p className="fieldset">
-                                    <input className="full-width" type="submit" value="Login"/>
-                                </p>
-                            </form>
-
-                            <p className="form-bottom-message"><a href="#0">Forgot your password?</a></p>
+                            <LoginForm loginData = { this.state.loginData }/>
                         </div>
 
                         <div id="signup">
@@ -201,4 +182,3 @@ function mapStateToProps(state, ownProps) {
 };
 
 export default connect(mapStateToProps)(Header);
-
