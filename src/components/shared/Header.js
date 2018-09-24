@@ -4,7 +4,8 @@ import '../../../node_modules/mdbreact/dist/css/mdb.css';
 import {Link} from "react-router-dom";
 import Logo from "../../images/images_sublime/GrizzlyStoreLogo.png";
 
-class Header2 extends Component {
+
+class Header extends Component {
 
     constructor(props) {
         super(props);
@@ -157,5 +158,5 @@ class Header2 extends Component {
     }
 }
 
-export default Header2;
+export default Header;
 

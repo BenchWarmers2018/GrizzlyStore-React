@@ -7,6 +7,16 @@ import Main from "./components/Main";
 import AdminHeader from "./components/admin/pages/adminHeader";
 import SideBar from "./components/admin/pages/sidebar";
 import AdminMain from "./components/admin/adminMain"
+import firebase from "firebase";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+// import firebase from 'react-native-firebase';
+// import { GoogleSignin, GoogleSigninButton, statusCodes  } from 'react-native-google-signin';
+
+
+firebase.initializeApp({
+    apiKey: "AIzaSyAj2rJNz3nFOC8hJS8b0mCzAkyqumwlMYY",
+    authDomain: "grizzly-store-bw.firebaseapp.com",
+})
 
 
 class App extends Component {
@@ -14,31 +24,77 @@ class App extends Component {
         super(props);
         this.state = {
             isAdmin : false,
+            isSignedIn : false,
         }
     }
 
+    uiConfig = {
+        signInFlow: "popup",
+        signInOptions: [
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID
+        ],
 
-    render()
-    {
-        return (
+        callbacks:{
+            signInSuccess: () => false
+        }
+
+    }
+
+    componentDidMount() {
+
+        firebase.auth().onAuthStateChanged(user => {this.setState({isSignedIn : !!user})})
+
+
+    }
+
+        render()
+        {
+            return (
                 <div className="super_container">
-                    {this.state.isAdmin ?
-                        <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
-                        <AdminHeader/>
-                            <SideBar/>
-                            <AdminMain/>
-                        </div> :
-                        <div>
-                            <Header/>
-                            <Main/>
-                            <Newsletter/>
-                        </div>
+
+                    {this.state.isSignedIn ? (
+
+                        <span><div>Signed In!</div>
+                        <button onClick={() => firebase.auth().signOut()}>Sign Out!</button>
+
+                        </span>
+
+                        )
+                        :
+                        (
+
+                            <StyledFirebaseAuth
+                               uiConfig={this.uiConfig}
+                               firebaseAuth={firebase.auth()}
+                            />
+
+                        )
+
                     }
+
+                    <div>
+                        <Header/>
+                        <Main/>
+                        <Newsletter/>
+                    </div>
+
+                    {/*{this.state.isAdmin ?*/}
+                    {/*<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">*/}
+                    {/*<AdminHeader/>*/}
+                    {/*<SideBar/>*/}
+                    {/*<AdminMain/>*/}
+                    {/*</div> :*/}
+                    {/*<div>*/}
+                    {/*<Header/>*/}
+                    {/*<Main/>*/}
+                    {/*<Newsletter/>*/}
+                    {/*</div>*/}
+                    {/*}*/}
                     <Footer/>
                 </div>
 
-        );
+            );
+        }
     }
-}
 
-export default App;
+    export default App;
