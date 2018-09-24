@@ -6,7 +6,7 @@ import Logo from "../../images/images_sublime/GrizzlyStoreLogo.png";
 import { connect } from "react-redux"
 import { fetchAccounts } from "../../actions/accountAction"
 
-class Header2 extends Component {
+class Header extends Component {
 
     constructor(props) {
         super(props);
@@ -200,5 +200,5 @@ function mapStateToProps(state, ownProps) {
     accounts: state.accounts
 };
 
-export default connect(mapStateToProps)(Header2);
+export default connect(mapStateToProps)(Header);
 
