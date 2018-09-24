@@ -1,24 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom'
 import { withFormik, Form, Field } from 'formik'
+import * as Yup from 'yup';
 
-const initialValues = {
-  emailAddress: '',
-  password: '',
-}
-
-// export default function LoginForm() {
-//   return(
-//     <Formik
-//       initialValues = {initialValues}
-//       validate = {validationSchema}
-//       onSubmit={onSubmit}
-//       render={form}
-//     />
-//   )
-// }
-
-const form = props => {
+const App = props => {
   const {
     values,
     errors,
@@ -28,26 +13,44 @@ const form = props => {
   } = props;
 
   return(
-    <form>
+    <Form>
       <div>
-        <label className="image-replace email" htmlFor="emailAddress">E-mail</label>
+        <label className="image-replace email" htmlFor="emailAddress">Email Address</label>
+        {touched.emailAddress && errors.emailAddress && <p>{errors.emailAddress}</p>}
         <Field className="full-width has-padding has-border" name="emailAddress" type="email" placeholder="E-mail" value={values.emailAddress} onChange={handleChange}/>
       </div>
       <div>
         <label className="image-replace password" htmlFor="password">Password</label>
+        {touched.password && errors.password && <p>{errors.password}</p>}
         <Field className="full-width has-padding has-border" name="password" type="password"  placeholder="Password" values={values.password} onChange={handleChange}/>
       </div>
-    </form>
+    </Form>
   )
 }
 
 const FormikApp = withFormik({
-  mapPropsToValues({ emailAddress }) {
+  mapPropsToValues({ emailAddress, password }) {
     return {
-      emailAddress: emailAddress || ''
+      emailAddress: emailAddress || '',
+      password: password || ''
     }
-   }
-})(form)
+  },
+  validationSchema: Yup.object().shape({
+    emailAddress: Yup.string().email('Email Address is not valid').required('Email Address is required'),
+    password: Yup.string().min(8, 'Password must be 8 characters or longer').required('Password is required')
+  }),
+  handleSubmit(values, { resetForm, setErrors, setSubmitting }) {
+    setTimeout(() => {
+      if (values.emailAddress === 'yomi@gmail.io') {
+        setErrors({ email: 'That email is already taken' })
+      } else {
+        resetForm()
+      }
+      setSubmitting(false)
+    }, 2000)
+  }
+})(App)
+
 // const App = () => (
 //
 // )
@@ -56,4 +59,4 @@ const FormikApp = withFormik({
 
 // })(LoginForm)
 
-export default form;
+export default FormikApp;

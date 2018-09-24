@@ -14,7 +14,7 @@ class Header extends Component {
         this.state = {
             collapse: false,
             isWideEnough: false,
-            loginData: { emailAddress: '', password: '' }
+            loginData: { emailAddress: '', password: '' },
             emailAddress: "",
             password: "",
         };
