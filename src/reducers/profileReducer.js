@@ -16,7 +16,7 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 fetching: false,
                 fetched: true,
-                profile: action.payload.entities[0]
+                profile: action.payload.entities
             }
         }
         case "FETCH_PROFILE_REJECTED": {

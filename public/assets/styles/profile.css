@@ -10,5 +10,11 @@
 
 .headingAlignment
 {
-  padding: 70px;
+  padding: 0px;
 }
+
+.titleAlignment
+{
+  padding-left: 20px;
+}
+
