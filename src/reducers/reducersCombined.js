@@ -6,11 +6,10 @@ import sortAndFilter from "./filtersReducer"
 import profiles from "./profileReducer"
 import accounts from "./accountReducer"
 
-
 export default combineReducers({
     items,
     category,
     sortAndFilter,
     profiles,
     accounts
-})
+});

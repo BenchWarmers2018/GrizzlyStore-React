@@ -6,7 +6,7 @@ export const filterText = (text = '') => ({
 
 export const category = (chosenCategory) => ({
     type: 'CATEGORY',
-    chosenCategory
+    chosenCategory,
 });
 
 export const minPrice = (minimumPrice) => ({
@@ -31,8 +31,8 @@ export const clear = () => ({
 
 const filterInitialState = {
     text:'',
-    category: '',
-    sortBy: '',
+    chosenCategory: '',
+    sortType: '',
     minPrice: undefined,
     maxPrice: undefined,
 };

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Background from '../../images/images_sublime/cart.jpg'
+import { Link } from 'react-router-dom';
 
 class Checkout extends Component {
     render() {
@@ -216,7 +217,7 @@ class Checkout extends Component {
                                         Proin pharetra temp or so dales. Phasellus sagittis auctor gravida. Integ er
                                         bibendum sodales arcu id te mpus. Ut consectetur lacus.
                                     </div>
-                                    <div className="button order_button"><a href="#">Place Order</a></div>
+                                    <div className="button order_button"><Link to="/confirmation">Place Order</Link></div>
                                 </div>
                             </div>
                         </div>

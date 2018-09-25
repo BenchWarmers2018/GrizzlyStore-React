@@ -1,15 +1,14 @@
 /* [Master Stylesheet v-1.0.0] */
 /* :: 1.0 Import Web Fonts */
-@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Ubuntu:300,400,500,700");
 /* :: 2.0 Import All CSS */
-@import url(../css/bootstrap.min.css);
-@import url(../css/classy-nav.min.css);
-@import url(../css/owl.carousel.css);
-@import url(../css/animate.css);
-@import url(../css/magnific-popup.css);
-@import url(../css/jquery-ui.min.css);
-@import url(../css/nice-select.css);
-@import url(../css/font-awesome.min.css);
+/*@import url(./bootstrap4/bootstrap.min.css);*/
+/*@import url(./classy-nav.min.css);*/
+/*@import url(../plugins/OwlCarousel2-2.2.1/owl.carousel.css);*/
+/*@import url(../plugins/OwlCarousel2-2.2.1/animate.css);*/
+/*@import url(./magnific-popup.css);*/
+/*@import url(./jquery-ui.min.css);*/
+/*@import url(./nice-select.css);*/
+/*@import url(../plugins/font-awesome-4.7.0/css/font-awesome.min.css);*/
 /* :: 3.0 Common/Base CSS */
 * {
   margin: 0;

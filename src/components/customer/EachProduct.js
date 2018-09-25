@@ -14,7 +14,7 @@ class EachProduct extends Component {
 
                             <div className="col-lg-6">
                                 <div className="details_image">
-                                    <img className="details_image_large" src={ Product } />
+                                    <img className="details_image_large" alt="item_image" src={ Product } />
                                 </div>
                             </div>
 

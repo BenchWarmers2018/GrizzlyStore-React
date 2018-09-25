@@ -4,6 +4,8 @@ const filterInitialState = {
     sortBy: '',
     minPrice: undefined,
     maxPrice: undefined,
+    minItemPrice: undefined,
+    maxItemPrice: undefined,
 };
 
 export default (state = filterInitialState, action) => {
