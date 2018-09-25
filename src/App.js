@@ -9,9 +9,7 @@ import SideBar from "./components/admin/pages/sidebar";
 import AdminMain from "./components/admin/adminMain"
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import * as axios from "axios";
-// import firebase from 'react-native-firebase';
-// import { GoogleSignin, GoogleSigninButton, statusCodes  } from 'react-native-google-signin';
+import axios from "axios";
 
 
 firebase.initializeApp({
@@ -47,21 +45,23 @@ class App extends Component {
     }
 
     componentDidMount() {
+        console.log("COMPONENT IS MOUNTING NOW")
+
         firebase.auth().onAuthStateChanged(user => {
             this.setState({
                 isSignedIn : !!user
             })
 
-            axios({
-                method: 'post',
-                url: 'localhost:8080/authenticate',
-                data: {
-                    uid: user.uid,
-                    displayName: user.displayName,
-                    email: user.email,
+            console.log("HAS SET STATE OF USER");
+            axios.post("http://localhost:8083/googlelogin/googleauthenticate",user)
+                .then((res) => {
+                    console.log(user.uid);
+                    console.log(user.displayName);
+                    console.log(user.email);
+                })
+            ;
 
-                }
-            });
+            console.log("WASSSUP BITACH")
         })}
 
         render()
