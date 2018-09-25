@@ -123,7 +123,7 @@ class Profile extends Component {
                             <div className="col-lg-8 col-xlg-9 col-md-7">
                                 <div className="card">
                                     <div className="card-body">
-                                        <h4 className="card-subtitle">Edit Details</h4>
+                                        <h4 className="card-subtitle" style={{textAlign: 'center', color: 'black'}}>Edit Details</h4>
                                         <br/>
                                         <form className="form-horizontal form-material">
                                             <div className="form-group">
