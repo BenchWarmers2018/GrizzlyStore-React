@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import Logo from "../../images/images_sublime/GrizzlyStoreLogo.png";
 import LoginForm from "../shared/login/LoginForm.js";
 import { connect } from "react-redux"
-import { fetchAccounts } from "../../actions/accountAction"
+import { createAccount } from "../../actions/accountAction"
 
 class Header extends Component {
 
@@ -14,7 +14,6 @@ class Header extends Component {
         this.state = {
             collapse: false,
             isWideEnough: false,
-            loginData: { emailAddress: '', password: '' },
             emailAddress: "",
             password: "",
         };
@@ -44,7 +43,7 @@ class Header extends Component {
         event.preventDefault();
         const user = {accountEmailAddress: this.state.emailAddress, accountPassword: this.state.password};
         console.log(user);
-        this.props.dispatch(fetchAccounts(user));
+        this.props.dispatch(createAccount(user));
 
     }
 
@@ -111,7 +110,9 @@ class Header extends Component {
                         </ul>
 
                         <div id="login">
-                            <LoginForm loginData = { this.state.loginData }/>
+                          {/* <div className={this.props.error ? 'alert alert-danger' : null} >{this.props.error}</div> */}
+                          <LoginForm loginError={this.props.error}/>
+                          {/* <LoginForm /> */}
                         </div>
 
                         <div id="signup">
@@ -177,8 +178,10 @@ class Header extends Component {
     }
 }
 
-function mapStateToProps(state, ownProps) {
-    accounts: state.accounts
-};
+const mapStateToProps = state => ({
+    accounts:state.accounts.accounts,
+    userAccount: state.accounts.userAccount,
+    error: state.accounts.error,
+});
 
 export default connect(mapStateToProps)(Header);

@@ -1,32 +1,49 @@
 const initialState = {
     accounts: [],
+    userAccount: null,
     fetching: false,
     fetched: false,
-    error: null,
+    authenticating: false,
+    authenticated: false,
+    error: [],
 }
 
 export default function reducer(state=initialState, action){
 
     switch (action.type) {
-        case "FETCH_ACCOUNTS": {
+        case "CREATE_ACCOUNT": {
             return {...state, fetching: true}
         }
-        case "FETCH_ACCOUNTS_REJECTED": {
+        case "CREATE_ACCOUNT_REJECTED": {
             return {...state, fetching: false, error: action.payload}
         }
-        case "FETCH_ACCOUNTS_FULFILLED": {
+        case "CREATE_ACCOUNT_FULFILLED": {
             return {
                 ...state,
                 fetching: false,
                 fetched: true,
-                accounts: action.payload,
+                account: action.payload,
             }
         }
-        case "ADD_ACCOUNT": {
-            return {
-                ...state,
-                accounts: [...state.accounts, action.payload],
-            }
+        case "AUTHENTICATE_USER": {
+          return {...state, authenticating: true}
+        }
+        case "AUTHENTICATE_USER_REJECTED": {
+          return {...state, authenticating: false, error: action.payload}
+        }
+        case "AUTHENTICATING_USER_SUCCESSFUL": {
+          return {
+            ...state,
+            authenticating: false,
+            authenticated: true,
+            account: action.payload,
+          }
+        }
+        case "SERVER_NOT_FOUND": {
+          return {
+            ...state,
+            error: action.payload
+          }
         }
         default:
             state;
