@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import Logo from "../../images/images_sublime/GrizzlyStoreLogo.png";
 import { connect } from "react-redux"
 import { fetchAccounts } from "../../actions/accountAction"
+import GoogleLogin from "../shared/GoogleLogin.js";
 
 class Header extends Component {
 
@@ -15,6 +16,9 @@ class Header extends Component {
             isWideEnough: false,
             emailAddress: "",
             password: "",
+            googleEmailAddress:"",
+            isSignedIn : false,
+            user: null,
         };
         this.onClick = this.onClick.bind(this);
     }
@@ -50,6 +54,7 @@ class Header extends Component {
         return (
             <div>
                 <Navbar color="white" light expand="md" scrolling>
+                <GoogleLogin/>
                     <NavbarBrand href="/">
                         <div className="logo"><Link to='/'><img className="header_logo" src={Logo} alt=""/></Link></div>
                     </NavbarBrand>
@@ -198,6 +203,7 @@ class Header extends Component {
 
 function mapStateToProps(state, ownProps) {
     accounts: state.accounts
+    googleaccoung: state.googleaccounts
 };
 
 export default connect(mapStateToProps)(Header);
