@@ -110,9 +110,7 @@ class Header extends Component {
                         </ul>
 
                         <div id="login">
-                          {/* <div className={this.props.error ? 'alert alert-danger' : null} >{this.props.error}</div> */}
                           <LoginForm loginError={this.props.error}/>
-                          {/* <LoginForm /> */}
                         </div>
 
                         <div id="signup">
