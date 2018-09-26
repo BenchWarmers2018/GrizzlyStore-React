@@ -8,13 +8,13 @@ const initialState = {
 export default function reducer(state=initialState, action){
 
     switch (action.type) {
-        case "FETCH_ACCOUNTS": {
+        case "CREATE_ACCOUNT": {
             return {...state, fetching: true}
         }
-        case "FETCH_ACCOUNTS_REJECTED": {
+        case "CREATE_ACCOUNT_REJECTED": {
             return {...state, fetching: false, error: action.payload}
         }
-        case "FETCH_ACCOUNTS_FULFILLED": {
+        case "CREATE_ACCOUNT_FULFILLED": {
             return {
                 ...state,
                 fetching: false,
@@ -22,12 +22,7 @@ export default function reducer(state=initialState, action){
                 accounts: action.payload,
             }
         }
-        case "ADD_ACCOUNT": {
-            return {
-                ...state,
-                accounts: [...state.accounts, action.payload],
-            }
-        }
+
         default:
             state;
     }

@@ -4,9 +4,9 @@ import '../../../node_modules/mdbreact/dist/css/mdb.css';
 import {Link} from "react-router-dom";
 import Logo from "../../images/images_sublime/GrizzlyStoreLogo.png";
 import { connect } from "react-redux"
-import { fetchAccounts } from "../../actions/accountAction"
+import { createAccount } from "../../actions/accountAction"
 
-class Header2 extends Component {
+class Header extends Component {
 
     constructor(props) {
         super(props);
@@ -27,24 +27,36 @@ class Header2 extends Component {
 
     handleChangeEmail = (event1) => {
         this.setState({emailAddress: event1.target.value});
-        console.log('changed');
-        console.log(this.state.emailAddress);
-        console.log(this.state.password);
+        // console.log('changed');
+        // console.log(this.state.emailAddress);
+        // console.log(this.state.password);
     }
     handleChangePassword = (event2) => {
         this.setState({password: event2.target.value});
-        console.log('changed');
-        console.log(this.state.emailAddress);
-        console.log(this.state.password);
+        // console.log('changed');
+        // console.log(this.state.emailAddress);
+        // console.log(this.state.password);
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
+        clearInterval(this.accounts, this.error);
         const user = {accountEmailAddress: this.state.emailAddress, accountPassword: this.state.password};
-        console.log(user);
-        this.props.dispatch(fetchAccounts(user));
-
+        // console.log(user);
+        this.props.dispatch(createAccount(user));
+        console.log(this.props.error);
     }
+
+    // handleChangeAccount = (event) => {
+    //     if(this.props.accounts == null && this.props.error == 400)
+    //     {
+    //
+    //     }
+    //     else
+    //     {
+    //
+    //     }
+    // }
 
     render() {
         return (
@@ -145,7 +157,7 @@ class Header2 extends Component {
                                     <label className="image-replace email" htmlFor="signup-email">E-mail</label>
                                     <input className="full-width has-padding has-border" id="signup-email" type="email"
                                            placeholder="E-mail" value={this.state.emailAddress}
-                                           onChange={this.handleChangeEmail} requried/>
+                                           onChange={this.handleChangeEmail} required/>
                                     {/*<span className="error-message">Enter a valid email address!</span>*/}
                                 </p>
 
@@ -163,6 +175,15 @@ class Header2 extends Component {
                                            type="password" placeholder="Confirm Password" required/>
                                     {/*<span className="error-message">Your password has to be at least 6 characters long!</span>*/}
                                 </p>
+                                <div className="super_container">
+                                    {/*{(this.props.accounts.length === 0) ? <div className={this.props.error ? 'alert alert-danger' : null}> {this.props.error} </div> : null}*/}
+                                    <div className={this.props.error !== null && this.props.accounts.length === 0 ? 'alert alert-danger' : null}> {this.props.error} </div>
+
+                                    {/*{(this.props.accounts.length === 0) ? <div><h1>{this.props.error}</h1></div> : <div>Right</div>*/}
+                                    {/*}*/}
+
+                                </div>
+
 
                                 <p className="fieldset">
                                     <input className="full-width has-padding" type="submit" value="Create account"/>
@@ -196,9 +217,14 @@ class Header2 extends Component {
     }
 }
 
+
+
 function mapStateToProps(state, ownProps) {
-    accounts: state.accounts
+    return {
+        accounts: state.accounts.accounts,
+        error: state.accounts.error
+    }
 };
 
-export default connect(mapStateToProps)(Header2);
+export default connect(mapStateToProps)(Header);
 

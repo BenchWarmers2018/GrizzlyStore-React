@@ -1,27 +1,20 @@
 import axios from 'axios';
 
-export function fetchAccounts(user) {
+export function createAccount(user) {
     return function (dispatch) {
-        dispatch({type: "FETCH_ACCOUNTS"});
+        dispatch({type: "CREATE_ACCOUNT"});
 
         axios.post("http://localhost:8080/register/create", user)
             .then((res) => {
                 console.log(res);
                 console.log(res.data);
-                dispatch({type: "FETCH_ACCOUNTS_FULFILLED", payload: res.data.entities})
+                console.log(res.data.errors);
+                dispatch({type: "CREATE_ACCOUNT_FULFILLED", payload: res.data.entities})
             })
-                    .catch((err) => {
-                    dispatch({type: "FETCH_ACCOUNTS_REJECTED", payload: err})
+                    .catch((error) => {
+                        console.log(error.response.status);
+                    dispatch({type: "CREATE_ACCOUNT_REJECTED", payload: error.response.data.errors})
             })
     }
 }
 
-export function addAccount(emailAddress, password) {
-    return {
-        type: 'ADD_ITEM',
-        payload: {
-            emailAddress,
-            password
-        },
-    }
-}
