@@ -5,6 +5,7 @@ import {
 } from 'reactstrap';
 import axios from 'axios';
 import {connect} from "react-redux";
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Background from "../../images/images_essence/bg-img/breadcumb.jpg";
 import Product from "../../images/profile-pic.png";
@@ -35,9 +36,53 @@ class Profile extends Component {
         });
     }
 
-    handleProfileUpdate(event) {
-        console.log(event.target.value);
-    }
+    changeProfile = (event) => {
+        event.preventDefault();
+        var profileData = {};
+        profileData.city = this.city.value;
+        profileData.postcode = this.postcode.value;
+        profileData.country = this.country.value;
+        profileData.address1 = this.addressLine1.value;
+        profileData.address2 = this.addressLine2.value;
+        profileData.address3 = this.addressLine3.value;
+        profileData.phone = this.phone.value;
+        profileData.state = this.state.value;
+        profileData.pw = this.PW.value;
+        profileData.confirmPW = this.confirmPW.value;
+        console.log(JSON.stringify(profileData) + " profile Data PB");
+        var response = this.checkValidity(profileData);
+        console.log('PHONE VALIDITY: ' + this.validatePhone('005808007'));
+        if (response[0]) {
+            axios.post("http://localhost:8080/user/update-profile", (profileData))
+                .then((response) => {
+                    console.log("Updating profile successful " + response);
+                })
+                .catch((err) => {
+                    console.log("Update file unsuccessful. Error: " + err);
+                })
+        }
+        else {
+            console.log("ERRORS IN FORM", response[1]);
+        }
+    };
+
+    validatePhone = (phone) => {
+        var re = /^\d{10}$/;
+        return re.test(String(phone).toLowerCase());
+    };
+
+    checkValidity = (profileDetails) => {
+        var valid = true;
+        var err = [];
+        console.log(JSON.stringify(profileDetails) + '\nchecking validity');
+        if (profileDetails.pw != "" && profileDetails.confirmPW != "") {
+            (profileDetails.pw == profileDetails.confirmPW) ? (true) : (valid = false, err.push("Passwords don't match"));
+        }
+        if (profileDetails.phone != "") {
+            this.validatePhone(profileDetails.phone) == true ? true : (valid = false, err.push("Phone Number Invalid"));
+        }
+        return [valid, err];
+    };
 
     render() {
         function extractImagePath(url) {
@@ -106,16 +151,18 @@ class Profile extends Component {
                                         <small className="text-muted p-t-30 db">Phone</small>
                                         <h6>{this.props.profile[0].profilePhoneNumber}</h6>
                                         <small className="text-muted p-t-30 db">Address</small>
-                                        <h6>{this.props.profile[1].addressLine1}<br/>{this.props.profile[1].addressCity}<br/>{this.props.profile[1].addressCountry}</h6>
+                                        <h6>{this.props.profile[1].addressLine1}<br/>{this.props.profile[1].addressCity}<br/>{this.props.profile[1].addressCountry}
+                                        </h6>
                                         <small className="text-muted p-t-30 db">Social Profile</small>
                                         <br/>
-                                        <button className="btn btn-circle btn-secondary"><i
-                                            className="fab fa-facebook-f"></i></button>
-                                        <button className="btn btn-circle btn-secondary"><i
-                                            className="fab fa-twitter"></i>
+                                        <button className="btn btn-circle btn-secondary">
+                                            <i className="fab fa-facebook-f"/>
                                         </button>
-                                        <button className="btn btn-circle btn-secondary"><i
-                                            className="fab fa-youtube"></i>
+                                        <button className="btn btn-circle btn-secondary">
+                                            <i className="fab fa-twitter"/>
+                                        </button>
+                                        <button className="btn btn-circle btn-secondary">
+                                            <i className="fab fa-youtube"/>
                                         </button>
                                     </div>
                                 </div>
@@ -123,35 +170,44 @@ class Profile extends Component {
                             <div className="col-lg-8 col-xlg-9 col-md-7">
                                 <div className="card">
                                     <div className="card-body">
-                                        <h4 className="card-subtitle" style={{textAlign: 'center', color: 'black'}}>Edit Details</h4>
+                                        <h4 className="card-subtitle" style={{textAlign: 'center', color: 'black'}}>Edit
+                                            Details</h4>
                                         <br/>
-                                        <form className="form-horizontal form-material">
+                                        <form className="form-horizontal form-material" onSubmit={this.changeProfile}>
                                             <div className="form-group">
                                                 <label className="col-md-12"><b><i>Password</i></b></label>
                                                 <div className="col-md-12">
                                                     <input type="password" placeholder="New Password"
-                                                           className="form-control form-control-line"/>
+                                                           className="form-control form-control-line" ref={(c) => {
+                                                        this.PW = c;
+                                                    }}/>
                                                 </div>
                                             </div>
                                             <div className="form-group">
                                                 <label className="col-md-12"><b><i>Repeat Password</i></b></label>
                                                 <div className="col-md-12">
                                                     <input type="password" placeholder="Confirm Password"
-                                                           className="form-control form-control-line"/>
+                                                           className="form-control form-control-line" ref={(c) => {
+                                                        this.confirmPW = c;
+                                                    }}/>
                                                 </div>
                                             </div>
                                             <div className="form-group">
                                                 <label className="col-md-12"><b>Phone No</b></label>
                                                 <div className="col-md-12">
                                                     <input type="text" placeholder="123 456 7890"
-                                                           className="form-control form-control-line"/>
+                                                           className="form-control form-control-line" ref={(c) => {
+                                                        this.phone = c;
+                                                    }}/>
                                                 </div>
                                             </div>
                                             <div className="form-group">
                                                 <label className="col-sm-12"><b>Select Country</b></label>
                                                 <div className="col-sm-12">
-                                                    <select className="form-control form-control-line">
-                                                        <option>London</option>
+                                                    <select className="form-control form-control-line" ref={(c) => {
+                                                        this.country = c;
+                                                    }}>
+                                                        <option>Australia</option>
                                                         <option>India</option>
                                                         <option>Usa</option>
                                                         <option>Canada</option>
@@ -162,7 +218,24 @@ class Profile extends Component {
                                             <div className="form-group">
                                                 <label className="col-sm-12"><b>Select State</b></label>
                                                 <div className="col-sm-12">
-                                                    <select className="form-control form-control-line">
+                                                    <select className="form-control form-control-line" ref={(c) => {
+                                                        this.state = c;
+                                                    }}>
+                                                        <option>Victoria</option>
+                                                        <option>NSW</option>
+                                                        <option>Western Australia</option>
+                                                        <option>Queensland</option>
+                                                        <option>Northern Territory</option>
+                                                        <option>South Australia</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div className="form-group">
+                                                <label className="col-sm-12"><b>Select City</b></label>
+                                                <div className="col-sm-12">
+                                                    <select className="form-control form-control-line" ref={(c) => {
+                                                        this.city = c;
+                                                    }}>
                                                         <option>Melbourne</option>
                                                         <option>Sydney</option>
                                                         <option>Darwin</option>
@@ -172,43 +245,39 @@ class Profile extends Component {
                                                 </div>
                                             </div>
                                             <div className="form-group">
-                                                <label className="col-sm-12"><b>Select City</b></label>
-                                                <div className="col-sm-12">
-                                                    <select className="form-control form-control-line">
-                                                        <option>London</option>
-                                                        <option>India</option>
-                                                        <option>Usa</option>
-                                                        <option>Canada</option>
-                                                        <option>Thailand</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div className="form-group">
                                                 <label className="col-md-12"><b>Address Line 1</b></label>
                                                 <div className="col-md-12">
                                                     <input type="text" placeholder="ex: Unit 95"
-                                                           className="form-control form-control-line"/>
+                                                           className="form-control form-control-line" ref={(c) => {
+                                                        this.addressLine1 = c;
+                                                    }}/>
                                                 </div>
                                             </div>
                                             <div className="form-group">
                                                 <label className="col-md-12"><b>Address Line 2</b></label>
                                                 <div className="col-md-12">
                                                     <input type="text" placeholder="ex: George Street"
-                                                           className="form-control form-control-line"/>
+                                                           className="form-control form-control-line" ref={(c) => {
+                                                        this.addressLine2 = c;
+                                                    }}/>
                                                 </div>
                                             </div>
                                             <div className="form-group">
                                                 <label className="col-md-12"><b>Address Line 3</b></label>
                                                 <div className="col-md-12">
                                                     <input type="text" placeholder="ex: Richmond"
-                                                           className="form-control form-control-line"/>
+                                                           className="form-control form-control-line" ref={(c) => {
+                                                        this.addressLine3 = c;
+                                                    }}/>
                                                 </div>
                                             </div>
                                             <div className="form-group">
                                                 <label className="col-md-12"><b>Postcode</b></label>
                                                 <div className="col-md-12">
                                                     <input type="text" placeholder="ex: 1234"
-                                                           className="form-control form-control-line"/>
+                                                           className="form-control form-control-line" ref={(c) => {
+                                                        this.postcode = c;
+                                                    }}/>
                                                 </div>
                                             </div>
                                             <div className="form-group">
