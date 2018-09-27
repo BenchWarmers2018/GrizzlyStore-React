@@ -11,7 +11,6 @@ export default function reducer(state = initialState, action) {
             return {...state, fetching: true}
         }
         case "FETCH_PROFILE_FULFILLED": {
-            console.log("HEYA MAN " + action.payload.entities[0].profileFirstName);
             return {
                 ...state,
                 fetching: false,
