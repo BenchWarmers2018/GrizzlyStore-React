@@ -12,5 +12,5 @@ if [ -f grizzlystore-react ] ; then
     sudo rm /etc/init.d/grizzlystore-react || true
 fi
 
-cp GrizzlyStore-React /opt/GrizzlyStoreMicroServices/
+cp -R GrizzlyStore-React /opt/GrizzlyStoreMicroServices/
 sudo systemctl start grizzlystore-react.service
