@@ -9,13 +9,14 @@ pipeline {
       }
       stage('Test') {
          steps {
-            echo 'Testing in process'
+            echo 'Testing Stage'
          }
       }
       stage('Deploy') {
          steps {
             echo 'Deployment in process'
-            sh 'npm start'
+            sh 'forever stopall'
+            sh 'forever start -c "npm start" src/App.js'
          }   
       }
    }
