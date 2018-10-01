@@ -15,9 +15,7 @@ pipeline {
       stage('Deploy') {
          steps {
             echo 'Deployment Stage'
-            sh 'forever stopall'
-            sh 'export JENKINS_NODE_COOKIE=dontKillMe'
-            sh 'forever start -c "npm start" src/App.js'
+            sh 'bash ./deploy.sh'
          }   
       }
    }
