@@ -3,7 +3,7 @@ pipeline {
    stages {
       stage('Build') {
          steps {
-            echo 'BUILDING PROJECT!!'
+            echo 'Build Stage'
             sh 'npm install'
          }
       }
@@ -14,8 +14,9 @@ pipeline {
       }
       stage('Deploy') {
          steps {
-            echo 'Deployment in process'
+            echo 'Deployment Stage'
             sh 'forever stopall'
+            sh 'export JENKINS_NODE_COOKIE=dontKillMe'
             sh 'forever start -c "npm start" src/App.js'
          }   
       }
