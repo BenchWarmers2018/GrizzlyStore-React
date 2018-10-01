@@ -16,7 +16,7 @@ pipeline {
          steps {
             echo 'Deployment Stage'
             sh 'pwd'
-            sh 'npm install forever -g'
+            sh 'sudo npm install forever -g'
             sh 'forever start -c "npm start" src/App.js'
          }   
       }
