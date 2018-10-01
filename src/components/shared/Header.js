@@ -27,15 +27,9 @@ class Header extends Component {
 
     handleChangeEmail = (event1) => {
         this.setState({emailAddress: event1.target.value});
-        // console.log('changed');
-        // console.log(this.state.emailAddress);
-        // console.log(this.state.password);
     }
     handleChangePassword = (event2) => {
         this.setState({password: event2.target.value});
-        // console.log('changed');
-        // console.log(this.state.emailAddress);
-        // console.log(this.state.password);
     }
 
     handleSubmit = (event) => {
@@ -46,17 +40,6 @@ class Header extends Component {
         this.props.dispatch(createAccount(user));
         console.log(this.props.error);
     }
-
-    // handleChangeAccount = (event) => {
-    //     if(this.props.accounts == null && this.props.error == 400)
-    //     {
-    //
-    //     }
-    //     else
-    //     {
-    //
-    //     }
-    // }
 
     render() {
         return (
@@ -147,33 +130,24 @@ class Header extends Component {
 
                         <div id="signup">
                             <form className="form" onSubmit={this.handleSubmit}>
-                                {/*<p className="fieldset">*/}
-                                {/*<label className="image-replace username" htmlFor="signup-username">Username</label>*/}
-                                {/*<input className="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username" />*/}
-                                {/*<span className="error-message">Your username can only contain numeric and alphabetic symbols!</span>*/}
-                                {/*</p>*/}
-
                                 <p className="fieldset">
                                     <label className="image-replace email" htmlFor="signup-email">E-mail</label>
                                     <input className="full-width has-padding has-border" id="signup-email" type="email"
                                            placeholder="E-mail" value={this.state.emailAddress}
                                            onChange={this.handleChangeEmail} required/>
-                                    {/*<span className="error-message">Enter a valid email address!</span>*/}
                                 </p>
 
                                 <p className="fieldset">
                                     <label className="image-replace password" htmlFor="signup-password">Password</label>
                                     <input className="full-width has-padding has-border" id="signup-password"
-                                           type="password" placeholder="Password" value={this.state.password}
+                                           type="password" placeholder="Password" name="pw" pattern=".{6,}" title="Six or more characters"  value={this.state.password}
                                            onChange={this.handleChangePassword} required/>
-                                    {/*<span className="error-message">Your password has to be at least 6 characters long!</span>*/}
                                 </p>
                                 <p className="fieldset">
                                     <label className="image-replace password"
                                            htmlFor="signup-password">Password</label>
                                     <input className="full-width has-padding has-border" id="signup-password-confirm"
                                            type="password" placeholder="Confirm Password" required/>
-                                    {/*<span className="error-message">Your password has to be at least 6 characters long!</span>*/}
                                 </p>
                                 <div className="super_container">
                                     {/*{(this.props.accounts.length === 0) ? <div className={this.props.error ? 'alert alert-danger' : null}> {this.props.error} </div> : null}*/}
@@ -216,6 +190,7 @@ class Header extends Component {
         );
     }
 }
+
 
 
 

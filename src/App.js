@@ -7,6 +7,7 @@ import Main from "./components/Main";
 import AdminHeader from "./components/admin/pages/adminHeader";
 import SideBar from "./components/admin/pages/sidebar";
 import AdminMain from "./components/admin/adminMain"
+import { getCurrentUser } from "./actions/accountAction"
 
 
 class App extends Component {
@@ -14,8 +15,37 @@ class App extends Component {
         super(props);
         this.state = {
             isAdmin : false,
+            currentUser: null,
+            isAuthenticated: false,
+            isLoading: false
         }
+        // this.handleLogout = this.handleLogout.bind(this);
+        // this.handleLogin = this.handleLogin.bind(this);
     }
+
+    loadCurrentUser = () => {
+        this.setState({
+            isLoading: true
+        });
+        getCurrentUser()
+            .then(response => {
+                this.setState({
+                    currentUser: response,
+                    isAuthenticated: true,
+                    isLoading: false
+                });
+            }).catch(error => {
+            this.setState({
+                isLoading: false
+            });
+        });
+    }
+
+    componentWillMount() {
+        this.loadCurrentUser();
+    }
+
+
 
 
     render()

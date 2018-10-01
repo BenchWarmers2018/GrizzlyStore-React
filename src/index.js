@@ -9,6 +9,9 @@ import App from './App';
 import store from './store';
 import registerServiceWorker from './registerServiceWorker';
 
+export const API_BASE_URL = 'http://localhost:5000';
+export const ACCESS_TOKEN = 'accessToken';
+
 ReactDOM.render(
     <Provider store={store}><BrowserRouter>
         <App />
