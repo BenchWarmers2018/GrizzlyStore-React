@@ -15,7 +15,9 @@ pipeline {
       stage('Deploy') {
          steps {
             echo 'Deployment Stage'
-            sh 'bash ./deploy.sh'
+            sh 'pwd'
+            sh 'npm install forever -g'
+            sh 'forever start -c "npm start" src/App.js'
          }   
       }
    }
