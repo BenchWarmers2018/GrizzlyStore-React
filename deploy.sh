@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 echo 'Deployment in progress'
-pwd && cd target
+pwd && cd src
 
 if (( $(ps -ef | grep -v grep | grep grizzlystore-react | wc -l) > 0)) 
 	then
@@ -12,5 +12,5 @@ if [ -f grizzlystore-react ] ; then
     sudo rm /etc/init.d/grizzlystore-react || true
 fi
 
-cp src/App.js /opt/GrizzlyStoreMicroServices/grizzlystore-react.js
+cp App.js /opt/GrizzlyStoreMicroServices/grizzlystore-react.js
 sudo systemctl start grizzlystore-react.service
