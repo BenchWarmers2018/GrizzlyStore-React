@@ -10,10 +10,14 @@ import PropTypes from 'prop-types';
 import Background from "../../images/images_essence/bg-img/breadcumb.jpg";
 import Product from "../../images/profile-pic.png";
 import {fetchProfile} from "../../actions/profileActions";
+import ProfileOverview from "../customer/ProfileOverview.js"
+import ProfileAddress from "../customer/ProfileAddress.js"
+import ProfilePassword from "../customer/ProfilePassword.js"
+
 
 class Profile extends Component {
     constructor(props) {
-        super(props); // ABCD
+        super(props);
         this.state = {
             firstName: 'Grizzly',
             lastName: 'Store',
@@ -21,6 +25,7 @@ class Profile extends Component {
             email: null,
             called: false,
             address: '95 Bear Avenue, Victoria, Australia 3000',
+            state: "",
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -38,7 +43,9 @@ class Profile extends Component {
 
     changeProfile = (event) => {
         event.preventDefault();
+
         var profileData = {};
+
         profileData.city = this.city.value;
         profileData.postcode = this.postcode.value;
         profileData.country = this.country.value;
@@ -49,7 +56,9 @@ class Profile extends Component {
         profileData.state = this.state.value;
         profileData.pw = this.PW.value;
         profileData.confirmPW = this.confirmPW.value;
+
         console.log(JSON.stringify(profileData) + " profile Data PB");
+
         var response = this.checkValidity(profileData);
         console.log('PHONE VALIDITY: ' + this.validatePhone('005808007'));
         if (response[0]) {
@@ -114,8 +123,16 @@ class Profile extends Component {
                 arr = imageName.split('/');
                 imageName = arr[arr.length - 1];
             }
+
+            let stateString = this.props.profile[1].addressState;
+            let cityString = this.props.profile[1].addressCity;
+
             return (
                 <div className="page-wrapper">
+
+
+
+                    {/*Paarth's Code:*/}
                     <div className="breadcumb_area bg-img" style={{backgroundImage: "url(" + Background + ")"}}>
                         <div className="container h-100">
                             <div className="row h-100 align-items-center">
@@ -128,164 +145,51 @@ class Profile extends Component {
                         </div>
                     </div>
                     <br/>
+
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-lg-4 col-xlg-3 col-md-5">
                                 <div className="card">
                                     <div className="card-body">
-                                        <center class="m-t-30">
                                             <Image
                                                 src={images[imageName]}
                                                 width={150}
                                                 height={180}
                                             />
                                             <h4 className="card-title m-t-10">{this.props.profile[0].profileFirstName} {this.props.profile[0].profileLastName}</h4>
-                                        </center>
                                     </div>
                                     <div>
                                         <hr/>
                                     </div>
                                     <div className="card-body">
-                                        <small className="text-muted">Email address</small>
-                                        <h6>{this.props.profile[0].userAccount.accountEmailAddress}</h6>
-                                        <small className="text-muted p-t-30 db">Phone</small>
-                                        <h6>{this.props.profile[0].profilePhoneNumber}</h6>
-                                        <small className="text-muted p-t-30 db">Address</small>
-                                        <h6>{this.props.profile[1].addressLine1}<br/>{this.props.profile[1].addressCity}<br/>{this.props.profile[1].addressCountry}
-                                        </h6>
-                                        <small className="text-muted p-t-30 db">Social Profile</small>
-                                        <br/>
-                                        <button className="btn btn-circle btn-secondary">
-                                            <i className="fab fa-facebook-f"/>
-                                        </button>
-                                        <button className="btn btn-circle btn-secondary">
-                                            <i className="fab fa-twitter"/>
-                                        </button>
-                                        <button className="btn btn-circle btn-secondary">
-                                            <i className="fab fa-youtube"/>
-                                        </button>
+
+
+                                        <div className="profile-usermenu">
+                                            <ul className="nav">
+                                                <li className="active">
+                                                    <a href="#"> Overview </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"> Edit Address </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"> Change Password </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"> Log Out </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-lg-8 col-xlg-9 col-md-7">
                                 <div className="card">
                                     <div className="card-body">
-                                        <h4 className="card-subtitle" style={{textAlign: 'center', color: 'black'}}>Edit
-                                            Details</h4>
-                                        <br/>
-                                        <form className="form-horizontal form-material" onSubmit={this.changeProfile}>
-                                            <div className="form-group">
-                                                <label className="col-md-12"><b><i>Password</i></b></label>
-                                                <div className="col-md-12">
-                                                    <input type="password" placeholder="New Password"
-                                                           className="form-control form-control-line" ref={(c) => {
-                                                        this.PW = c;
-                                                    }}/>
-                                                </div>
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="col-md-12"><b><i>Repeat Password</i></b></label>
-                                                <div className="col-md-12">
-                                                    <input type="password" placeholder="Confirm Password"
-                                                           className="form-control form-control-line" ref={(c) => {
-                                                        this.confirmPW = c;
-                                                    }}/>
-                                                </div>
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="col-md-12"><b>Phone No</b></label>
-                                                <div className="col-md-12">
-                                                    <input type="text" placeholder="123 456 7890"
-                                                           className="form-control form-control-line" ref={(c) => {
-                                                        this.phone = c;
-                                                    }}/>
-                                                </div>
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="col-sm-12"><b>Select Country</b></label>
-                                                <div className="col-sm-12">
-                                                    <select className="form-control form-control-line" ref={(c) => {
-                                                        this.country = c;
-                                                    }}>
-                                                        <option>Australia</option>
-                                                        <option>India</option>
-                                                        <option>Usa</option>
-                                                        <option>Canada</option>
-                                                        <option>Thailand</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="col-sm-12"><b>Select State</b></label>
-                                                <div className="col-sm-12">
-                                                    <select className="form-control form-control-line" ref={(c) => {
-                                                        this.state = c;
-                                                    }}>
-                                                        <option>Victoria</option>
-                                                        <option>NSW</option>
-                                                        <option>Western Australia</option>
-                                                        <option>Queensland</option>
-                                                        <option>Northern Territory</option>
-                                                        <option>South Australia</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="col-sm-12"><b>Select City</b></label>
-                                                <div className="col-sm-12">
-                                                    <select className="form-control form-control-line" ref={(c) => {
-                                                        this.city = c;
-                                                    }}>
-                                                        <option>Melbourne</option>
-                                                        <option>Sydney</option>
-                                                        <option>Darwin</option>
-                                                        <option>Perth</option>
-                                                        <option>Brisbane</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="col-md-12"><b>Address Line 1</b></label>
-                                                <div className="col-md-12">
-                                                    <input type="text" placeholder="ex: Unit 95"
-                                                           className="form-control form-control-line" ref={(c) => {
-                                                        this.addressLine1 = c;
-                                                    }}/>
-                                                </div>
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="col-md-12"><b>Address Line 2</b></label>
-                                                <div className="col-md-12">
-                                                    <input type="text" placeholder="ex: George Street"
-                                                           className="form-control form-control-line" ref={(c) => {
-                                                        this.addressLine2 = c;
-                                                    }}/>
-                                                </div>
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="col-md-12"><b>Address Line 3</b></label>
-                                                <div className="col-md-12">
-                                                    <input type="text" placeholder="ex: Richmond"
-                                                           className="form-control form-control-line" ref={(c) => {
-                                                        this.addressLine3 = c;
-                                                    }}/>
-                                                </div>
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="col-md-12"><b>Postcode</b></label>
-                                                <div className="col-md-12">
-                                                    <input type="text" placeholder="ex: 1234"
-                                                           className="form-control form-control-line" ref={(c) => {
-                                                        this.postcode = c;
-                                                    }}/>
-                                                </div>
-                                            </div>
-                                            <div className="form-group">
-                                                <div className="col-sm-12">
-                                                    <button className="btn btn-success">Update Profile</button>
-                                                </div>
-                                            </div>
-                                        </form>
+                                        <ProfileOverview/>
+                                        <ProfileAddress/>
+                                        <ProfilePassword/>
+
                                     </div>
                                 </div>
                             </div>
@@ -293,45 +197,17 @@ class Profile extends Component {
 
                     </div>
 
+
+
+
+
+
                 </div>
+
+
             );
         }
         return null;
-        // return (
-        //     <div className="doNotRemoveDiv">
-        //         <h3 className="headingAlignment">User Profile</h3>
-        //         <Container>
-        //             <Row>
-        //                 <Col xs={3} md={3}>
-        //                     <div className="button-center">
-        //                         <Image
-        //                             src={images[imageName]}
-        //                             width={150}
-        //                             height={180}
-        //                         />
-        //                         <br/>
-        //                         <button type="button" class="btn btn-primary">Edit Profile</button>
-        //                         <br/><br/>
-        //                         <button type="button" class="btn btn-success">View Orders</button>
-        //                         <br/><br/>
-        //                     </div>
-        //                 </Col>
-        //                 <Col xs={3} md={6}>
-        //                     <br/>
-        //                     <b>First Name:</b> {this.props.profile[0].profileFirstName}
-        //                     <br/><br/>
-        //                     <b>Last Name:</b> {this.props.profile[0].profileLastName}
-        //                     <br/><br/>
-        //                     <b>Phone:</b> {this.props.profile[0].profilePhoneNumber}
-        //                     <br/><br/>
-        //                     <b>Address:</b> {this.props.profile[1].addressLine1 + ', '
-        //                 + this.props.profile[1].addressCity + ', ' + this.props.profile[1].addressCountry}
-        //                     <br/><br/>
-        //                 </Col>
-        //             </Row>
-        //         </Container>
-        //     </div>
-        // );
     }
 
 }
