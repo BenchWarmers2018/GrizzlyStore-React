@@ -8,6 +8,8 @@ import {connect} from "react-redux";
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Background from "../../images/images_essence/bg-img/breadcumb.jpg";
+import { withFormik, Form, Field } from 'formik'
+import * as Yup from 'yup';
 import Product from "../../images/profile-pic.png";
 import {fetchProfile} from "../../actions/profileActions";
 
@@ -48,6 +50,7 @@ class Profile extends Component {
         profileData.phone = this.phone.value;
         profileData.state = this.state.value;
         profileData.pw = this.PW.value;
+        profileData.accountID = this.props.profile[0].userAccount.idAccount;
         profileData.confirmPW = this.confirmPW.value;
         console.log(JSON.stringify(profileData) + " profile Data PB");
         var response = this.checkValidity(profileData);
@@ -77,6 +80,11 @@ class Profile extends Component {
         console.log(JSON.stringify(profileDetails) + '\nchecking validity');
         if (profileDetails.pw != "" && profileDetails.confirmPW != "") {
             (profileDetails.pw == profileDetails.confirmPW) ? (true) : (valid = false, err.push("Passwords don't match"));
+        }
+        if ((profileDetails.pw == "" && profileDetails.confirmPW != "") ||
+            (profileDetails.pw != "" && profileDetails.confirmPW == "")) {
+            valid = false;
+            err.push("Please fill both the password fields");
         }
         if (profileDetails.phone != "") {
             this.validatePhone(profileDetails.phone) == true ? true : (valid = false, err.push("Phone Number Invalid"));

@@ -41,7 +41,8 @@ const LoginForm = props => {
       </form>
     </Form>
   )
-}
+};
+
 const FormikApp = withFormik({
   mapPropsToValues({ emailAddress, password }) {
     return {
@@ -58,15 +59,15 @@ const FormikApp = withFormik({
     props.dispatch(authenticateUser(loginData));
     setSubmitting(false);
   }
-})(LoginForm)
+})(LoginForm);
 
 const displayError = error => {
   return (
     <div className='alert alert-danger'>{error}</div>
   )
-}
+};
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
     userAccount: state.accounts.userAccount,
     error: state.accounts.error,

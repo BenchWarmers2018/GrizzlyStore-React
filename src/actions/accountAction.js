@@ -29,7 +29,7 @@ export function authenticateUser(loginData) {
       .catch((error) => {
         console.log(error);
         if (error.message === "Network Error" )
-          dispatch({type: "SERVER_NOT_FOUND", payload: 'The server is currently offline. Please try again later.'})
+          dispatch({type: "SERVER_NOT_FOUND", payload: 'The server is currently offline. Please try again later.'});
         else
           dispatch({type: "AUTHENTICATE_USER_REJECTED", payload: error.response.data.errors})
       })
