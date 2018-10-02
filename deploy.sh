@@ -7,7 +7,7 @@ sudo cp -R /var/lib/jenkins/workspace/GrizzlyStore-React/build/* /opt/GrizzlySto
 
 if (( $(ps -ef | grep -v grep | grep nginx | wc -l) > 0))
 	then
-		echo "Nginx is already, need to restart it!"
+		echo "Restarting Nginx to reload web service!"
 		sudo systemctl stop nginx.service || true
 fi
 
