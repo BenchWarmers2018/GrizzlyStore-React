@@ -3,9 +3,11 @@ import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLi
 import '../../../node_modules/mdbreact/dist/css/mdb.css';
 import {Link} from "react-router-dom";
 import Logo from "../../images/images_sublime/GrizzlyStoreLogo.png";
+import LoginForm from "../shared/login/LoginForm.js";
 import { connect } from "react-redux"
 import { fetchAccounts } from "../../actions/accountAction"
 import GoogleLogin from "../shared/GoogleLogin.js";
+import { createAccount } from "../../actions/accountAction";
 
 class Header extends Component {
 
@@ -46,7 +48,7 @@ class Header extends Component {
         event.preventDefault();
         const user = {accountEmailAddress: this.state.emailAddress, accountPassword: this.state.password};
         console.log(user);
-        this.props.dispatch(fetchAccounts(user));
+        this.props.dispatch(createAccount(user));
 
     }
 
@@ -114,28 +116,7 @@ class Header extends Component {
                         </ul>
 
                         <div id="login">
-                            <form className="form">
-                                <p className="fieldset">
-                                    <label className="image-replace email" htmlFor="signin-email">E-mail</label>
-                                    <input className="full-width has-padding has-border" id="signin-email" type="email"
-                                           placeholder="E-mail"/>
-                                    <span
-                                        className="error-message">An account with this email address does not exist!</span>
-                                </p>
-
-                                <p className="fieldset">
-                                    <label className="image-replace password" htmlFor="signin-password">Password</label>
-                                    <input className="full-width has-padding has-border" id="signin-password"
-                                           type="password" placeholder="Password"/>
-                                    <span className="error-message">Wrong password! Try again.</span>
-                                </p>
-
-                                <p className="fieldset">
-                                    <input className="full-width" type="submit" value="Login"/>
-                                </p>
-                            </form>
-
-                            <p className="form-bottom-message"><a href="#0">Forgot your password?</a></p>
+                          <LoginForm loginError={this.props.error}/>
                         </div>
 
                         <div id="signup">
@@ -195,16 +176,16 @@ class Header extends Component {
                         <a href="#0" className="close-form">Close</a>
                     </div>
                 </div>
-
             </div>
         );
     }
 }
 
-function mapStateToProps(state, ownProps) {
-    accounts: state.accounts
-    googleaccoung: state.googleaccounts
-};
+const mapStateToProps = state => ({
+    accounts:state.accounts.accounts,
+    userAccount: state.accounts.userAccount,
+    error: state.accounts.error,
+});
+
 
 export default connect(mapStateToProps)(Header);
-
