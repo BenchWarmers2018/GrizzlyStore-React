@@ -5,7 +5,9 @@ import {Link} from "react-router-dom";
 import Logo from "../../images/images_sublime/GrizzlyStoreLogo.png";
 import LoginForm from "../shared/login/LoginForm.js";
 import { connect } from "react-redux"
-import { createAccount } from "../../actions/accountAction"
+import { fetchAccounts } from "../../actions/accountAction"
+import GoogleLogin from "../shared/GoogleLogin.js";
+import { createAccount } from "../../actions/accountAction";
 
 class Header extends Component {
 
@@ -16,6 +18,9 @@ class Header extends Component {
             isWideEnough: false,
             emailAddress: "",
             password: "",
+            googleEmailAddress:"",
+            isSignedIn : false,
+            user: null,
         };
         this.onClick = this.onClick.bind(this);
     }
@@ -51,6 +56,7 @@ class Header extends Component {
         return (
             <div>
                 <Navbar color="white" light expand="md" scrolling>
+                <GoogleLogin/>
                     <NavbarBrand href="/">
                         <div className="logo"><Link to='/'><img className="header_logo" src={Logo} alt=""/></Link></div>
                     </NavbarBrand>
@@ -170,7 +176,6 @@ class Header extends Component {
                         <a href="#0" className="close-form">Close</a>
                     </div>
                 </div>
-
             </div>
         );
     }
@@ -181,5 +186,6 @@ const mapStateToProps = state => ({
     userAccount: state.accounts.userAccount,
     error: state.accounts.error,
 });
+
 
 export default connect(mapStateToProps)(Header);

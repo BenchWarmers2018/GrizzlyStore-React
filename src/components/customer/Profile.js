@@ -20,6 +20,7 @@ class Profile extends Component {
             firstName: 'Grizzly',
             lastName: 'Store',
             mobile: '045555555',
+            image: 'http://bw.ausgrads.academy/images/polarwave.jpg' ,
             email: null,
             called: false,
             address: '95 Bear Avenue, Victoria, Australia 3000',
@@ -142,8 +143,8 @@ class Profile extends Component {
                                 <div className="card">
                                     <div className="card-body">
                                         <center class="m-t-30">
-                                            <Image
-                                                src={images[imageName]}
+                                            <img
+                                                src={this.props.profile[0].profileImage}
                                                 width={150}
                                                 height={180}
                                             />
