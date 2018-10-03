@@ -4,10 +4,11 @@ import '../../../node_modules/mdbreact/dist/css/mdb.css';
 import {Link} from "react-router-dom";
 import Logo from "../../images/images_sublime/GrizzlyStoreLogo.png";
 import LoginForm from "../shared/login/LoginForm.js";
-import { connect } from "react-redux"
-import { fetchAccounts } from "../../actions/accountAction"
+import { connect } from "react-redux";
+import { fetchAccounts } from "../../actions/accountAction";
 import GoogleLogin from "../shared/GoogleLogin.js";
 import { createAccount } from "../../actions/accountAction";
+import firebase from "firebase";
 
 class Header extends Component {
 
@@ -21,6 +22,7 @@ class Header extends Component {
             googleEmailAddress:"",
             isSignedIn : false,
             user: null,
+            current: ""
         };
         this.onClick = this.onClick.bind(this);
     }
@@ -53,10 +55,10 @@ class Header extends Component {
     }
 
     render() {
+        this.state.current = firebase.auth().currentUser;
         return (
             <div>
                 <Navbar color="white" light expand="md" scrolling>
-                <GoogleLogin/>
                     <NavbarBrand href="/">
                         <div className="logo"><Link to='/'><img className="header_logo" src={Logo} alt=""/></Link></div>
                     </NavbarBrand>
@@ -95,8 +97,10 @@ class Header extends Component {
                             <NavItem>
                                 <NavLink to="/cart"><i className="fa fa-shopping-cart"></i>CART</NavLink>
                             </NavItem>
+
+                            {/*Hides the login option when logged in*/}
                             <NavItem className="main-nav">
-                                <NavLink to="/" >LOGIN</NavLink>
+                                { this.state.isSignedIn ? <NavLink to="/" >LOGIN</NavLink> : <NavLink to="/" >{this.state.current.displayName}</NavLink> }
                             </NavItem>
                         </NavbarNav>
                     </Collapse>
@@ -110,7 +114,6 @@ class Header extends Component {
 
                             {/*button for google log in here*/}
 
-                            <div className="g-signin2" data-onsuccess="onSignIn"></div>
                             <li><a href="#">Sign in</a></li>
                             <li><a href="#">New account</a></li>
                         </ul>
