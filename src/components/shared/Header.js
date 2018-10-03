@@ -3,8 +3,13 @@ import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLi
 import '../../../node_modules/mdbreact/dist/css/mdb.css';
 import {Link, Redirect} from "react-router-dom";
 import Logo from "../../images/images_sublime/GrizzlyStoreLogo.png";
+import LoginForm from "../shared/login/LoginForm.js";
+import { connect } from "react-redux"
+import { fetchAccounts } from "../../actions/accountAction"
+import GoogleLogin from "../shared/GoogleLogin.js";
+import { createAccount } from "../../actions/accountAction";
 
-class Header2 extends Component {
+class Header extends Component {
 
     constructor(props) {
         super(props);
@@ -12,6 +17,11 @@ class Header2 extends Component {
             collapse: false,
             isWideEnough: false,
             redirect: false,
+            emailAddress: "",
+            password: "",
+            googleEmailAddress:"",
+            isSignedIn : false,
+            user: null,
         };
         this.onClick = this.onClick.bind(this);
     }
@@ -28,12 +38,33 @@ class Header2 extends Component {
         })
     }
 
+    handleChangeEmail = (event1) => {
+        this.setState({emailAddress: event1.target.value});
+        console.log('changed');
+        console.log(this.state.emailAddress);
+        console.log(this.state.password);
+    }
+    handleChangePassword = (event2) => {
+        this.setState({password: event2.target.value});
+        console.log('changed');
+        console.log(this.state.emailAddress);
+        console.log(this.state.password);
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        const user = {accountEmailAddress: this.state.emailAddress, accountPassword: this.state.password};
+        console.log(user);
+        this.props.dispatch(createAccount(user));
+
+    }
 
     render() {
 
         return (
             <div>
                 <Navbar color="white" light expand="md" scrolling>
+                <GoogleLogin/>
                     <NavbarBrand href="/">
                         <div className="logo"><Link to='/'><img className="header_logo" src={Logo} alt=""/></Link></div>
                     </NavbarBrand>
@@ -81,9 +112,9 @@ class Header2 extends Component {
 
                 {/* Modal box starts here */}
 
-                <div class="user-modal">
-                    <div class="user-modal-container">
-                        <ul class="switcher">
+                <div className="user-modal">
+                    <div className="user-modal-container">
+                        <ul className="switcher">
 
                             {/*button for google log in here*/}
 
@@ -93,49 +124,42 @@ class Header2 extends Component {
                         </ul>
 
                         <div id="login">
-                            <form className="form">
-                                <p className="fieldset">
-                                    <label className="image-replace email" htmlFor="signin-email">E-mail</label>
-                                    <input className="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail" />
-                                    <span className="error-message">An account with this email address does not exist!</span>
-                                </p>
-
-                                <p className="fieldset">
-                                    <label className="image-replace password" htmlFor="signin-password">Password</label>
-                                    <input className="full-width has-padding has-border" id="signin-password" type="password"  placeholder="Password" />
-                                    <span className="error-message">Wrong password! Try again.</span>
-                                </p>
-
-                                <p className="fieldset">
-                                    <input className="full-width" type="submit" value="Login" />
-                                </p>
-                            </form>
-
-                            <p className="form-bottom-message"><a href="#0">Forgot your password?</a></p>
+                          <LoginForm loginError={this.props.error}/>
                         </div>
 
                         <div id="signup">
-                            <form className="form">
-                                <p className="fieldset">
-                                    <label className="image-replace username" htmlFor="signup-username">Username</label>
-                                    <input className="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username" />
-                                    <span className="error-message">Your username can only contain numeric and alphabetic symbols!</span>
-                                </p>
+                            <form className="form" onSubmit={this.handleSubmit}>
+                                {/*<p className="fieldset">*/}
+                                {/*<label className="image-replace username" htmlFor="signup-username">Username</label>*/}
+                                {/*<input className="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username" />*/}
+                                {/*<span className="error-message">Your username can only contain numeric and alphabetic symbols!</span>*/}
+                                {/*</p>*/}
 
                                 <p className="fieldset">
                                     <label className="image-replace email" htmlFor="signup-email">E-mail</label>
-                                    <input className="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail" />
-                                    <span className="error-message">Enter a valid email address!</span>
+                                    <input className="full-width has-padding has-border" id="signup-email" type="email"
+                                           placeholder="E-mail" value={this.state.emailAddress}
+                                           onChange={this.handleChangeEmail} requried/>
+                                    {/*<span className="error-message">Enter a valid email address!</span>*/}
                                 </p>
 
                                 <p className="fieldset">
                                     <label className="image-replace password" htmlFor="signup-password">Password</label>
-                                    <input className="full-width has-padding has-border" id="signup-password" type="password"  placeholder="Password" />
-                                    <span className="error-message">Your password has to be at least 6 characters long!</span>
+                                    <input className="full-width has-padding has-border" id="signup-password"
+                                           type="password" placeholder="Password" value={this.state.password}
+                                           onChange={this.handleChangePassword} required/>
+                                    {/*<span className="error-message">Your password has to be at least 6 characters long!</span>*/}
+                                </p>
+                                <p className="fieldset">
+                                    <label className="image-replace password"
+                                           htmlFor="signup-password">Password</label>
+                                    <input className="full-width has-padding has-border" id="signup-password-confirm"
+                                           type="password" placeholder="Confirm Password" required/>
+                                    {/*<span className="error-message">Your password has to be at least 6 characters long!</span>*/}
                                 </p>
 
                                 <p className="fieldset">
-                                    <input className="full-width has-padding" type="submit" value="Create account" />
+                                    <input className="full-width has-padding" type="submit" value="Create account"/>
                                 </p>
                             </form>
 
@@ -160,11 +184,16 @@ class Header2 extends Component {
                         <a href="#0" className="close-form">Close</a>
                     </div>
                 </div>
-
             </div>
         );
     }
 }
 
-export default Header2;
+const mapStateToProps = state => ({
+    accounts:state.accounts.accounts,
+    userAccount: state.accounts.userAccount,
+    error: state.accounts.error,
+});
 
+
+export default connect(mapStateToProps)(Header);
