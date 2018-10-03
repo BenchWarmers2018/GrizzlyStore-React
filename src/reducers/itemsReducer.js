@@ -1,5 +1,31 @@
+import {
+    FETCH_ITEMS,
+    FETCH_ITEMS_PAGE_FULFILLED,
+    FETCH_ITEMS_REJECTED,
+    FETCH_ITEMS_FULFILLED,
+    FETCH_ITEMS_PAGE_REJECTED,
+    FETCH_SINGLE_ITEM,
+    FETCH_SINGLE_ITEM_REJECTED,
+    FETCH_ITEMS_PAGE,
+    FETCH_SINGLE_ITEM_FULFILLED,
+} from "../CONSTANTS";
+
 const initialState = {
     items: [],
+    singleItem : [],
+    pagedItems:[],
+    pageProps : {
+        last: false,
+        totalPages: undefined,
+        totalElements: undefined,
+        size: undefined,
+        number: undefined,
+        numberOfElements: undefined,
+        first: false,
+    },
+
+    leastItemPrice: undefined,
+    mostItemPrice: undefined,
     fetching: false,
     fetched: false,
     error: null,
@@ -9,20 +35,62 @@ const initialState = {
 export default function reducer(state=initialState, action) {
 
     switch (action.type) {
-        case "FETCH_ITEMS": {
-            return {...state, fetching: true}
-        }
-        case "FETCH_ITEMS_REJECTED": {
+        //Fetch items cases
+        case FETCH_ITEMS: {
+            return {...state, fetching: true}}
+        case FETCH_ITEMS_REJECTED: {
             return {...state, fetching: false, error: action.payload}
         }
-        case "FETCH_ITEMS_FULFILLED": {
-            return {
+        case FETCH_ITEMS_FULFILLED:
+            return{
                 ...state,
                 fetching: false,
                 fetched: true,
                 items: action.payload,
             }
+
+            //Fetch single item cases.
+        case FETCH_SINGLE_ITEM:
+            return {...state, fetching: true}
+
+        case FETCH_SINGLE_ITEM_REJECTED: {
+            return {...state, fetching: false, error: action.payload}
         }
+        case FETCH_SINGLE_ITEM_FULFILLED:{
+            return{
+                ...state,
+                fetching: false,
+                fetched: true,
+                singleItem: action.payload,
+            }
+        }
+
+
+        case FETCH_ITEMS_PAGE: {
+            return {...state, fetching: true}
+        }
+        case FETCH_ITEMS_PAGE_REJECTED: {
+            return {...state, fetching: false, error: action.payload}
+        }
+        case FETCH_ITEMS_PAGE_FULFILLED: {
+            return {
+                ...state,
+                fetching: false,
+                fetched: true,
+                pagedItems: action.payload.content,
+                pageProps : {last: action.payload.last,
+                    totalPages: action.payload.totalPages,
+                    totalElements: action.payload.totalElements,
+                    size: action.payload.size,
+                    number: action.payload.number+1,
+                    numberOfElements: action.payload.numberOfElements,
+                    first: action.payload.first,},
+                leastItemPrice: action.payload.size,
+                mostItemPrice: action.payload.numberOfElements,
+            }
+        }
+
+
         case "ADD_ITEM": {
             return {
                 ...state,
