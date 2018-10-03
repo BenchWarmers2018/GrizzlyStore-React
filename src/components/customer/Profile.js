@@ -136,7 +136,7 @@ class Profile extends Component {
                                     <div className="card-body">
                                         <center class="m-t-30">
                                             <img
-                                                src={this.props.profile[0].profileFirstName}
+                                                src={this.props.profile[0].profileImage}
                                                 width={150}
                                                 height={180}
                                             />
