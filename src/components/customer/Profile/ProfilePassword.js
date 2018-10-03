@@ -7,9 +7,9 @@ import axios from 'axios';
 import {connect} from "react-redux";
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import Background from "../../images/images_essence/bg-img/breadcumb.jpg";
-import Product from "../../images/profile-pic.png";
-import {fetchProfile} from "../../actions/profileActions";
+import Background from "../../../images/images_essence/bg-img/breadcumb.jpg";
+import Product from "../../../images/profile-pic.png";
+import {fetchProfile} from "../../../actions/profileActions";
 
 
 class ProfilePassword extends Component {
