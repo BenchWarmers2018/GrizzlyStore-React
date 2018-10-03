@@ -8,7 +8,7 @@ import Cart from "./customer/Cart";
 import Checkout from "./customer/Checkout";
 import OrderConfirmation from "./customer/OrderConfirmation";
 import NotFound from "./shared/NotFound.js";
-import Profile from "./customer/Profile";
+import Profile from "./customer/Profile/Profile";
 
 
 class Main extends Component {
