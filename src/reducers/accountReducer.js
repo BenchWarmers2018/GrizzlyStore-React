@@ -36,7 +36,7 @@ export default function reducer(state=initialState, action){
             ...state,
             authenticating: false,
             authenticated: true,
-            account: action.payload,
+            userAccount: action.payload,
           }
         }
         case "SERVER_NOT_FOUND": {
