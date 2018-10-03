@@ -7,6 +7,8 @@ import Main from "./components/Main";
 import AdminHeader from "./components/admin/pages/adminHeader";
 import SideBar from "./components/admin/pages/sidebar";
 import AdminMain from "./components/admin/adminMain"
+import {BrowserRouter} from "react-router-dom";
+import Provider from "react-redux/es/components/Provider";
 
 
 class App extends Component {
@@ -21,6 +23,7 @@ class App extends Component {
     render()
     {
         return (
+            <BrowserRouter>
                 <div className="super_container">
                     {this.state.isAdmin ?
                         <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
@@ -36,6 +39,7 @@ class App extends Component {
                     }
                     <Footer/>
                 </div>
+            </BrowserRouter>
 
         );
     }

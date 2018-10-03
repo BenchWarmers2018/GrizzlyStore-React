@@ -1,3 +1,32 @@
+import {FETCH_ITEMS, FETCH_ITEMS_PAGE_FULFILLED, FETCH_ITEMS_REJECTED, FETCH_ITEMS_PAGE_REJECTED, URL} from "../CONSTANTS";
+import axios from "axios";
+
+
+
+export function fetchFilteredItems(text, minPrice, maxPrice, sortBy, catName, page, size) {
+    return function (dispatch) {
+
+        page = page - 1;
+        if(sortBy.length <=0)
+        {
+            sortBy = "title";
+        }
+        dispatch({type: FETCH_ITEMS});
+
+            console.log(URL+"/items/page/filtered?text="+text+"&minPrice="+minPrice+"&maxPrice="+maxPrice+"&sortBy="+sortBy+"&name="+catName+"&size="+size+"&page="+page)
+
+            axios.get(URL+"/items/page/filtered?text="+text+"&minPrice="+minPrice+"&maxPrice="+maxPrice+"&sortBy="+sortBy+"&name="+catName+"&size="+size+"&page="+page)
+                .then((response)=> {
+                    dispatch({type: FETCH_ITEMS_PAGE_FULFILLED, payload: response.data});
+                })
+                .catch((err)=> {
+                    dispatch({type: FETCH_ITEMS_PAGE_REJECTED, payload: err})
+                })
+
+    }
+}
+
+//This functions is not in use for now.
 export const getVisibleItems = (items, { text, category, minPrice, maxPrice, sortBy }) => {
     return items.filter(item => {
         const textMatch =
@@ -6,8 +35,8 @@ export const getVisibleItems = (items, { text, category, minPrice, maxPrice, sor
 
         const minPriceMatch = typeof minPrice !== 'number' || minPrice <= item.itemPrice;
         const maxPriceMatch = typeof maxPrice !== 'number' || item.itemPrice <= maxPrice;
-
-        const categoryMatch = (item.category.categoryName.toLowerCase()===category) || (category==="");
+        const categoryMatch = true;
+        //categoryMatch = (item.category.categoryName.toLowerCase()===category) || (category==="");
 
         return textMatch && minPriceMatch && maxPriceMatch && categoryMatch;
     }).sort((item1, item2) => {
@@ -21,5 +50,7 @@ export const getVisibleItems = (items, { text, category, minPrice, maxPrice, sor
         }
     });
 }
+
+
 
 {/* End of sorting and filtering */}

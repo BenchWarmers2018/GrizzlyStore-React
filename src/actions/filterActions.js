@@ -24,6 +24,11 @@ export const sortBy = (sortType) => ({
     sortType,
 });
 
+export const page = (pageNumber) => ({
+   type : "PAGE",
+   pageNumber,
+});
+
 export const clear = () => ({
     type: 'CLEAR',
     defaultFilter: filterInitialState,
@@ -33,6 +38,7 @@ const filterInitialState = {
     text:'',
     chosenCategory: '',
     sortType: '',
-    minPrice: undefined,
-    maxPrice: undefined,
+    minPrice: 0,
+    maxPrice: 0,
+    page: 1,
 };

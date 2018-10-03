@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
 import '../../../node_modules/mdbreact/dist/css/mdb.css';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import Logo from "../../images/images_sublime/GrizzlyStoreLogo.png";
 
 class Header2 extends Component {
@@ -11,6 +11,7 @@ class Header2 extends Component {
         this.state = {
             collapse: false,
             isWideEnough: false,
+            redirect: false,
         };
         this.onClick = this.onClick.bind(this);
     }
@@ -21,7 +22,15 @@ class Header2 extends Component {
         });
     }
 
+    submitForm = (e) => {
+        this.setState({
+            redirect: true
+        })
+    }
+
+
     render() {
+
         return (
             <div>
                 <Navbar color="white" light expand="md" scrolling>
@@ -35,7 +44,7 @@ class Header2 extends Component {
                                 <NavLink to="/">HOME</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink to="/items">ITEMS</NavLink>
+                                <NavLink to="/items/all">ITEMS</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink to="/sale">SALE</NavLink>
@@ -56,7 +65,7 @@ class Header2 extends Component {
                         </NavbarNav>
                         <NavbarNav right>
                             <NavItem>
-                                <form className="form-inline md-form mt-0">
+                                <form onSubmit={this.submitForm} className="form-inline md-form mt-0">
                                     <input className="form-control mr-sm-2 mb-0 text-black" type="text" placeholder="Search" aria-label="Search"/>
                                 </form>
                             </NavItem>
