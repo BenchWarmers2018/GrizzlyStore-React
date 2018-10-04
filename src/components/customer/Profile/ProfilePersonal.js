@@ -64,14 +64,14 @@ class ProfilePersonal extends Component{
     render(){
         return (
             <div>
-                <h4 className="card-subtitle" style={{textAlign: 'center', color: 'black'}}>Edit Address </h4>
+                <h4 className="card-subtitle card-subtitle-profile" style={{textAlign: 'center', color: 'black'}}>Personal Details</h4>
 
                 <br/>
 
                 <form className="form-horizontal form-material" onSubmit={this.changeProfile}>
 
-                    <div className="form-group">
-                        <label className="col-md-12"><b>First Name</b></label>
+                    <div className="form-group form-group-personal">
+                        <label className="col-md-12 text-muted label-padding-left">FIRST NAME</label>
                         <div className="col-md-12">
                             <input type="text" placeholder={this.props.profile[0].profileFirstName}
                                    className="form-control form-control-line" ref={(c) => {
@@ -80,8 +80,8 @@ class ProfilePersonal extends Component{
                         </div>
                     </div>
 
-                    <div className="form-group">
-                        <label className="col-md-12"><b>Last Name</b></label>
+                    <div className="form-group form-group-personal">
+                        <label className="col-md-12 text-muted label-padding-left">LAST NAME</label>
                         <div className="col-md-12">
                             <input type="text" placeholder={this.props.profile[0].profileLastName}
                                    className="form-control form-control-line" ref={(c) => {
@@ -90,8 +90,8 @@ class ProfilePersonal extends Component{
                         </div>
                     </div>
 
-                    <div className="form-group">
-                        <label className="col-md-12"><b>Phone No.</b></label>
+                    <div className="form-group form-group-personal">
+                        <label className="col-md-12 text-muted label-padding-left">PHONE NUMBER</label>
                         <div className="col-md-12">
                             <input type="text" placeholder={this.props.profile[0].profilePhoneNumber}
                                    className="form-control form-control-line" ref={(c) => {
@@ -102,7 +102,7 @@ class ProfilePersonal extends Component{
 
                     <div className="form-group">
                         <div className="col-sm-12">
-                            <button className="btn btn-success">Update Personal Details</button>
+                            <button className="btn btn-success-muted ">UPDATE</button>
                         </div>
                     </div>
 

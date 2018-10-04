@@ -21,7 +21,7 @@ class ProfileOverview extends Component {
         let state = this.props.profile[1].addressState;
         let country = this.props.profile[1].addressCountry;
         let phone = this.props.profile[0].profilePhoneNumber;
-        let email = this.props.profile[0].profileEmailAddress;
+        let email = this.props.profile[0].userAccount.accountEmailAddress;
 
         //Piecing together the address
         let combinedAddressString = "";
@@ -29,42 +29,46 @@ class ProfileOverview extends Component {
         //If Unit Number doesn't exist
         if(unitNo != null && streetNo != null){
             combinedAddressString =
-                <h6>
+                <h5 className="profile-overview-field">
                     {unitNo}/{streetNo} {street} {streetType}<br/>
                     {city}, {postcode}<br/>
                     {state}, {country}
-                </h6>;
+                </h5>;
         }
         //Checks if Address exists or not, because if StreetNo exists, address also has to exist
         else if (streetNo != null){
             combinedAddressString =
-                <h6>
+                <h5 className="profile-overview-field">
                     {streetNo} {street} {streetType}<br/>
                     {city}, {postcode}<br/>
                     {state}, {country}
-                </h6>;
+                </h5>;
         }
         //Prints "N/A" if address doesn't exist
         else{
             combinedAddressString =
-                <h6>N/A</h6>;
+                <h5 className="profile-overview-field">N/A</h5>;
         }
 
         return (
             <div>
-                <div className="card-body">
-                    <h4 className="card-subtitle" style={{textAlign: 'center', color: 'black'}}>Profile Overview</h4>
-                    <br/>
+                <h4 className="card-subtitle card-subtitle-profile" style={{textAlign: 'center', color: 'black'}}>Profile Overview</h4>
+                <br/>
+                <div className="profile-overview-mainDiv">
+                    <div className="profile-overview-field-div">
+                        <label className="text-muted">EMAIL ADDRESS</label>
+                        <h5 className="profile-overview-field">{email}</h5>
+                    </div>
 
-                    <small className="text-muted">Email address</small>
-                    <h6>{email}</h6>
+                    <div className="profile-overview-field-div">
+                        <label className="text-muted p-t-30 db">CONTACT PHONE</label>
+                        <h5 className="profile-overview-field">{phone}</h5>
+                    </div>
 
-                    <small className="text-muted p-t-30 db">Phone</small>
-                    <h6>{phone}</h6>
-
-                    <small className="text-muted p-t-30 db">Primary Address</small>
-                    {combinedAddressString}
-
+                    <div className="profile-overview-field-div">
+                        <label className="text-muted p-t-30 db">PRIMARY ADDRESS</label>
+                        {combinedAddressString}
+                    </div>
                 </div>
             </div>
         );

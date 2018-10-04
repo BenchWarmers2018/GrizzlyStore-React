@@ -53,60 +53,40 @@ class ProfileAddress extends Component{
 
         return (
             <div>
-                <h4 className="card-subtitle" style={{textAlign: 'center', color: 'black'}}>Edit
+                <h4 className="card-subtitle card-subtitle-profile" style={{textAlign: 'center', color: 'black'}}>Edit
                     Address</h4>
                 <br/>
                 <form className="form-horizontal form-material" onSubmit={this.changeProfile}>
-                    <div className="form-group">
-                        <label className="col-md-12"><b>Phone No.</b></label>
+                    <div className=" form-group form-group-address label-address-unitno">
+                        <label className="col-md-12 text-muted label-padding-left">UNIT NUMBER<small> (optional)</small></label>
                         <div className="col-md-12">
-                            <input type="text" placeholder={this.props.profile[0].profilePhoneNumber}
-                                   className="form-control form-control-line" ref={(c) => {
-                                this.phone = c;
-                            }}/>
-                        </div>
-                    </div>
-
-                    <div className="form-group">
-                        <label className="col-md-12"><b>Unit Number</b></label>
-                        <div className="col-md-12">
-                            <input type="text" placeholder={this.props.profile[1].unitNo}
+                            <input type="text" placeholder={this.props.profile[1].addressUnitNo}
                                    className="form-control form-control-line" ref={(c) => {
                                 this.unitNo = c;
                             }}/>
                         </div>
                     </div>
-                    <div className="form-group">
-                        <label className="col-md-12"><b>Street Number</b></label>
+                    <div className=" form-group  form-group-address label-address-streetno">
+                        <label className="col-md-12 text-muted label-padding-left">STREET NUMBER</label>
                         <div className="col-md-12">
-                            <input type="text" placeholder={this.props.profile[1].streetNo}
+                            <input type="text" placeholder={this.props.profile[1].addressStreetNo}
                                    className="form-control form-control-line" ref={(c) => {
                                 this.streetNo = c;
                             }}/>
                         </div>
                     </div>
-                    <div className="form-group">
-                        <label className="col-md-12"><b>Street</b></label>
+                    <div className="form-group form-group-address">
+                        <label className="col-md-12 text-muted label-padding-left">STREET NAME</label>
                         <div className="col-md-12">
-                            <input type="text" placeholder={this.props.profile[1].street}
+                            <input type="text" placeholder={this.props.profile[1].addressStreet}
                                    className="form-control form-control-line" ref={(c) => {
                                 this.street = c;
                             }}/>
                         </div>
                     </div>
 
-                    <div className="form-group">
-                        <label className="col-md-12"><b>Street Type</b></label>
-                        <div className="col-md-12">
-                            <input type="text" placeholder={this.props.profile[1].streetType}
-                                   className="form-control form-control-line" ref={(c) => {
-                                this.streetType = c;
-                            }}/>
-                        </div>
-                    </div>
-
-                    <div className="form-group">
-                        <label className="col-sm-12"><b>Street Type</b></label>
+                    <div className="form-group form-group-address">
+                        <label className="col-sm-12 text-muted label-padding-left">STREET TYPE</label>
                         <div className="col-sm-12">
                             <select className="form-control form-control-line"
                                     value={streetTypeString}
@@ -145,28 +125,28 @@ class ProfileAddress extends Component{
                     </div>
 
 
-                    <div className="form-group">
-                        <label className="col-sm-12"><b>City</b></label>
+                    <div className="form-group form-group-address">
+                        <label className="col-sm-12 text-muted label-padding-left">CITY</label>
                         <div className="col-sm-12">
-                            <input type="text" placeholder={this.props.profile[1].city}
+                            <input type="text" placeholder={this.props.profile[1].addressCity}
                                    className="form-control form-control-line" ref={(c) => {
                                 this.city = c;
                             }}/>
                         </div>
                     </div>
 
-                    <div className="form-group">
-                        <label className="col-md-12"><b>Postcode</b></label>
+                    <div className="form-group form-group-address">
+                        <label className="col-md-12 text-muted label-padding-left">POSTCODE</label>
                         <div className="col-md-12">
-                            <input type="text" placeholder={this.props.profile[1].postcode}
+                            <input type="text" placeholder={this.props.profile[1].addressPostcode}
                                    className="form-control form-control-line" ref={(c) => {
                                 this.postcode = c;
                             }}/>
                         </div>
                     </div>
 
-                    <div className="form-group">
-                        <label className="col-sm-12"><b>Select State</b></label>
+                    <div className="form-group form-group-address">
+                        <label className="col-sm-12 text-muted label-padding-left">STATE</label>
                         <div className="col-sm-12">
                             <select className="form-control form-control-line" value={stateString} ref={(c) => {
                                 this.state = c;
@@ -183,8 +163,8 @@ class ProfileAddress extends Component{
                         </div>
                     </div>
 
-                    <div className="form-group">
-                        <label className="col-sm-12"><b>Select Country</b></label>
+                    <div className="form-group form-group-address">
+                        <label className="col-sm-12 text-muted label-padding-left">COUNTRY</label>
                         <div className="col-sm-12">
                             <select className="form-control form-control-line" ref={(c) => {
                                 this.country = c;
@@ -196,7 +176,7 @@ class ProfileAddress extends Component{
 
                     <div className="form-group">
                         <div className="col-sm-12">
-                            <button className="btn btn-success">Update Address</button>
+                            <button className="btn btn-success-muted">UPDATE</button>
                         </div>
                     </div>
                 </form>
