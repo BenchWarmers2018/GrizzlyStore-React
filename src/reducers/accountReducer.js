@@ -1,6 +1,6 @@
 const initialState = {
     accounts: [],
-    account: null,
+    userAccount: null,
     fetching: false,
     fetched: false,
     authenticating: false,
@@ -36,7 +36,7 @@ export default function reducer(state=initialState, action){
             ...state,
             authenticating: false,
             authenticated: true,
-            userAccount: action.payload,
+            account: action.payload,
           }
         }
         case "SERVER_NOT_FOUND": {

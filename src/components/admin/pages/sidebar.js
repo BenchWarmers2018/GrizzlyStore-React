@@ -21,7 +21,7 @@ class sidebar extends Component {
 
     toggle() {
         this.setState({
-            modal: !this.state.modal,
+            modal: !this.state.modal
         });
     }
 
