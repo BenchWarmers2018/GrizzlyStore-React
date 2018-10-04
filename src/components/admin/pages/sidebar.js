@@ -116,9 +116,9 @@ class sidebar extends Component {
 }
 
 const mapStateToProps = state => ({
-    categories:state.categories.categories,
-    addCategoryMessage: state.categories.messages,
-    categoryStatusAdded:state.categories.added
+    categories:state.category.categories,
+    addCategoryMessage: state.category.messages,
+    categoryStatusAdded:state.category.added
 });
 
 export default connect(mapStateToProps)(sidebar);

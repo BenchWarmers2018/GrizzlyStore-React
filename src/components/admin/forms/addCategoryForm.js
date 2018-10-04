@@ -33,7 +33,7 @@ const AddCategoryForm = props => {
         {/* Description Field */}
         <p className="fieldset">
           <label htmlFor="categoryDescription">Description</label>
-          <Field className="full-width has-padding has-border" name="categoryDescription" type="textarea" placeholder="Category Description" value={values.categoryDescription} onChange={handleChange} onBlur={handleBlur}/>
+          <Field className="full-width has-padding has-border" name="categoryDescription" component="textarea" placeholder="Category Description" value={values.categoryDescription} onChange={handleChange} onBlur={handleBlur}/>
           {touched.categoryDescription && errors.categoryDescription && <span><p className="text-danger">{errors.categoryDescription}</p></span>}
         </p>
 
@@ -64,8 +64,8 @@ const FormikApp = withFormik({
 
 function mapStateToProps(state) {
   return {
-    categories: state.categories.categories,
-    errors: state.categories.errors,
+    categories: state.category.category,
+    errors: state.category.errors,
   }
 };
 
