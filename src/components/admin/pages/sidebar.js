@@ -84,7 +84,7 @@ class sidebar extends Component {
                             <Modal isOpen={this.state.modal} toggle={this.toggle} className="cascading-modal">
                                 <div className="modal-header primary-color white-text">
                                     <h4 className="title">
-                                        <Fa className="fa fa-pencil" /> Add new item</h4>
+                                        <Fa className="fa fa-pencil" /> Add new ITEM</h4>
                                     <button type="button" className="close" onClick={this.toggle}>
                                         <span aria-hidden="true">×</span>
                                     </button>

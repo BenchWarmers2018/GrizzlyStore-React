@@ -1,6 +1,6 @@
 const initialState = {
     accounts: [],
-    userAccount: null,
+    account: null,
     fetching: false,
     fetched: false,
     authenticating: false,
