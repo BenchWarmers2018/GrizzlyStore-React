@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 import { withFormik, Form, Field } from 'formik'
 import * as Yup from 'yup';
 import { connect } from "react-redux"
-import { addCategory } from "../../../actions/categoryAction"
+import { addCategory } from "../../../actions/categoriesAction"
 
 const AddCategoryForm = props => {
   const {
