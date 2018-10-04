@@ -7,6 +7,8 @@ import Main from "./components/Main";
 import AdminHeader from "./components/admin/pages/adminHeader";
 import SideBar from "./components/admin/pages/sidebar";
 import AdminMain from "./components/admin/adminMain"
+import {BrowserRouter} from "react-router-dom";
+import Provider from "react-redux/es/components/Provider";
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import axios from "axios";
@@ -15,7 +17,7 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-            isAdmin : false,
+            isAdmin : true,
             isSignedIn : false,
             user: null
         }
@@ -23,28 +25,10 @@ class App extends Component {
 
 
 
-    componentDidMount() {
-
-        // firebase.auth().onAuthStateChanged(user => {
-        //     this.setState({
-        //         isSignedIn : !!user
-        //     })
-        //
-        //     axios.post("http://localhost:8083/googlelogin/googleauthenticate",user)
-        //         .then((res) => {
-        //             console.log(user.uid);
-        //             console.log(user.displayName);
-        //             console.log(user.email);
-        //         })
-        //     ;
-        //
-        // })
-
-    }
-
-        render()
-        {
-            return (
+    render()
+    {
+        return (
+            <BrowserRouter>
                 <div className="super_container">
 
                     {/*{*/}
@@ -82,6 +66,7 @@ class App extends Component {
                     }
                     <Footer/>
                 </div>
+            </BrowserRouter>
 
             );
         }

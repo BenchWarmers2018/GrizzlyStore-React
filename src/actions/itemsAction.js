@@ -1,4 +1,15 @@
 import axios from 'axios';
+import {
+    FETCH_ITEMS,
+    FETCH_ITEMS_PAGE_FULFILLED,
+    FETCH_ITEMS_REJECTED,
+    FETCH_ITEMS_FULFILLED,
+    URL,
+    FETCH_SINGLE_ITEM,
+    FETCH_SINGLE_ITEM_FULFILLED,
+    FETCH_SINGLE_ITEM_REJECTED,
+    FETCH_ITEMS_PAGE, FETCH_ITEMS_PAGE_REJECTED
+} from "../CONSTANTS";
 
 // export function fetchItems() {
 //     return function(dispatch) {
@@ -13,6 +24,51 @@ import axios from 'axios';
 //             })
 //     }
 // }
+
+export function fetchSingleItem(id) {
+    return function(dispatch) {
+        dispatch({type: FETCH_SINGLE_ITEM});
+
+        axios.get(URL + "/items/id?itemId="+ id)
+            .then((response) => {
+                console.log(response.data);
+                dispatch({type: FETCH_SINGLE_ITEM_FULFILLED, payload: response.data.entities})
+            })
+            .catch((err) => {
+                dispatch({type: FETCH_SINGLE_ITEM_REJECTED, payload: err})
+            })
+    }
+}
+
+export function fetchItemsPage(page, size) {
+    return function(dispatch) {
+        dispatch({type: FETCH_ITEMS_PAGE});
+
+        page = page -1;
+        axios.get("http://localhost:8080/items/page?page="+ page + "&size=" + size)
+            .then((response) => {
+                dispatch({type: FETCH_ITEMS_PAGE_FULFILLED, payload: response.data.entities})
+            })
+            .catch((err) => {
+                dispatch({type: FETCH_ITEMS_PAGE_REJECTED, payload: err})
+            })
+    }
+}
+
+export function fetchCategoryItems(catName, page, size) {
+    return function (dispatch) {
+
+        dispatch({type: FETCH_ITEMS_PAGE});
+
+        axios.get(URL+"/items/page/categoryName?name="+catName+"&size="+size+"&page="+page)
+            .then((response)=> {
+                dispatch({type: FETCH_ITEMS_PAGE_FULFILLED, payload: response.data});
+            })
+            .catch((err)=> {
+                dispatch({type: FETCH_ITEMS_PAGE_REJECTED, payload: err})
+            })
+    }
+}
 
 const tempArr = [
     {
@@ -135,72 +191,12 @@ const tempArr = [
         "itemSalePercentage": 0,
         "lastModified": "2018-09-20T13:09:49.000+0000"
     },
-    {
-        "idItem": 15,
-        "category": {
-            "idCategory": 5,
-            "categoryName": "Toys",
-            "categoryDescription": "Come and bear witness to the most adorable collection of bear themed toys!",
-            "last_modified": "2018-09-20T13:09:49.000+0000"
-        },
-        "itemName": "Meddy9",
-        "itemDescription": "Cutest teddy bear in Saturn",
-        "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 12,
-        "itemSalePercentage": 0,
-        "lastModified": "2018-09-20T13:09:49.000+0000"
-    },
-    {
-        "idItem": 16,
-        "category": {
-            "idCategory": 5,
-            "categoryName": "Toys",
-            "categoryDescription": "Come and bear witness to the most adorable collection of bear themed toys!",
-            "last_modified": "2018-09-20T13:09:49.000+0000"
-        },
-        "itemName": "Ceddy10",
-        "itemDescription": "Cutest teddy bear in Venus",
-        "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 18,
-        "itemSalePercentage": 0,
-        "lastModified": "2018-09-20T13:09:49.000+0000"
-    },
-    {
-        "idItem": 17,
-        "category": {
-            "idCategory": 6,
-            "categoryName": "Technology",
-            "categoryDescription": "If you can't bear to live a life without technology or electronics, fill your void here!",
-            "last_modified": "2018-09-20T13:09:49.000+0000"
-        },
-        "itemName": "Meddy11",
-        "itemDescription": "Cutest teddy bear in Mars",
-        "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 17,
-        "itemSalePercentage": 5,
-        "lastModified": "2018-09-20T13:09:49.000+0000"
-    },
-    {
-        "idItem": 18,
-        "category": {
-            "idCategory": 6,
-            "categoryName": "Technology",
-            "categoryDescription": "If you can't bear to live a life without technology or electronics, fill your void here!",
-            "last_modified": "2018-09-20T13:09:49.000+0000"
-        },
-        "itemName": "Qeddy12",
-        "itemDescription": "Cutest teddy bear in Mercury",
-        "itemImage": "<INSERT URL HERE>",
-        "itemPrice": 15,
-        "itemSalePercentage": 10,
-        "lastModified": "2018-09-20T13:09:49.000+0000"
-    }
 ]
 
 
 export function fetchItems() {
     return {
-        type: "FETCH_ITEMS_FULFILLED",
+        type: FETCH_ITEMS_FULFILLED,
         payload:tempArr
     }
 }

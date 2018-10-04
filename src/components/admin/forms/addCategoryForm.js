@@ -17,44 +17,46 @@ const AddCategoryForm = props => {
 
   return(
     <Form>
-      <h1>Add Category</h1>
+      <h1 className="text-center has-padding">Add Category</h1>
       <form className = "form">
-        {/* Display Error Message */}
-        <div className={(props.addCategoryError != "") ? 'alert alert-danger' : null}>{props.addCategoryError}</div>
+
+        {/* Display Error/Success Message */}
+        <div className={(props.addCategoryMessage != "") ? (props.categoryStatusAdded == true ? "alert alert-success" : "alert alert-danger") : null}>{props.addCategoryMessage}</div>
 
         {/* Name Field */}
         <p className="fieldset">
-          <label htmlFor="name">Name</label>
-          <Field className="full-width has-padding has-border" name="name" type="text" placeholder="Category Name" value={values.name} onChange={handleChange} onBlur={handleBlur}/>
-          {touched.name && errors.name && <span><p className="text-danger">{errors.name}</p></span>}
+          <label htmlFor="categoryName">Name</label>
+          <Field className="full-width has-padding has-border" name="categoryName" type="text" placeholder="Category Name" value={values.categoryName} onChange={handleChange} onBlur={handleBlur}/>
+          {touched.categoryName && errors.categoryName && <span><p className="text-danger">{errors.categoryName}</p></span>}
         </p>
 
         {/* Description Field */}
         <p className="fieldset">
-          <label htmlFor="description">Description</label>
-          <Field className="full-width has-padding has-border" name="description" type="text" placeholder="Category Description" value={values.description} onChange={handleChange} onBlur={handleBlur}/>
-          {touched.description && errors.description && <span><p className="text-danger">{errors.description}</p></span>}
+          <label htmlFor="categoryDescription">Description</label>
+          <Field className="full-width has-padding has-border" name="categoryDescription" type="textarea" placeholder="Category Description" value={values.categoryDescription} onChange={handleChange} onBlur={handleBlur}/>
+          {touched.categoryDescription && errors.categoryDescription && <span><p className="text-danger">{errors.categoryDescription}</p></span>}
         </p>
 
         <p className="fieldset">
-          <input className="full-width" type="submit" value="AddCategory"/>
+          <input className="full-width" type="submit" value="Add Category"/>
         </p>
       </form>
     </Form>
   )
 }
 const FormikApp = withFormik({
-  mapPropsToValues({ name, description }) {
+  mapPropsToValues({ categoryName, categoryDescription }) {
     return {
-      name: name || '',
-      description: description || ''
+      categoryName: categoryName || '',
+      categoryDescription: categoryDescription || ''
     }
   },
   validationSchema: Yup.object().shape({
-    name: Yup.string().matches(^[a-zA-Z]+$).required('A name is required for the category!')
+    categoryName: Yup.string().matches(/^[a-zA-Z]+( [a-zA-Z]+)*$/, "Category names must only contain letters.").required('A name is required for the category!')
   }),
   handleSubmit(values, { props, setSubmitting }) {
-    const categoryData = {categoryName: values.name, categoryDescription: values.description};
+    console.log(values.categoryName);
+    const categoryData = {categoryName: values.categoryName, categoryDescription: values.categoryDescription};
     props.dispatch(addCategory(categoryData));
     setSubmitting(false);
   }
@@ -63,7 +65,7 @@ const FormikApp = withFormik({
 function mapStateToProps(state) {
   return {
     categories: state.categories.categories,
-    error: state.categories.error,
+    errors: state.categories.errors,
   }
 };
 
