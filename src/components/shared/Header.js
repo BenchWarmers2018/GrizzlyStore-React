@@ -3,6 +3,7 @@ import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLi
 import '../../../node_modules/mdbreact/dist/css/mdb.css';
 import {Link} from "react-router-dom";
 import Logo from "../../images/images_sublime/GrizzlyStoreLogo.png";
+import LoginForm from "../shared/login/LoginForm.js";
 import { connect } from "react-redux"
 import { createAccount } from "../../actions/accountAction"
 
@@ -34,14 +35,15 @@ class Header extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        clearInterval(this.accounts, this.error);
         const user = {accountEmailAddress: this.state.emailAddress, accountPassword: this.state.password};
-        // console.log(user);
         this.props.dispatch(createAccount(user));
-        console.log(this.props.error);
+
     }
 
     render() {
+        console.log("Username is :" + this.props.data.username);
+        const name = this.props.data.username;
+        console.log(name);
         return (
             <div>
                 <Navbar color="white" light expand="md" scrolling>
@@ -84,7 +86,16 @@ class Header extends Component {
                                 <NavLink to="/cart"><i className="fa fa-shopping-cart"></i>CART</NavLink>
                             </NavItem>
                             <NavItem className="main-nav">
-                                <NavLink to="/" >LOGIN</NavLink>
+                                {(typeof name === "undefined")?
+                                    <NavLink to="/">LOGIN</NavLink> :
+                                    <Dropdown>
+                                    <DropdownToggle nav caret>{name}</DropdownToggle>
+                                    <DropdownMenu>
+                                    <DropdownItem href="/profile">Profile</DropdownItem>
+                                    <DropdownItem href="/">LOG OUT</DropdownItem>
+                                    </DropdownMenu>
+                                    </Dropdown>
+                                }
                             </NavItem>
                         </NavbarNav>
                     </Collapse>
@@ -99,33 +110,13 @@ class Header extends Component {
                             {/*button for google log in here*/}
 
                             <div className="g-signin2" data-onsuccess="onSignIn"></div>
+
                             <li><a href="#">Sign in</a></li>
                             <li><a href="#">New account</a></li>
                         </ul>
 
                         <div id="login">
-                            <form className="form">
-                                <p className="fieldset">
-                                    <label className="image-replace email" htmlFor="signin-email">E-mail</label>
-                                    <input className="full-width has-padding has-border" id="signin-email" type="email"
-                                           placeholder="E-mail"/>
-                                    <span
-                                        className="error-message">An account with this email address does not exist!</span>
-                                </p>
-
-                                <p className="fieldset">
-                                    <label className="image-replace password" htmlFor="signin-password">Password</label>
-                                    <input className="full-width has-padding has-border" id="signin-password"
-                                           type="password" placeholder="Password"/>
-                                    <span className="error-message">Wrong password! Try again.</span>
-                                </p>
-
-                                <p className="fieldset">
-                                    <input className="full-width" type="submit" value="Login"/>
-                                </p>
-                            </form>
-
-                            <p className="form-bottom-message"><a href="#0">Forgot your password?</a></p>
+                          <LoginForm loginError={this.props.error}/>
                         </div>
 
                         <div id="signup">
@@ -193,13 +184,18 @@ class Header extends Component {
 
 
 
+// function mapStateToProps(state, ownProps) {
+//     return {
+//         accounts: state.accounts.accounts,
+//         error: state.accounts.error
+//     }
+// };
 
-function mapStateToProps(state, ownProps) {
-    return {
-        accounts: state.accounts.accounts,
-        error: state.accounts.error
-    }
-};
+// export default connect(mapStateToProps)(Header);
+const mapStateToProps = state => ({
+    accounts:state.accounts.accounts,
+    userAccount: state.accounts.userAccount,
+    error: state.accounts.error,
+});
 
 export default connect(mapStateToProps)(Header);
-
