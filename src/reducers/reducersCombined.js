@@ -11,5 +11,5 @@ export default combineReducers({
     category,
     sortAndFilter,
     profiles,
-    accounts
+    accounts,
 });
