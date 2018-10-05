@@ -1,7 +1,19 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { fetchSingleItem } from "../../actions/itemsAction";
+import { connect } from 'react-redux';
 
 class ItemsChild extends Component {
+    constructor(props) {
+        super(props);
+
+    }
+    handleItemClicked = (e) => {
+        console.log(this.props.data.idItem);
+        //this.props.fetchSingleItem(this.props.data.idItem);
+    }
+
     render() {
 
         function importAll(r) {
@@ -11,17 +23,13 @@ class ItemsChild extends Component {
         }
         const images = importAll(require.context('../../images/images_essence/product-img', false, /\.(png|jpe?g|svg)$/));
 
-        const items = this.props.data;
-        console.log(items);
+        const item = this.props.data;
 
         return (
 
 
-            <div className="row">
-
-                {items.map(item =>
-
-                    <div key={item.idItem} className="col-12 col-sm-6 col-lg-4">
+                    <div className="col-12 col-sm-6 col-lg-4">
+                        <Link onClick={this.handleItemClicked} value={item.idItem} to={'/items/'+ item.idItem}>
                         <div className="single-product-wrapper">
 
                             <div className="product-img">
@@ -65,17 +73,20 @@ class ItemsChild extends Component {
                                 </div>
                             </div>
                         </div>
+                        </Link>
                     </div>
-                )}
 
 
-            </div>
         );
     }
 }
 
 ItemsChild.propTypes = {
-    data: PropTypes.array.isRequired
+    data: PropTypes.object.isRequired
 }
 
-export default ItemsChild;
+const mapDispatchToProps = {
+    fetchSingleItem
+}
+
+export default connect(null, mapDispatchToProps)(ItemsChild);

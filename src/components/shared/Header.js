@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
 import '../../../node_modules/mdbreact/dist/css/mdb.css';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import Logo from "../../images/images_sublime/GrizzlyStoreLogo.png";
 import LoginForm from "../shared/login/LoginForm.js";
 import { connect } from "react-redux"
-import { createAccount } from "../../actions/accountAction"
+import { fetchAccounts } from "../../actions/accountAction"
+import GoogleLogin from "../shared/GoogleLogin.js";
+import { createAccount } from "../../actions/accountAction";
 
 class Header extends Component {
 
@@ -14,8 +16,12 @@ class Header extends Component {
         this.state = {
             collapse: false,
             isWideEnough: false,
+            redirect: false,
             emailAddress: "",
             password: "",
+            googleEmailAddress:"",
+            isSignedIn : false,
+            user: null,
         };
         this.onClick = this.onClick.bind(this);
     }
@@ -24,6 +30,12 @@ class Header extends Component {
         this.setState({
             collapse: !this.state.collapse,
         });
+    }
+
+    submitForm = (e) => {
+        this.setState({
+            redirect: true
+        })
     }
 
     handleChangeEmail = (event1) => {
@@ -41,12 +53,16 @@ class Header extends Component {
     }
 
     render() {
+
         console.log("Username is :" + this.props.data.username);
         const name = this.props.data.username;
         console.log(name);
+
+
         return (
             <div>
                 <Navbar color="white" light expand="md" scrolling>
+                <GoogleLogin/>
                     <NavbarBrand href="/">
                         <div className="logo"><Link to='/'><img className="header_logo" src={Logo} alt=""/></Link></div>
                     </NavbarBrand>
@@ -57,7 +73,7 @@ class Header extends Component {
                                 <NavLink to="/">HOME</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink to="/items">ITEMS</NavLink>
+                                <NavLink to="/items/all">ITEMS</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink to="/sale">SALE</NavLink>
@@ -78,7 +94,7 @@ class Header extends Component {
                         </NavbarNav>
                         <NavbarNav right>
                             <NavItem>
-                                <form className="form-inline md-form mt-0">
+                                <form onSubmit={this.submitForm} className="form-inline md-form mt-0">
                                     <input className="form-control mr-sm-2 mb-0 text-black" type="text" placeholder="Search" aria-label="Search"/>
                                 </form>
                             </NavItem>
@@ -176,7 +192,6 @@ class Header extends Component {
                         <a href="#0" className="close-form">Close</a>
                     </div>
                 </div>
-
             </div>
         );
     }
@@ -197,5 +212,6 @@ const mapStateToProps = state => ({
     userAccount: state.accounts.userAccount,
     error: state.accounts.error,
 });
+
 
 export default connect(mapStateToProps)(Header);

@@ -1,11 +1,12 @@
+import { getVisibleItems } from "../selectors/itemsSelector";
+
 const filterInitialState = {
     text:'',
     category: '',
     sortBy: '',
-    minPrice: undefined,
-    maxPrice: undefined,
-    minItemPrice: undefined,
-    maxItemPrice: undefined,
+    minPrice: 0,
+    maxPrice: 0,
+    page: 1,
 };
 
 export default (state = filterInitialState, action) => {
@@ -35,6 +36,11 @@ export default (state = filterInitialState, action) => {
                 ...state,
                 sortBy: action.sortType,
             };
+        case 'PAGE':
+            return{
+                ...state,
+                page: action.pageNumber,
+            }
         case 'CLEAR':
             return {
                 ...state,

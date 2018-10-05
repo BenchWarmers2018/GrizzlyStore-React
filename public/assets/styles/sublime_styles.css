@@ -107,13 +107,12 @@ p a:hover::after
 {
 	opacity: 0.2;
 }
-::selection
-{
-	
+::selection {
+	background: lightskyblue; /* WebKit/Blink Browsers */
 }
 p::selection
 {
-	
+
 }
 h1{font-size: 48px;}
 h2{font-size: 36px;}

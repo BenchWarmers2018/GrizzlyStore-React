@@ -7,6 +7,7 @@ import Main from "./components/Main";
 import AdminHeader from "./components/admin/pages/adminHeader";
 import SideBar from "./components/admin/pages/sidebar";
 import AdminMain from "./components/admin/adminMain"
+
 import { connect } from 'react-redux';
 import { getCurrentUser } from "./actions/accountAction"
 import { API_BASE_URL, ACCESS_TOKEN } from './';
@@ -14,14 +15,26 @@ import {getVisibleItems} from "./selectors/itemsSelector";
 import accounts from "./reducers/accountReducer";
 
 
+import {BrowserRouter} from "react-router-dom";
+import Provider from "react-redux/es/components/Provider";
+import firebase from "firebase";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import axios from "axios";
+
+
 class App extends Component {
     constructor(props){
         super(props);
         this.state = {
             isAdmin : false,
+
             currentUser: null,
             isAuthenticated: false,
-            isLoading: false
+            isLoading: false,
+
+            isSignedIn : false,
+            user: null
+
         }
         // this.handleLogout = this.handleLogout.bind(this);
         // this.handleLogin = this.handleLogin.bind(this);
@@ -87,13 +100,37 @@ class App extends Component {
 
 
 
+
     render()
     {
         return (
+            <BrowserRouter>
                 <div className="super_container">
+
+                    {/*{*/}
+                        {/*this.state.isSignedIn ? (*/}
+
+                        {/*<span><div>Signed In!</div>*/}
+                        {/*<button onClick={() => firebase.auth().signOut()}>Sign Out!</button>*/}
+                        {/*</span>*/}
+                        {/*)*/}
+                        {/*: (*/}
+                            {/*<StyledFirebaseAuth*/}
+                                {/*uiConfig={this.uiConfig}*/}
+                                {/*firebaseAuth={firebase.auth()}*/}
+                            {/*/>*/}
+                        {/*)*/}
+                    {/*}*/}
+
+                    {/*<div>*/}
+                        {/*<Header/>*/}
+                        {/*<Main/>*/}
+                        {/*<Newsletter/>*/}
+                    {/*</div>*/}
+
                     {this.state.isAdmin ?
                         <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
-                        <AdminHeader/>
+                            <AdminHeader/>
                             <SideBar/>
                             <AdminMain />
                         </div> :
@@ -106,10 +143,12 @@ class App extends Component {
                     }
                     <Footer/>
                 </div>
+            </BrowserRouter>
 
-        );
+            );
+        }
     }
-}
+
 
 const mapStateToProps = state => ({
     tokenObject: state.accounts.token,
@@ -121,3 +160,4 @@ const mapDispatchToProps = {
 }
 
 export default connect (mapStateToProps, mapDispatchToProps)(App);
+
