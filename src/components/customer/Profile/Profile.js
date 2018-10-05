@@ -2,13 +2,16 @@ import React, {Component} from 'react';
 import Image from 'react-image-resizer';
 import {connect} from "react-redux";
 import PropTypes from 'prop-types';
+import BackgroundProfile from "../../../images/profile_images/background.png";
 import Background from "../../../images/images_essence/bg-img/breadcumb.jpg";
+
 import {fetchProfile} from "../../../actions/profileActions";
 import ProfileOverview from "./ProfileOverview.js"
 import ProfileAddress from "./ProfileAddress.js"
 import ProfilePassword from "./ProfilePassword.js"
 import ProfilePersonal from "./ProfilePersonal.js"
-import {BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import NavLink from "react-router-dom/es/NavLink";
 
 
 class Profile extends Component {
@@ -85,43 +88,44 @@ class Profile extends Component {
                             <div className="row">
                                 <div className="col-lg-4 col-xlg-3 col-md-5">
                                     <div className="card">
-                                        <div className="card-body">
+
+                                        <div className=" profile-img-name">
                                             <Image src={images[imageName]} width={150} height={180}/>
                                             <h4 className="card-title m-t-10">{this.props.profile[0].profileFirstName} {this.props.profile[0].profileLastName}</h4>
                                         </div>
+
                                         <div>
                                             <hr/>
                                         </div>
-                                        <div className="card-body">
-                                            <div className="profile-usermenu">
-                                                <ul className="nav">
-                                                    <li active>
-                                                        <Link active to="/profile/overview">Overview</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link to="/profile/personal">Edit Personal Details</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link to="/profile/address">Change Shipping Address</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link to="/profile/password">Change Password</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link to="/profile/overview">Log Out</Link>
-                                                    </li>
-                                                </ul>
-                                            </div>
+
+                                        <div className="profile-usermenu">
+                                            <ul className="nav profile-nav">
+                                                <li>
+                                                    <NavLink className="profile-usermenu-option" activeClassName="active" to="/profile/overview">Overview</NavLink>
+                                                </li>
+                                                <li>
+                                                    <NavLink className="profile-usermenu-option" activeClassName="active" to="/profile/personal">Edit Personal Details</NavLink>
+                                                </li>
+                                                <li>
+                                                    <NavLink className="profile-usermenu-option" activeClassName="active" to="/profile/address">Change Shipping Address</NavLink>
+                                                </li>
+                                                <li>
+                                                    <NavLink className="profile-usermenu-option" activeClassName="active" to="/profile/password">Change Password</NavLink>
+                                                </li>
+                                                <li>
+                                                    <h7 className="profile-usermenu-option" >Log Out</h7>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-lg-8 col-xlg-9 col-md-7">
                                     <div className="card">
-                                        <div className="card-body">
-                                            <Route active path="/profile/overview" component={ProfileOverview} />
-                                            <Route path="/profile/address" component={ProfileAddress} />
-                                            <Route path="/profile/password" component={ProfilePassword} />
-                                            <Route path="/profile/personal" component={ProfilePersonal} />
+                                        <div className="card-body card-body-profile">
+                                            <Route exactly active path="/profile/overview" component={ProfileOverview} />
+                                            <Route exactly path="/profile/address" component={ProfileAddress} />
+                                            <Route exactly path="/profile/password" component={ProfilePassword} />
+                                            <Route exactly path="/profile/personal" component={ProfilePersonal} />
                                         </div>
                                     </div>
                                 </div>

@@ -77,11 +77,11 @@ class ProfilePassword extends Component {
 
         return(
             <div>
-                <h4 className="card-subtitle" style={{textAlign: 'center', color: 'black'}}>Change Password</h4>
+                <h4 className="card-subtitle card-subtitle-profile" style={{textAlign: 'center', color: 'black'}}>Change Password</h4>
                 <br/>
-                <form className="form-horizontal form-material" onSubmit={this.changeProfile}>
-                    <div className="form-group">
-                        <label className="col-md-12"><b><i>Enter New Password</i></b></label>
+                <form className="form-horizontal form-material " onSubmit={this.changeProfile}>
+                    <div className="form-group form-group-password">
+                        <label className="col-md-12 text-muted label-padding-left">NEW PASSWORD</label>
                         <div className="col-md-12">
                             <input type="password" placeholder="New Password"
                                    className="form-control form-control-line" ref={(c) => {
@@ -90,8 +90,8 @@ class ProfilePassword extends Component {
                         </div>
                     </div>
 
-                    <div className="form-group">
-                        <label className="col-md-12"><b><i>Confirm New Password</i></b></label>
+                    <div className="form-group form-group-password">
+                        <label className="col-md-12 text-muted label-padding-left">OLD PASSWORD</label>
                         <div className="col-md-12">
                             <input type="password" placeholder="Confirm Password"
                                    className="form-control form-control-line" ref={(c) => {
@@ -102,7 +102,7 @@ class ProfilePassword extends Component {
 
                     <div className="form-group">
                         <div className="col-sm-12">
-                            <button className="btn btn-success">Update Password</button>
+                            <button className="btn btn-success-muted">UPDATE</button>
                         </div>
                     </div>
                 </form>

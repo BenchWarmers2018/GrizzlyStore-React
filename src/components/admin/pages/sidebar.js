@@ -3,21 +3,31 @@ import User from '../../../images/admin_images/users/1.jpg'
 import Icon from '@mdi/react';
 import { mdiViewDashboard, mdiAccountNetwork, mdiBorderAll, mdiPlusBox } from '@mdi/js';
 import { Link } from 'react-router-dom';
+import { connect } from "react-redux"
 import { Container, Row, Col, Input, Button, Fa, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
+import AddCategoryForm from '../forms/addCategoryForm.js';
 
 
 class sidebar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            modal: false
+            modal: false,
+            categoryModal: false
         }
         this.toggle = this.toggle.bind(this);
+        this.toggleCategoryModal = this.toggleCategoryModal.bind(this);
     }
 
     toggle() {
         this.setState({
             modal: !this.state.modal
+        });
+    }
+
+    toggleCategoryModal() {
+        this.setState({
+            categoryModal: !this.state.categoryModal
         });
     }
     render() {
@@ -43,6 +53,11 @@ class sidebar extends Component {
                                                            className="btn btn-block create-btn text-white no-block d-flex align-items-center">
                                 <Icon path={mdiPlusBox} size={1.5} />
                                  <span className="hide-menu m-l-5">Create New</span>
+                            </a></li>
+                            <li className="sidebar-item"><a onClick={this.toggleCategoryModal} href="javascript:void(0)"
+                                                           className="sidebar-link waves-effect waves-dark sidebar-link">
+                                <Icon path={mdiPlusBox} size={1.5} />
+                                 <span className="hide-menu m-l-5">Add New Category</span>
                             </a></li>
                             <li className="sidebar-item"><Link to="/"><a
                                 className="sidebar-link waves-effect waves-dark sidebar-link"
@@ -88,9 +103,22 @@ class sidebar extends Component {
                         </Col>
                     </Row>
                 </Container>
+
+                <Modal isOpen={this.state.categoryModal} toggle={this.toggleCategoryModal} className="cascading-modal">
+                    <AddCategoryForm
+                      addCategoryMessage={this.props.addCategoryMessage}
+                      categoryStatusAdded={this.props.categoryStatusAdded}
+                    />
+                </Modal>
             </aside>
         );
     }
 }
 
-export default sidebar;
+const mapStateToProps = state => ({
+    categories:state.category.categories,
+    addCategoryMessage: state.category.messages,
+    categoryStatusAdded:state.category.added
+});
+
+export default connect(mapStateToProps)(sidebar);
