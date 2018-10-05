@@ -4,6 +4,7 @@ import { withFormik, Form, Field } from 'formik'
 import * as Yup from 'yup';
 import { connect } from "react-redux"
 import { authenticateUser } from "../../../actions/accountAction"
+import GoogleLogin from "../GoogleLogin";
 
 const LoginForm = props => {
   const {
@@ -37,6 +38,8 @@ const LoginForm = props => {
 
         <p className="fieldset">
           <input className="full-width" type="submit" value="Login"/>
+          <hr />
+          <GoogleLogin/>
         </p>
       </form>
     </Form>

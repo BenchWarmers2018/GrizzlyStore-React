@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
 import '../../../node_modules/mdbreact/dist/css/mdb.css';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import Logo from "../../images/images_sublime/GrizzlyStoreLogo.png";
 import LoginForm from "../shared/login/LoginForm.js";
 import { connect } from "react-redux";
 import { fetchAccounts } from "../../actions/accountAction";
-import GoogleLogin from "../shared/GoogleLogin.js";
+import {userName} from "../shared/GoogleLogin";
 import { createAccount } from "../../actions/accountAction";
 import firebase from "firebase";
+import {fetchGoogleAccounts} from "../../actions/googleaccountAction";
 
 class Header extends Component {
 
@@ -17,12 +18,13 @@ class Header extends Component {
         this.state = {
             collapse: false,
             isWideEnough: false,
+            redirect: false,
             emailAddress: "",
             password: "",
             googleEmailAddress:"",
             isSignedIn : false,
             user: null,
-            current: ""
+            currentUser:"",
         };
         this.onClick = this.onClick.bind(this);
     }
@@ -31,6 +33,12 @@ class Header extends Component {
         this.setState({
             collapse: !this.state.collapse,
         });
+    }
+
+    submitForm = (e) => {
+        this.setState({
+            redirect: true
+        })
     }
 
     handleChangeEmail = (event1) => {
@@ -54,8 +62,24 @@ class Header extends Component {
 
     }
 
+    componentDidMount() {
+        this.authListener();
+    }
+
+    authListener() {
+        firebase.auth().onAuthStateChanged(user => {
+            this.setState({
+                isSignedIn: !!user,
+                currentUser: user.displayName
+            });
+                this.setState.currentUser = user.displayName;
+                console.log("WITHIN FIREBASE: " + this.state.isSignedIn);
+        });
+
+    }
+
+
     render() {
-        this.state.current = firebase.auth().currentUser;
         return (
             <div>
                 <Navbar color="white" light expand="md" scrolling>
@@ -69,7 +93,7 @@ class Header extends Component {
                                 <NavLink to="/">HOME</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink to="/items">ITEMS</NavLink>
+                                <NavLink to="/items/all">ITEMS</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink to="/sale">SALE</NavLink>
@@ -90,7 +114,7 @@ class Header extends Component {
                         </NavbarNav>
                         <NavbarNav right>
                             <NavItem>
-                                <form className="form-inline md-form mt-0">
+                                <form onSubmit={this.submitForm} className="form-inline md-form mt-0">
                                     <input className="form-control mr-sm-2 mb-0 text-black" type="text" placeholder="Search" aria-label="Search"/>
                                 </form>
                             </NavItem>
@@ -100,8 +124,16 @@ class Header extends Component {
 
                             {/*Hides the login option when logged in*/}
                             <NavItem className="main-nav">
-                                { this.state.isSignedIn ? <NavLink to="/" >LOGIN</NavLink> : <NavLink to="/" >{this.state.current.displayName}</NavLink> }
+                                { !this.state.isSignedIn ? <NavLink  to="/" >LOGIN</NavLink> : <NavLink to="/" >{this.state.currentUser}</NavLink>}
                             </NavItem>
+                            {/*{this.state.current ? (*/}
+                                {/*<Dropdown>*/}
+                                    {/*<DropdownToggle nav caret>USER</DropdownToggle>*/}
+                                    {/*<DropdownMenu>*/}
+                                        {/*<DropdownItem href="/profile">Profile</DropdownItem>*/}
+                                        {/*<DropdownItem onClick={firebase.auth().signOut}>Sign out</DropdownItem>*/}
+                                    {/*</DropdownMenu>*/}
+                                {/*</Dropdown> ) : ( <NavLink to={"/"}>LOGIN</NavLink> )}*/}
                         </NavbarNav>
                     </Collapse>
                 </Navbar>
@@ -119,7 +151,7 @@ class Header extends Component {
                         </ul>
 
                         <div id="login">
-                          <LoginForm loginError={this.props.error}/>
+                            <LoginForm loginError={this.props.error}/>
                         </div>
 
                         <div id="signup">
