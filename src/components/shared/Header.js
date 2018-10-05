@@ -8,6 +8,7 @@ import { connect } from "react-redux"
 import { fetchAccounts } from "../../actions/accountAction"
 import GoogleLogin from "../shared/GoogleLogin.js";
 import { createAccount } from "../../actions/accountAction";
+import {ACCESS_TOKEN} from "../../index";
 
 class Header extends Component {
 
@@ -50,6 +51,10 @@ class Header extends Component {
         const user = {accountEmailAddress: this.state.emailAddress, accountPassword: this.state.password};
         this.props.dispatch(createAccount(user));
 
+    }
+
+    logUserOut = () => {
+        localStorage.removeItem(ACCESS_TOKEN);
     }
 
     render() {
@@ -98,21 +103,30 @@ class Header extends Component {
                                     <input className="form-control mr-sm-2 mb-0 text-black" type="text" placeholder="Search" aria-label="Search"/>
                                 </form>
                             </NavItem>
+
                             <NavItem>
                                 <NavLink to="/cart"><i className="fa fa-shopping-cart"></i>CART</NavLink>
                             </NavItem>
-                            <NavItem className="main-nav">
-                                {(typeof name === "undefined")?
-                                    <NavLink to="/">LOGIN</NavLink> :
+
+
+                                {(typeof name === "undefined") ?
+                                    <NavItem className="main-nav">
+                                        <NavLink to="/">LOGIN</NavLink>
+                                    </NavItem> :
+                                    <NavItem>
                                     <Dropdown>
-                                    <DropdownToggle nav caret>{name}</DropdownToggle>
-                                    <DropdownMenu>
-                                    <DropdownItem href="/profile">Profile</DropdownItem>
-                                    <DropdownItem href="/">LOG OUT</DropdownItem>
-                                    </DropdownMenu>
+                                        <DropdownToggle nav caret>{name}</DropdownToggle>
+                                        <DropdownMenu>
+                                            <DropdownItem href="/profile">Profile</DropdownItem>
+                                            <DropdownItem href="/" onClick={this.logUserOut}>LOG OUT</DropdownItem>
+                                        </DropdownMenu>
                                     </Dropdown>
+                                    </NavItem>
                                 }
-                            </NavItem>
+
+
+
+
                         </NavbarNav>
                     </Collapse>
                 </Navbar>
