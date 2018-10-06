@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Logo from '../../../images/admin_images/logo-icon.png';
+import Logo from '../../../images/images_sublime/GrizzlyStoreLogo.png';
 import LogoLight from '../../../images/admin_images/logo-light-icon.png';
 import LogoT from '../../../images/admin_images/logo-text.png';
 import LogoTLight from '../../../images/admin_images/logo-light-text.png';
@@ -21,15 +21,8 @@ class adminHeader extends Component {
                         <Link to={"/"}><a className="navbar-brand">
 
                             <b className="logo-icon">
-                                <img src={Logo} alt="/" className="dark-logo"/>
-                                <img src={LogoLight} alt="/"
-                                     className="light-logo"/>
+                                <img src={Logo} alt="/"/>
                             </b>
-                            <span className="logo-text">
-                                <img src={LogoT} alt="/" className="dark-logo"/>
-                                <img src={LogoTLight} className="light-logo"
-                                     alt="/"/>
-                        </span>
                         </a>
                         </Link>
                         <a className="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">

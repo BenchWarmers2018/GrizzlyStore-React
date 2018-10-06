@@ -82,6 +82,7 @@ class Header extends Component {
                                         <DropdownItem href="/home">Home & Living</DropdownItem>
                                         <DropdownItem href="/jewellery">Jewellery</DropdownItem>
                                         <DropdownItem href="/toys">Toys</DropdownItem>
+                                        <DropdownItem href="/toys">Paarth</DropdownItem>
                                     </DropdownMenu>
                                 </Dropdown>
                             </NavItem>
@@ -107,12 +108,10 @@ class Header extends Component {
                 <div className="user-modal">
                     <div className="user-modal-container">
                         <ul className="switcher">
-
                             {/*button for google log in here*/}
-
                             <div className="g-signin2" data-onsuccess="onSignIn"></div>
-                            <li><a href="#">Sign in</a></li>
-                            <li><a href="#">New account</a></li>
+                            <li><a>Sign in</a></li>
+                            <li><a>New account</a></li>
                         </ul>
 
                         <div id="login">

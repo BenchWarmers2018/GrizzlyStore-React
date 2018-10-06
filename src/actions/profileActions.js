@@ -13,7 +13,7 @@ export function fetchProfile() {
             'Access-Control-Allow-Origin': '*'
         };
         dispatch({type: "FETCH_PROFILE"}); //
-        axios.post("http://localhost:8080/user/profile?accountID=" + acc.idAccount)
+        axios.post("http://localhost:10003/user/profile?accountID=" + acc.idAccount)
             .then((response) => {
                 console.log("TESTING " + response.data.entities);
                 dispatch({type: "FETCH_PROFILE_FULFILLED", payload: response.data})
