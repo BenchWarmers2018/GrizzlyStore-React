@@ -56,7 +56,7 @@ const FormikApp = withFormik({
   }),
   handleSubmit(values, { props, setSubmitting }) {
     const loginData = {accountEmailAddress: values.emailAddress, accountPassword: values.password};
-    props.dispatch(authenticateUser(loginData));
+    props.authenticateUser(loginData);
     setSubmitting(false);
   }
 })(LoginForm);
@@ -67,11 +67,14 @@ const displayError = error => {
   )
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = (state) => ({
     userAccount: state.accounts.userAccount,
     error: state.accounts.error,
-  }
-};
 
-export default connect(mapStateToProps)(FormikApp)
+});
+
+const mapDispatchToProps = {
+  authenticateUser,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormikApp)
