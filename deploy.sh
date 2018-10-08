@@ -2,7 +2,6 @@
 echo 'Creating React build files to be served by Nginx'
 
 echo 'Moving build files to Nginx Directory'
-sudo rm -rf /var/lib/jenkins/workspace/GrizzlyStore-React/build/*
 sudo rm -rf /opt/GrizzlyStoreMicroServices/GrizzlyStore-React/*
 sudo cp -R /var/lib/jenkins/workspace/GrizzlyStore-React/build/* /opt/GrizzlyStoreMicroServices/GrizzlyStore-React/
 
