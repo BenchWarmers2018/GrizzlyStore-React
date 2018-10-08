@@ -22,6 +22,9 @@ class Profile extends Component {
         this.refreshProfile = this.refreshProfile.bind(this);
         this.state = {
             selection: [true, false, false, false],
+            image: '',
+            firstName: '',
+            lastName: '',
         };
     }
 
@@ -30,12 +33,19 @@ class Profile extends Component {
     }
 
     componentDidUpdate(prevProps) {
-
+        if (prevProps.profile !== this.props.profile) {
+            this.setState({
+                image: this.props.profile[0].profileImage,
+                firstName: this.props.profile[0].profileFirstName,
+                lastName: this.props.profile[0].profileLastName
+            });
+        }
     }
 
     refreshProfile() {
         this.props.fetchProfile();
         console.log('UPDATED PROFILE ' + JSON.stringify(this.props.profile));
+        this.forceUpdate();
     }
 
     handleChange(event) {
@@ -83,7 +93,7 @@ class Profile extends Component {
         if (this.props.profile[0] != null) {
 
             //Functions for image extraction. IS THIS STILL NEEDED?
-            var imageName = this.props.profile[0].profileImage;
+            var imageName = this.state.image;
             var arr = extractImagePath(imageName);
             const images = importAll(require.context('../../../images/profile_images', false, /\.(png|jpe?g|svg)$/));
 
@@ -117,7 +127,7 @@ class Profile extends Component {
 
                                         <div className=" profile-img-name">
                                             <Image src={images[imageName]} width={150} height={180}/>
-                                            <h4 className="card-title m-t-10">{this.props.profile[0].profileFirstName} {this.props.profile[0].profileLastName}</h4>
+                                            <h4 className="card-title m-t-10">{this.state.firstName} {this.state.lastName}</h4>
                                         </div>
 
                                         <div>

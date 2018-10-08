@@ -32,7 +32,8 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 submitted: true,
                 submitting: false,
-                updates: action.payload
+                profile: action.payload.entities,
+                updates: action.payload.message
             }
         }
         case "SUBMIT_PROFILE_REJECTED": {

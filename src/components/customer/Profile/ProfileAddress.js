@@ -13,11 +13,29 @@ class ProfileAddress extends Component {
         this.state = {
             success: "",
             empty: false,
+            unitNo: '',
+            postcode: '',
+            street: '',
+            streetNo: '',
+            city: ''
         };
     }
 
-    componentWillMount() {
-        fetchProfile();
+    componentDidMount() {
+        this.props.fetchProfile();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.profile !== this.props.profile) {
+            this.setState(
+                {
+                    unitNo: this.props.profile[1].addressUnitNo,
+                    postcode: this.props.profile[1].addressPostcode,
+                    city: this.props.profile[1].addressCity,
+                    street: this.props.profile[1].addressStreet,
+                    streetNo: this.props.profile[1].addressStreetNo
+                });
+        }
     }
 
     handleSubmit(values, formikBag) {
@@ -35,7 +53,6 @@ class ProfileAddress extends Component {
             console.log(this.props.updates + ' UPDATES COMING!');
             this.setState({success: this.props.updates}); // Get update message back from Spring
             console.log("SUCCESS " + this.state.success);
-            this.props.refreshProfile();
         }
 
         else {
@@ -98,7 +115,7 @@ class ProfileAddress extends Component {
                                     </label>
                                     <div className="col-md-12">
                                         <Field type="number" name="unitNo"
-                                               placeholder={this.props.profile[1].addressUnitNo}
+                                               placeholder={this.state.unitNo}
                                                className="form-control form-control-line"
                                                onChange={handleChange}
                                                onBlur={handleBlur}/>
@@ -110,7 +127,7 @@ class ProfileAddress extends Component {
                                     <label className="col-md-12 text-muted label-padding-left">STREET NUMBER</label>
                                     <div className="col-md-12">
                                         <Field type="number" name="streetNo"
-                                               placeholder={this.props.profile[1].addressStreetNo}
+                                               placeholder={this.state.streetNo}
                                                className="form-control form-control-line"
                                                onChange={handleChange}
                                                onBlur={handleBlur}/>
@@ -122,7 +139,7 @@ class ProfileAddress extends Component {
                                     <label className="col-md-12 text-muted label-padding-left">STREET NAME</label>
                                     <div className="col-md-12">
                                         <Field type="text" name="street"
-                                               placeholder={this.props.profile[1].addressStreet}
+                                               placeholder={this.state.street}
                                                className="form-control form-control-line"
                                                onChange={handleChange}
                                                onBlur={handleBlur}/>
@@ -176,7 +193,7 @@ class ProfileAddress extends Component {
                                 <div className="form-group form-group-address">
                                     <label className="col-sm-12 text-muted label-padding-left">CITY</label>
                                     <div className="col-sm-12">
-                                        <Field type="text" name="city" placeholder={this.props.profile[1].addressCity}
+                                        <Field type="text" name="city" placeholder={this.state.city}
                                                className="form-control form-control-line"
                                                onChange={handleChange}
                                                onBlur={handleBlur}/>
@@ -189,7 +206,7 @@ class ProfileAddress extends Component {
                                     <label className="col-md-12 text-muted label-padding-left">POSTCODE</label>
                                     <div className="col-md-12">
                                         <Field type="number" name="postcode"
-                                               placeholder={this.props.profile[1].addressPostcode}
+                                               placeholder={this.state.postcode}
                                                className="form-control form-control-line"
                                                onChange={handleChange}
                                                onBlur={handleBlur}/>

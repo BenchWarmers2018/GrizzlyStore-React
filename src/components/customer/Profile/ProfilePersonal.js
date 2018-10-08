@@ -13,7 +13,25 @@ class ProfilePersonal extends Component {
         this.state = {
             success: "",
             empty: false,
+            firstName: '',
+            lastName: '',
+            mobile: ''
         };
+    }
+
+    componentDidMount() {
+        this.props.fetchProfile();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.profile !== this.props.profile) {
+            this.setState(
+                {
+                    mobile: this.props.profile[0].profilePhoneNumber,
+                    firstName: this.props.profile[0].profileFirstName,
+                    lastName: this.props.profile[0].profileLastName
+                });
+        }
     }
 
     validatePhone = (phone) => {
@@ -30,8 +48,7 @@ class ProfilePersonal extends Component {
             submitPersonalDetails({phone: values.phone, firstName: values.firstName, lastName: values.lastName});
             formikBag.setSubmitting(false);
             this.setState({success: this.props.updates}); // Get update message back from Spring
-            console.log("SUCCESS " + this.state.success);
-            this.props.refreshProfile();
+            console.log("SUCCESS " + JSON.stringify(this.props.profile[0]) + " " + this.state.success);
         }
         else {
             console.log('Need to enter at least one value for submission');
@@ -70,7 +87,7 @@ class ProfilePersonal extends Component {
                                 <label className="col-md-12 text-muted label-padding-left">FIRST NAME</label>
                                 <div className="col-md-12">
                                     <Field type="text" name="firstName"
-                                           placeholder={this.props.profile[0].profileFirstName}
+                                           placeholder={this.state.firstName}
                                            className="form-control form-control-line" onChange={handleChange}
                                            onBlur={handleBlur}/>
                                 </div>
@@ -80,7 +97,7 @@ class ProfilePersonal extends Component {
                                 <label className="col-md-12 text-muted label-padding-left">LAST NAME</label>
                                 <div className="col-md-12">
                                     <Field type="text" name="lastName"
-                                           placeholder={this.props.profile[0].profileLastName}
+                                           placeholder={this.state.lastName}
                                            className="form-control form-control-line" onChange={handleChange}
                                            onBlur={handleBlur}/>
                                 </div>
@@ -90,7 +107,7 @@ class ProfilePersonal extends Component {
                                 <label className="col-md-12 text-muted label-padding-left">PHONE NUMBER</label>
                                 <div className="col-md-12">
                                     <Field type="number" name="phone"
-                                           placeholder={this.props.profile[0].profilePhoneNumber}
+                                           placeholder={this.state.mobile}
                                            className="form-control form-control-line" onChange={handleChange}
                                            onBlur={handleBlur}/>
                                     {touched.phone && errors.phone &&

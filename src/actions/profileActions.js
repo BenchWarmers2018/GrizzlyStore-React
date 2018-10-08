@@ -28,7 +28,7 @@ export function submitPersonalDetails(profileData, accountID='') {
             'accountID': acc.idAccount
         };
         dispatch({type: "SUBMIT_PROFILE"}); //
-        axios.post("http://localhost:8080/user/update-profile", (profileData), {headers: header})
+        axios.post("http://localhost:8080/user/update-profile", profileData, {headers: header})
             .then((response) => {
                 console.log("Updating profile successful " + response);
                 dispatch({type: "SUBMIT_PROFILE_ACCEPTED", payload: response.data})
