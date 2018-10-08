@@ -71,7 +71,6 @@ hr{
   background-color: rgba(255,255,255,0);
   font-size: 2em;
   display: block;
-  padding: .5em 0 .5em 2em;
   font-weight: 600;
   font-variant: all-petite-caps;
 
@@ -79,7 +78,7 @@ hr{
 
 /*Profile Overview*/
 .profile-overview-field{
-  padding: 0 0 20px 0;
+  padding: 0 0 20px 0; /* TOP RIGHT BOTTOM LEFT */
 }
 
 .profile-overview-field-div{

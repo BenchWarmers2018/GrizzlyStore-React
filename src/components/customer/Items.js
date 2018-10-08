@@ -271,7 +271,8 @@ class Items extends Component {
 Items.propTypes= {
     fetchItems: PropTypes.func.isRequired,
     items: PropTypes.array.isRequired,
-}
+    profile: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = state => ({
     items: getVisibleItems(state.items.pagedItems, state.sortAndFilter),

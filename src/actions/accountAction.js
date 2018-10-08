@@ -49,21 +49,19 @@ export function getCurrentUser()
     }
 }
 
-
 export function authenticateUser(loginData) {
   return function (dispatch) {
     dispatch({type: "AUTHENTICATE_USER"});
 
     axios.post('http://localhost:8080/login/authenticate', loginData)
       .then(result => {
-
           localStorage.setItem(ACCESS_TOKEN, result.data.accessToken);
           dispatch({type: "AUTHENTICATING_USER_SUCCESSFUL", payload: result.data.accessToken})
       })
       .catch((error) => {
         console.log(error);
         if (error.message === "Network Error" )
-          dispatch({type: "SERVER_NOT_FOUND", payload: 'The server is currently offline. Please try again later.'})
+          dispatch({type: "SERVER_NOT_FOUND", payload: 'The server is currently offline. Please try again later.'});
         else
           dispatch({type: "AUTHENTICATE_USER_REJECTED", payload: error.response.data.errors})
       })
