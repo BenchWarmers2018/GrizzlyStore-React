@@ -7,12 +7,9 @@ ul, li {
     padding: 0;
 }
 
-
 .main-nav {
     cursor: pointer;
 }
-
-
 
 .user-modal {
     position: fixed;
