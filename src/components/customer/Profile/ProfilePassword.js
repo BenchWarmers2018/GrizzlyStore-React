@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import PropTypes from 'prop-types';
 import {Formik, Field} from 'formik';
 import { withRouter } from 'react-router';
-import {submitPassword} from "../../../actions/profileActions";
+import {fetchProfile, submitPassword} from "../../../actions/profileActions";
 
 
 class ProfilePassword extends Component {
@@ -98,6 +98,7 @@ class ProfilePassword extends Component {
 
 ProfilePassword.propTypes = {
     submitPassword: PropTypes.func.isRequired,
+    fetchProfile: PropTypes.func.isRequired,
     submitting: PropTypes.bool.isRequired,
     submitted: PropTypes.bool.isRequired,
     updates: PropTypes.string.isRequired
@@ -111,7 +112,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    submitPassword
+    submitPassword,
+    fetchProfile
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProfilePassword));
