@@ -67,7 +67,6 @@ class Header extends Component {
         return (
             <div>
                 <Navbar color="white" light expand="md" scrolling>
-                <GoogleLogin/>
                     <NavbarBrand href="/">
                         <div className="logo"><Link to='/'><img className="header_logo" src={Logo} alt=""/></Link></div>
                     </NavbarBrand>
@@ -109,11 +108,11 @@ class Header extends Component {
                             </NavItem>
 
 
-                                {(typeof name === "undefined") ?
-                                    <NavItem className="main-nav">
-                                        <NavLink to="/">LOGIN</NavLink>
-                                    </NavItem> :
-                                    <NavItem>
+                            {(typeof name === "undefined") ?
+                                <NavItem className="main-nav">
+                                    <NavLink to="/">LOGIN</NavLink>
+                                </NavItem> :
+                                <NavItem>
                                     <Dropdown>
                                         <DropdownToggle nav caret>{name}</DropdownToggle>
                                         <DropdownMenu>
@@ -121,8 +120,8 @@ class Header extends Component {
                                             <DropdownItem href="/" onClick={this.logUserOut}>LOG OUT</DropdownItem>
                                         </DropdownMenu>
                                     </Dropdown>
-                                    </NavItem>
-                                }
+                                </NavItem>
+                            }
 
 
 
@@ -146,7 +145,7 @@ class Header extends Component {
                         </ul>
 
                         <div id="login">
-                          <LoginForm loginError={this.props.error}/>
+                            <LoginForm loginError={this.props.error}/>
                         </div>
 
                         <div id="signup">
