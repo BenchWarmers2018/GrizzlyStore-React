@@ -9,6 +9,8 @@ import { fetchAccounts } from "../../actions/accountAction"
 import GoogleLogin from "../shared/GoogleLogin.js";
 import { createAccount } from "../../actions/accountAction";
 import {ACCESS_TOKEN} from "../../index";
+import firebase from "firebase";
+import {fetchGoogleAccounts} from "../../actions/googleaccountAction";
 
 class Header extends Component {
 
@@ -50,19 +52,45 @@ class Header extends Component {
         event.preventDefault();
         const user = {accountEmailAddress: this.state.emailAddress, accountPassword: this.state.password};
         this.props.dispatch(createAccount(user));
+    }
 
+    componentDidMount() {
+        this.authListener();
+    }
+
+    authListener() {
+        firebase.auth().onAuthStateChanged(user => {
+            this.setState({
+                isSignedIn: !!user
+            });
+            // User is signed in
+            // Creating user to pass through to backend
+            const googleUser = {idGoogleAccount: user.uid, googleAccountEmailAddress: user.email};
+            const appTokenKey = "token";
+
+            localStorage.setItem(appTokenKey, user.qa);
+            //Dispatching googleUser to Action file
+            this.props.dispatch(fetchGoogleAccounts(googleUser));
+        });
     }
 
     logUserOut = () => {
-        localStorage.removeItem(ACCESS_TOKEN);
+        if(firebase.auth().currentUser) {
+            firebase.auth().signOut();
+        } else {
+            localStorage.removeItem(ACCESS_TOKEN);
+        }
     }
 
     render() {
-
         console.log("Username is :" + this.props.data.username);
-        const name = this.props.data.username;
+        let name = this.props.data.username;
+        if(firebase.auth().currentUser) {
+            name = firebase.auth().currentUser.displayName;
+        } else {
+            name = this.props.data.username;
+        }
         console.log(name);
-
 
         return (
             <div>
@@ -107,20 +135,17 @@ class Header extends Component {
                                 <NavLink to="/cart"><i className="fa fa-shopping-cart"></i>CART</NavLink>
                             </NavItem>
 
-
                             {(typeof name === "undefined") ?
                                 <NavItem className="main-nav">
                                     <NavLink to="/">LOGIN</NavLink>
                                 </NavItem> :
-                                <NavItem>
                                     <Dropdown>
-                                        <DropdownToggle nav caret>{name}</DropdownToggle>
+                                        <DropdownToggle className="uppercase" nav caret>{name}</DropdownToggle>
                                         <DropdownMenu>
                                             <DropdownItem href="/profile">Profile</DropdownItem>
-                                            <DropdownItem href="/" onClick={this.logUserOut}>LOG OUT</DropdownItem>
+                                            <DropdownItem href="/" onClick={this.logUserOut}>Log out</DropdownItem>
                                         </DropdownMenu>
                                     </Dropdown>
-                                </NavItem>
                             }
 
 

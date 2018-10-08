@@ -295,6 +295,6 @@ hr{
   margin: 0;
 }
 
-.capitalise {
+.uppercase {
   text-transform: uppercase;
 }
