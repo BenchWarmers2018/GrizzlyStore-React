@@ -3,7 +3,8 @@ import {render} from 'react-dom'
 import {withFormik, Form, Field} from 'formik'
 import * as Yup from 'yup';
 import {connect} from "react-redux"
-import {authenticateUser} from "../../../actions/accountAction"
+import { authenticateUser } from "../../../actions/accountAction"
+import GoogleLogin from "../GoogleLogin";
 
 class LoginForm extends React.Component {
 
@@ -48,13 +49,16 @@ class LoginForm extends React.Component {
                     </p>
 
                     <p className="fieldset">
-                        <input className="full-width" type="submit" value="Login"/>
+    <input className="full-width" type="submit" value="Login"/>
+    <hr />
+    <GoogleLogin/>
                     </p>
                 </form>
             </Form>
         )
     }
 };
+
 
 const FormikApp = withFormik({
     mapPropsToValues({emailAddress, password}) {
