@@ -8,12 +8,11 @@ class Categories extends Component {
         super(props);
     }
     changeCategory = (e) => {
-        console.log("category name ", e.target.value)
+        console.log("category name ", e.target.value);
         this.props.onCategoryChange(e.target.value);
     }
 
     render() {
-
         const category = this.props.data;
         const activeCategory = this.props.activeCategory;
         return (

@@ -1,9 +1,12 @@
 const initialState = {
     profile: {},
+    updates: '',
     fetching: false,
+    submitting: false,
     fetched: false,
+    submitted: false,
     error: null,
-}
+};
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
@@ -21,6 +24,21 @@ export default function reducer(state = initialState, action) {
         case "FETCH_PROFILE_REJECTED": {
             return {...state, fetching: false, error: action.payload}
         }
+        case "SUBMIT_PROFILE": {
+            return {...state, submitting: true}
+        }
+        case "SUBMIT_PROFILE_ACCEPTED": {
+            return {
+                ...state,
+                submitted: true,
+                submitting: false,
+                updates: action.payload
+            }
+        }
+        case "SUBMIT_PROFILE_REJECTED": {
+            return {...state, submitting: false, updates: action.payload}
+        }
+
         default:
             return state;
     }
