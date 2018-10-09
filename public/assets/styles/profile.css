@@ -61,7 +61,7 @@ hr{
   text-align: left !important;
 }
 
-.profile-nav li Button:not(.disabled):active:focus{
+.profile-nav li Button:not(.disabled):focus, .profile-nav li Button:not(.disabled):active:focus {
   color: black !important;
   width: 100%;
   font-weight: bold !important;
