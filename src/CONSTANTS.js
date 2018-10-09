@@ -31,5 +31,7 @@ export const ADD_CATEGORY_REJECTED = "ADD_CATEGORY_REJECTED";
 export const SERVER_NOT_FOUND = "SERVER_NOT_FOUND";
 
 export const GOOGLE_USER = "GOOGLE_USER";
+
 export const NORMAL_USER = "NORMAL_USER";
+
 
