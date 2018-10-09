@@ -1005,18 +1005,27 @@ section
 	margin-top: 22px;
 }
 .availability
-{
-	display: inline-block;
-	font-size: 14px;
-	font-weight: 500;
-	color: #6c6a74;
-}
+ {
+	 display: inline-block;
+	 font-size: 14px;
+	 font-weight: 500;
+	 color: #6c6a74;
+ }
+
 .in_stock_container span
 {
 	display: inline-block;
 	font-size: 14px;
 	font-weight: 500;
 	color: #44a038;
+	margin-left: 5px;
+}
+
+.out_of_stock_container span{
+	display: inline-block;
+	font-size: 14px;
+	font-weight: 500;
+	color: #ff3f00;
 	margin-left: 5px;
 }
 .details_name

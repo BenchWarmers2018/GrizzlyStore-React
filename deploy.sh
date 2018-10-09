@@ -2,7 +2,8 @@
 echo 'Creating React build files to be served by Nginx'
 
 echo 'Moving build files to Nginx Directory'
-sudo yes | cp -R /var/lib/jenkins/workspace/GrizzlyStore-React/build/* /opt/GrizzlyStoreMicroServices/ &> /dev/null
+sudo rm -rf /opt/GrizzlyStoreMicroServices/GrizzlyStore-React/*
+sudo cp -R /var/lib/jenkins/workspace/GrizzlyStore-React/build/* /opt/GrizzlyStoreMicroServices/GrizzlyStore-React/
 
 if (( $(ps -ef | grep -v grep | grep nginx | wc -l) > 0))
     then
@@ -11,3 +12,4 @@ if (( $(ps -ef | grep -v grep | grep nginx | wc -l) > 0))
 fi
 
 sudo systemctl start nginx.service
+sudo systemctl restart nginx.service
