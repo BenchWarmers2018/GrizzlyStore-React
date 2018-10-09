@@ -48,16 +48,17 @@ class Newsletter extends Component {
                             <div className="container">
                                 <div className="row">
                                     <div className="container">
-                                        <blockquote className="quote-card">
+                                        <blockquote className="quote-card card-body">
                                             <div className="newsletter_title random_fact_title">
                                                 <strong>Bear Trivia</strong>
                                             </div>
-                                            <p className="random_fact_card card-body center" id="bearFactSection" >
+                                            <p className="random_fact_card  center" id="bearFactSection" >
                                                 <em>"{this.state.randomFact}"</em>
-                                            </p>
+
                                             <div className="wrapper">
                                                 <button type="button" className="btn btn-outline-primary" onClick={this.handleClick}>Generate new quote</button>
                                             </div>
+                                            </p>
                                         </blockquote>
                                     </div>
                                 </div>

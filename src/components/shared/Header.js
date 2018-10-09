@@ -8,6 +8,9 @@ import { connect } from "react-redux"
 import { fetchAccounts } from "../../actions/accountAction"
 import GoogleLogin from "../shared/GoogleLogin.js";
 import { createAccount } from "../../actions/accountAction";
+import {ACCESS_TOKEN} from "../../index";
+import firebase from "firebase";
+import {fetchGoogleAccounts} from "../../actions/googleaccountAction";
 
 class Header extends Component {
 
@@ -33,38 +36,67 @@ class Header extends Component {
     }
 
     submitForm = (e) => {
+        e.preventDefault()
         this.setState({
             redirect: true
         })
     }
 
+
     handleChangeEmail = (event1) => {
         this.setState({emailAddress: event1.target.value});
-        console.log('changed');
-        console.log(this.state.emailAddress);
-        console.log(this.state.password);
     }
     handleChangePassword = (event2) => {
         this.setState({password: event2.target.value});
-        console.log('changed');
-        console.log(this.state.emailAddress);
-        console.log(this.state.password);
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
         const user = {accountEmailAddress: this.state.emailAddress, accountPassword: this.state.password};
-        console.log(user);
         this.props.dispatch(createAccount(user));
+    }
 
+    componentDidMount() {
+        this.authListener();
+    }
+
+    authListener() {
+        firebase.auth().onAuthStateChanged(user => {
+            this.setState({
+                isSignedIn: !!user
+            });
+            // User is signed in
+            // Creating user to pass through to backend
+            const googleUser = {idGoogleAccount: user.uid, googleAccountEmailAddress: user.email};
+            const appTokenKey = "token";
+
+            localStorage.setItem(appTokenKey, user.qa);
+            //Dispatching googleUser to Action file
+            this.props.dispatch(fetchGoogleAccounts(googleUser));
+        });
+    }
+
+    logUserOut = () => {
+        if(firebase.auth().currentUser) {
+            firebase.auth().signOut();
+        } else {
+            localStorage.removeItem(ACCESS_TOKEN);
+        }
     }
 
     render() {
+        console.log("Username is :" + this.props.data.username);
+        let name = this.props.data.username;
+        if(firebase.auth().currentUser) {
+            name = firebase.auth().currentUser.displayName;
+        } else {
+            name = this.props.data.username;
+        }
+        console.log(name);
 
         return (
             <div>
                 <Navbar color="white" light expand="md" scrolling>
-                <GoogleLogin/>
                     <NavbarBrand href="/">
                         <div className="logo"><Link to='/'><img className="header_logo" src={Logo} alt=""/></Link></div>
                     </NavbarBrand>
@@ -84,28 +116,46 @@ class Header extends Component {
                                 <Dropdown>
                                     <DropdownToggle nav caret>CATEGORIES</DropdownToggle>
                                     <DropdownMenu>
-                                        <DropdownItem href="/art">Art</DropdownItem>
-                                        <DropdownItem href="/fashion">Fashion</DropdownItem>
-                                        <DropdownItem href="/electronics">Electronics</DropdownItem>
-                                        <DropdownItem href="/home">Home & Living</DropdownItem>
-                                        <DropdownItem href="/jewellery">Jewellery</DropdownItem>
-                                        <DropdownItem href="/toys">Toys</DropdownItem>
+                                        <DropdownItem><Link to="/category/art">Art</Link></DropdownItem>
+                                        <DropdownItem><Link to="/category/clothing">Clothing</Link></DropdownItem>
+                                        <DropdownItem><Link to="/category/technology">Technology</Link></DropdownItem>
+                                        <DropdownItem><Link to="/category/home and living">Home & Living</Link></DropdownItem>
+                                        <DropdownItem><Link to="/category/jewellery">Jewellery</Link></DropdownItem>
+                                        <DropdownItem><Link to="/category/toys">Toys</Link></DropdownItem>
                                     </DropdownMenu>
                                 </Dropdown>
                             </NavItem>
                         </NavbarNav>
                         <NavbarNav right>
                             <NavItem>
+                                {(this.state.redirect) && (
+                                    <Redirect to={'/items/all'}/>
+                                )}
                                 <form onSubmit={this.submitForm} className="form-inline md-form mt-0">
                                     <input className="form-control mr-sm-2 mb-0 text-black" type="text" placeholder="Search" aria-label="Search"/>
                                 </form>
                             </NavItem>
+
                             <NavItem>
                                 <NavLink to="/cart"><i className="fa fa-shopping-cart"></i>CART</NavLink>
                             </NavItem>
-                            <NavItem className="main-nav">
-                                <NavLink to="/" >LOGIN</NavLink>
-                            </NavItem>
+
+                            {(typeof name === "undefined") ?
+                                <NavItem className="main-nav">
+                                    <NavLink to="/">LOGIN</NavLink>
+                                </NavItem> :
+                                    <Dropdown>
+                                        <DropdownToggle className="uppercase" nav caret>{name}</DropdownToggle>
+                                        <DropdownMenu>
+                                            <DropdownItem href="/profile">Profile</DropdownItem>
+                                            <DropdownItem href="/" onClick={this.logUserOut}>Log out</DropdownItem>
+                                        </DropdownMenu>
+                                    </Dropdown>
+                            }
+
+
+
+
                         </NavbarNav>
                     </Collapse>
                 </Navbar>
@@ -119,44 +169,45 @@ class Header extends Component {
                             {/*button for google log in here*/}
 
                             <div className="g-signin2" data-onsuccess="onSignIn"></div>
+
                             <li><a href="#">Sign in</a></li>
                             <li><a href="#">New account</a></li>
                         </ul>
 
                         <div id="login">
-                          <LoginForm loginError={this.props.error}/>
+                            <LoginForm loginError={this.props.error}/>
                         </div>
 
                         <div id="signup">
                             <form className="form" onSubmit={this.handleSubmit}>
-                                {/*<p className="fieldset">*/}
-                                {/*<label className="image-replace username" htmlFor="signup-username">Username</label>*/}
-                                {/*<input className="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username" />*/}
-                                {/*<span className="error-message">Your username can only contain numeric and alphabetic symbols!</span>*/}
-                                {/*</p>*/}
-
                                 <p className="fieldset">
                                     <label className="image-replace email" htmlFor="signup-email">E-mail</label>
                                     <input className="full-width has-padding has-border" id="signup-email" type="email"
                                            placeholder="E-mail" value={this.state.emailAddress}
-                                           onChange={this.handleChangeEmail} requried/>
-                                    {/*<span className="error-message">Enter a valid email address!</span>*/}
+                                           onChange={this.handleChangeEmail} required/>
                                 </p>
 
                                 <p className="fieldset">
                                     <label className="image-replace password" htmlFor="signup-password">Password</label>
                                     <input className="full-width has-padding has-border" id="signup-password"
-                                           type="password" placeholder="Password" value={this.state.password}
+                                           type="password" placeholder="Password" name="pw" pattern=".{6,}" title="Six or more characters"  value={this.state.password}
                                            onChange={this.handleChangePassword} required/>
-                                    {/*<span className="error-message">Your password has to be at least 6 characters long!</span>*/}
                                 </p>
                                 <p className="fieldset">
                                     <label className="image-replace password"
                                            htmlFor="signup-password">Password</label>
                                     <input className="full-width has-padding has-border" id="signup-password-confirm"
                                            type="password" placeholder="Confirm Password" required/>
-                                    {/*<span className="error-message">Your password has to be at least 6 characters long!</span>*/}
                                 </p>
+                                <div className="super_container">
+                                    {/*{(this.props.accounts.length === 0) ? <div className={this.props.error ? 'alert alert-danger' : null}> {this.props.error} </div> : null}*/}
+                                    <div className={this.props.error !== null && this.props.accounts.length === 0 ? 'alert alert-danger' : null}> {this.props.error} </div>
+
+                                    {/*{(this.props.accounts.length === 0) ? <div><h1>{this.props.error}</h1></div> : <div>Right</div>*/}
+                                    {/*}*/}
+
+                                </div>
+
 
                                 <p className="fieldset">
                                     <input className="full-width has-padding" type="submit" value="Create account"/>
@@ -189,6 +240,16 @@ class Header extends Component {
     }
 }
 
+
+
+// function mapStateToProps(state, ownProps) {
+//     return {
+//         accounts: state.accounts.accounts,
+//         error: state.accounts.error
+//     }
+// };
+
+// export default connect(mapStateToProps)(Header);
 const mapStateToProps = state => ({
     accounts:state.accounts.accounts,
     userAccount: state.accounts.userAccount,

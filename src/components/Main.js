@@ -18,7 +18,7 @@ class Main extends Component {
                 <Switch>
                     <Route exact path='/' component={Home}/>
                     <Route path='/items/all' component={Items} />
-                    <Route path='/category'  component={Items}/>
+                    <Route path='/category/:categoryName'  component={Items}/>
                     <Route path='/items/:id' component={EachProduct}/>
                     <Route path='/cart' component={Cart} />
                     <Route path='/checkout' component={Checkout}/>

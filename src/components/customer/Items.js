@@ -11,6 +11,7 @@ import ItemsChild from "./ItemsChild"
 import InputRange from 'react-input-range';
 import '../../../node_modules/react-input-range/lib/css/index.css';
 import Categories from "../microComponents/Categories";
+import Banner from "../microComponents/Banner";
 
 class Items extends Component {
 
@@ -24,23 +25,33 @@ class Items extends Component {
             leastPrice:this.props.sortAndFilter.minPrice,
             mostPrice: this.props.sortAndFilter.maxPrice,
             times:0,
+            searchText:"",
         }
     }
 
     componentDidMount() {
+
         this.props.fetchCategories();
+        if(typeof this.props.match.params.categoryName !== "undefined")
+        {
+            this.props.category(this.props.match.params.categoryName);
+            //this.props.fetchFilteredItems(this.props.sortAndFilter.text, this.props.sortAndFilter.minPrice, this.props.sortAndFilter.maxPrice, this.props.sortAndFilter.sortBy, this.props.sortAndFilter.category, this.props.sortAndFilter.page, 10);
+        }
         if(typeof this.props.pageProps.number === "undefined" || this.props.pageProps.number <= 0)
         {
-            console.log("I called api in didmount");
             this.props.fetchFilteredItems(this.props.sortAndFilter.text, this.props.sortAndFilter.minPrice, this.props.sortAndFilter.maxPrice, this.props.sortAndFilter.sortBy, this.props.sortAndFilter.category, this.props.sortAndFilter.page, 10);
         }
     }
 
 
     componentDidUpdate(prevProps) {
-
-        if(prevProps.sortAndFilter !== this.props.sortAndFilter)
+        console.log("I tried atleast " , this.props.match.params.categoryName);
+        if(prevProps.sortAndFilter !== this.props.sortAndFilter || prevProps.match.params.categoryName !== this.props.match.params.categoryName)
         {
+            if(prevProps.match.params.categoryName !== this.props.match.params.categoryName)
+            {
+                this.props.category(this.props.match.params.categoryName);
+            }
             this.props.fetchFilteredItems(this.props.sortAndFilter.text, this.props.sortAndFilter.minPrice, this.props.sortAndFilter.maxPrice, this.props.sortAndFilter.sortBy, this.props.sortAndFilter.category, this.props.sortAndFilter.page, 10);
             console.log("Category in items " , this.props.sortAndFilter.category);
             console.log("Sort in items " , this.props.sortAndFilter.sortBy);
@@ -102,6 +113,16 @@ class Items extends Component {
         this.props.maxPrice(this.state.chosenVal.max);
     }
 
+    handleSearch = (e) => {
+        console.log("I was clicked with value " + this.state.searchText);
+        e.preventDefault();
+        //Setting price range to default
+        this.props.minPrice(0);
+        this.props.maxPrice(0);
+        this.props.filterText(this.state.searchText);
+
+
+    }
     render() {
 
         const items = this.props.filteredPagedItems;
@@ -110,17 +131,14 @@ class Items extends Component {
 
         return(
         <div className="container-fluid">
-            <div className="breadcumb_area bg-img" style={{backgroundImage: "url(" + Background + ")"}}>
-                <div className="container h-100">
-                    <div className="row h-100 align-items-center">
-                        <div className="col-12">
-                            <div className="page-title text-center">
-                                <h2>All Items</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+            {/* Banner component */}
+            {(this.props.sortAndFilter.category.length > 0) ?
+                <Banner data={this.props.sortAndFilter.category}/> :
+                <Banner data="All Items"/>
+            }
+            {/*Banner component end*/}
+
             <section className="shop_grid_area section-padding-80">
                 <div className="container">
                     <div className="row">
@@ -191,14 +209,22 @@ class Items extends Component {
 
                                             <div
                                                 className="search_panel_content d-flex flex-row align-items-center justify-content-between col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                                                <input type="text" className="search_input" placeholder="Search"
-                                                       required="required" value={this.props.sortAndFilter.text}
-                                                       onChange={(e) => {
-                                                           this.props.filterText(e.target.value);
-                                                           //Setting price range to default
-                                                           this.props.minPrice(0);
-                                                           this.props.maxPrice(0);
-                                                       }}/>
+                                                {/*<input type="text" className="search_input" placeholder="Search"*/}
+                                                       {/*required="required" value={this.props.sortAndFilter.text}*/}
+                                                       {/*onChange={(e) => {*/}
+                                                           {/*this.props.filterText(e.target.value);*/}
+                                                           {/*//Setting price range to default*/}
+                                                           {/*this.props.minPrice(0);*/}
+                                                           {/*this.props.maxPrice(0);*/}
+                                                       {/*}}/>*/}
+                                                <form className="form-inline md-form mr-auto mb-4" onSubmit={this.handleSearch}>
+                                                    <input className="form-control mr-sm-2" type="text"
+                                                           placeholder="Search..." aria-label="Search" value={this.state.searchText}
+                                                           onChange={(e) => {
+                                                               this.setState({searchText: e.target.value});
+
+                                                           }}/>
+                                                </form>
                                             </div>
 
 
@@ -271,7 +297,8 @@ class Items extends Component {
 Items.propTypes= {
     fetchItems: PropTypes.func.isRequired,
     items: PropTypes.array.isRequired,
-}
+    profile: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = state => ({
     items: getVisibleItems(state.items.pagedItems, state.sortAndFilter),

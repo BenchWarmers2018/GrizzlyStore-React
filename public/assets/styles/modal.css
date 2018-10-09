@@ -7,12 +7,9 @@ ul, li {
     padding: 0;
 }
 
-
 .main-nav {
     cursor: pointer;
 }
-
-
 
 .user-modal {
     position: fixed;
@@ -263,8 +260,7 @@ ul, li {
         margin-bottom: 0;
     }
     .form input.has-padding, .form textarea.has-padding {
-      padding: 16px 20px 16px;
-        /* padding: 16px 20px 16px 50px; */
+        padding: 16px 20px 16px 50px;
     }
     .form input[type=submit] {
         padding: 16px 0;
