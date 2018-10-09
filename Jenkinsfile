@@ -5,6 +5,7 @@ pipeline {
          steps {
             echo 'Build Stage'
             sh 'npm install'
+            sh 'sudo rm -rf build/*'
             sh 'npm run build'
          }
       }

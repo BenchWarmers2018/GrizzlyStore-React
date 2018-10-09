@@ -1,35 +1,14 @@
 import React, { Component } from 'react';
 import Background from '../../images/images_sublime/cart.jpg'
 import { Link } from 'react-router-dom';
+import Banner from "../microComponents/Banner";
 
 class Checkout extends Component {
     render() {
         return (
             <div className="doNotRemoveDiv">
-                <div className="home">
-                    <div className="home_container">
-                        <div className="home_background" style={{backgroundImage: "url(" + Background + ")"}}></div>
-                        <div className="home_content_container">
-                            <div className="container">
-                                <div className="row">
-                                    <div className="col">
-                                        <div className="home_content">
-                                            <div className="breadcrumbs">
-                                                <ul>
-                                                    <li><a>Home</a></li>
-                                                    <li><a>Shopping Cart</a></li>
-                                                    <li>Checkout</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-
+                <Banner data="Checkout"/>
 
                 <div className="checkout">
                     <div className="container">

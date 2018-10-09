@@ -36,10 +36,12 @@ class Header extends Component {
     }
 
     submitForm = (e) => {
+        e.preventDefault()
         this.setState({
             redirect: true
         })
     }
+
 
     handleChangeEmail = (event1) => {
         this.setState({emailAddress: event1.target.value});
@@ -121,18 +123,21 @@ class Header extends Component {
                                 <Dropdown>
                                     <DropdownToggle nav caret>CATEGORIES</DropdownToggle>
                                     <DropdownMenu>
-                                        <DropdownItem href="/art">Art</DropdownItem>
-                                        <DropdownItem href="/fashion">Fashion</DropdownItem>
-                                        <DropdownItem href="/electronics">Electronics</DropdownItem>
-                                        <DropdownItem href="/home">Home & Living</DropdownItem>
-                                        <DropdownItem href="/jewellery">Jewellery</DropdownItem>
-                                        <DropdownItem href="/toys">Toys</DropdownItem>
+                                        <DropdownItem><Link to="/category/art">Art</Link></DropdownItem>
+                                        <DropdownItem><Link to="/category/clothing">Clothing</Link></DropdownItem>
+                                        <DropdownItem><Link to="/category/technology">Technology</Link></DropdownItem>
+                                        <DropdownItem><Link to="/category/home and living">Home & Living</Link></DropdownItem>
+                                        <DropdownItem><Link to="/category/jewellery">Jewellery</Link></DropdownItem>
+                                        <DropdownItem><Link to="/category/toys">Toys</Link></DropdownItem>
                                     </DropdownMenu>
                                 </Dropdown>
                             </NavItem>
                         </NavbarNav>
                         <NavbarNav right>
                             <NavItem>
+                                {(this.state.redirect) && (
+                                    <Redirect to={'/items/all'}/>
+                                )}
                                 <form onSubmit={this.submitForm} className="form-inline md-form mt-0">
                                     <input className="form-control mr-sm-2 mb-0 text-black" type="text" placeholder="Search" aria-label="Search"/>
                                 </form>

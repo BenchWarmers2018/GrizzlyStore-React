@@ -26,8 +26,6 @@ class ItemsChild extends Component {
         const item = this.props.data;
 
         return (
-
-
                     <div className="col-12 col-sm-6 col-lg-4">
                         <Link onClick={this.handleItemClicked} value={item.idItem} to={'/items/'+ item.idItem}>
                         <div className="single-product-wrapper">
@@ -39,10 +37,11 @@ class ItemsChild extends Component {
                                      alt=""/>
 
 
-                                <div className="product-badge offer-badge">
-                                    <span>-30%</span>
-                                </div>
-
+                                {(item.itemSalePercentage > 0) &&
+                                    <div className="product-badge offer-badge">
+                                        <span>-{item.itemSalePercentage}%</span>
+                                    </div>
+                                }
                                 <div className="product-favourite">
                                     <a href="#" className="favme fa fa-heart"></a>
                                 </div>
@@ -51,7 +50,7 @@ class ItemsChild extends Component {
 
                             <div className="product-description">
                                 <span>{item.itemName}</span>
-                                <a href="single-product-details.html">
+                                <a>
                                     <h6>{item.itemDescription}</h6>
                                 </a>
                                 {

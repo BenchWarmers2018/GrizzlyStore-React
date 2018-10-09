@@ -138,10 +138,10 @@ class Profile extends Component {
                                             <ul className="nav profile-nav">
                                                 <li>
                                                     <Button bsSize="large" onClick={() => this.onClick(0)}
-                                                            bsStyle="info" block>Overview</Button>
+                                                             block>Overview</Button>
                                                 </li>
                                                 <li>
-                                                    <Button bsSize="large" onClick={() => this.onClick(1)} block>Edit
+                                                    <Button className="profile-usermenu profile-option-button" bsSize="large" onClick={() => this.onClick(1)} block>Edit
                                                         Personal Details</Button>
                                                 </li>
                                                 <li>
@@ -153,7 +153,7 @@ class Profile extends Component {
                                                         Password</Button>
                                                 </li>
                                                 <li>
-                                                    <h7 className="text-center profile-usermenu-option centered">Log
+                                                    <h7 className="text-center profile-usermenu-option ">Log
                                                         Out
                                                     </h7>
                                                 </li>

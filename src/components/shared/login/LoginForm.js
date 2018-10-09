@@ -49,9 +49,9 @@ class LoginForm extends React.Component {
                     </p>
 
                     <p className="fieldset">
-    <input className="full-width" type="submit" value="Login"/>
-    <hr />
-    <GoogleLogin/>
+                        <input className="full-width" type="submit" value="Login"/>
+                        <hr/>
+                        <GoogleLogin/>
                     </p>
                 </form>
             </Form>
