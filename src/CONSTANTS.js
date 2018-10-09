@@ -1,4 +1,5 @@
 export const URL = "http://localhost:10005";
+export const URL_USER = "http://bw.ausgrads.academy:8765/grizzlystore-user_service";
 
 export const FETCH_CATEGORIES_FULFILLED = "FETCH_CATEGORIES_FULFILLED";
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
@@ -30,4 +31,6 @@ export const ADD_CATEGORY_REJECTED = "ADD_CATEGORY_REJECTED";
 export const SERVER_NOT_FOUND = "SERVER_NOT_FOUND";
 
 export const ITEM_PAGE_SIZE = 12;
+export const GOOGLE_USER = "GOOGLE_USER";
 
+export const NORMAL_USER = "NORMAL_USER";
