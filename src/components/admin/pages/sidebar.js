@@ -71,6 +71,10 @@ class sidebar extends Component {
                                 className="sidebar-link waves-effect waves-dark sidebar-link"
                                 aria-expanded="false"><Icon path={mdiBorderAll} size={1.5} /><span
                                 className="hide-menu">Table</span></a></li>
+                            <li className="sidebar-item"><Link to="/viewcategories"><a
+                                className="sidebar-link waves-effect waves-dark sidebar-link"
+                                aria-expanded="false"><Icon path={mdiBorderAll} size={1.5}/><span
+                                className="hide-menu">View Categories</span></a></Link></li>
                         </ul>
 
                     </nav>

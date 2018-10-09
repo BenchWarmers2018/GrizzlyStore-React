@@ -26,7 +26,7 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-            isAdmin : false,
+            isAdmin : true,
 
             currentUser: null,
             isAuthenticated: false,
@@ -160,4 +160,3 @@ const mapDispatchToProps = {
 }
 
 export default connect (mapStateToProps, mapDispatchToProps)(App);
-

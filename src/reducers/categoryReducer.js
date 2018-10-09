@@ -1,4 +1,4 @@
-import { FETCH_CATEGORIES, FETCH_CATEGORIES_REJECTED, FETCH_CATEGORIES_FULFILLED, ADD_CATEGORY, ADD_CATEGORY_REJECTED, ADD_CATEGORY_SUCCESSFUL, SERVER_NOT_FOUND } from "../CONSTANTS";
+import { FETCH_CATEGORIES, FETCH_CATEGORIES_REJECTED, FETCH_CATEGORIES_FULFILLED, ADD_CATEGORY, ADD_CATEGORY_REJECTED, ADD_CATEGORY_SUCCESSFUL, SERVER_NOT_FOUND, EDIT_CATEGORY, EDIT_CATEGORY_REJECTED, EDIT_CATEGORY_SUCCESSFUL } from "../CONSTANTS";
 
 const InitialState = {
     categories : [],
@@ -8,7 +8,9 @@ const InitialState = {
     errors : [],
     messages: [],
     adding : false,
-    added : false
+    added : false,
+    updating: false,
+    updated: false
 }
 
 export default function reducer(state=InitialState, action) {
@@ -39,6 +41,18 @@ export default function reducer(state=InitialState, action) {
                 categories: action.payload,
                 messages: "Category added successfully!",
             }
+        case (EDIT_CATEGORY):
+          return {...state, updating: true }
+        case (EDIT_CATEGORY_REJECTED):
+              return {...state, updated: false, updating: false, messages: action.payload}
+        case (EDIT_CATEGORY_SUCCESSFUL):
+              return {
+                ...state,
+                updating: false,
+                updated: true,
+                categories: action.payload,
+                messages: "Category updated successfully!",
+             }
         default:
             return state;
     }

@@ -55,7 +55,6 @@ const FormikApp = withFormik({
     categoryName: Yup.string().matches(/^[a-zA-Z]+( [a-zA-Z]+)*$/, "Category names must only contain letters.").required('A name is required for the category!')
   }),
   handleSubmit(values, { props, setSubmitting }) {
-    console.log(values.categoryName);
     const categoryData = {categoryName: values.categoryName, categoryDescription: values.categoryDescription};
     props.dispatch(addCategory(categoryData));
     setSubmitting(false);
