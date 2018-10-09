@@ -141,7 +141,7 @@ class Profile extends Component {
                                                              block>Overview</Button>
                                                 </li>
                                                 <li>
-                                                    <Button className="profile-usermenu profile-option-button" bsSize="large" onClick={() => this.onClick(1)} block>Edit
+                                                    <Button bsSize="large" onClick={() => this.onClick(1)} block>Edit
                                                         Personal Details</Button>
                                                 </li>
                                                 <li>

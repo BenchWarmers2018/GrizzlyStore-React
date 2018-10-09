@@ -61,17 +61,23 @@ hr{
   text-align: left !important;
 }
 
-.profile-nav li Button:active{
+.profile-nav li Button:not(.disabled):active:focus{
   color: black !important;
-  border-bottom: none;
   width: 100%;
   font-weight: bold !important;
-  background-color: #C7CFD4 !important;
+  background: #C7CFD4 !important;;
   border-left: 2px solid #5b9bd1 !important;
   margin-left: -2px !important;
   box-shadow: none !important;
 }
 
+.profile-nav li Button:after{
+  background-color: #C7CFD4 !important;
+}
+
+.profile-nav li Button::selection{
+  background-color: #D0C7BF !important;
+}
 
 
 .profile-option-button{
