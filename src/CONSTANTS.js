@@ -1,5 +1,5 @@
-export const URL = "http://localhost:8080";
 export const URL_USER = "http://bw.ausgrads.academy:8765/grizzlystore-user_service";
+export const URL = "http://localhost:10005";
 
 export const FETCH_CATEGORIES_FULFILLED = "FETCH_CATEGORIES_FULFILLED";
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
@@ -34,4 +34,5 @@ export const GOOGLE_USER = "GOOGLE_USER";
 
 export const NORMAL_USER = "NORMAL_USER";
 
+export const ITEM_PAGE_SIZE = 12;
 

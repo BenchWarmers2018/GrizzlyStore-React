@@ -15,15 +15,18 @@ class ItemsChild extends Component {
     }
 
     render() {
-
-        function importAll(r) {
-            let images = {};
-            r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
-            return images;
-        }
-        const images = importAll(require.context('../../images/images_essence/product-img', false, /\.(png|jpe?g|svg)$/));
-
         const item = this.props.data;
+
+        function roundPrice(item){
+            let num = item.itemPrice - (item.itemPrice * item.itemSalePercentage/100);
+            return num.toFixed(2);
+        }
+
+        function twoDecimalPlace(item){
+            let num = item.itemPrice
+            return num.toFixed(2);
+        }
+
 
         return (
                     <div className="col-12 col-sm-6 col-lg-4">
@@ -31,10 +34,7 @@ class ItemsChild extends Component {
                         <div className="single-product-wrapper">
 
                             <div className="product-img">
-                                <img src={images['product-1.jpg']} alt=""/>
-
-                                <img className="hover-img" src={images['product-2.jpg']}
-                                     alt=""/>
+                               <img className="item-image-hover" src={item.itemImage} alt=""/>
 
 
                                 {(item.itemSalePercentage > 0) &&
@@ -49,18 +49,16 @@ class ItemsChild extends Component {
 
 
                             <div className="product-description">
-                                <span>{item.itemName}</span>
-                                <a>
-                                    <h6>{item.itemDescription}</h6>
-                                </a>
+                                <h6 className = "item-page-title">{item.itemName}</h6>
+
                                 {
                                     item.itemSalePercentage > 0 &&
                                     <p className="product-price"><span
-                                        className="old-price">${item.itemPrice}</span>${item.itemPrice - (item.itemPrice * item.itemSalePercentage/100)}</p>
+                                        className="old-price" >${twoDecimalPlace(item)}</span><i className="discount-text-red">${roundPrice(item)}</i></p>
                                 }
                                 {
                                     item.itemSalePercentage <= 0 &&
-                                    <p className="product-price">${item.itemPrice}</p>
+                                    <p className="product-price">${twoDecimalPlace(item)}</p>
                                 }
 
 
