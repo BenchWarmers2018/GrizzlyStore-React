@@ -1,4 +1,5 @@
 export const URL = "http://localhost:8080";
+export const URL_USER = "http://localhost:10003"
 
 export const FETCH_CATEGORIES_FULFILLED = "FETCH_CATEGORIES_FULFILLED";
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
@@ -29,3 +30,5 @@ export const ADD_CATEGORY_REJECTED = "ADD_CATEGORY_REJECTED";
 
 export const SERVER_NOT_FOUND = "SERVER_NOT_FOUND";
 
+export const GOOGLE_USER = "GOOGLE_USER";
+export const NORMAL_USER = "NORMAL_USER";

@@ -60,6 +60,13 @@ class Header extends Component {
         this.authListener();
     }
 
+    componentWillReceiveProps(prevProps){
+        if(prevProps.continueLogin !== this.props.continueLogin)
+        {
+            window.location.reload();
+        }
+    }
+
     authListener() {
         firebase.auth().onAuthStateChanged(user => {
             this.setState({
@@ -201,7 +208,7 @@ class Header extends Component {
                                 </p>
                                 <div className="super_container">
                                     {/*{(this.props.accounts.length === 0) ? <div className={this.props.error ? 'alert alert-danger' : null}> {this.props.error} </div> : null}*/}
-                                    <div className={this.props.error !== null && this.props.accounts.length === 0 ? 'alert alert-danger' : null}> {this.props.error} </div>
+                                    <div className={(this.props.createAccountError.length !== 0 && this.props.continueLogin === false) ? 'alert alert-danger' : null}> {(this.props.createAccountError.length !== 0 && this.props.continueLogin === false) ? this.props.createAccountError : null} </div>
 
                                     {/*{(this.props.accounts.length === 0) ? <div><h1>{this.props.error}</h1></div> : <div>Right</div>*/}
                                     {/*}*/}
@@ -242,18 +249,12 @@ class Header extends Component {
 
 
 
-// function mapStateToProps(state, ownProps) {
-//     return {
-//         accounts: state.accounts.accounts,
-//         error: state.accounts.error
-//     }
-// };
-
-// export default connect(mapStateToProps)(Header);
 const mapStateToProps = state => ({
     accounts:state.accounts.accounts,
     userAccount: state.accounts.userAccount,
     error: state.accounts.error,
+    createAccountError: state.accounts.createAccountError,
+    continueLogin: state.accounts.continueLogin,
 });
 
 

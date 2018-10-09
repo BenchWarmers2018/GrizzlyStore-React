@@ -1,4 +1,5 @@
 import {ACCESS_TOKEN} from "../index";
+import {GOOGLE_USER, NORMAL_USER} from "../CONSTANTS";
 
 const initialState = {
     accounts: [],
@@ -9,8 +10,11 @@ const initialState = {
     authenticating: false,
     authenticated: false,
     error: [],
+    createAccountError: [],
     tokenError: [],
-    summaryAccount: {},
+    loggedInUser: {},
+    userType: "",
+    continueLogin: false,
 }
 
 export default function reducer(state=initialState, action){
@@ -20,7 +24,7 @@ export default function reducer(state=initialState, action){
             return {...state, fetching: true}
         }
         case "CREATE_ACCOUNT_REJECTED": {
-            return {...state, fetching: false, error: action.payload}
+            return {...state, fetching: false, createAccountError: action.payload}
         }
         case "CREATE_ACCOUNT_FULFILLED": {
             return {
@@ -41,7 +45,16 @@ export default function reducer(state=initialState, action){
         case "GET_CURRENT_USER_FULFILLED": {
             return {
                 ...state,
-                summaryAccount: action.payload,
+                loggedInUser: action.payload,
+                userType: NORMAL_USER,
+            }
+        }
+        /* Ian for you with love*/
+        case "GET_CURRENT_GOOGLE_USER_FULFILLED": {
+            return {
+                ...state,
+                loggedInUser: action.payload,
+                userType: GOOGLE_USER,
             }
         }
 
@@ -56,6 +69,7 @@ export default function reducer(state=initialState, action){
             ...state,
             authenticating: false,
             authenticated: true,
+            continueLogin: true,
             token: action.payload,
           }
         }
