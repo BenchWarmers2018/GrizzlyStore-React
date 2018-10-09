@@ -1,8 +1,8 @@
-import { FETCH_CATEGORIES, FETCH_CATEGORIES_REJECTED, FETCH_CATEGORIES_FULFILLED, ADD_CATEGORY, ADD_CATEGORY_REJECTED, ADD_CATEGORY_SUCCESSFUL, SERVER_NOT_FOUND } from "../CONSTANTS";
+import { FETCH_CATEGORIES, FETCH_CATEGORIES_REJECTED, FETCH_CATEGORIES_FULFILLED, FETCH_ITEM_CATEGORY_REJECTED, FETCH_ITEM_CATEGORY_FULFILLED, FETCH_ITEM_CATEGORY, ADD_CATEGORY, ADD_CATEGORY_REJECTED, ADD_CATEGORY_SUCCESSFUL, SERVER_NOT_FOUND} from "../CONSTANTS";
 
 const InitialState = {
     categories : [],
-    categoryItems : [],
+    itemCategory : [],
     fetching : false,
     fetched : false,
     errors : [],
@@ -18,13 +18,24 @@ export default function reducer(state=InitialState, action) {
             return{...state, fetching: true}
 
         case (FETCH_CATEGORIES_REJECTED):
-          return {
-            ...state, errors: action.payload,
-          }
+            return{
+                ...state, errors: action.payload, fetching: false, fetched: false,
+            }
         case (FETCH_CATEGORIES_FULFILLED):
-          return{
-            ...state, categories: action.payload,
-          }
+            return{
+                ...state, categories: action.payload, fetching: false, fetched: true,
+            }
+        case (FETCH_ITEM_CATEGORY):
+            return{...state, fetching: true}
+
+        case (FETCH_ITEM_CATEGORY_REJECTED):
+            return{
+                ...state, errors: action.payload, fetching: false, fetched: false,
+            }
+        case (FETCH_ITEM_CATEGORY_FULFILLED):
+            return{
+        ...state, itemCategory: action.payload, fetching: false, fetched: true,
+            }
         case (ADD_CATEGORY):
           return {...state, adding: true}
         case (ADD_CATEGORY_REJECTED):

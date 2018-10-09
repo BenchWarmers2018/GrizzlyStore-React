@@ -2,25 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Background from '../../images/images_sublime/cart.jpg'
 import CartImage from '../../images/images_sublime/cart_1.jpg';
+import Banner from "../microComponents/Banner";
 
 class Cart extends Component {
     render() {
         return (
             <div>
-                <div className="home">
-                    <div className="home_container">
-
-                        <div className="container h-100">
-                            <div className="row h-100 align-items-center">
-                                <div className="col-12">
-                                    <div className="page-title text-center">
-                                        <h1>Shopping Cart</h1>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <Banner data="Shopping Cart"/>
                 <div className="cart_info">
                     <div className="container">
                         <div className="row">
