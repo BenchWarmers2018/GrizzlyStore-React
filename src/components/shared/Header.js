@@ -92,14 +92,12 @@ class Header extends Component {
     }
 
     render() {
-        console.log("Username is :" + this.props.data.username);
         let name = this.props.data.username;
         if(firebase.auth().currentUser) {
             name = firebase.auth().currentUser.displayName;
         } else {
             name = this.props.data.username;
         }
-        console.log(name);
 
         return (
             <div>
