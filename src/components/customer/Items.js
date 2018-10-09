@@ -224,7 +224,7 @@ class Items extends Component {
                                     <div className="row">
                                         {items.map(item =>
                                         <ItemsChild key={item.idItem} data={item}/>
-                                        )};
+                                        )}
 
                                     </div>}
 
