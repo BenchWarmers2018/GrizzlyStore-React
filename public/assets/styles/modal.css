@@ -7,12 +7,9 @@ ul, li {
     padding: 0;
 }
 
-
 .main-nav {
     cursor: pointer;
 }
-
-
 
 .user-modal {
     position: fixed;
@@ -148,13 +145,13 @@ ul, li {
     padding: 0;
     border-radius: 0.25em;
 }
-.form input.full-width {
+.form input.full-width, .form textarea.full-width {
     width: 100%;
 }
-.form input.has-padding {
-    padding: 12px 20px 12px 50px;
+.form input.has-padding, .form textarea.has-padding{
+    padding: 12px 20px 12px;
 }
-.form input.has-border {
+.form input.has-border, .form textarea.has-border {
     border: 1px solid #d2d8d8;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -162,7 +159,7 @@ ul, li {
     -o-appearance: none;
     appearance: none;
 }
-.form input.has-border:focus {
+.form input.has-border:focus, .form textarea.has-border:focus {
     border-color: #343642;
     box-shadow: 0 0 5px rgba(52, 54, 66, 0.1);
     outline: none;
@@ -262,7 +259,7 @@ ul, li {
     .form .fieldset:last-child {
         margin-bottom: 0;
     }
-    .form input.has-padding {
+    .form input.has-padding, .form textarea.has-padding {
         padding: 16px 20px 16px 50px;
     }
     .form input[type=submit] {

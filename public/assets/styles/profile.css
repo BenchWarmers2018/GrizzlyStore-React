@@ -1,3 +1,173 @@
+/*Customised CSS*/
+hr{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.bg-img{
+  margin:0;
+}
+
+.card-body{
+  background-image: url('../../../src/images/profile_images/background.png');
+  background-size: cover;
+}
+
+.card-body-profile{
+  min-height: 528px;
+  padding: 60px 20px 20px 20px;
+}
+
+.card-subtitle-profile{
+  text-decoration: none;
+  color: #3c9bbf;
+  background-color: rgba(255,255,255,0);
+  /*font-size: 20px;*/
+  display: block;
+  padding: 0 0 0 20px;
+  font-weight: 600;
+  font-family: 'K2D', sans-serif;
+}
+
+.text-muted{
+  color: #B7B7B7 !important;
+}
+
+.page-wrapper{
+  background-color: #FAFCFD;
+}
+
+.btn-success-muted{
+  background-color: #78CE6F !important;
+  /*float: right;*/
+  /*margin-right: 5% !important;*/
+}
+
+/*Main profile img*/
+.btn-default{
+  background-color: white !important;
+  color: #93a3b5 !important;
+}
+
+.profile-nav li Button{
+  background-color: white !important;
+  color: #93a3b5 !important;
+  text-align: left !important;
+}
+
+.profile-nav li Button:hover{
+  background-color: white !important;
+  color: #5b9bd1 !important;
+  text-align: left !important;
+}
+
+.profile-nav li Button:active{
+  color: black !important;
+  border-bottom: none;
+  width: 100%;
+  font-weight: bold !important;
+  background-color: #C7CFD4 !important;
+  border-left: 2px solid #5b9bd1 !important;
+  margin-left: -2px !important;
+  box-shadow: none !important;
+}
+
+
+
+.profile-option-button{
+  background-color: white !important;
+  color: #93a3b5 !important;
+}
+
+.profile-img-name {
+  display: block;
+  margin: auto;
+  text-align: center !important;
+}
+
+.col-lg-4.col-xlg-3.col-md-5{
+  min-width: 300px;
+}
+
+/*Profile Nav Bar*/
+.profile-usermenu {
+  width: 100%;
+  margin: 0;
+}
+
+.profile-usermenu ul {
+  padding: 0 0 5px 0;
+  list-style-type: none;
+}
+
+.profile-usermenu-option{
+  text-decoration: none;
+  color: #3c9bbf;
+  background-color: rgba(255,255,255,0);
+  font-size: 2em;
+  display: block;
+  font-weight: 600;
+  font-variant: all-petite-caps;
+
+}
+
+/*Profile Overview*/
+.profile-overview-field{
+  padding: 0 0 20px 0; /* TOP RIGHT BOTTOM LEFT */
+}
+
+.profile-overview-field-div{
+  display: block;
+  width: 100%;
+}
+
+.profile-overview-field-div label{
+  display: table-cell;
+  min-width: 250px;
+  padding-bottom: 50px;
+  margin-left: 30%;
+}
+
+.profile-overview-field-div h5{
+  display: table-cell;
+}
+
+.profile-overview-mainDiv{
+  text-align: center;
+}
+
+/*Profile Forms --> Address/Password/Personal*/
+.form-horizontal{
+  text-align: center;
+}
+
+.form-group{
+  margin-bottom: 30px;
+}
+
+.form-group-address{
+  display: inline-block !important;
+  min-width: 45%;
+}
+
+.form-group-personal, .form-group-password{
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+.label-padding-left{
+  margin-left: 5px;
+  text-align: left;
+}
+
+.label-address-unitno{
+  width: 30%;
+}
+
+.label-address-streetno {
+  width: 30%;
+}
+
 .button-center a div
 {
   text-align: center;
@@ -92,7 +262,7 @@
 
 .profile-usermenu ul li a {
   color: #93a3b5;
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 400;
 
 
@@ -106,11 +276,20 @@
 .profile-usermenu ul li a:hover {
   background-color: #fafcfd;
   color: #5b9bd1;
+
 }
 
 .profile-usermenu ul li.active {
   border-bottom: none;
   width: 100%;
+}
+
+.profile-usermenu ul li a.active {
+  color: black;
+  border-bottom: none;
+  width: 100%;
+  font-weight: bold;
+  background-color: #C7CFD4;
 }
 
 .profile-usermenu ul li.active a {

@@ -13,7 +13,7 @@ import firebase from "firebase";
 
 firebase.initializeApp({
     apiKey: "AIzaSyAj2rJNz3nFOC8hJS8b0mCzAkyqumwlMYY",
-    authDomain: "grizzly-store-bw.firebaseapp.com",
+    //authDomain: "grizzly-store-bw.firebaseapp.com",
     databaseURL: "https://grizzly-store-bw.firebaseio.com",
     projectId: "grizzly-store-bw",
     storageBucket: "grizzly-store-bw.appspot.com",
@@ -21,12 +21,12 @@ firebase.initializeApp({
 })
 
 
+export const API_BASE_URL = 'http://localhost:5000';
+export const ACCESS_TOKEN = "accessToken";
+
 ReactDOM.render(
     <Provider store={store}>
         <App />
     </Provider>
     , document.getElementById('root'));
 registerServiceWorker();
-
-
-
