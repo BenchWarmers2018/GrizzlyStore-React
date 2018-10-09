@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_CATEGORIES, FETCH_CATEGORIES_FULFILLED, FETCH_CATEGORIES_REJECTED, FETCH_CATEGORY_ITEMS, FETCH_CATEGORY_ITEMS_FULFILLED, FETCH_CATEGORY_ITEMS_REJECTED, URL } from '../CONSTANTS'
+import { FETCH_ITEM_CATEGORY, FETCH_ITEM_CATEGORY_FULFILLED, FETCH_ITEM_CATEGORY_REJECTED, FETCH_CATEGORIES, FETCH_CATEGORIES_FULFILLED, FETCH_CATEGORIES_REJECTED, FETCH_CATEGORY_ITEMS, FETCH_CATEGORY_ITEMS_FULFILLED, FETCH_CATEGORY_ITEMS_REJECTED, URL } from '../CONSTANTS'
 
 export function fetchCategories() {
     return function (dispatch) {
@@ -17,3 +17,18 @@ export function fetchCategories() {
 }
 
 
+
+export function fetchCategoriesforItem(id) {
+    return function (dispatch) {
+
+        dispatch({type: FETCH_ITEM_CATEGORY});
+
+        axios.get(URL+"/category/itemid?itemid="+id)
+            .then((response)=> {
+                dispatch({type: FETCH_ITEM_CATEGORY_FULFILLED, payload: response.data.entities});
+            })
+            .catch((err)=> {
+                dispatch({type: FETCH_ITEM_CATEGORY_REJECTED, payload: err})
+            })
+    }
+}
