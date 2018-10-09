@@ -1,4 +1,4 @@
-export const URL = "http://localhost:8080";
+export const URL = "http://localhost:10005";
 
 export const FETCH_CATEGORIES_FULFILLED = "FETCH_CATEGORIES_FULFILLED";
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
@@ -28,4 +28,6 @@ export const ADD_CATEGORY_SUCCESSFUL = "ADD_CATEGORY_SUCCESSFUL";
 export const ADD_CATEGORY_REJECTED = "ADD_CATEGORY_REJECTED";
 
 export const SERVER_NOT_FOUND = "SERVER_NOT_FOUND";
+
+export const ITEM_PAGE_SIZE = 12;
 
