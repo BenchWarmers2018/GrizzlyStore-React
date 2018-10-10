@@ -26,7 +26,7 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-            isAdmin : true,
+            isAdmin : false,
 
             currentUser: null,
             isAuthenticated: false,
