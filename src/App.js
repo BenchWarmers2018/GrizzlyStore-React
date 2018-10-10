@@ -65,7 +65,7 @@ class App extends Component {
                             <AdminMain />
                         </div> :
                         <div>
-                            <Header data={this.props.loggedInUser} />
+                            <Header data={this.props.loggedInUser} type={this.props.userType} />
                             <Main/>
                             <Newsletter/>
                         </div>
@@ -83,11 +83,12 @@ const mapStateToProps = state => ({
     tokenObject: state.accounts.token,
     loggedInUser: state.accounts.loggedInUser,
     continueLogin: state.accounts.continueLogin,
+    userType : state.accounts.userType,
 });
 
 const mapDispatchToProps = {
     getCurrentUser,
-}
+};
 
 export default connect (mapStateToProps, mapDispatchToProps)(App);
 
