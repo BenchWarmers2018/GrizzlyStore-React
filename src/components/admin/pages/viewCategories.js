@@ -8,7 +8,7 @@ class ViewCategories extends Component {
   constructor(props){
     super(props);
     this.state = {
-      categories: this.props.categories,
+      categories: this.props.categories
     }
   }
 
@@ -43,8 +43,9 @@ class ViewCategories extends Component {
           </div>
           <div className="container-fluid">
             <h1>View Categories</h1>
-            { console.log(this.state.categories)}
-            <ViewCategoriesTable categoryData={this.state.categories}/>
+            <ViewCategoriesTable
+              categoryData={this.state.categories}
+            />
           </div>
       </div>
     );

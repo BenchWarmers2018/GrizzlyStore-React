@@ -63,8 +63,6 @@ const FormikApp = withFormik({
 
 function mapStateToProps(state) {
   return {
-    categories: state.category.category,
-    errors: state.category.errors,
   }
 };
 

@@ -38,7 +38,7 @@ export default function reducer(state=InitialState, action) {
                 ...state,
                 adding: false,
                 added: true,
-                categories: action.payload,
+                categories: [...state.categories, action.payload[0]],
                 messages: "Category added successfully!",
             }
         case (EDIT_CATEGORY):

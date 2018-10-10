@@ -10,16 +10,18 @@ class EditCategoryForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          rowData: this.props.rowData
+          rowData: this.props.rowData,
+          editCategoryMessage: this.props.editCategoryMessage
         };
+
+        this.props.values.categoryName = this.state.rowData.categoryName
+        this.props.values.categoryDescription = this.state.rowData.categoryDescription
     }
 
     componentDidUpdate(prevProps) {
       if(prevProps.rowData !== this.props.rowData)
       {
         this.setState({rowData: this.props.rowData})
-        this.props.value.categoryName = this.props.rowData.categoryName;
-        this.props.value.categoryDescription = this.props.rowData.categoryDescription;
       }
     }
 
@@ -40,7 +42,9 @@ class EditCategoryForm extends React.Component {
           <form className = "form">
 
             {/* Display Error/Success Message */}
-            <div className={(props.EditCategoryMessage != "") ? (props.categoryStatusEdited == true ? "alert alert-success" : "alert alert-danger") : null}>{props.EditCategoryMessage}</div>
+            {console.log("Edit Form")}
+            {console.log(this.state.editCategoryMessage)}
+            <div className={(this.props.editCategoryMessage != "") ? (this.props.categoryStatusUpdated == true ? "alert alert-success" : "alert alert-danger") : null}>{this.props.EditCategoryMessage}</div>
 
             {/* Name Field */}
             <p className="fieldset">
@@ -66,25 +70,23 @@ class EditCategoryForm extends React.Component {
 };
 
 const FormikApp = withFormik({
-  mapPropsToValues({ categoryName, categoryDescription }) {
-    return {
-      categoryName: categoryName || '',
-      categoryDescription: categoryDescription || ''
-    }
-  },
+  mapPropsToValues: ({ categoryName, categoryDescription }) => ({
+    categoryName: categoryName || '',
+    categoryDescription: categoryDescription || ''
+  }),
   validationSchema: Yup.object().shape({
     categoryName: Yup.string().matches(/^[a-zA-Z]+( [a-zA-Z]+)*$/, "Category names must only contain letters.").required('A name is required for the category!')
   }),
   handleSubmit(values, { props, setSubmitting }) {
-    const categoryData = {idCategory: rowData.idCategory, categoryName: values.categoryName, categoryDescription: values.categoryDescription};
+    const categoryData = {idCategory: props.rowData.idCategory, categoryName: values.categoryName, categoryDescription: values.categoryDescription};
     props.dispatch(editCategory(categoryData));
     setSubmitting(false);
   }
 })(EditCategoryForm)
 
 const mapStateToProps = (state) => ({
-    categories: state.category.category,
-    errors: state.category.errors,
+  editCategoryMessage: state.category.messages,
+  categoryStatusUpdated: state.category.updated
 });
 
 export default connect(mapStateToProps)(FormikApp)

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import { Container, Row, Col, Input, Button, Fa, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
+import EditCategoryForm from "../forms/editCategoryForm.js";
+import { connect } from "react-redux"
 
 class ViewCategoriesTable extends Component {
   constructor(props) {
@@ -9,6 +11,7 @@ class ViewCategoriesTable extends Component {
     this.state = {
       modal: false,
       data: props.categoryData,
+      editCategoryMessage: props.editCategoryMessage,
       rowData: []
     };
     this.toggle = this.toggle.bind(this);
@@ -25,11 +28,15 @@ class ViewCategoriesTable extends Component {
     {
       this.setState({data: this.props.categoryData})
     }
+
+    if(prevProps.editCategoryMessage !== this.props.editCategoryMessage)
+    {
+      this.setState({editCategoryMessage: this.props.editCategoryMessage})
+    }
   }
 
   render() {
     const { data } = this.state;
-    console.log(data);
     return (
       <div>
         <ReactTable
@@ -60,19 +67,32 @@ class ViewCategoriesTable extends Component {
           getTdProps={(state, rowInfo, column, instance) => {
             return {
               onClick: (e, handleOriginal) => {
-                this.state.rowData = rowInfo.original;
-                this.toggle();
+                if (typeof rowInfo !== "undefined")
+                {
+                  this.state.rowData = rowInfo.original;
+                  this.toggle();
+                }
               }
             };
           }}
         />
 
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className="cascading-modal" onRequestClose={this.toggle}>
-            <editCategory rowData={this.state.rowData}/>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className="cascading-modal">
+            {/* <EditCategoryForm rowData={this.state.rowData} editCategoryMessage={this.props.editCategoryMessage}/> */}
+            {console.log("View Categories Table")}
+            {console.log(this.state.editCategoryMessage)}
+            <EditCategoryForm
+              rowData={this.state.rowData}
+              editCategoryMessage={this.state.editCategoryMessage}/>
         </Modal>
       </div>
     );
   }
 }
 
-export default ViewCategoriesTable;
+const mapStateToProps = state => ({
+    editCategoryMessage: state.category.messages,
+    categoryStatusUpdated: state.category.updated
+});
+
+export default connect(mapStateToProps)(ViewCategoriesTable);
