@@ -1,7 +1,7 @@
 import store from '../store';
 import axios from 'axios';
 const acc = {
-    "idAccount": "10daae9d-24d9-4612-9000-9f76495563db",
+    "idAccount": "456b3317-ff15-4cf1-bded-f881d8f1c4b1",
     "accountEmailAddress": "abc@gmail.com",
     "accountPassword": "abcd",
     "accountIsAdmin": "true"
@@ -10,7 +10,7 @@ const acc = {
 export function fetchProfile(accountID='') {
     return function (dispatch) {
         dispatch({type: "FETCH_PROFILE"}); //
-        axios.post("http://localhost:8080/user/profile?accountID=" + acc.idAccount)
+        axios.post("http://localhost:10003/user/profile?accountID=" + acc.idAccount)
             .then((response) => {
                 console.log("TESTING " + response.data.entities);
                 dispatch({type: "FETCH_PROFILE_FULFILLED", payload: response.data})
@@ -28,7 +28,7 @@ export function submitPersonalDetails(profileData, accountID='') {
             'accountID': acc.idAccount
         };
         dispatch({type: "SUBMIT_PROFILE"}); //
-        axios.post("http://localhost:8080/user/update-profile", profileData, {headers: header})
+        axios.post("http://localhost:10003/user/update-profile", profileData, {headers: header})
             .then((response) => {
                 console.log("Updating profile successful " + response);
                 dispatch({type: "SUBMIT_PROFILE_ACCEPTED", payload: response.data})
@@ -48,7 +48,7 @@ export function submitPassword(profileData, accoundID='') {
             'accountID': acc.idAccount,
         };
         dispatch({type: "SUBMIT_PROFILE"}); //
-        axios.post("http://localhost:8080/user/update-profile", profileData, {headers: header})
+        axios.post("http://localhost:10003/user/update-profile", profileData, {headers: header})
             .then((response) => {
                 console.log("Updating profile successful " + response);
                 dispatch({type: "SUBMIT_PROFILE_ACCEPTED", payload: response.data})
@@ -68,7 +68,7 @@ export function submitAddress(profileData, accountID='') {
             'accountID': acc.idAccount
         };
         dispatch({type: "SUBMIT_PROFILE"}); //
-        axios.post("http://localhost:8080/user/update-profile", profileData, {headers: header})
+        axios.post("http://localhost:10003/user/update-profile", profileData, {headers: header})
             .then((response) => {
                 console.log("Updating profile successful " + response);
                 dispatch({type: "SUBMIT_PROFILE_ACCEPTED", payload: response.data})
