@@ -11,8 +11,8 @@ export const URL_ITEM = "http://localhost:10005";
 
 
 export const URL = "http://localhost:8080";
-//export const URL_GOOGLE_USER = "http://localhost:10006";
-//export const URL_USER = "http://localhost:10003";
+export const URL_GOOGLE_USER = "http://localhost:10006";
+export const URL_USER = "http://localhost:10003";
 
 
 export const FETCH_CATEGORIES_FULFILLED = "FETCH_CATEGORIES_FULFILLED";
