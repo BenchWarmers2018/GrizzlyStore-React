@@ -1,9 +1,9 @@
-export const URL = "http://localhost:8080";
-export const URL_GOOGLE_USER = "http://localhost:10006";
-export const URL_USER = "http://localhost:10003";
+//export const URL = "http://localhost:8080";
+//export const URL_GOOGLE_USER = "http://localhost:10006";
+//export const URL_USER = "http://localhost:10003";
 
-// export const URL_USER = "http://bw.ausgrads.academy:8765/grizzlystore-user_service";
-// export const URL_GOOGLE_USER = "http://bw.ausgrads.academy:8765/GrizzlyStore-GoogleUser_Service";
+export const URL_USER = "http://bw.ausgrads.academy:8765/grizzlystore-user_service";
+export const URL_GOOGLE_USER = "http://bw.ausgrads.academy:8765/GrizzlyStore-GoogleUser_Service";
 
 export const FETCH_CATEGORIES_FULFILLED = "FETCH_CATEGORIES_FULFILLED";
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
