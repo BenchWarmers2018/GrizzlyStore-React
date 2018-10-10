@@ -64,7 +64,7 @@ class Header extends Component {
     componentWillReceiveProps(prevProps){
         if(prevProps.continueLogin !== this.props.continueLogin)
         {
-            //window.location.reload();
+            window.location.reload();
         }
     }
 
