@@ -1,4 +1,10 @@
-export const URL = "http://localhost:8080";
+//URL_ITEM's for local machine. Please comment before pushing to git.
+export const URL_ITEM = "http://localhost:10005";
+
+
+
+/***URL_ITEM's for the server. Please uncomment before pushing to git ***/
+//export const URL_ITEM = "http://bw.ausgrads.academy:8765/grizzlystore-item_service"
 
 export const FETCH_CATEGORIES_FULFILLED = "FETCH_CATEGORIES_FULFILLED";
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";

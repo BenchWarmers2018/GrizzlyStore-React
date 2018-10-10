@@ -4,7 +4,7 @@ import {
     FETCH_ITEMS_PAGE_FULFILLED,
     FETCH_ITEMS_REJECTED,
     FETCH_ITEMS_FULFILLED,
-    URL,
+    URL_ITEM,
     FETCH_SINGLE_ITEM,
     FETCH_SINGLE_ITEM_FULFILLED,
     FETCH_SINGLE_ITEM_REJECTED,
@@ -29,7 +29,7 @@ export function fetchSingleItem(id) {
     return function(dispatch) {
         dispatch({type: FETCH_SINGLE_ITEM});
 
-        axios.get(URL + "/items/id?itemId="+ id)
+        axios.get(URL_ITEM + "/items/id?itemId="+ id)
             .then((response) => {
                 console.log(response.data);
                 dispatch({type: FETCH_SINGLE_ITEM_FULFILLED, payload: response.data.entities})
@@ -60,7 +60,7 @@ export function fetchCategoryItems(catName, page, size) {
 
         dispatch({type: FETCH_ITEMS_PAGE});
 
-        axios.get(URL+"/items/page/categoryName?name="+catName+"&size="+size+"&page="+page)
+        axios.get(URL_ITEM+"/items/page/categoryName?name="+catName+"&size="+size+"&page="+page)
             .then((response)=> {
                 dispatch({type: FETCH_ITEMS_PAGE_FULFILLED, payload: response.data});
             })
@@ -81,7 +81,7 @@ const tempArr = [
         },
         "itemName": "Weddy",
         "itemDescription": "Cutest teddy bear in the world",
-        "itemImage": "<INSERT URL HERE>",
+        "itemImage": "<INSERT URL_ITEM HERE>",
         "itemPrice": 12,
         "itemSalePercentage": 0,
         "lastModified": "2018-09-20T13:09:49.000+0000"
@@ -96,7 +96,7 @@ const tempArr = [
         },
         "itemName": "Reddy2",
         "itemDescription": "Cutest teddy bear in Asia",
-        "itemImage": "<INSERT URL HERE>",
+        "itemImage": "<INSERT URL_ITEM HERE>",
         "itemPrice": 14,
         "itemSalePercentage": 25,
         "lastModified": "2018-09-20T13:09:49.000+0000"
@@ -111,7 +111,7 @@ const tempArr = [
         },
         "itemName": "Teddy3",
         "itemDescription": "Cutest teddy bear in Europe",
-        "itemImage": "<INSERT URL HERE>",
+        "itemImage": "<INSERT URL_ITEM HERE>",
         "itemPrice": 16,
         "itemSalePercentage": 0,
         "lastModified": "2018-09-20T13:09:49.000+0000"
@@ -126,7 +126,7 @@ const tempArr = [
         },
         "itemName": "Ueddy4",
         "itemDescription": "Cutest teddy bear in Australia",
-        "itemImage": "<INSERT URL HERE>",
+        "itemImage": "<INSERT URL_ITEM HERE>",
         "itemPrice": 18,
         "itemSalePercentage": 0,
         "lastModified": "2018-09-20T13:09:49.000+0000"
@@ -141,7 +141,7 @@ const tempArr = [
         },
         "itemName": "Oeddy5",
         "itemDescription": "Cutest teddy bear in America",
-        "itemImage": "<INSERT URL HERE>",
+        "itemImage": "<INSERT URL_ITEM HERE>",
         "itemPrice": 11,
         "itemSalePercentage": 30,
         "lastModified": "2018-09-20T13:09:49.000+0000"
@@ -156,7 +156,7 @@ const tempArr = [
         },
         "itemName": "Peddy6",
         "itemDescription": "Cutest teddy bear in Antartica",
-        "itemImage": "<INSERT URL HERE>",
+        "itemImage": "<INSERT URL_ITEM HERE>",
         "itemPrice": 13,
         "itemSalePercentage": 0,
         "lastModified": "2018-09-20T13:09:49.000+0000"
@@ -171,7 +171,7 @@ const tempArr = [
         },
         "itemName": "Veddy7",
         "itemDescription": "Cutest teddy bear in the Artic",
-        "itemImage": "<INSERT URL HERE>",
+        "itemImage": "<INSERT URL_ITEM HERE>",
         "itemPrice": 19,
         "itemSalePercentage": 20,
         "lastModified": "2018-09-20T13:09:49.000+0000"
@@ -186,7 +186,7 @@ const tempArr = [
         },
         "itemName": "Beddy8",
         "itemDescription": "Cutest teddy bear in Pluto",
-        "itemImage": "<INSERT URL HERE>",
+        "itemImage": "<INSERT URL_ITEM HERE>",
         "itemPrice": 10,
         "itemSalePercentage": 0,
         "lastModified": "2018-09-20T13:09:49.000+0000"
