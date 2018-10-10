@@ -11,6 +11,7 @@ import { createAccount } from "../../actions/accountAction";
 import {ACCESS_TOKEN} from "../../index";
 import firebase from "firebase";
 import {fetchGoogleAccounts} from "../../actions/googleaccountAction";
+import {GOOGLE_USER, NORMAL_USER} from "../../CONSTANTS";
 
 class Header extends Component {
 
@@ -63,7 +64,7 @@ class Header extends Component {
     componentWillReceiveProps(prevProps){
         if(prevProps.continueLogin !== this.props.continueLogin)
         {
-            //window.location.reload();
+            window.location.reload();
         }
     }
 
@@ -73,13 +74,20 @@ class Header extends Component {
                 isSignedIn: !!user
             });
             // User is signed in
+            // so apparently "qa" (user.qa) is Google's firebase accessToken
             // Creating user to pass through to backend
-            const googleUser = {idGoogleAccount: user.uid, googleAccountEmailAddress: user.email};
-            const appTokenKey = "token";
 
-            localStorage.setItem(appTokenKey, user.qa);
+            //const appTokenKey = "token";
+
+            //localStorage.setItem(appTokenKey, user.qa);
             //Dispatching googleUser to Action file
-            this.props.dispatch(fetchGoogleAccounts(googleUser));
+            console.log(user, " ", !user, " ", !!user);
+
+            if(!!user)
+            {
+                const googleUser = {googleAccountEmailAddress: user.email};
+                this.props.dispatch(fetchGoogleAccounts(googleUser));
+            }
         });
     }
 
@@ -92,12 +100,21 @@ class Header extends Component {
     }
 
     render() {
-        let name = this.props.data.username;
-        if(firebase.auth().currentUser) {
-            name = firebase.auth().currentUser.displayName;
-        } else {
-            name = this.props.data.username;
+        let name = "";
+        if(this.props.type.length>0)
+        {
+            if(this.props.type === GOOGLE_USER)
+            {
+                name = this.props.data.googleAccountEmailAddress;
+            }
+            else if (this.props.type === NORMAL_USER)
+            {
+                name = this.props.data.username;
+            }
         }
+
+        //name = firebase.auth().currentUser.displayName;
+
 
         return (
             <div>
@@ -145,17 +162,17 @@ class Header extends Component {
                                 <NavLink to="/cart"><i className="fa fa-shopping-cart"></i>CART</NavLink>
                             </NavItem>
 
-                            {(typeof name === "undefined") ?
+                            {(name.length <= 0) ?
                                 <NavItem className="main-nav">
                                     <NavLink to="/">LOGIN</NavLink>
                                 </NavItem> :
-                                    <Dropdown>
-                                        <DropdownToggle className="uppercase" nav caret>{name}</DropdownToggle>
-                                        <DropdownMenu>
-                                            <DropdownItem href="/profile">Profile</DropdownItem>
-                                            <DropdownItem href="/" onClick={this.logUserOut}>Log out</DropdownItem>
-                                        </DropdownMenu>
-                                    </Dropdown>
+                                <Dropdown>
+                                    <DropdownToggle className="uppercase" nav caret>{name}</DropdownToggle>
+                                    <DropdownMenu>
+                                        <DropdownItem href="/profile">Profile</DropdownItem>
+                                        <DropdownItem href="/" onClick={this.logUserOut}>Log out</DropdownItem>
+                                    </DropdownMenu>
+                                </Dropdown>
                             }
 
 
@@ -180,6 +197,7 @@ class Header extends Component {
                         </ul>
 
                         <div id="login">
+                            {/*<LoginForm loginError={this.props.error}/>*/}
                             <LoginForm loginError={this.props.error}/>
                         </div>
 

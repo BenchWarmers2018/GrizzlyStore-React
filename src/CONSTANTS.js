@@ -1,4 +1,5 @@
 
+
 //URL_ITEM's for local machine. Please comment before pushing to git.
 export const URL_ITEM = "http://localhost:10005";
 
@@ -7,6 +8,11 @@ export const URL_ITEM = "http://localhost:10005";
 /***URL_ITEM's for the server. Please uncomment before pushing to git ***/
 //export const URL_ITEM = "http://bw.ausgrads.academy:8765/grizzlystore-item_service"
 //export const URL_USER = "http://bw.ausgrads.academy:8765/grizzlystore-user_service";
+
+
+export const URL = "http://localhost:8080";
+//export const URL_GOOGLE_USER = "http://localhost:10006";
+//export const URL_USER = "http://localhost:10003";
 
 
 export const FETCH_CATEGORIES_FULFILLED = "FETCH_CATEGORIES_FULFILLED";
@@ -35,6 +41,10 @@ export const FETCH_ITEM_CATEGORY_REJECTED = "FETCH_ITEM_CATEGORY_REJECTED";
 export const ADD_CATEGORY = "ADD_CATEGORY";
 export const ADD_CATEGORY_SUCCESSFUL = "ADD_CATEGORY_SUCCESSFUL";
 export const ADD_CATEGORY_REJECTED = "ADD_CATEGORY_REJECTED";
+
+export const FETCH_GOOGLE_ACCOUNTS = "FETCH_GOOGLE_ACCOUNTS";
+export const FETCH_GOOGLE_ACCOUNTS_REJECTED = "FETCH_GOOGLE_ACCOUNTS_REJECTED";
+export const FETCH_GOOGLE_ACCOUNTS_FULFILLED = "FETCH_GOOGLE_ACCOUNTS_FULFILLED";
 
 export const SERVER_NOT_FOUND = "SERVER_NOT_FOUND";
 
