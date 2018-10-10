@@ -12,6 +12,7 @@ import InputRange from 'react-input-range';
 import '../../../node_modules/react-input-range/lib/css/index.css';
 import Categories from "../microComponents/Categories";
 import Banner from "../microComponents/Banner";
+import {ITEM_PAGE_SIZE} from "../../CONSTANTS";
 
 class Items extends Component {
 
@@ -35,11 +36,11 @@ class Items extends Component {
         if(typeof this.props.match.params.categoryName !== "undefined")
         {
             this.props.category(this.props.match.params.categoryName);
-            //this.props.fetchFilteredItems(this.props.sortAndFilter.text, this.props.sortAndFilter.minPrice, this.props.sortAndFilter.maxPrice, this.props.sortAndFilter.sortBy, this.props.sortAndFilter.category, this.props.sortAndFilter.page, 10);
+            //this.props.fetchFilteredItems(this.props.sortAndFilter.text, this.props.sortAndFilter.minPrice, this.props.sortAndFilter.maxPrice, this.props.sortAndFilter.sortBy, this.props.sortAndFilter.category, this.props.sortAndFilter.page, ITEM_PAGE_SIZE);
         }
         if(typeof this.props.pageProps.number === "undefined" || this.props.pageProps.number <= 0)
         {
-            this.props.fetchFilteredItems(this.props.sortAndFilter.text, this.props.sortAndFilter.minPrice, this.props.sortAndFilter.maxPrice, this.props.sortAndFilter.sortBy, this.props.sortAndFilter.category, this.props.sortAndFilter.page, 10);
+            this.props.fetchFilteredItems(this.props.sortAndFilter.text, this.props.sortAndFilter.minPrice, this.props.sortAndFilter.maxPrice, this.props.sortAndFilter.sortBy, this.props.sortAndFilter.category, this.props.sortAndFilter.page, ITEM_PAGE_SIZE);
         }
     }
 
@@ -52,7 +53,7 @@ class Items extends Component {
             {
                 this.props.category(this.props.match.params.categoryName);
             }
-            this.props.fetchFilteredItems(this.props.sortAndFilter.text, this.props.sortAndFilter.minPrice, this.props.sortAndFilter.maxPrice, this.props.sortAndFilter.sortBy, this.props.sortAndFilter.category, this.props.sortAndFilter.page, 10);
+            this.props.fetchFilteredItems(this.props.sortAndFilter.text, this.props.sortAndFilter.minPrice, this.props.sortAndFilter.maxPrice, this.props.sortAndFilter.sortBy, this.props.sortAndFilter.category, this.props.sortAndFilter.page, ITEM_PAGE_SIZE);
             console.log("Category in items " , this.props.sortAndFilter.category);
             console.log("Sort in items " , this.props.sortAndFilter.sortBy);
             console.log("Min in items " , this.props.sortAndFilter.minPrice);
@@ -250,7 +251,7 @@ class Items extends Component {
                                     <div className="row">
                                         {items.map(item =>
                                         <ItemsChild key={item.idItem} data={item}/>
-                                        )};
+                                        )}
 
                                     </div>}
 
