@@ -35,9 +35,9 @@ class Profile extends Component {
     componentDidUpdate(prevProps) {
         if (prevProps.profile !== this.props.profile) {
             this.setState({
-                image: this.props.profile[0].profileImage,
-                firstName: this.props.profile[0].profileFirstName,
-                lastName: this.props.profile[0].profileLastName
+                image: this.props.profile[0].profile.profileImage,
+                firstName: this.props.profile[0].profile.profileFirstName,
+                lastName: this.props.profile[0].profile.profileLastName
             });
         }
     }
