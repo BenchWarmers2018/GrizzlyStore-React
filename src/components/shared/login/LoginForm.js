@@ -19,7 +19,7 @@ class LoginForm extends React.Component {
             touched,
             handleChange,
             handleBlur,
-            isSubmitting
+            isSubmitting,
         } = this.props;
 
         return (
@@ -27,7 +27,7 @@ class LoginForm extends React.Component {
                 <form className="form">
                     {/* Display Error Message */}
                     <div
-                        className={(this.props.loginError != "") ? 'alert alert-danger' : null}>{this.props.loginError}</div>
+                        className={(this.props.error != "") ? 'alert alert-danger' : null}>{this.props.error}</div>
 
                     {/* Email Field */}
                     <p className="fieldset">
@@ -92,6 +92,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     authenticateUser,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormikApp)
