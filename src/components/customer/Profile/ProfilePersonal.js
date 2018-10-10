@@ -4,19 +4,31 @@ import PropTypes from 'prop-types';
 import {fetchProfile, submitPersonalDetails} from "../../../actions/profileActions";
 import {Formik, Field} from 'formik';
 import {withRouter} from 'react-router';
+import Dropzone from 'react-dropzone'
 
 class ProfilePersonal extends Component {
     constructor(props) {
         super(props);
         this.validatePhone = this.validatePhone.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onDrop = this.onDrop.bind(this)
         this.state = {
             success: "",
             empty: false,
             firstName: '',
             lastName: '',
-            mobile: ''
+            mobile: '',
+            image: null,
+            imageName: ''
         };
+    }
+
+    onDrop(file) {
+        console.log(file[0].name);
+        this.setState({
+            image: file,
+            imageName: file[0].name
+        });
     }
 
     componentDidMount() {
@@ -27,9 +39,9 @@ class ProfilePersonal extends Component {
         if (prevProps.profile !== this.props.profile) {
             this.setState(
                 {
-                    mobile: this.props.profile[0].profilePhoneNumber,
-                    firstName: this.props.profile[0].profileFirstName,
-                    lastName: this.props.profile[0].profileLastName
+                    mobile: this.props.profile[0].profile.profilePhoneNumber,
+                    firstName: this.props.profile[0].profile.profileFirstName,
+                    lastName: this.props.profile[0].profile.profileLastName
                 });
         }
     }
@@ -42,7 +54,7 @@ class ProfilePersonal extends Component {
 
     handleSubmit(values, formikBag) {
         if (!((values.phone.toString().length === 0) && (values.firstName.length === 0) && (values.lastName.length === 0))) {
-            const { submitPersonalDetails} = this.props;
+            const {submitPersonalDetails} = this.props;
             this.setState({empty: false});
             console.log(values);
             submitPersonalDetails({phone: values.phone, firstName: values.firstName, lastName: values.lastName});
@@ -116,14 +128,33 @@ class ProfilePersonal extends Component {
                             </div>
 
                             <div className="form-group">
+                                <Dropzone style={{
+                                    textAlignVertical: 'center',
+                                    alignItems: 'center',
+                                }} className="dropzone col-md-12" onDrop={this.onDrop}>
+                                    <p className="textDrop">
+                                        <i>Drag new profile image here</i>
+                                    </p>
+                                </Dropzone>
+                                <a className="imageName"
+                                   style={{textAlign: "left", width: '100%'}}>{this.state.imageName}</a>
+                            </div>
+
+                            <div className="form-group">
                                 <div className="col-sm-12">
                                     <button type="submit" className="btn btn-success-muted">UPDATE DETAILS</button>
+                                    <button type="button" onClick={() => {
+                                        this.setState({image: null, imageName: ''});
+                                        console.log('IMAGE NAME ' + this.state.image)
+                                    }} className="btn btn-fail-muted">REMOVE IMAGE
+                                    </button>
                                 </div>
                                 {this.state.empty &&
                                 <span className="text-danger">At least one field is required for submission</span>}
                                 {Object.keys(errors).length === 0 &&
                                 <span className="text-success">{this.state.success}</span>}
                             </div>
+
                         </form>
                     )}
                 />

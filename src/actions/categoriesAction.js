@@ -19,6 +19,7 @@ export function fetchCategories() {
 export function addCategory(category) {
     return function (dispatch) {
         dispatch({type: "ADD_CATEGORY"});
+
         axios.post(URL_ITEM+"/category/add", category)
             .then(result => {
                 console.log(result);
