@@ -65,7 +65,7 @@ class EachItem extends Component {
 
                             <div className="col-lg-6">
                                 <div className="details_image">
-                                    <img className="details_image_large" alt="item_image" src={ Product } />
+                                    <img className="details_image_large" alt="item_image" src={item.itemImage} />
                                 </div>
                             </div>
 
@@ -116,6 +116,7 @@ class EachItem extends Component {
                                             <DropdownToggle caret color="dark">
                                                 Quantity
                                             </DropdownToggle>
+
                                             <DropdownMenu>
                                                 {this.createTable()}
                                             </DropdownMenu>

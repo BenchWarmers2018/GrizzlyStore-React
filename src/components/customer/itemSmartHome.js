@@ -75,7 +75,7 @@ class ItemSmart extends Component {
                     </div>
                 )}
             </div>
-        );
+        )
     }
 }
 
