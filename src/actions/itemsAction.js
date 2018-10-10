@@ -45,7 +45,7 @@ export function fetchItemsPage(page, size) {
         dispatch({type: FETCH_ITEMS_PAGE});
 
         page = page -1;
-        axios.get("http://localhost:8080/items/page?page="+ page + "&size=" + size)
+        axios.get(URL_ITEM+"/items/page?page="+ page + "&size=" + size)
             .then((response) => {
                 dispatch({type: FETCH_ITEMS_PAGE_FULFILLED, payload: response.data.entities})
             })
@@ -62,7 +62,7 @@ export function fetchCategoryItems(catName, page, size) {
 
         axios.get(URL_ITEM+"/items/page/categoryName?name="+catName+"&size="+size+"&page="+page)
             .then((response)=> {
-                dispatch({type: FETCH_ITEMS_PAGE_FULFILLED, payload: response.data});
+                dispatch({type: FETCH_ITEMS_PAGE_FULFILLED, payload: response.data})
             })
             .catch((err)=> {
                 dispatch({type: FETCH_ITEMS_PAGE_REJECTED, payload: err})

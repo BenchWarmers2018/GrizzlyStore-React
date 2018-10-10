@@ -1535,3 +1535,25 @@ section
 {
 	color: #FFFFFF;
 }
+
+/********************************************************************************************/
+
+.item-page-title{
+	font-size: 1.5em;
+}
+
+.discount-text-red{
+	color: red;
+}
+
+/*.item-image-hover:hover{*/
+	/*transform: scale(1.05);*/
+/*}*/
+
+.single-product-wrapper div img:hover{
+	transform: scale(1.05);
+}
+
+.page-link:focus{
+	background-color: #007bff !important;
+}
