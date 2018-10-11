@@ -158,10 +158,11 @@ class Header extends Component {
                                 </form>
                             </NavItem>
 
-                            <NavItem>
-                                <NavLink to="/cart"><i className="fa fa-shopping-cart"></i>CART</NavLink>
-                            </NavItem>
-
+                            {(name.length > 0) &&
+                                <NavItem>
+                                    <NavLink to="/cart"><i className="fa fa-shopping-cart"></i>CART</NavLink>
+                                </NavItem>
+                            }
                             {(name.length <= 0) ?
                                 <NavItem className="main-nav">
                                     <NavLink to="/">LOGIN</NavLink>

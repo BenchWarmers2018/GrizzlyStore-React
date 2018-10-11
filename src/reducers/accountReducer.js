@@ -10,7 +10,6 @@ import {
 const initialState = {
     accounts: [],
     token : {},
-    userAccount: null,
     fetching: false,
     fetched: false,
     authenticating: false,
@@ -18,7 +17,7 @@ const initialState = {
     error: [],
     createAccountError: [],
     tokenError: [],
-    loggedInUser: {},
+    loggedInUser: null,
     userType: "",
     continueLogin: false,
 }

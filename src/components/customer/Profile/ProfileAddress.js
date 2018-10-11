@@ -13,37 +13,37 @@ class ProfileAddress extends Component {
         this.state = {
             success: "",
             empty: false,
-            unitNo: '',
-            postcode: '',
-            street: '',
-            streetNo: '',
-            city: '',
-            state: '',
-            country: '',
-            streetType: ''
+            // unitNo: '',
+            // postcode: '',
+            // street: '',
+            // streetNo: '',
+            // city: '',
+            // state: '',
+            // country: '',
+            // streetType: ''
         };
     }
 
-    componentDidMount() {
-        this.props.fetchProfile();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.profile !== this.props.profile) {
-            this.setState(
-                {
-                    unitNo: this.props.profile[0].profile.address.addressUnitNo,
-                    postcode: this.props.profile[0].profile.address.addressPostcode,
-                    street: this.props.profile[0].profile.address.addressStreet,
-                    streetNo: this.props.profile[0].profile.address.addressStreetNo,
-                    streetType: this.props.profile[0].profile.address.addressStreetType,
-                    country: this.props.profile[0].profile.address.addressCountry,
-                    city: this.props.profile[0].profile.address.addressCity,
-                    state: this.props.profile[0].profile.address.addressState,
-
-                });
-        }
-    }
+    // componentDidMount() {
+    //     this.props.fetchProfile();
+    // }
+    //
+    // componentDidUpdate(prevProps) {
+    //     if (prevProps.profile !== this.props.profile) {
+    //         this.setState(
+    //             {
+    //                 unitNo: this.props.profile[0].profile.address.addressUnitNo,
+    //                 postcode: this.props.profile[0].profile.address.addressPostcode,
+    //                 street: this.props.profile[0].profile.address.addressStreet,
+    //                 streetNo: this.props.profile[0].profile.address.addressStreetNo,
+    //                 streetType: this.props.profile[0].profile.address.addressStreetType,
+    //                 country: this.props.profile[0].profile.address.addressCountry,
+    //                 city: this.props.profile[0].profile.address.addressCity,
+    //                 state: this.props.profile[0].profile.address.addressState,
+    //
+    //             });
+    //     }
+    // }
 
     handleSubmit(values, formikBag) {
         if (!((values.unitNo.toString().length === 0) && (values.city.length === 0) && (values.postcode.toString().length === 0)
@@ -70,6 +70,8 @@ class ProfileAddress extends Component {
     }
 
     render() {
+        const address = this.props.data;
+
         return (
             <div>
                 <h4 className="card-subtitle card-subtitle-profile" style={{textAlign: 'center', color: 'black'}}>Edit
@@ -118,7 +120,7 @@ class ProfileAddress extends Component {
                                     </label>
                                     <div className="col-md-12">
                                         <Field type="number" name="unitNo"
-                                               placeholder={this.state.unitNo}
+                                               placeholder={address.addressUnitNo}
                                                className="form-control form-control-line"
                                                onChange={handleChange}
                                                onBlur={handleBlur}/>
@@ -130,7 +132,7 @@ class ProfileAddress extends Component {
                                     <label className="col-md-12 text-muted label-padding-left">STREET NUMBER</label>
                                     <div className="col-md-12">
                                         <Field type="number" name="streetNo"
-                                               placeholder={this.state.streetNo}
+                                               placeholder={address.addressStreetNo}
                                                className="form-control form-control-line"
                                                onChange={handleChange}
                                                onBlur={handleBlur}/>
@@ -142,7 +144,7 @@ class ProfileAddress extends Component {
                                     <label className="col-md-12 text-muted label-padding-left">STREET NAME</label>
                                     <div className="col-md-12">
                                         <Field type="text" name="street"
-                                               placeholder={this.state.street}
+                                               placeholder={address.addressStreet}
                                                className="form-control form-control-line"
                                                onChange={handleChange}
                                                onBlur={handleBlur}/>
@@ -196,7 +198,7 @@ class ProfileAddress extends Component {
                                 <div className="form-group form-group-address">
                                     <label className="col-sm-12 text-muted label-padding-left">CITY</label>
                                     <div className="col-sm-12">
-                                        <Field type="text" name="city" placeholder={this.state.city}
+                                        <Field type="text" name="city" placeholder={address.addressCity}
                                                className="form-control form-control-line"
                                                onChange={handleChange}
                                                onBlur={handleBlur}/>
@@ -209,7 +211,7 @@ class ProfileAddress extends Component {
                                     <label className="col-md-12 text-muted label-padding-left">POSTCODE</label>
                                     <div className="col-md-12">
                                         <Field type="number" name="postcode"
-                                               placeholder={this.state.postcode}
+                                               placeholder={address.addressPostcode}
                                                className="form-control form-control-line"
                                                onChange={handleChange}
                                                onBlur={handleBlur}/>
