@@ -37,9 +37,9 @@ class ProfileAddress extends Component {
             });
     }
 
-    componentDidMount() {
-        this.props.fetchProfile();
-    }
+//     componentDidMount() {
+//         this.props.fetchProfile();
+//     }
 
 //     componentDidUpdate(prevProps) {
 //         if (prevProps.profile !== this.props.profile) {
