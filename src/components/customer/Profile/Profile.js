@@ -33,7 +33,8 @@ class Profile extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.profile !== this.props.profile) {
+        if (prevProps.profile !== this.props.profile &&
+            this.props.profile !== undefined) {
             this.setState({
                 image: this.props.profile[0].profile.profileImage,
                 firstName: this.props.profile[0].profile.profileFirstName,
@@ -90,7 +91,7 @@ class Profile extends Component {
         }
 
         //Checking if user exists
-        if (this.props.profile[0] != null) {
+        if (this.props.profile != null && this.props.profile[0] != null) {
 
             //Functions for image extraction. IS THIS STILL NEEDED?
             var imageName = this.state.image;
@@ -138,7 +139,7 @@ class Profile extends Component {
                                             <ul className="nav profile-nav">
                                                 <li>
                                                     <Button bsSize="large" onClick={() => this.onClick(0)}
-                                                             block>Overview</Button>
+                                                            block>Overview</Button>
                                                 </li>
                                                 <li>
                                                     <Button bsSize="large" onClick={() => this.onClick(1)} block>Edit
