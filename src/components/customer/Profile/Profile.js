@@ -7,100 +7,56 @@ import Background from "../../../images/images_essence/bg-img/breadcumb.jpg";
 import {Button} from 'react-bootstrap';
 import {fetchProfile} from "../../../actions/profileActions";
 import ProfileOverview from "./ProfileOverview.js"
-import ProfileAddress from "./ProfileAddress.js"
-import ProfilePassword from "./ProfilePassword.js"
-import ProfilePersonal from "./ProfilePersonal.js"
+
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import NavLink from "react-router-dom/es/NavLink";
+import {NORMAL_USER} from "../../../CONSTANTS";
+import NotFound from "../../shared/NotFound";
+import ProfileAddress from "./ProfileAddress";
 
 
 class Profile extends Component {
     constructor(props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.onClick = this.onClick.bind(this);
-        this.refreshProfile = this.refreshProfile.bind(this);
         this.state = {
-            selection: [true, false, false, false],
-            image: '',
-            firstName: '',
-            lastName: '',
+            active:"active",
+            menuOptions: ["Overview", "Personal Details", "Shipping Address", "Change Password"],
+            selected: "Overview",
         };
     }
 
-    componentDidMount() {
-        this.props.fetchProfile();
-    }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.profile !== this.props.profile) {
-            this.setState({
-                image: this.props.profile[0].profile.profileImage,
-                firstName: this.props.profile[0].profile.profileFirstName,
-                lastName: this.props.profile[0].profile.profileLastName
-            });
-        }
-    }
-
-    refreshProfile() {
-        this.props.fetchProfile();
-        console.log('UPDATED PROFILE ' + JSON.stringify(this.props.profile));
+    refreshProfile = () => {
+        //this.props.fetchProfile();
+        //console.log('UPDATED PROFILE ' + JSON.stringify(this.props.profile));
         this.forceUpdate();
     }
 
-    handleChange(event) {
-        console.log(event.target.value);
-        this.setState({
-            email: event.target.value
-        });
-    }
 
-    onClick(id) {
-        console.log('ID HERE: ' + id.toString());
-        let output = this.state.selection;
-        var i;
-        for (i = 0; i < output.length; i++) {
-            if (i !== id)
-                output[i] = false;
-            else
-                output[i] = true;
-        }
-        this.setState({selection: output})
+    handleClick = (e) => {
+        console.log(e.target.value);
+        this.setState({selected : e.target.value})
+
     }
 
     render() {
-        //Functions for image extraction. IS THIS STILL NEEDED?
-        function extractImagePath(url) {
-            if (url != null) {
-                let array = url.split('/');
-                let image_name = array[array.length - 1];
-                let location = url.substring(0, url.lastIndexOf('/'));
-                return [location, image_name];
-            }
-            return null;
+        const userType = this.props.userType;
+        const account = this.props.account;
+        let profile = null;
+        let selectedOption;
+        if(userType.length > 0 && account !== null)
+        {
+            profile = account.profile;
+            if(this.state.selected === "Overview")
+                selectedOption = <ProfileOverview data={account}/>
+            else if(this.state.selected === "Personal Details")
+                selectedOption = <ProfileOverview data={account}/>
+            else if(this.state.selected === "Shipping Address")
+                selectedOption = <ProfileAddress data={profile.address}/>
+            else if(this.state.selected === "Change Password")
+                selectedOption = <ProfileOverview data={account}/>
         }
-
-        //Functions for image extraction. IS THIS STILL NEEDED?
-        function importAll(r) {
-            let images = {};
-            r.keys().map((item, index) => {
-                images[item.replace('./', '')] = r(item);
-            });
-            return images;
-        }
-
-        //Checking if user exists
-        if (this.props.profile[0] != null) {
-
-            //Functions for image extraction. IS THIS STILL NEEDED?
-            var imageName = this.state.image;
-            var arr = extractImagePath(imageName);
-            const images = importAll(require.context('../../../images/profile_images', false, /\.(png|jpe?g|svg)$/));
-
-            if (imageName != null) {
-                arr = imageName.split('/');
-                imageName = arr[arr.length - 1];
-            }
+        console.log(profile);
 
             return (
                 <div className="page-wrapper">
@@ -115,75 +71,57 @@ class Profile extends Component {
                             </div>
                         </div>
                     </div>
-
                     <br/>
 
-                    <Router>
+                {(profile !== null)?
 
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-lg-4 col-xlg-3 col-md-5">
-                                    <div className="card">
+                            <div className="container-fluid">
+                                <div className="row">
+                                    <div className="col-lg-4 col-xlg-3 col-md-5">
+                                        <div className="card">
 
-                                        <div className=" profile-img-name">
-                                            <Image src={images[imageName]} width={150} height={180}/>
-                                            <h4 className="card-title m-t-10">{this.state.firstName} {this.state.lastName}</h4>
-                                        </div>
+                                            <div className=" profile-img-name">
+                                                <Image src={profile.profileImage} width={150} height={180}/>
+                                                <h4 className="card-title m-t-10">{profile.profileFirstName}</h4>
+                                            </div>
 
-                                        <div>
-                                            <hr/>
-                                        </div>
+                                            <div>
+                                                <hr/>
+                                            </div>
 
-                                        <div className="profile-usermenu">
-                                            <ul className="nav profile-nav">
-                                                <li>
-                                                    <Button bsSize="large" onClick={() => this.onClick(0)}
-                                                             block>Overview</Button>
-                                                </li>
-                                                <li>
-                                                    <Button bsSize="large" onClick={() => this.onClick(1)} block>Edit
-                                                        Personal Details</Button>
-                                                </li>
-                                                <li>
-                                                    <Button bsSize="large" onClick={() => this.onClick(2)} block>Change
-                                                        Shipping Address</Button>
-                                                </li>
-                                                <li>
-                                                    <Button bsSize="large" onClick={() => this.onClick(3)} block>Change
-                                                        Password</Button>
-                                                </li>
-                                                <li>
-                                                    <h7 className="text-center profile-usermenu-option ">Log
-                                                        Out
-                                                    </h7>
-                                                </li>
-                                            </ul>
+                                            <div className="profile-usermenu">
+                                                <ul className="nav profile-nav">
+                                                    {this.state.menuOptions.map(option =>
+                                                        <li>
+                                                            <Button value={option} bsSize="large" onClick={this.handleClick}
+                                                                    block>{option}</Button>
+                                                        </li>
+                                                    )}
+                                                    <li>
+                                                        <h7 className="text-center profile-usermenu-option ">Log
+                                                            Out
+                                                        </h7>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="col-lg-8 col-xlg-9 col-md-7">
-                                    <div className="card">
-                                        <div className="card-body card-body-profile">
-                                            {this.state.selection[0] &&
-                                            <ProfileOverview refreshProfile={this.refreshProfile}/>}
-                                            {this.state.selection[1] &&
-                                            <ProfilePersonal refreshProfile={this.refreshProfile}/>}
-                                            {this.state.selection[2] &&
-                                            <ProfileAddress refreshProfile={this.refreshProfile}/>}
-                                            {this.state.selection[3] &&
-                                            <ProfilePassword refreshProfile={this.refreshProfile}/>}
+                                    <div className="col-lg-8 col-xlg-9 col-md-7">
+                                        <div className="card">
+                                            <div className="card-body card-body-profile">
+                                                {selectedOption}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                    </Router>
+                     :
+                    <NotFound/>
+                }
                 </div>
+
             );
         }
-        return null;
-    }
 }
 
 Profile.propTypes = {
@@ -194,7 +132,8 @@ Profile.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    profile: state.profiles.profile,
+    account : state.accounts.loggedInUser,
+    userType: state.accounts.userType,
     fetched: state.profiles.fetched,
     fetching: state.profiles.fetching,
     error: state.profiles.error
