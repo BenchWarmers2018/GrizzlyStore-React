@@ -40,11 +40,10 @@ class ProfileAddress extends Component {
         if (!((values.unitNo.toString().length === 0) && (values.city.length === 0) && (values.postcode.toString().length === 0)
             && (values.country !== '--') && (values.state !== '--') && (values.streetType !== '--') &&
             (values.street.length === 0) && (values.streetNo.toString().length === 0))) {
-            const {submitAddress} = this.props;
             console.log(values);
             formikBag.setSubmitting(false);
             const submissionValues = this.getPostValues(values);
-            submitAddress(submissionValues);
+            this.props.submitAddress(submissionValues);
             console.log(this.props.updates + ' UPDATES COMING!');
             this.props.fetchProfile();
             this.setState({success: this.props.updates}); // Get update message back from Spring
