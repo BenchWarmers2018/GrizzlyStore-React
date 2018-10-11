@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
 import '../../../node_modules/mdbreact/dist/css/mdb.css';
 import {Link, Redirect} from "react-router-dom";
-import Logo from "../../images/images_sublime/GrizzlyStoreLogo.png";
+import LogoLarge from "../../images/images_sublime/GrizzlyStoreLogo.png";
+import LogoSmall from "../../images/images_sublime/bearlogo.png";
 import LoginForm from "../shared/login/LoginForm.js";
 import { connect } from "react-redux"
 import { fetchAccounts } from "../../actions/accountAction"
@@ -11,6 +12,7 @@ import { createAccount } from "../../actions/accountAction";
 import {ACCESS_TOKEN} from "../../index";
 import firebase from "firebase";
 import {fetchGoogleAccounts} from "../../actions/googleaccountAction";
+import {GOOGLE_USER, NORMAL_USER} from "../../CONSTANTS";
 
 class Header extends Component {
 
@@ -36,10 +38,12 @@ class Header extends Component {
     }
 
     submitForm = (e) => {
+        e.preventDefault()
         this.setState({
             redirect: true
         })
     }
+
 
     handleChangeEmail = (event1) => {
         this.setState({emailAddress: event1.target.value});
@@ -58,19 +62,33 @@ class Header extends Component {
         this.authListener();
     }
 
+    componentWillReceiveProps(prevProps){
+        if(prevProps.continueLogin !== this.props.continueLogin)
+        {
+            window.location.reload();
+        }
+    }
+
     authListener() {
         firebase.auth().onAuthStateChanged(user => {
             this.setState({
                 isSignedIn: !!user
             });
             // User is signed in
+            // so apparently "qa" (user.qa) is Google's firebase accessToken
             // Creating user to pass through to backend
-            const googleUser = {idGoogleAccount: user.uid, googleAccountEmailAddress: user.email};
-            const appTokenKey = "token";
 
-            localStorage.setItem(appTokenKey, user.qa);
+            //const appTokenKey = "token";
+
+            //localStorage.setItem(appTokenKey, user.qa);
             //Dispatching googleUser to Action file
-            this.props.dispatch(fetchGoogleAccounts(googleUser));
+            console.log(user, " ", !user, " ", !!user);
+
+            if(!!user)
+            {
+                const googleUser = {googleAccountEmailAddress: user.email};
+                this.props.dispatch(fetchGoogleAccounts(googleUser));
+            }
         });
     }
 
@@ -83,20 +101,30 @@ class Header extends Component {
     }
 
     render() {
-        console.log("Username is :" + this.props.data.username);
-        let name = this.props.data.username;
-        if(firebase.auth().currentUser) {
-            name = firebase.auth().currentUser.displayName;
-        } else {
-            name = this.props.data.username;
+        let name = "";
+        if(this.props.type.length>0)
+        {
+            if(this.props.type === GOOGLE_USER)
+            {
+                name = this.props.data.googleAccountEmailAddress;
+            }
+            else if (this.props.type === NORMAL_USER)
+            {
+                name = this.props.data.username;
+            }
         }
-        console.log(name);
 
+        //name = firebase.auth().currentUser.displayName;
         return (
             <div>
                 <Navbar color="white" light expand="md" scrolling>
                     <NavbarBrand href="/">
-                        <div className="logo"><Link to='/'><img className="header_logo" src={Logo} alt=""/></Link></div>
+                        <div className="logo">
+                            <Link to='/'>
+                                <img className="header_logo" src={LogoLarge} alt=""/>
+                                <img className="header_logo_small" src={LogoSmall} alt=""/>
+                            </Link>
+                        </div>
                     </NavbarBrand>
                     { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
                     <Collapse isOpen = { this.state.collapse } navbar>
@@ -114,42 +142,54 @@ class Header extends Component {
                                 <Dropdown>
                                     <DropdownToggle nav caret>CATEGORIES</DropdownToggle>
                                     <DropdownMenu>
-                                        <DropdownItem href="/art">Art</DropdownItem>
-                                        <DropdownItem href="/fashion">Fashion</DropdownItem>
-                                        <DropdownItem href="/electronics">Electronics</DropdownItem>
-                                        <DropdownItem href="/home">Home & Living</DropdownItem>
-                                        <DropdownItem href="/jewellery">Jewellery</DropdownItem>
-                                        <DropdownItem href="/toys">Toys</DropdownItem>
+                                        <DropdownItem><Link to="/category/art">Art</Link></DropdownItem>
+                                        <DropdownItem><Link to="/category/clothing">Clothing</Link></DropdownItem>
+                                        <DropdownItem><Link to="/category/technology">Technology</Link></DropdownItem>
+                                        <DropdownItem><Link to="/category/home and living">Home & Living</Link></DropdownItem>
+                                        <DropdownItem><Link to="/category/jewellery">Jewellery</Link></DropdownItem>
+                                        <DropdownItem><Link to="/category/toys">Toys</Link></DropdownItem>
                                     </DropdownMenu>
                                 </Dropdown>
                             </NavItem>
                         </NavbarNav>
                         <NavbarNav right>
                             <NavItem>
-                                <form onSubmit={this.submitForm} className="form-inline md-form mt-0">
+                                {(this.state.redirect) && (
+                                    <Redirect to={'/items/all'}/>
+                                )}
+
+                                <form onSubmit={this.submitForm} className="search-bar-large form-inline md-form mt-0">
                                     <input className="form-control mr-sm-2 mb-0 text-black" type="text" placeholder="Search" aria-label="Search"/>
                                 </form>
+
+                                <form onSubmit={this.submitForm} className="search search-bar-small form-inline mt-0">
+                                    <div className="search__wrapper">
+                                        <input aria-label="Search" type="text" name="" placeholder="Search" className="search__field text-black"/>
+                                            <button type="submit" className="fa fa-search search__icon"></button>
+                                    </div>
+                                </form>
+
                             </NavItem>
 
-                            <NavItem>
-                                <NavLink to="/cart"><i className="fa fa-shopping-cart"></i>CART</NavLink>
-                            </NavItem>
 
-                            {(typeof name === "undefined") ?
+                            {(name.length > 0) &&
+                                <NavItem>
+                                    <NavLink to="/cart"><i className="fa fa-shopping-cart"></i>CART</NavLink>
+                                </NavItem>
+                            }
+
+                            {(name.length <= 0) ?
                                 <NavItem className="main-nav">
                                     <NavLink to="/">LOGIN</NavLink>
                                 </NavItem> :
-                                    <Dropdown>
-                                        <DropdownToggle className="uppercase" nav caret>{name}</DropdownToggle>
-                                        <DropdownMenu>
-                                            <DropdownItem href="/profile">Profile</DropdownItem>
-                                            <DropdownItem href="/" onClick={this.logUserOut}>Log out</DropdownItem>
-                                        </DropdownMenu>
-                                    </Dropdown>
+                                <Dropdown>
+                                    <DropdownToggle className="uppercase" nav caret>{name}</DropdownToggle>
+                                    <DropdownMenu>
+                                        <DropdownItem href="/profile">Profile</DropdownItem>
+                                        <DropdownItem href="/" onClick={this.logUserOut}>Log out</DropdownItem>
+                                    </DropdownMenu>
+                                </Dropdown>
                             }
-
-
-
 
                         </NavbarNav>
                     </Collapse>
@@ -170,6 +210,7 @@ class Header extends Component {
                         </ul>
 
                         <div id="login">
+                            {/*<LoginForm loginError={this.props.error}/>*/}
                             <LoginForm loginError={this.props.error}/>
                         </div>
 
@@ -196,7 +237,7 @@ class Header extends Component {
                                 </p>
                                 <div className="super_container">
                                     {/*{(this.props.accounts.length === 0) ? <div className={this.props.error ? 'alert alert-danger' : null}> {this.props.error} </div> : null}*/}
-                                    <div className={this.props.error !== null && this.props.accounts.length === 0 ? 'alert alert-danger' : null}> {this.props.error} </div>
+                                    <div className={(this.props.createAccountError.length !== 0 && this.props.continueLogin === false) ? 'alert alert-danger' : null}> {(this.props.createAccountError.length !== 0 && this.props.continueLogin === false) ? this.props.createAccountError : null} </div>
 
                                     {/*{(this.props.accounts.length === 0) ? <div><h1>{this.props.error}</h1></div> : <div>Right</div>*/}
                                     {/*}*/}
@@ -237,18 +278,12 @@ class Header extends Component {
 
 
 
-// function mapStateToProps(state, ownProps) {
-//     return {
-//         accounts: state.accounts.accounts,
-//         error: state.accounts.error
-//     }
-// };
-
-// export default connect(mapStateToProps)(Header);
 const mapStateToProps = state => ({
     accounts:state.accounts.accounts,
     userAccount: state.accounts.userAccount,
     error: state.accounts.error,
+    createAccountError: state.accounts.createAccountError,
+    continueLogin: state.accounts.continueLogin,
 });
 
 

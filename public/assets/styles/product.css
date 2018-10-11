@@ -1000,17 +1000,17 @@ section
 	margin-top: 9px;
 	color: #8a8a8a;
 }
-.in_stock_container
-{
-	margin-top: 22px;
-}
+
 .availability
-{
-	display: inline-block;
-	font-size: 14px;
-	font-weight: 500;
-	color: #6c6a74;
-}
+ {
+	 display: inline-block;
+	 font-size: 14px;
+	 font-weight: 500;
+	 color: #6c6a74;
+    margin-left: 40px;
+ }
+
+
 .in_stock_container span
 {
 	display: inline-block;
@@ -1019,29 +1019,59 @@ section
 	color: #44a038;
 	margin-left: 5px;
 }
+
+.out_of_stock_container span{
+	display: inline-block;
+	font-size: 14px;
+	font-weight: 500;
+	color: #ff3f00;
+	margin-left: 5px;
+}
 .details_name
 {
-	font-size: 24px;
-	font-weight: 500;
+	font-size: 30px;
+	font-weight: 400;
 	color: #1b1b1b;
 	margin-top: -9px;
+    padding-top: 10px;
+    margin-bottom: 20px;
 }
 .details_discount
 {
 	display: inline-block;
-	font-size: 16px;
-	font-weight: 500;
-	color: #e95a5a;
+	font-size: 18px;
+	font-weight: 300;
+	color: #6c6a74;
 	margin-right: 20px;
 	text-decoration: line-through;
 }
 .details_price
 {
 	display: inline-block;
-	font-size: 16px;
-	font-weight: 500;
-	color: #6c6a74;
-	margin-top: 12px;
+	font-size: 25px;
+	font-weight: 400;
+	color: #e95a5a;
+}
+.details_no_sale_price{
+    display: inline-block;
+    font-size: 25px;
+    font-weight: 500;
+    color: #6c6a74;
+
+}
+.price-div{
+    width: auto;
+    min-width: 200px;
+    padding: 0!important;
+    margin-left: 40px;
+}
+.price{
+    font-size: 24px;
+    font-weight: 300;
+    margin-left: 40px;
+    margin-bottom: 20px;
+    display: inline-block;
+
 }
 .details_text
 {
@@ -1526,3 +1556,117 @@ section
 {
 	color: #FFFFFF;
 }
+
+/********************************************************************************************/
+
+.item-page-title{
+	font-size: 1.5em;
+}
+
+.discount-text-red{
+	color: red;
+}
+
+/*.item-image-hover:hover{*/
+	/*transform: scale(1.05);*/
+/*}*/
+
+.single-product-wrapper div img:hover{
+	transform: scale(1.05);
+}
+
+.page-link:focus{
+	background-color: #007bff !important;
+}
+
+
+
+
+/************************************************************************************************/
+
+/* Styles go here */
+* {
+	box-sizing: border-box;
+}
+
+body {
+	padding: 20px;
+	background: #2c3e50;
+}
+
+body div[id] {
+	margin: 20px;
+}
+
+.first-comp {
+	background-color: lightgray;
+	border: 1px solid blue;
+	border-radius: 5px;
+	padding: 10px;
+	width: 400px;
+	text-align: center;
+	cursor: pointer;
+	color: red;
+}
+
+.second-comp {
+	background-color: lightgray;
+	border: 1px solid green;
+	border-radius: 5px;
+	padding: 10px;
+	width: 400px;
+	text-align: center;
+	cursor: pointer;
+	color: blue;
+}
+
+.third-comp {
+	background-color: lightgray;
+	border: 1px solid red;
+	border-radius: 5px;
+	padding: 10px;
+	width: 400px;
+	text-align: center;
+	cursor: pointer;
+	color: green;
+}
+
+#increment-component button {
+	background-color: black;
+	font-size: 16px;
+	border-color: transparent;
+	border-radius: 3px;
+	padding: 5px;
+}
+
+#increment-component input {
+	font-size: 16px;
+	margin: 0px 5px;
+	text-align: center;
+	width: 50px;
+}
+
+#increment-component sub {
+	color: red;
+	font-weight: bold;
+	padding-left: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

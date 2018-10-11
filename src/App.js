@@ -36,31 +36,7 @@ class App extends Component {
             user: null
 
         }
-        // this.handleLogout = this.handleLogout.bind(this);
-        // this.handleLogin = this.handleLogin.bind(this);
     }
-
-    // loadCurrentUser = () => {
-    //     this.setState({
-    //         isLoading: true
-    //     });
-    //     getCurrentUser()
-    //         .then(response => {
-    //             this.setState({
-    //                 currentUser: response,
-    //                 isAuthenticated: true,
-    //                 isLoading: false
-    //             });
-    //         }).catch(error => {
-    //         this.setState({
-    //             isLoading: false
-    //         });
-    //     });
-    // }
-
-    // componentWillMount() {
-    //     this.loadCurrentUser();
-    // }
 
     componentDidMount()
     {
@@ -69,64 +45,18 @@ class App extends Component {
 
     componentWillReceiveProps(nextProps)
     {
-        if(nextProps.token !== this.props.token)
+        if(nextProps.continueLogin !== this.props.continueLogin)
         {
-            if(nextProps.loggedInUser !== this.props.loggedInUser)
-            {
-                this.setState({currentUser: nextProps.loggedInUser});
-                console.log(nextProps.loggedInUser);
-            }
-
+            this.props.getCurrentUser();
         }
 
     }
-
-    // handleLogin = () => {
-    //     this.loadCurrentUser();
-    //     this.props.history.push("/");
-    // }
-    //
-    // handleLogout(redirectTo="/", notificationType="success", description="You're successfully logged out.") {
-    //     localStorage.removeItem(ACCESS_TOKEN);
-    //
-    //     this.setState({
-    //         currentUser: null,
-    //         isAuthenticated: false
-    //     });
-    //
-    //     this.props.history.push(redirectTo);
-    //
-    // }
-
-
-
 
     render()
     {
         return (
             <BrowserRouter>
                 <div className="super_container">
-
-                    {/*{*/}
-                        {/*this.state.isSignedIn ? (*/}
-
-                        {/*<span><div>Signed In!</div>*/}
-                        {/*<button onClick={() => firebase.auth().signOut()}>Sign Out!</button>*/}
-                        {/*</span>*/}
-                        {/*)*/}
-                        {/*: (*/}
-                            {/*<StyledFirebaseAuth*/}
-                                {/*uiConfig={this.uiConfig}*/}
-                                {/*firebaseAuth={firebase.auth()}*/}
-                            {/*/>*/}
-                        {/*)*/}
-                    {/*}*/}
-
-                    {/*<div>*/}
-                        {/*<Header/>*/}
-                        {/*<Main/>*/}
-                        {/*<Newsletter/>*/}
-                    {/*</div>*/}
 
                     {this.state.isAdmin ?
                         <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
@@ -135,8 +65,7 @@ class App extends Component {
                             <AdminMain />
                         </div> :
                         <div>
-                            {console.log(this.props.loggedInUser)}
-                            <Header data={this.props.loggedInUser} />
+                            <Header data={this.props.loggedInUser} type={this.props.userType} />
                             <Main/>
                             <Newsletter/>
                         </div>
@@ -152,12 +81,13 @@ class App extends Component {
 
 const mapStateToProps = state => ({
     tokenObject: state.accounts.token,
-    loggedInUser: state.accounts.summaryAccount,
+    loggedInUser: state.accounts.loggedInUser,
+    continueLogin: state.accounts.continueLogin,
+    userType : state.accounts.userType,
 });
 
 const mapDispatchToProps = {
     getCurrentUser,
-}
+};
 
 export default connect (mapStateToProps, mapDispatchToProps)(App);
-

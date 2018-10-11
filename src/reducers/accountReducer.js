@@ -1,16 +1,25 @@
 import {ACCESS_TOKEN} from "../index";
+import {
+    FETCH_GOOGLE_ACCOUNTS,
+    FETCH_GOOGLE_ACCOUNTS_FULFILLED,
+    FETCH_GOOGLE_ACCOUNTS_REJECTED,
+    GOOGLE_USER,
+    NORMAL_USER
+} from "../CONSTANTS";
 
 const initialState = {
     accounts: [],
     token : {},
-    userAccount: null,
     fetching: false,
     fetched: false,
     authenticating: false,
     authenticated: false,
     error: [],
+    createAccountError: [],
     tokenError: [],
-    summaryAccount: {},
+    loggedInUser: null,
+    userType: "",
+    continueLogin: false,
 }
 
 export default function reducer(state=initialState, action){
@@ -20,7 +29,7 @@ export default function reducer(state=initialState, action){
             return {...state, fetching: true}
         }
         case "CREATE_ACCOUNT_REJECTED": {
-            return {...state, fetching: false, error: action.payload}
+            return {...state, fetching: false, createAccountError: action.payload}
         }
         case "CREATE_ACCOUNT_FULFILLED": {
             return {
@@ -41,7 +50,23 @@ export default function reducer(state=initialState, action){
         case "GET_CURRENT_USER_FULFILLED": {
             return {
                 ...state,
-                summaryAccount: action.payload,
+                loggedInUser: action.payload,
+                userType: NORMAL_USER,
+            }
+        }
+
+        /* For Google accounts*/
+        case FETCH_GOOGLE_ACCOUNTS: {
+            return {...state, fetching: true}
+        }
+        case FETCH_GOOGLE_ACCOUNTS_REJECTED: {
+            return {...state, fetching: false, error: action.payload}
+        }
+        case FETCH_GOOGLE_ACCOUNTS_FULFILLED: {
+            return {
+                ...state,
+                loggedInUser: action.payload,
+                userType: GOOGLE_USER,
             }
         }
 
@@ -56,6 +81,7 @@ export default function reducer(state=initialState, action){
             ...state,
             authenticating: false,
             authenticated: true,
+            continueLogin: true,
             token: action.payload,
           }
         }
