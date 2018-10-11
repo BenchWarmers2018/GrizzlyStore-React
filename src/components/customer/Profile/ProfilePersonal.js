@@ -191,7 +191,7 @@ class ProfilePersonal extends Component {
                                                }
                                            }}/>
                                     <br/>
-                                    <Dropzone id='image' name='image' label='Image Upload'
+                                    <Dropzone accept="image/*" id='image' name='image' label='Image Upload'
                                               style={{textAlignVertical: 'center', alignItems: 'center',}}
                                               className="dropzone col-md-12" onDrop={this.onDrop}>
                                         <p className="textDrop">
