@@ -10,6 +10,7 @@ class ProfileAddress extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.getPostValues = this.getPostValues.bind(this);
         this.state = {
             success: "",
             empty: false,
@@ -52,12 +53,10 @@ class ProfileAddress extends Component {
             const {submitAddress} = this.props;
             console.log(values);
             formikBag.setSubmitting(false);
-            submitAddress({
-                city: values.city, country: values.country, state: values.state, postcode: values.postcode.toString(),
-                unitNo: values.unitNo.toString(), streetType: values.streetType, street: values.street,
-                streetNo: values.streetNo.toString()
-            });
+            const submissionValues = this.getPostValues(values);
+            submitAddress(submissionValues);
             console.log(this.props.updates + ' UPDATES COMING!');
+            this.props.fetchProfile();
             this.setState({success: this.props.updates}); // Get update message back from Spring
             console.log("SUCCESS " + this.state.success);
         }
@@ -66,7 +65,28 @@ class ProfileAddress extends Component {
             console.log('Cannot submit empty form. Please fill one field');
             this.setState({empty: true});
         }
+    }
 
+    getPostValues(values) {
+        var data = {
+            unitNo: '',
+            postcode: '',
+            street: '',
+            streetNo: '',
+            city: '',
+            state: '',
+            country: '',
+            streetType: ''
+        };
+        values.city.length === 0 ? data.city = this.state.city : data.city = values.city;
+        values.country.length === 0 ? data.country = address.country : data.country = values.country;
+        values.state === '--' ? data.state = this.state.state : data.country = values.state;
+        values.street.length === 0 ? data.street = this.state.street : data.street = values.street;
+        values.streetNo.toString().length === 0 ? data.streetNo = this.state.streetNo : data.streetNo = values.streetNo;
+        values.streetType.length === 0 ? data.streetType = this.state.streetType : data.streetType = values.streetType;
+        values.postcode.toString().length === 0 ? data.postcode = this.state.postcode : data.postcode = values.postcode;
+        values.unitNo.toString().length === 0 ? data.unitNo = this.state.unitNo : data.unitNo = values.unitNo;
+        return data;
     }
 
     render() {
