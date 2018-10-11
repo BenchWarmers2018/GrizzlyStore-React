@@ -50,9 +50,9 @@ class Profile extends Component {
             if(this.state.selected === "Overview")
                 selectedOption = <ProfileOverview data={account}/>
             else if(this.state.selected === "Personal Details")
-                selectedOption = <ProfileAddress data={profile.address}/>
-            else if(this.state.selected === "Shipping Address")
                 selectedOption = <ProfileOverview data={account}/>
+            else if(this.state.selected === "Shipping Address")
+                selectedOption = <ProfileAddress data={profile.address}/>
             else if(this.state.selected === "Change Password")
                 selectedOption = <ProfileOverview data={account}/>
         }
