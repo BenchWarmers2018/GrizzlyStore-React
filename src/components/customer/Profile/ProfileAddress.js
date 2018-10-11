@@ -11,21 +11,8 @@ class ProfileAddress extends Component {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getPostValues = this.getPostValues.bind(this);
-        this.state = {
-            success: "",
-            empty: false,
-            unitNo: '',
-            postcode: '',
-            street: '',
-            streetNo: '',
-            city: '',
-            state: '',
-            country: '',
-            streetType: ''
-        };
         const address = this.props.data;
-        this.setState(
-            {
+        this.state = {
                 unitNo: address.addressUnitNo,
                 postcode: address.addressPostcode,
                 street: address.addressStreet,
@@ -34,7 +21,9 @@ class ProfileAddress extends Component {
                 country: address.addressCountry,
                 city: address.addressCity,
                 state: address.addressState,
-            });
+                success: "",
+                empty: false,
+            };
     }
 
 //     componentDidMount() {
