@@ -41,11 +41,11 @@ class ProfileAddress extends Component {
         this.props.fetchProfile();
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.profile !== this.props.profile) {
+//     componentDidUpdate(prevProps) {
+//         if (prevProps.profile !== this.props.profile) {
 
-        }
-    }
+//         }
+//     }
 
     handleSubmit(values, formikBag) {
         if (!((values.unitNo.toString().length === 0) && (values.city.length === 0) && (values.postcode.toString().length === 0)
