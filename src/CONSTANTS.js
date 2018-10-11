@@ -1,17 +1,15 @@
+// URL_ITEM's for local machine. Please comment before pushing to git.
+// export const URL_USER = "http://localhost:10003";
+// export const URL_ORDER = "http://localhost:10004";
+// export const URL_ITEM = "http://localhost:10005";
+// export const URL_GOOGLE_USER = "http://localhost:10006";
 
 
-//URL_ITEM's for local machine. Please comment before pushing to git.
-//export const URL_USER = "http://localhost:10003";
-export const URL_ORDER = "http://localhost:10004";
-export const URL_ITEM = "http://localhost:10005";
-export const URL_GOOGLE_USER = "http://localhost:10006";
-
-
-/***URL_ITEM's for the server. Please uncomment before pushing to git ***/
-//export const URL_ITEM = "http://bw.ausgrads.academy:8765/grizzlystore-item_service"
+// /***URL_ITEM's for the server. Please uncomment before pushing to git ***/
+export const URL_ITEM = "http://bw.ausgrads.academy:8765/grizzlystore-item_service"
 export const URL_USER = "http://bw.ausgrads.academy:8765/grizzlystore-user_service";
-// export const URL_ORDER = "http://bw.ausgrads.academy:8765/grizzlystore-order_service";
-// export const URL_GOOGLE_USER = "http://bw.ausgrads.academy:8765/grizzlystore-googleuser_service";
+export const URL_ORDER = "http://bw.ausgrads.academy:8765/grizzlystore-order_service";
+export const URL_GOOGLE_USER = "http://bw.ausgrads.academy:8765/grizzlystore-googleuser_service";
 
 
 
@@ -48,7 +46,9 @@ export const FETCH_GOOGLE_ACCOUNTS_FULFILLED = "FETCH_GOOGLE_ACCOUNTS_FULFILLED"
 
 export const SERVER_NOT_FOUND = "SERVER_NOT_FOUND";
 
-export const ITEM_PAGE_SIZE = 12;
 export const GOOGLE_USER = "GOOGLE_USER";
 
 export const NORMAL_USER = "NORMAL_USER";
+
+export const ITEM_PAGE_SIZE = 12;
+

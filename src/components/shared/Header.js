@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
 import '../../../node_modules/mdbreact/dist/css/mdb.css';
 import {Link, Redirect} from "react-router-dom";
-import Logo from "../../images/images_sublime/GrizzlyStoreLogo.png";
+import LogoLarge from "../../images/images_sublime/GrizzlyStoreLogo.png";
+import LogoSmall from "../../images/images_sublime/bearlogo.png";
 import LoginForm from "../shared/login/LoginForm.js";
 import { connect } from "react-redux"
 import { fetchAccounts } from "../../actions/accountAction"
@@ -114,13 +115,16 @@ class Header extends Component {
         }
 
         //name = firebase.auth().currentUser.displayName;
-
-
         return (
             <div>
                 <Navbar color="white" light expand="md" scrolling>
                     <NavbarBrand href="/">
-                        <div className="logo"><Link to='/'><img className="header_logo" src={Logo} alt=""/></Link></div>
+                        <div className="logo">
+                            <Link to='/'>
+                                <img className="header_logo" src={LogoLarge} alt=""/>
+                                <img className="header_logo_small" src={LogoSmall} alt=""/>
+                            </Link>
+                        </div>
                     </NavbarBrand>
                     { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
                     <Collapse isOpen = { this.state.collapse } navbar>
@@ -153,16 +157,27 @@ class Header extends Component {
                                 {(this.state.redirect) && (
                                     <Redirect to={'/items/all'}/>
                                 )}
-                                <form onSubmit={this.submitForm} className="form-inline md-form mt-0">
+
+                                <form onSubmit={this.submitForm} className="search-bar-large form-inline md-form mt-0">
                                     <input className="form-control mr-sm-2 mb-0 text-black" type="text" placeholder="Search" aria-label="Search"/>
                                 </form>
+
+                                <form onSubmit={this.submitForm} className="search search-bar-small form-inline mt-0">
+                                    <div className="search__wrapper">
+                                        <input aria-label="Search" type="text" name="" placeholder="Search" className="search__field text-black"/>
+                                            <button type="submit" className="fa fa-search search__icon"></button>
+                                    </div>
+                                </form>
+
                             </NavItem>
+
 
                             {(name.length > 0) &&
                                 <NavItem>
                                     <NavLink to="/cart"><i className="fa fa-shopping-cart"></i>CART</NavLink>
                                 </NavItem>
                             }
+
                             {(name.length <= 0) ?
                                 <NavItem className="main-nav">
                                     <NavLink to="/">LOGIN</NavLink>
@@ -175,9 +190,6 @@ class Header extends Component {
                                     </DropdownMenu>
                                 </Dropdown>
                             }
-
-
-
 
                         </NavbarNav>
                     </Collapse>
