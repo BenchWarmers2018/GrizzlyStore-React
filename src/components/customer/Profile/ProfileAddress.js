@@ -14,37 +14,38 @@ class ProfileAddress extends Component {
         this.state = {
             success: "",
             empty: false,
-            // unitNo: '',
-            // postcode: '',
-            // street: '',
-            // streetNo: '',
-            // city: '',
-            // state: '',
-            // country: '',
-            // streetType: ''
+            unitNo: '',
+            postcode: '',
+            street: '',
+            streetNo: '',
+            city: '',
+            state: '',
+            country: '',
+            streetType: ''
         };
+        const address = this.props.data;
+        this.setState(
+            {
+                unitNo: address.addressUnitNo,
+                postcode: address.addressPostcode,
+                street: address.addressStreet,
+                streetNo: address.addressStreetNo,
+                streetType: address.addressStreetType,
+                country: address.addressCountry,
+                city: address.addressCity,
+                state: address.addressState,
+            });
     }
 
-    // componentDidMount() {
-    //     this.props.fetchProfile();
-    // }
-    //
-    // componentDidUpdate(prevProps) {
-    //     if (prevProps.profile !== this.props.profile) {
-    //         this.setState(
-    //             {
-    //                 unitNo: this.props.profile[0].profile.address.addressUnitNo,
-    //                 postcode: this.props.profile[0].profile.address.addressPostcode,
-    //                 street: this.props.profile[0].profile.address.addressStreet,
-    //                 streetNo: this.props.profile[0].profile.address.addressStreetNo,
-    //                 streetType: this.props.profile[0].profile.address.addressStreetType,
-    //                 country: this.props.profile[0].profile.address.addressCountry,
-    //                 city: this.props.profile[0].profile.address.addressCity,
-    //                 state: this.props.profile[0].profile.address.addressState,
-    //
-    //             });
-    //     }
-    // }
+    componentDidMount() {
+        this.props.fetchProfile();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.profile !== this.props.profile) {
+
+        }
+    }
 
     handleSubmit(values, formikBag) {
         if (!((values.unitNo.toString().length === 0) && (values.city.length === 0) && (values.postcode.toString().length === 0)
@@ -79,7 +80,7 @@ class ProfileAddress extends Component {
             streetType: ''
         };
         values.city.length === 0 ? data.city = this.state.city : data.city = values.city;
-        values.country.length === 0 ? data.country = address.country : data.country = values.country;
+        values.country.length === 0 ? data.country = this.state.country : data.country = values.country;
         values.state === '--' ? data.state = this.state.state : data.country = values.state;
         values.street.length === 0 ? data.street = this.state.street : data.street = values.street;
         values.streetNo.toString().length === 0 ? data.streetNo = this.state.streetNo : data.streetNo = values.streetNo;
