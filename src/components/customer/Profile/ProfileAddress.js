@@ -17,7 +17,10 @@ class ProfileAddress extends Component {
             postcode: '',
             street: '',
             streetNo: '',
-            city: ''
+            city: '',
+            state: '',
+            country: '',
+            streetType: ''
         };
     }
 
@@ -29,11 +32,15 @@ class ProfileAddress extends Component {
         if (prevProps.profile !== this.props.profile) {
             this.setState(
                 {
-                    unitNo: this.props.profile[1].addressUnitNo,
-                    postcode: this.props.profile[1].addressPostcode,
-                    city: this.props.profile[1].addressCity,
-                    street: this.props.profile[1].addressStreet,
-                    streetNo: this.props.profile[1].addressStreetNo
+                    unitNo: this.props.profile[0].profile.address.addressUnitNo,
+                    postcode: this.props.profile[0].profile.address.addressPostcode,
+                    street: this.props.profile[0].profile.address.addressStreet,
+                    streetNo: this.props.profile[0].profile.address.addressStreetNo,
+                    streetType: this.props.profile[0].profile.address.addressStreetType,
+                    country: this.props.profile[0].profile.address.addressCountry,
+                    city: this.props.profile[0].profile.address.addressCity,
+                    state: this.props.profile[0].profile.address.addressState,
+
                 });
         }
     }
@@ -63,10 +70,6 @@ class ProfileAddress extends Component {
     }
 
     render() {
-        //Assigning variable names so props can become String
-        let stateString = this.props.profile[1].addressState;
-        let streetTypeString = this.props.profile[1].addressStreetType;
-
         return (
             <div>
                 <h4 className="card-subtitle card-subtitle-profile" style={{textAlign: 'center', color: 'black'}}>Edit

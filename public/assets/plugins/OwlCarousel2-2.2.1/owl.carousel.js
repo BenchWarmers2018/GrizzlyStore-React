@@ -2184,11 +2184,11 @@
 			} else if (id[3].indexOf('vzaar') > -1) {
 				type = 'vzaar';
 			} else {
-				throw new Error('Video URL not supported.');
+				throw new Error('Video URL_ITEM not supported.');
 			}
 			id = id[6];
 		} else {
-			throw new Error('Missing video URL.');
+			throw new Error('Missing video URL_ITEM.');
 		}
 
 		this._videos[url] = {

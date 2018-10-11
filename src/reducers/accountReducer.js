@@ -1,5 +1,11 @@
 import {ACCESS_TOKEN} from "../index";
-import {GOOGLE_USER, NORMAL_USER} from "../CONSTANTS";
+import {
+    FETCH_GOOGLE_ACCOUNTS,
+    FETCH_GOOGLE_ACCOUNTS_FULFILLED,
+    FETCH_GOOGLE_ACCOUNTS_REJECTED,
+    GOOGLE_USER,
+    NORMAL_USER
+} from "../CONSTANTS";
 
 const initialState = {
     accounts: [],
@@ -49,8 +55,15 @@ export default function reducer(state=initialState, action){
                 userType: NORMAL_USER,
             }
         }
-        /* Ian for you with love*/
-        case "GET_CURRENT_GOOGLE_USER_FULFILLED": {
+
+        /* For Google accounts*/
+        case FETCH_GOOGLE_ACCOUNTS: {
+            return {...state, fetching: true}
+        }
+        case FETCH_GOOGLE_ACCOUNTS_REJECTED: {
+            return {...state, fetching: false, error: action.payload}
+        }
+        case FETCH_GOOGLE_ACCOUNTS_FULFILLED: {
             return {
                 ...state,
                 loggedInUser: action.payload,

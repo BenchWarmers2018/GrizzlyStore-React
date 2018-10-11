@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { FETCH_ITEM_CATEGORY, FETCH_ITEM_CATEGORY_FULFILLED, FETCH_ITEM_CATEGORY_REJECTED, FETCH_CATEGORIES, FETCH_CATEGORIES_FULFILLED, FETCH_CATEGORIES_REJECTED, FETCH_CATEGORY_ITEMS, FETCH_CATEGORY_ITEMS_FULFILLED, FETCH_CATEGORY_ITEMS_REJECTED, URL } from '../CONSTANTS'
+import { FETCH_ITEM_CATEGORY, FETCH_ITEM_CATEGORY_FULFILLED, FETCH_ITEM_CATEGORY_REJECTED, FETCH_CATEGORIES, FETCH_CATEGORIES_FULFILLED, FETCH_CATEGORIES_REJECTED, FETCH_CATEGORY_ITEMS, FETCH_CATEGORY_ITEMS_FULFILLED, FETCH_CATEGORY_ITEMS_REJECTED, URL_ITEM } from '../CONSTANTS'
 
 export function fetchCategories() {
     return function (dispatch) {
 
         dispatch({type: FETCH_CATEGORIES});
 
-        axios.get(URL+"/category/allwithoutitems")
+        axios.get(URL_ITEM+"/category/allwithoutitems")
             .then((response)=> {
                 dispatch({type: FETCH_CATEGORIES_FULFILLED, payload: response.data.entities});
             })
@@ -19,7 +19,8 @@ export function fetchCategories() {
 export function addCategory(category) {
     return function (dispatch) {
         dispatch({type: "ADD_CATEGORY"});
-        axios.post("http://localhost:10005/category/add", category)
+
+        axios.post(URL_ITEM+"/category/add", category)
             .then(result => {
                 console.log(result);
                 console.log(result.data);
@@ -43,7 +44,7 @@ export function fetchCategoriesforItem(id) {
 
         dispatch({type: FETCH_ITEM_CATEGORY});
 
-        axios.get(URL+"/category/itemid?itemid="+id)
+        axios.get(URL_ITEM+"/category/itemid?itemid="+id)
             .then((response)=> {
                 dispatch({type: FETCH_ITEM_CATEGORY_FULFILLED, payload: response.data.entities});
             })

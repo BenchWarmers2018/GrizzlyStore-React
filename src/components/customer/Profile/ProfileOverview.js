@@ -12,16 +12,16 @@ class ProfileOverview extends Component {
     render() {
 
         //Assigning variable names to props
-        let unitNo = this.props.profile[1].addressUnitNo;
-        let streetNo = this.props.profile[1].addressStreetNo;
-        let street = this.props.profile[1].addressStreet;
-        let streetType = this.props.profile[1].addressStreetType;
-        let city = this.props.profile[1].addressCity;
-        let postcode = this.props.profile[1].addressPostcode;
-        let state = this.props.profile[1].addressState;
-        let country = this.props.profile[1].addressCountry;
-        let phone = this.props.profile[0].profilePhoneNumber;
-        let email = this.props.profile[0].userAccount.accountEmailAddress;
+        let unitNo = this.props.profile[0].profile.address.addressUnitNo;
+        let streetNo = this.props.profile[0].profile.address.addressStreetNo;
+        let street = this.props.profile[0].profile.address.addressStreet;
+        let streetType = this.props.profile[0].profile.address.addressStreetType;
+        let city = this.props.profile[0].profile.address.addressCity;
+        let postcode = this.props.profile[0].profile.address.addressPostcode;
+        let state = this.props.profile[0].profile.address.addressState;
+        let country = this.props.profile[0].profile.address.addressCountry;
+        let phone = this.props.profile[0].profile.profilePhoneNumber;
+        let email = this.props.profile[0].accountEmailAddress;
 
         //Piecing together the address
         let combinedAddressString = "";
