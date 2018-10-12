@@ -12,6 +12,14 @@ class ViewCategoriesTable extends Component {
       data: props.categoryData,
       rowData: []
     };
+
+    this.toggle = this.toggle.bind(this);
+  }
+
+  toggle() {
+      this.setState({
+          modal: !this.state.modal
+      });
   }
 
   componentDidUpdate(prevProps){
@@ -49,6 +57,18 @@ class ViewCategoriesTable extends Component {
           ]}
           defaultPageSize={10}
           className="-striped -highlight"
+
+          getTdProps={(state, rowInfo, column, instance) => {
+            return {
+              onClick: (e, handleOriginal) => {
+                if (typeof rowInfo !== "undefined")
+                {
+                  this.state.rowData = rowInfo.original;
+                  this.toggle();
+                }
+              }
+            };
+          }}
         />
 
         <Modal isOpen={this.state.modal} toggle={this.toggle} className="cascading-modal">
