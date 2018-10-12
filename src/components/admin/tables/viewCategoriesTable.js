@@ -7,7 +7,8 @@ class ViewCategoriesTable extends Component {
     super(props);
     this.state = {
       modal: false,
-      data: props.categoryData
+      data: props.categoryData,
+      rowData: []
     };
   }
 
@@ -47,6 +48,11 @@ class ViewCategoriesTable extends Component {
           defaultPageSize={10}
           className="-striped -highlight"
         />
+
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className="cascading-modal">
+            <EditCategoryForm
+              rowData={this.state.rowData}/>
+        </Modal>
       </div>
     );
   }

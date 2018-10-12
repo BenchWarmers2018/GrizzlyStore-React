@@ -7,8 +7,49 @@ class ProfileOverview extends Component {
 
     render() {
 
+<<<<<<< Updated upstream
         const account = this.props.data;
         const address = this.props.data.profile.address;
+=======
+        //Assigning variable names to props
+        let unitNo = this.props.profile[0].profile.address.addressUnitNo;
+        let streetNo = this.props.profile[0].profile.address.addressStreetNo;
+        let street = this.props.profile[0].profile.address.addressStreet;
+        let streetType = this.props.profile[0].profile.address.addressStreetType;
+        let city = this.props.profile[0].profile.address.addressCity;
+        let postcode = this.props.profile[0].profile.address.addressPostcode;
+        let state = this.props.profile[0].profile.address.addressState;
+        let country = this.props.profile[0].profile.address.addressCountry;
+        let phone = this.props.profile[0].profile.profilePhoneNumber;
+        let email = this.props.profile[0].accountEmailAddress;
+
+        //Piecing together the address
+        let combinedAddressString = "";
+
+        //If Unit Number doesn't exist
+        if(unitNo != null && streetNo != null){
+            combinedAddressString =
+                <h5 className="profile-overview-field">
+                    {unitNo}/{streetNo} {street} {streetType}<br/>
+                    {city}, {postcode}<br/>
+                    {state}, {country}
+                </h5>;
+        }
+        //Checks if Address exists or not, because if StreetNo exists, address also has to exist
+        else if (streetNo != null){
+            combinedAddressString =
+                <h5 className="profile-overview-field">
+                    {streetNo} {street} {streetType}<br/>
+                    {city}, {postcode}<br/>
+                    {state}, {country}
+                </h5>;
+        }
+        //Prints "N/A" if address doesn't exist
+        else{
+            combinedAddressString =
+                <h5 className="profile-overview-field">N/A</h5>;
+        }
+>>>>>>> Stashed changes
 
         return (
             <div>

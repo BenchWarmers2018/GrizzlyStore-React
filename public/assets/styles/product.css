@@ -1007,10 +1007,15 @@ section
 	 font-size: 14px;
 	 font-weight: 500;
 	 color: #6c6a74;
+<<<<<<< Updated upstream
     margin-left: 40px;
  }
 
 
+=======
+ }
+
+>>>>>>> Stashed changes
 .in_stock_container span
 {
 	display: inline-block;
@@ -1574,6 +1579,7 @@ section
 
 .page-link:focus{
 	background-color: #007bff !important;
+<<<<<<< Updated upstream
 }
 
 
@@ -1667,3 +1673,6 @@ body div[id] {
 
 
 
+=======
+}
+>>>>>>> Stashed changes

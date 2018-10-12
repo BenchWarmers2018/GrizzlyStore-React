@@ -21,6 +21,12 @@ class ViewCategories extends Component {
     {
       this.setState({categories: this.props.categories})
     }
+
+    if(prevProps.updatedCategory !== this.props.updatedCategory)
+    {
+      
+      this.setState({categories: this.props.categories})
+    }
   }
 
   render() {
@@ -53,7 +59,8 @@ class ViewCategories extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    categories: state.category.categories
+    categories: state.category.categories,
+    updatedCategory: state.category.updatedCategory
 });
 
 export default connect(mapStateToProps)(ViewCategories);

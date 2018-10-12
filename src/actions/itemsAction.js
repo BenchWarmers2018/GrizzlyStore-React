@@ -31,7 +31,6 @@ export function fetchSingleItem(id) {
 
         axios.get(URL_ITEM + "/items/id?itemId="+ id)
             .then((response) => {
-                console.log(response.data);
                 dispatch({type: FETCH_SINGLE_ITEM_FULFILLED, payload: response.data.entities})
             })
             .catch((err) => {

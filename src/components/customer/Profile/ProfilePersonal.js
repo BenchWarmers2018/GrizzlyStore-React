@@ -11,21 +11,30 @@ class ProfilePersonal extends Component {
         super(props);
         this.validatePhone = this.validatePhone.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+<<<<<<< Updated upstream
         this.onDrop = this.onDrop.bind(this);
         this.onSelect = this.onSelect.bind(this);
         this.getPostValues = this.getPostValues.bind(this);
         this.FileListItem = this.FileListItem.bind(this);
+=======
+        this.onDrop = this.onDrop.bind(this)
+>>>>>>> Stashed changes
         this.state = {
             success: "",
             empty: false,
             firstName: '',
             lastName: '',
+<<<<<<< Updated upstream
             phone: '',
+=======
+            mobile: '',
+>>>>>>> Stashed changes
             image: null,
             imageName: ''
         };
     }
 
+<<<<<<< Updated upstream
     onSelect(file) {
         console.log(file[0].name);
         this.setState({
@@ -68,6 +77,16 @@ class ProfilePersonal extends Component {
     }
 
 
+=======
+    onDrop(file) {
+        console.log(file[0].name);
+        this.setState({
+            image: file,
+            imageName: file[0].name
+        });
+    }
+
+>>>>>>> Stashed changes
     componentDidMount() {
         this.props.fetchProfile();
     }
@@ -76,11 +95,17 @@ class ProfilePersonal extends Component {
         if (prevProps.profile !== this.props.profile) {
             this.setState(
                 {
+<<<<<<< Updated upstream
                     phone: this.props.profile[0].profile.profilePhoneNumber,
                     firstName: this.props.profile[0].profile.profileFirstName,
                     lastName: this.props.profile[0].profile.profileLastName,
                     image: null,
                     imageName: ''
+=======
+                    mobile: this.props.profile[0].profile.profilePhoneNumber,
+                    firstName: this.props.profile[0].profile.profileFirstName,
+                    lastName: this.props.profile[0].profile.profileLastName
+>>>>>>> Stashed changes
                 });
         }
     }
@@ -92,8 +117,13 @@ class ProfilePersonal extends Component {
     };
 
     handleSubmit(values, formikBag) {
+<<<<<<< Updated upstream
         console.log('IMAGE HERE ' + values.image);
         if (!((this.state.image === null) && (values.phone.toString().length === 0) && (values.firstName.length === 0) && (values.lastName.length === 0))) {
+=======
+        if (!((values.phone.toString().length === 0) && (values.firstName.length === 0) && (values.lastName.length === 0))) {
+            const {submitPersonalDetails} = this.props;
+>>>>>>> Stashed changes
             this.setState({empty: false});
             console.log(values);
             const submissionValues = this.getPostValues(values);
@@ -202,14 +232,31 @@ class ProfilePersonal extends Component {
                             </div>
 
                             <div className="form-group">
+                                <Dropzone style={{
+                                    textAlignVertical: 'center',
+                                    alignItems: 'center',
+                                }} className="dropzone col-md-12" onDrop={this.onDrop}>
+                                    <p className="textDrop">
+                                        <i>Drag new profile image here</i>
+                                    </p>
+                                </Dropzone>
+                                <a className="imageName"
+                                   style={{textAlign: "left", width: '100%'}}>{this.state.imageName}</a>
+                            </div>
+
+                            <div className="form-group">
                                 <div className="col-sm-12">
                                     <button type="submit" className="btn btn-success-muted">UPDATE DETAILS</button>
                                     <button type="button" onClick={() => {
                                         this.setState({image: null, imageName: ''});
+<<<<<<< Updated upstream
                                         console.log('IMAGE NAME ' + this.state.image);
                                         this.fileUpload.files = null;
                                         this.fileUpload.value = '';
                                         setFieldValue('image', null);
+=======
+                                        console.log('IMAGE NAME ' + this.state.image)
+>>>>>>> Stashed changes
                                     }} className="btn btn-fail-muted">REMOVE IMAGE
                                     </button>
                                 </div>

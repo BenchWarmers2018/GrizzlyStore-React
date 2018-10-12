@@ -2,7 +2,11 @@ import store from '../store';
 import axios from 'axios';
 
 const acc = {
+<<<<<<< Updated upstream
     "idAccount": "2e80bab8-b631-4dc5-ad03-27ca8604787e",
+=======
+    "idAccount": "456b3317-ff15-4cf1-bded-f881d8f1c4b1",
+>>>>>>> Stashed changes
     "accountEmailAddress": "abc@gmail.com",
     "accountPassword": "abcd",
     "accountIsAdmin": "true"
@@ -40,7 +44,11 @@ export function submitPersonalDetails(profileData, accountID = '') {
         console.log(data.get('file'));
         console.log(' new data being sent . . .');
         dispatch({type: "SUBMIT_PROFILE"}); //
+<<<<<<< Updated upstream
         axios.post("http://localhost:10003/user/update-personal", data, {headers: header})
+=======
+        axios.post("http://localhost:10003/user/update-profile", profileData, {headers: header})
+>>>>>>> Stashed changes
             .then((response) => {
                 console.log("Updating profile successful " + response);
                 dispatch({type: "SUBMIT_PROFILE_ACCEPTED", payload: response.data})
