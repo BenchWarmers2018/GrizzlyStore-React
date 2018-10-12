@@ -79,7 +79,7 @@ class ProfileAddress extends Component {
             streetType: ''
         };
         values.city.length === 0 ? data.city = this.state.city : data.city = values.city;
-        values.country.length === 0 ? data.country = address.country : data.country = values.country;
+        values.country.length === 0 ? data.country = this.state.country : data.country = values.country;
         values.state === '--' ? data.state = this.state.state : data.country = values.state;
         values.street.length === 0 ? data.street = this.state.street : data.street = values.street;
         values.streetNo.toString().length === 0 ? data.streetNo = this.state.streetNo : data.streetNo = values.streetNo;

@@ -206,7 +206,7 @@ class Header extends Component {
                             <div className="g-signin2" data-onsuccess="onSignIn"></div>
 
                             <li><a href="#">Sign in</a></li>
-                            <li><a href="#">New account</a></li>
+                            <li><a className="new-account-selected" href="#">New account</a></li>
                         </ul>
 
                         <div id="login">
@@ -245,8 +245,8 @@ class Header extends Component {
                                 </div>
 
 
-                                <p className="fieldset">
-                                    <input className="full-width has-padding" type="submit" value="Create account"/>
+                                <p className="fieldset submit-login-button">
+                                    <input className="full-width has-padding half-width" type="submit" value="Create account"/>
                                 </p>
                             </form>
 
