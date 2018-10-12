@@ -94,11 +94,10 @@ class ProfilePersonal extends Component {
     handleSubmit(values, formikBag) {
         console.log('IMAGE HERE ' + values.image);
         if (!((this.state.image === null) && (values.phone.toString().length === 0) && (values.firstName.length === 0) && (values.lastName.length === 0))) {
-            const {submitPersonalDetails} = this.props;
             this.setState({empty: false});
             console.log(values);
             const submissionValues = this.getPostValues(values);
-            submitPersonalDetails(submissionValues);
+            this.submitPersonalDetails(submissionValues);
             formikBag.setSubmitting(false);
             this.props.fetchProfile();
             this.setState({success: this.props.updates}); // Get update message back from Spring
@@ -191,7 +190,7 @@ class ProfilePersonal extends Component {
                                                }
                                            }}/>
                                     <br/>
-                                    <Dropzone id='image' name='image' label='Image Upload'
+                                    <Dropzone accept="image/*" id='image' name='image' label='Image Upload'
                                               style={{textAlignVertical: 'center', alignItems: 'center',}}
                                               className="dropzone col-md-12" onDrop={this.onDrop}>
                                         <p className="textDrop">
