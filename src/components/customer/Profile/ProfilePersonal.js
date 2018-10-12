@@ -202,19 +202,6 @@ class ProfilePersonal extends Component {
                             </div>
 
                             <div className="form-group">
-                                <Dropzone style={{
-                                    textAlignVertical: 'center',
-                                    alignItems: 'center',
-                                }} className="dropzone col-md-12" onDrop={this.onDrop}>
-                                    <p className="textDrop">
-                                        <i>Drag new profile image here</i>
-                                    </p>
-                                </Dropzone>
-                                <a className="imageName"
-                                   style={{textAlign: "left", width: '100%'}}>{this.state.imageName}</a>
-                            </div>
-
-                            <div className="form-group">
                                 <div className="col-sm-12">
                                     <button type="submit" className="btn btn-success-muted">UPDATE DETAILS</button>
                                     <button type="button" onClick={() => {
