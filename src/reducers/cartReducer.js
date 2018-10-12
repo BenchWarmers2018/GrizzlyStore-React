@@ -3,7 +3,7 @@ import {
 } from "../CONSTANTS";
 
 const InitialState = {
-    cart: {},
+    cart: [],
     fetching : false,
     fetched : false,
     errors : [],
