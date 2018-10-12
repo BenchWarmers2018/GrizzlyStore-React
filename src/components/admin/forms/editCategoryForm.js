@@ -3,14 +3,26 @@ import { render } from 'react-dom'
 import { withFormik, Form, Field } from 'formik'
 import * as Yup from 'yup';
 import { connect } from "react-redux"
-import { addCategory } from "../../../actions/categoriesAction"
+import { editCategory } from "../../../actions/categoriesAction"
 
-class AddCategoryForm extends React.Component {
+class EditCategoryForm extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
-          addCategoryMessage: this.props.addCategoryMessage
+          rowData: this.props.rowData,
+          editCategoryMessage: this.props.editCategoryMessage
         };
+
+        this.props.values.categoryName = this.state.rowData.categoryName
+        this.props.values.categoryDescription = this.state.rowData.categoryDescription
+    }
+
+    componentDidUpdate(prevProps) {
+      if(prevProps.rowData !== this.props.rowData)
+      {
+        this.setState({rowData: this.props.rowData})
+      }
     }
 
     render() {
@@ -20,16 +32,17 @@ class AddCategoryForm extends React.Component {
         touched,
         handleChange,
         handleBlur,
-        isSubmitting
+        isSubmitting,
+        currentData
       } = this.props;
 
       return(
         <Form>
-          <h1 className="text-center has-padding">Add Category</h1>
+          <h1 className="text-center has-padding">Edit Category</h1>
           <form className = "form">
 
             {/* Display Error/Success Message */}
-            <div className={(this.props.addCategoryMessage != "") ? (this.props.categoryStatusAdded == true ? "alert alert-success" : "alert alert-danger") : null}>{this.props.addCategoryMessage}</div>
+            <div className={(this.props.editCategoryMessage != "") ? (this.props.categoryStatusUpdated == true ? "alert alert-success" : "alert alert-danger") : null}>{this.props.editCategoryMessage}</div>
 
             {/* Name Field */}
             <p className="fieldset">
@@ -46,7 +59,7 @@ class AddCategoryForm extends React.Component {
             </p>
 
             <p className="fieldset">
-              <input className="full-width" type="submit" value="Add Category"/>
+              <input className="full-width" type="submit" value="Save"/>
             </p>
           </form>
         </Form>
@@ -55,26 +68,23 @@ class AddCategoryForm extends React.Component {
 };
 
 const FormikApp = withFormik({
-  mapPropsToValues({ categoryName, categoryDescription }) {
-    return {
-      categoryName: categoryName || '',
-      categoryDescription: categoryDescription || ''
-    }
-  },
+  mapPropsToValues: ({ categoryName, categoryDescription }) => ({
+    categoryName: categoryName || '',
+    categoryDescription: categoryDescription || ''
+  }),
   validationSchema: Yup.object().shape({
     categoryName: Yup.string().matches(/^[a-zA-Z]+( [a-zA-Z]+)*$/, "Category names must only contain letters.").required('A name is required for the category!')
   }),
   handleSubmit(values, { props, setSubmitting }) {
-    console.log(values.categoryName);
-    const categoryData = {categoryName: values.categoryName, categoryDescription: values.categoryDescription};
-    props.dispatch(addCategory(categoryData));
+    const categoryData = {idCategory: props.rowData.idCategory, categoryName: values.categoryName, categoryDescription: values.categoryDescription};
+    props.dispatch(editCategory(categoryData));
     setSubmitting(false);
   }
-})(AddCategoryForm)
+})(EditCategoryForm)
 
-const mapStateToProps = state => ({
-  addCategoryMessage: state.category.messages,
-  categoryStatusAdded: state.category.added
+const mapStateToProps = (state) => ({
+  editCategoryMessage: state.category.editMessages,
+  categoryStatusUpdated: state.category.updated
 });
 
 export default connect(mapStateToProps)(FormikApp)

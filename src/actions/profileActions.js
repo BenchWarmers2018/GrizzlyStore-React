@@ -92,6 +92,3 @@ export function submitAddress(profileData, accountID = '') {
         })
     }
 }
-
-
-
