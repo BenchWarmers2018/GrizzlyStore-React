@@ -13,7 +13,6 @@ class ProfileAddress extends Component {
         this.getPostValues = this.getPostValues.bind(this);
         const address = this.props.data;
         this.state = {
-<<<<<<< Updated upstream
                 unitNo: address.addressUnitNo,
                 postcode: address.addressPostcode,
                 street: address.addressStreet,
@@ -25,49 +24,17 @@ class ProfileAddress extends Component {
                 success: "",
                 empty: false,
             };
-=======
-            success: "",
-            empty: false,
-            unitNo: '',
-            postcode: '',
-            street: '',
-            streetNo: '',
-            city: '',
-            state: '',
-            country: '',
-            streetType: ''
-        };
->>>>>>> Stashed changes
     }
 
 //     componentDidMount() {
 //         this.props.fetchProfile();
 //     }
 
-<<<<<<< Updated upstream
 //     componentDidUpdate(prevProps) {
 //         if (prevProps.profile !== this.props.profile) {
 
 //         }
 //     }
-=======
-    componentDidUpdate(prevProps) {
-        if (prevProps.profile !== this.props.profile) {
-            this.setState(
-                {
-                    unitNo: this.props.profile[0].profile.address.addressUnitNo,
-                    postcode: this.props.profile[0].profile.address.addressPostcode,
-                    street: this.props.profile[0].profile.address.addressStreet,
-                    streetNo: this.props.profile[0].profile.address.addressStreetNo,
-                    streetType: this.props.profile[0].profile.address.addressStreetType,
-                    country: this.props.profile[0].profile.address.addressCountry,
-                    city: this.props.profile[0].profile.address.addressCity,
-                    state: this.props.profile[0].profile.address.addressState,
-
-                });
-        }
-    }
->>>>>>> Stashed changes
 
     handleSubmit(values, formikBag) {
         if (!((values.unitNo.toString().length === 0) && (values.city.length === 0) && (values.postcode.toString().length === 0)
@@ -112,11 +79,8 @@ class ProfileAddress extends Component {
     }
 
     render() {
-<<<<<<< Updated upstream
         const address = this.props.data;
 
-=======
->>>>>>> Stashed changes
         return (
             <div>
                 <h4 className="card-subtitle card-subtitle-profile" style={{textAlign: 'center', color: 'black'}}>Edit

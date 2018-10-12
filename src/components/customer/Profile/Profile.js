@@ -26,25 +26,9 @@ class Profile extends Component {
     }
 
 
-<<<<<<< Updated upstream
     refreshProfile = () => {
         //this.props.fetchProfile();
         //console.log('UPDATED PROFILE ' + JSON.stringify(this.props.profile));
-=======
-    componentDidUpdate(prevProps) {
-        if (prevProps.profile !== this.props.profile) {
-            this.setState({
-                image: this.props.profile[0].profile.profileImage,
-                firstName: this.props.profile[0].profile.profileFirstName,
-                lastName: this.props.profile[0].profile.profileLastName
-            });
-        }
-    }
-
-    refreshProfile() {
-        this.props.fetchProfile();
-        console.log('UPDATED PROFILE ' + JSON.stringify(this.props.profile));
->>>>>>> Stashed changes
         this.forceUpdate();
     }
 
@@ -109,7 +93,6 @@ class Profile extends Component {
                                         <ul className="nav profile-nav">
                                             {this.state.menuOptions.map(option =>
                                                 <li>
-<<<<<<< Updated upstream
                                                     <Button value={option} bsSize="large" onClick={this.handleClick}
                                                             block>{option}</Button>
                                                 </li>
@@ -120,30 +103,6 @@ class Profile extends Component {
                                                 </h7>
                                             </li>
                                         </ul>
-=======
-                                                    <Button bsSize="large" onClick={() => this.onClick(0)}
-                                                             block>Overview</Button>
-                                                </li>
-                                                <li>
-                                                    <Button bsSize="large" onClick={() => this.onClick(1)} block>Edit
-                                                        Personal Details</Button>
-                                                </li>
-                                                <li>
-                                                    <Button bsSize="large" onClick={() => this.onClick(2)} block>Change
-                                                        Shipping Address</Button>
-                                                </li>
-                                                <li>
-                                                    <Button bsSize="large" onClick={() => this.onClick(3)} block>Change
-                                                        Password</Button>
-                                                </li>
-                                                <li>
-                                                    <h7 className="text-center profile-usermenu-option ">Log
-                                                        Out
-                                                    </h7>
-                                                </li>
-                                            </ul>
-                                        </div>
->>>>>>> Stashed changes
                                     </div>
                                 </div>
                             </div>
