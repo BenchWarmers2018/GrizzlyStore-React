@@ -4,7 +4,6 @@
 // export const URL_ITEM = "http://localhost:10005";
 // export const URL_GOOGLE_USER = "http://localhost:10006";
 
-
 // /***URL_ITEM's for the server. Please uncomment before pushing to git ***/
 export const URL_ITEM = "http://bw.ausgrads.academy:8765/grizzlystore-item_service"
 export const URL_USER = "http://bw.ausgrads.academy:8765/grizzlystore-user_service";

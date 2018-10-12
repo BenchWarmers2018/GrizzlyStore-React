@@ -42,9 +42,7 @@ class EditCategoryForm extends React.Component {
           <form className = "form">
 
             {/* Display Error/Success Message */}
-            {console.log("Edit Form")}
-            {console.log(this.state.editCategoryMessage)}
-            <div className={(this.props.editCategoryMessage != "") ? (this.props.categoryStatusUpdated == true ? "alert alert-success" : "alert alert-danger") : null}>{this.props.EditCategoryMessage}</div>
+            <div className={(this.props.editCategoryMessage != "") ? (this.props.categoryStatusUpdated == true ? "alert alert-success" : "alert alert-danger") : null}>{this.props.editCategoryMessage}</div>
 
             {/* Name Field */}
             <p className="fieldset">
@@ -85,7 +83,7 @@ const FormikApp = withFormik({
 })(EditCategoryForm)
 
 const mapStateToProps = (state) => ({
-  editCategoryMessage: state.category.messages,
+  editCategoryMessage: state.category.editMessages,
   categoryStatusUpdated: state.category.updated
 });
 

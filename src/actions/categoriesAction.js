@@ -55,7 +55,7 @@ export function editCategory(category) {
   return function (dispatch) {
     dispatch({type: EDIT_CATEGORY});
 
-    axios.post("http://localhost:8080/category/edit", category)
+    axios.post(URL_ITEM+"/category/edit", category)
       .then(result => {
         dispatch({type: EDIT_CATEGORY_SUCCESSFUL, payload: result.data.entities[0]})
       })
