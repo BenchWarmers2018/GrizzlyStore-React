@@ -17,8 +17,7 @@ class ProfilePassword extends Component {
 
     handleSubmit(values, formikBag) {
         console.log(values);
-        const { submitPassword} = this.props;
-        submitPassword({password: values.password});
+        this.props.submitPassword({password: values.password});
         formikBag.setSubmitting(false);
         this.props.fetchProfile();
         this.setState({success: this.props.updates}); // Get update message back from Spring
