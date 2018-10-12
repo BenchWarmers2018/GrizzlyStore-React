@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+import { Container, Row, Col, Input, Button, Fa, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
+import EditCategoryForm from "../forms/editCategoryForm.js";
 
 class ViewCategoriesTable extends Component {
   constructor(props) {
