@@ -2,7 +2,7 @@ import {ACCESS_TOKEN} from "../index";
 import {
     FETCH_GOOGLE_ACCOUNTS,
     FETCH_GOOGLE_ACCOUNTS_FULFILLED,
-    FETCH_GOOGLE_ACCOUNTS_REJECTED,
+    FETCH_GOOGLE_ACCOUNTS_REJECTED, GET_CURRENT_USER, GET_CURRENT_USER_FULFILLED, GET_CURRENT_USER_REJECTED,
     GOOGLE_USER,
     NORMAL_USER
 } from "../CONSTANTS";
@@ -39,15 +39,17 @@ export default function reducer(state=initialState, action){
                 accounts: action.payload,
             }
         }
-
-        case "GET_CURRENT_USER_REJECTED":
+        case GET_CURRENT_USER: {
+            return {...state}
+        }
+        case GET_CURRENT_USER_REJECTED:
         {
             return {
                 ...state,
                 tokenError: action.payload,
             }
         }
-        case "GET_CURRENT_USER_FULFILLED": {
+        case GET_CURRENT_USER_FULFILLED: {
             return {
                 ...state,
                 loggedInUser: action.payload,
@@ -65,20 +67,24 @@ export default function reducer(state=initialState, action){
         case FETCH_GOOGLE_ACCOUNTS_FULFILLED: {
             return {
                 ...state,
+                fetching: false,
+                fetched: true,
                 loggedInUser: action.payload,
                 userType: GOOGLE_USER,
             }
         }
 
         case "AUTHENTICATE_USER": {
-          return {...state, authenticating: true}
+          return {...state, fetching: true, authenticating: true}
         }
         case "AUTHENTICATE_USER_REJECTED": {
-          return {...state, authenticating: false, error: action.payload}
+          return {...state, fetching: false, authenticating: false, error: action.payload}
         }
         case "AUTHENTICATING_USER_SUCCESSFUL": {
           return {
             ...state,
+              fetching: false,
+              fetched: true,
             authenticating: false,
             authenticated: true,
             continueLogin: true,
@@ -88,6 +94,7 @@ export default function reducer(state=initialState, action){
         case "SERVER_NOT_FOUND": {
           return {
             ...state,
+              fetching: false,
             error: action.payload
           }
         }

@@ -29,12 +29,12 @@ class ItemsChild extends Component {
 
 
         return (
-                    <div className="col-12 col-sm-6 col-lg-4">
+                    <div className="col-12 col-sm-6 col-lg-4" >
                         <Link onClick={this.handleItemClicked} value={item.idItem} to={'/items/'+ item.idItem}>
-                        <div className="single-product-wrapper">
+                        <div className="single-product-wrapper rounded ">
 
                             <div className="product-img">
-                               <img className="item-image-hover" src={item.itemImage} alt=""/>
+                               <img className="item-image-hover border border-light rounded" src={item.itemImage} alt=""/>
 
 
                                 {(item.itemSalePercentage > 0) &&
@@ -48,7 +48,7 @@ class ItemsChild extends Component {
                             </div>
 
 
-                            <div className="product-description">
+                            <div className="product-description p-1">
                                 <h6 className = "item-page-title">{item.itemName}</h6>
 
                                 {
