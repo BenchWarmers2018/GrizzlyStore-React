@@ -7,19 +7,10 @@ import Main from "./components/Main";
 import AdminHeader from "./components/admin/pages/adminHeader";
 import SideBar from "./components/admin/pages/sidebar";
 import AdminMain from "./components/admin/adminMain"
-
 import { connect } from 'react-redux';
 import { getCurrentUser } from "./actions/accountAction"
-import { API_BASE_URL, ACCESS_TOKEN } from './';
-import {getVisibleItems} from "./selectors/itemsSelector";
-import accounts from "./reducers/accountReducer";
-
-
 import {BrowserRouter} from "react-router-dom";
-import Provider from "react-redux/es/components/Provider";
-import firebase from "firebase";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import axios from "axios";
+import Spinner from "./components/microComponents/Spinner";
 
 
 class App extends Component {
@@ -62,11 +53,19 @@ class App extends Component {
                         <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
                             <AdminHeader/>
                             <SideBar/>
-                            <AdminMain />
+                            {(this.props.fetching) ?
+                                <Spinner/>
+                                :
+                                <AdminMain />
+                            }
                         </div> :
                         <div>
                             <Header data={this.props.loggedInUser} type={this.props.userType} />
-                            <Main/>
+                            {(this.props.fetching) ?
+                            <Spinner/>
+                                :
+                                <Main/>
+                            }
                             <Newsletter/>
                         </div>
                     }
@@ -84,6 +83,7 @@ const mapStateToProps = state => ({
     loggedInUser: state.accounts.loggedInUser,
     continueLogin: state.accounts.continueLogin,
     userType : state.accounts.userType,
+    fetching : state.accounts.fetching,
 });
 
 const mapDispatchToProps = {

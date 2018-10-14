@@ -7,12 +7,10 @@ import Background from "../../../images/images_essence/bg-img/breadcumb.jpg";
 import {Button} from 'react-bootstrap';
 import {fetchProfile} from "../../../actions/profileActions";
 import ProfileOverview from "./ProfileOverview.js"
-
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
-import NavLink from "react-router-dom/es/NavLink";
-import {NORMAL_USER} from "../../../CONSTANTS";
 import NotFound from "../../shared/NotFound";
 import ProfileAddress from "./ProfileAddress";
+import ProfilePersonal from "./ProfilePersonal";
+import ProfilePassword from "./ProfilePassword";
 
 
 class Profile extends Component {
@@ -50,11 +48,11 @@ class Profile extends Component {
             if(this.state.selected === "Overview")
                 selectedOption = <ProfileOverview data={account}/>
             else if(this.state.selected === "Personal Details")
-                selectedOption = <ProfileOverview data={account}/>
+                selectedOption = <ProfilePersonal data={account}/>
             else if(this.state.selected === "Shipping Address")
                 selectedOption = <ProfileAddress data={profile.address}/>
             else if(this.state.selected === "Change Password")
-                selectedOption = <ProfileOverview data={account}/>
+                selectedOption = <ProfilePassword data={account}/>
         }
         console.log(profile);
 
