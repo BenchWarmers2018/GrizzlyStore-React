@@ -11,25 +11,62 @@ class ProfilePersonal extends Component {
         super(props);
         this.validatePhone = this.validatePhone.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onDrop = this.onDrop.bind(this)
+        this.onDrop = this.onDrop.bind(this);
+        this.onSelect = this.onSelect.bind(this);
+        this.getPostValues = this.getPostValues.bind(this);
+        this.FileListItem = this.FileListItem.bind(this);
         this.state = {
             success: "",
             empty: false,
             firstName: '',
             lastName: '',
-            mobile: '',
+            phone: '',
             image: null,
             imageName: ''
         };
     }
 
-    onDrop(file) {
+    onSelect(file) {
         console.log(file[0].name);
         this.setState({
-            image: file,
+            image: file[0],
             imageName: file[0].name
         });
     }
+
+    onDrop(file) {
+        console.log('Coming from Dropzone');
+        this.setState({
+            image: file[0],
+            imageName: file[0].name
+        });
+        this.fileUpload.files = new this.FileListItem(file);
+    }
+
+    getPostValues(values) {
+        var data = {
+            phone: '',
+            lastName: '',
+            firstName: '',
+            image: this.state.image,
+            imageName: this.state.imageName
+        };
+        values.firstName.length === 0 ? data.firstName = this.state.firstName : data.firstName = values.firstName;
+        values.lastName.length === 0 ? data.lastName = this.state.lastName : data.lastName = values.lastName;
+        values.phone.toString().length === 0 ? data.phone = this.state.phone : data.phone = values.phone;
+
+        return data;
+    }
+
+    // Create a FileList object from an array of File objects.
+    FileListItem(a) {
+        a = [].slice.call(Array.isArray(a) ? a : arguments);
+        for (var c, b = c = a.length, d = !0; b-- && d;) d = a[b] instanceof File
+        if (!d) throw new TypeError("expected argument to FileList is File or array of File objects");
+        for (b = (new ClipboardEvent("")).clipboardData || new DataTransfer; c--;) b.items.add(a[c])
+        return b.files
+    }
+
 
     componentDidMount() {
         this.props.fetchProfile();
@@ -39,9 +76,11 @@ class ProfilePersonal extends Component {
         if (prevProps.profile !== this.props.profile) {
             this.setState(
                 {
-                    mobile: this.props.profile[0].profile.profilePhoneNumber,
+                    phone: this.props.profile[0].profile.profilePhoneNumber,
                     firstName: this.props.profile[0].profile.profileFirstName,
-                    lastName: this.props.profile[0].profile.profileLastName
+                    lastName: this.props.profile[0].profile.profileLastName,
+                    image: null,
+                    imageName: ''
                 });
         }
     }
@@ -53,12 +92,14 @@ class ProfilePersonal extends Component {
     };
 
     handleSubmit(values, formikBag) {
-        if (!((values.phone.toString().length === 0) && (values.firstName.length === 0) && (values.lastName.length === 0))) {
-            const {submitPersonalDetails} = this.props;
+        console.log('IMAGE HERE ' + values.image);
+        if (!((this.state.image === null) && (values.phone.toString().length === 0) && (values.firstName.length === 0) && (values.lastName.length === 0))) {
             this.setState({empty: false});
             console.log(values);
-            submitPersonalDetails({phone: values.phone, firstName: values.firstName, lastName: values.lastName});
+            const submissionValues = this.getPostValues(values);
+            this.submitPersonalDetails(submissionValues);
             formikBag.setSubmitting(false);
+            this.props.fetchProfile();
             this.setState({success: this.props.updates}); // Get update message back from Spring
             console.log("SUCCESS " + JSON.stringify(this.props.profile[0]) + " " + this.state.success);
         }
@@ -69,14 +110,18 @@ class ProfilePersonal extends Component {
     }
 
     render() {
+        if (this.props.file !== undefined)
+            this.setState({imageName: this.props.file[0].name});
         return (
             <div>
                 <h4 className="card-subtitle card-subtitle-profile"
                     style={{textAlign: 'center', color: 'black'}}>Personal Details</h4>
                 <br/>
                 <Formik
-                    initialValues={{firstName: "", lastName: "", phone: ""}}
+                    initialValues={{firstName: "", lastName: "", phone: "", image: null}}
                     validate={(values) => {
+                        if (this.state.image !== null)
+                            values.image = this.state.image;
                         console.log(values);
                         let errors = {};
                         // VALIDATION
@@ -92,7 +137,8 @@ class ProfilePersonal extends Component {
                                  values,
                                  handleChange,
                                  handleBlur,
-                                 handleSubmit
+                                 handleSubmit,
+                                 setFieldValue
                              }) => (
                         <form className="form-horizontal form-material" onSubmit={handleSubmit}>
                             <div className="form-group form-group-personal">
@@ -119,7 +165,7 @@ class ProfilePersonal extends Component {
                                 <label className="col-md-12 text-muted label-padding-left">PHONE NUMBER</label>
                                 <div className="col-md-12">
                                     <Field type="number" name="phone"
-                                           placeholder={this.state.mobile}
+                                           placeholder={this.state.phone}
                                            className="form-control form-control-line" onChange={handleChange}
                                            onBlur={handleBlur}/>
                                     {touched.phone && errors.phone &&
@@ -127,17 +173,32 @@ class ProfilePersonal extends Component {
                                 </div>
                             </div>
 
-                            <div className="form-group">
-                                <Dropzone style={{
-                                    textAlignVertical: 'center',
-                                    alignItems: 'center',
-                                }} className="dropzone col-md-12" onDrop={this.onDrop}>
-                                    <p className="textDrop">
-                                        <i>Drag new profile image here</i>
-                                    </p>
-                                </Dropzone>
-                                <a className="imageName"
-                                   style={{textAlign: "left", width: '100%'}}>{this.state.imageName}</a>
+                            <div className="form-group form-group-personal">
+                                <label className="col-md-12 text-muted label-padding-left">IMAGE</label>
+                                <div className="col-md-12">
+                                    <input className="imageInput"
+                                           style={{alignContent: 'center', justifyContent: 'center'}} id="image"
+                                           name="image" type="file" ref={(ref) => this.fileUpload = ref} title=" "
+                                           accept="image/*"
+                                           onChange={(event) => {
+                                               event.preventDefault();
+                                               let file = event.currentTarget.files[0];
+                                               setFieldValue('image', file);
+                                               if (file !== undefined) {
+                                                   this.setState({imageName: file.name});
+                                                   this.onSelect([file]);
+                                               }
+                                           }}/>
+                                    <br/>
+                                    <Dropzone accept="image/*" id='image' name='image' label='Image Upload'
+                                              style={{textAlignVertical: 'center', alignItems: 'center',}}
+                                              className="dropzone col-md-12" onDrop={this.onDrop}>
+                                        <p className="textDrop">
+                                            {this.state.image === null ?
+                                                <b>Upload new Profile Image</b> : <b>{this.state.imageName}</b>}
+                                        </p>
+                                    </Dropzone>
+                                </div>
                             </div>
 
                             <div className="form-group">
@@ -145,7 +206,10 @@ class ProfilePersonal extends Component {
                                     <button type="submit" className="btn btn-success-muted">UPDATE DETAILS</button>
                                     <button type="button" onClick={() => {
                                         this.setState({image: null, imageName: ''});
-                                        console.log('IMAGE NAME ' + this.state.image)
+                                        console.log('IMAGE NAME ' + this.state.image);
+                                        this.fileUpload.files = null;
+                                        this.fileUpload.value = '';
+                                        setFieldValue('image', null);
                                     }} className="btn btn-fail-muted">REMOVE IMAGE
                                     </button>
                                 </div>

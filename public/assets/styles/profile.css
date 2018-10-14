@@ -9,20 +9,28 @@ hr{
 }
 
 .dropzone {
-  width : 100%;
+  width : 100% !important;
   height : 100px;
+  display: block !important;
+  border-radius: 25px;
+  /*margin: 0 25% 0 25% !important;*/
   border : 1px dashed black;
   color: black;
   background: #C1CAD0;
 }
 
+.imageInput {
+  width: 100%;
+  margin: 0 25% 5px 25%;
+}
 .card-body{
   background-image: url('../../../src/images/profile_images/background.png');
   background-size: cover;
 }
 .imageName {
-  float: left;
+  float: none;
   font-size: 1em;
+  margin: 0 0 0 0;
 }
 .textDrop {
   left: 0;
@@ -92,10 +100,13 @@ hr{
   color: black !important;
   width: 100%;
   font-weight: bold !important;
-  background: #C7CFD4 !important;;
+  background: #C7CFD4 !important;
+  border-bottom: none !important;
   border-left: 2px solid #5b9bd1 !important;
   margin-left: -2px !important;
+  -webkit-box-shadow: none !important;
   box-shadow: none !important;
+  outline: 0 !important;
 }
 
 .profile-option-button{
