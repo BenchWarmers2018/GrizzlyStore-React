@@ -11,19 +11,19 @@ import {
     FETCH_ITEMS_PAGE, FETCH_ITEMS_PAGE_REJECTED
 } from "../CONSTANTS";
 
-// export function fetchItems() {
-//     return function(dispatch) {
-//         dispatch({type: "FETCH_ITEMS"});
-//
-//         axios.get("http://localhost:8080/items/all")
-//             .then((response) => {
-//                 dispatch({type: "FETCH_ITEMS_FULFILLED", payload: response.data.entities})
-//             })
-//             .catch((err) => {
-//                 dispatch({type: "FETCH_ITEMS_REJECTED", payload: err})
-//             })
-//     }
-// }
+export function fetchItems() {
+    return function(dispatch) {
+        dispatch({type: FETCH_ITEMS});
+
+        axios.get(URL_ITEM + "/items/all")
+            .then((response) => {
+                dispatch({type: "FETCH_ITEMS_FULFILLED", payload: response.data.entities})
+            })
+            .catch((err) => {
+                dispatch({type: "FETCH_ITEMS_REJECTED", payload: err})
+            })
+    }
+}
 
 export function fetchSingleItem(id) {
     return function(dispatch) {
@@ -193,12 +193,12 @@ const tempArr = [
 ]
 
 
-export function fetchItems() {
-    return {
-        type: FETCH_ITEMS_FULFILLED,
-        payload:tempArr
-    }
-}
+// export function fetchItems() {
+//     return {
+//         type: FETCH_ITEMS_FULFILLED,
+//         payload:tempArr
+//     }
+// }
 
 
 
