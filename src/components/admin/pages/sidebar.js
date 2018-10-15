@@ -108,7 +108,7 @@ class sidebar extends Component {
                 </Container>
 
                 <Modal isOpen={this.state.categoryModal} toggle={this.toggleCategoryModal} className="cascading-modal">
-                    <AddCategoryForm />
+                    <AddCategoryForm modalState = { this.state.categoryModal } />
                 </Modal>
             </aside>
         );
