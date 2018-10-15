@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux"
 import { fetchItems } from "../../actions/itemsAction"
+import {Link} from "react-router-dom";
 
 class ItemSmart extends Component {
 
@@ -14,15 +15,18 @@ class ItemSmart extends Component {
     }
 
     render() {
-        function importAll(r) {
-            let images = {};
-            r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
-            return images;
-        }
-        const images = importAll(require.context('../../images/images_essence/product-img', false, /\.(png|jpe?g|svg)$/));
-
         const { items } = this.props;
-        console.log(items);
+
+        // Rounding price to 2 decimal points
+        function roundPrice(item){
+            let num = item.itemPrice - (item.itemPrice * item.itemSalePercentage/100);
+            return num.toFixed(2);
+        }
+
+        function twoDecimalPlace(item){
+            let num = item.itemPrice
+            return num.toFixed(2);
+        }
 
         if(items.length == 0){
             return <div><h2>No Items to display.</h2></div>
@@ -33,13 +37,11 @@ class ItemSmart extends Component {
                 {items.map(item =>
 
                     <div key={item.idItem} className=" col col-12-home col-lg-4-home">
+                        <Link onClick={this.handleItemClicked} value={item.idItem} to={'/items/'+ item.idItem}>
                             <div className="single-product-wrapper single-product-wrapper-home">
 
                                 <div className="product-img product-img-home">
-                                    <img src={images['product-1.jpg']} alt=""/>
-
-                                    <img className="hover-img" src={images['product-2.jpg']}
-                                         alt=""/>
+                                    <img src={item.itemImage} alt=""/>
 
                                     <div className="product-favourite">
                                         <a href="#" className="favme fa fa-heart"></a>
@@ -48,30 +50,21 @@ class ItemSmart extends Component {
 
 
                                 <div className="product-description">
-                                    {/*<span>{item.itemName}</span>*/}
                                     <a href="single-product-details.html">
                                         <h6>{item.itemName}</h6>
                                     </a>
                                     {
                                         item.itemSalePercentage > 0 &&
                                         <p className="product-price"><span
-                                            className="old-price">${item.itemPrice}</span>${item.itemPrice - (item.itemPrice * item.itemSalePercentage/100)}</p>
+                                            className="old-price" >${twoDecimalPlace(item)}</span><i className="discount-text-red">${roundPrice(item)}</i></p>
                                     }
                                     {
                                         item.itemSalePercentage <= 0 &&
-                                        <p className="product-price">${item.itemPrice}</p>
+                                        <p className="product-price">${twoDecimalPlace(item)}</p>
                                     }
-
-
-                                    {/*<div className="hover-content">*/}
-
-                                        {/*<div className="add-to-cart-btn add-to-cart-btn-home">*/}
-                                            {/*<a href="#" className="btn essence-btn">Add to Cart</a>*/}
-                                        {/*</div>*/}
-                                    {/*</div>*/}
                                 </div>
                             </div>
-
+                        </Link>
                     </div>
                 )}
             </div>
