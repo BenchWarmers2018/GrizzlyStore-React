@@ -16,16 +16,11 @@ class AddCategoryForm extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-      if(prevProps.errors != this.props.errors)
+      if(this.props.categoryStatusAdded && (prevProps.categories != this.props.categories))
       {
-        if(this.props.errors.categoryName)
-        {
-          notification.error({
-            message: this.props.errors.categoryName,
-            style: {
-            },
-          });
-        }
+        notification.success({
+            message: 'Category Added Successfully!'
+        });
       }
     }
 
@@ -41,8 +36,11 @@ class AddCategoryForm extends React.Component {
 
       return(
         <Form>
-          <h1 className="text-center has-padding">Add Category</h1>
+          <h1 className="text-center">Add Category</h1>
           <form className = "form">
+            {/* Display Error/Success Message */}
+            <div className={(this.props.addCategoryMessage != "") ? (this.props.categoryStatusAdded == true ? "alert alert-success" : "alert alert-danger") : null}>{this.props.addCategoryMessage}</div>
+
             {/* Name Field */}
             <p className="fieldset">
               <label htmlFor="categoryName">Name</label>
@@ -58,10 +56,7 @@ class AddCategoryForm extends React.Component {
             </p>
 
             <ModalFooter className="justify-content-center">
-              <div className="text-center">
-                <Button size="lg" color="blue-grey">Close</Button>
                 <Button size="lg" color="danger" type="submit">Add Category</Button>
-              </div>
             </ModalFooter>
           </form>
         </Form>
@@ -88,6 +83,7 @@ const FormikApp = withFormik({
 
 const mapStateToProps = state => ({
   addCategoryMessage: state.category.messages,
+  categories: state.category.categories,
   categoryStatusAdded: state.category.added
 });
 

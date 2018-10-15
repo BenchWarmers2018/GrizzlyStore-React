@@ -4,7 +4,8 @@ import { withFormik, Form, Field } from 'formik'
 import * as Yup from 'yup';
 import { connect } from "react-redux"
 import { editCategory } from "../../../actions/categoriesAction"
-import { Button, notification, Icon } from 'antd';
+import { notification } from 'antd';
+import { Button, ModalFooter } from 'mdbreact';
 
 class EditCategoryForm extends React.Component {
 
@@ -23,6 +24,13 @@ class EditCategoryForm extends React.Component {
       if(prevProps.rowData !== this.props.rowData)
       {
         this.setState({rowData: this.props.rowData})
+      }
+
+      if(this.props.categoryStatusUpdated && (prevProps.categories != this.props.categories))
+      {
+        notification.success({
+            message: 'Category Edited Successfully!'
+        });
       }
     }
 
@@ -59,9 +67,9 @@ class EditCategoryForm extends React.Component {
               {touched.categoryDescription && errors.categoryDescription && <span><p className="text-danger">{errors.categoryDescription}</p></span>}
             </p>
 
-            <p className="fieldset">
-              <input className="full-width" type="submit" value="Save"/>
-            </p>
+            <ModalFooter className="justify-content-center">
+                <Button size="lg" color="danger" type="submit">Save Changes</Button>
+            </ModalFooter>
           </form>
         </Form>
       )
@@ -85,7 +93,8 @@ const FormikApp = withFormik({
 
 const mapStateToProps = (state) => ({
   editCategoryMessage: state.category.editMessages,
-  categoryStatusUpdated: state.category.updated
+  categoryStatusUpdated: state.category.updated,
+  categories: state.category.categories
 });
 
 export default connect(mapStateToProps)(FormikApp)
