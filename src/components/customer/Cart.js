@@ -4,7 +4,7 @@ import Banner from "../microComponents/Banner";
 import connect from "react-redux/es/connect/connect";
 import {fetchCart} from '../../actions/cartAction';
 import {NORMAL_USER} from "../../CONSTANTS";
-import SAMPLE from "../../images/images_sublime/cart_1.jpg"
+import SAMPLE from "../../images/images_sublime/cart_1.jpg";
 import Icon from '@mdi/react';
 import { mdiTrashCanOutline } from '@mdi/js';
 
@@ -14,7 +14,6 @@ class Cart extends Component {
         this.state = {
             cart : null,
         }
-
     }
 
     componentDidMount() {
@@ -33,7 +32,7 @@ class Cart extends Component {
             let accountId = null;
             if(this.props.userType === NORMAL_USER)
             {
-                console.log("Not equal")
+                console.log("Not equal");
                 accountId = this.props.loggedInUser.id;
                 this.props.fetchCart(accountId);
             }
