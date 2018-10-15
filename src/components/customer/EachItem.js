@@ -49,23 +49,26 @@ class EachItem extends Component {
         return dropDownItems
     }
 
-    handleClick=(type)=>{
-        console.log("STOCK LEVEL IS: " + this.props.singleItem[0].itemStockLevel)
-        this.setState(prevState => {
-            return {count: type == 'add' ? prevState.count + 1: prevState.count - 1}
-        });
+    handleClickInc(){
+
+        let stockLevel = this.props.singleItem[0].itemStockLevel;
+
+        if(this.state.count < stockLevel) {
+            this.setState(prevState => {
+                return {count: prevState.count + 1}
+            });
+        }
     }
 
-    increment(){
-        this.setState({
-            count: this.state.count + 1
-        });
-    }
+    handleClickDec(){
 
-    decrement(){
-        this.setState({
-            count: this.state.count - 1
-        });
+        let stockLevel = this.props.singleItem[0].itemStockLevel;
+
+        if(this.state.count > 1) {
+            this.setState(prevState => {
+                return {count: prevState.count - 1}
+            });
+        }
     }
 
     render() {
@@ -87,24 +90,6 @@ class EachItem extends Component {
             let num = item.itemPrice
             return num.toFixed(2);
         }
-
-        // function checkMin(){
-        //     if(this.state.count > 1 && item.itemStockLevel !=0){
-        //         <button onClick={this.decrement} id="quantity_dec_button" className="quantity_dec quantity_control"></button>
-        //     }
-        //     else{
-        //         <button disabled id="quantity_dec_button" className="quantity_dec quantity_control"></button>
-        //     }
-        // }
-        //
-        // function checkMax(){
-        //     if(this.state.count < item.itemStockLevel && item.itemStockLevel!=0){
-        //         <button  onClick={this.increment} id="quantity_inc_button" className="quantity_inc quantity_control"></button>
-        //     }
-        //     else{
-        //         <button disabled id="quantity_inc_button" className="quantity_inc quantity_control"></button>
-        //     }
-        // }
 
         return (
             <div>
@@ -131,13 +116,12 @@ class EachItem extends Component {
 
                                     <div className="details_name">{item.itemName}</div>
                                     <div className="row each-item-main-div">
-                                        <div>
-                                            <div className="price">Price</div>
-                                        </div>
+
                                         <div className="col-lg-4 price-div">
+                                                <h6 className="price">Price</h6>
                                             {
                                                 item.itemSalePercentage > 0 &&
-                                                <div>
+                                                <div className="price-div">
                                                     <div className="details_discount">${originalPrice(item)}</div>
                                                     <div className="details_price">${discountPrice(item)}</div>
                                                 </div>
@@ -147,12 +131,44 @@ class EachItem extends Component {
                                                 <div className="details_no_sale_price">${originalPrice(item)}</div>
                                             }
                                         </div>
-                                        <div className="quantity_buttons">
-                                            <input type='button' onClick={this.handleClick.bind(this, 'add')} value='Inc'/>
-                                            <input type='button' onClick={this.handleClick.bind(this, 'sub')} value='Dec'/>
-                                            <h6>{this.state.count}</h6>
 
+
+
+
+                                    </div>
+                                    <div className="quantity-button">
+                                        <div>
+                                            {
+                                                (this.state.count > 1 && item.itemStockLevel >= 1) ? (
+                                                    <button className="quantity-buttons" onClick={(e) => this.handleClickDec(e)}>-</button>):(
+                                                    <button disabled className="quantity-buttons-disabled" onClick={(e) => this.handleClickDec(e)}>-</button>
+                                                )
+                                            }
                                         </div>
+                                        <div className="quantity-buttons-count">
+                                            <h9>{this.state.count}</h9>
+                                        </div>
+                                        <div >
+                                            {
+                                                (this.state.count >= 1 && this.state.count < item.itemStockLevel) ? (
+                                                    <button className="quantity-buttons" onClick={(e) => this.handleClickInc(e)}>+</button>):(
+                                                    <button disabled className="quantity-buttons-disabled" onClick={(e) => this.handleClickInc(e)}>+</button>
+                                                )
+                                            }
+                                        </div>
+
+                                        {
+                                            (item.itemStockLevel >= 1) ? (
+                                                <div className="button cart_button"><a href="#"><h9>Add to cart</h9></a></div>
+                                            ):(
+                                                <div disabled className="button cart_button_disabled"><a href="#"><h9>Add to cart</h9></a></div>
+                                            )
+
+                                        }
+
+
+                                    </div>
+                                    <div>
                                         {
                                             (item.itemStockLevel > 0) ? (
                                                 <div className="in_stock_container ">
@@ -164,43 +180,8 @@ class EachItem extends Component {
                                                     <span className="discount-text-red">OUT OF STOCK</span>
                                                 </div> )
                                         }
-
-                                        {/*<Dropdown size="lg">*/}
-                                        {/*/!*<DropdownToggle caret color="dark">*!/*/}
-                                        {/*/!*Quantity*!/*/}
-                                        {/*/!*</DropdownToggle>*!/*/}
-
-                                        {/*<DropdownMenu>*/}
-                                        {/*{this.createTable()}*/}
-                                        {/*</DropdownMenu>*/}
-                                        {/*</Dropdown>*/}
-
-                                        {/*<div>*/}
-                                        {/*{doDecrement()}*/}
-                                        {/*<input type="text" className="number" value={this.state.value}></input>*/}
-                                        {/*<button onClick={doIncrement} className=" item-stock-increment fa fa-plus fa-inverse fa-2x"></button>*/}
-                                        {/*<sub>{this.state.message}</sub>*/}
-                                        {/*</div>*/}
-
-                                        {/*<div className="product_quantity clearfix">*/}
-                                        {/*<span>Qty</span>*/}
-                                        {/*<select id="quantity_input" type="number" value="1"/>*/}
-                                        {/*<div className="quantity_buttons">*/}
-                                        {/*<div id="quantity_inc_button" className="quantity_inc quantity_control">*/}
-                                        {/*<i className="fa fa-chevron-up" aria-hidden="true"></i></div>*/}
-                                        {/*<div id="quantity_dec_button" className="quantity_dec quantity_control">*/}
-                                        {/*<i className="fa fa-chevron-down" aria-hidden="true"></i></div>*/}
-                                        {/*</div>*/}
-                                        {/*</div>*/}
-
-                                        <div className="product_quantity clearfix">
-                                            <span>Qty</span>
-                                            <select id="quantity_input" type="number" value="1"/>
-
-                                        </div>
-
-                                        <div className="button cart_button"><a href="#">Add to cart</a></div>
                                     </div>
+
                                 </div>
 
                             </div>
