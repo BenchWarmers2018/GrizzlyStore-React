@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux"
-import { fetchItems } from "../../actions/itemsAction"
+import {fetchPopularItems} from "../../actions/itemsAction"
 import {Link} from "react-router-dom";
 
 class ItemSmart extends Component {
@@ -11,7 +11,7 @@ class ItemSmart extends Component {
     }
 
     componentWillMount() {
-        this.props.fetchItems();
+        this.props.fetchPopularItems();
     }
 
     render() {
@@ -48,7 +48,6 @@ class ItemSmart extends Component {
                                     </div>
                                 </div>
 
-
                                 <div className="product-description">
                                     <a href="single-product-details.html">
                                         <h6>{item.itemName}</h6>
@@ -73,7 +72,7 @@ class ItemSmart extends Component {
 }
 
 ItemSmart.propTypes= {
-    fetchItems: PropTypes.func.isRequired,
+    fetchPopularItems: PropTypes.func.isRequired,
     items: PropTypes.array.isRequired,
 }
 
@@ -84,4 +83,4 @@ const mapStateToProps = state => ({
     error: state.items.error,
 });
 
-export default connect(mapStateToProps, { fetchItems } )(ItemSmart);
+export default connect(mapStateToProps, { fetchPopularItems } )(ItemSmart);
