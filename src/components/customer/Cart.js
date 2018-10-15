@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Banner from "../microComponents/Banner";
 import connect from "react-redux/es/connect/connect";
-import {fetchCart} from '../../actions/cartAction';
+import { fetchCart } from '../../actions/cartAction';
 import {NORMAL_USER} from "../../CONSTANTS";
 import SAMPLE from "../../images/images_sublime/cart_1.jpg";
 import Icon from '@mdi/react';
@@ -40,6 +40,15 @@ class Cart extends Component {
         else {
             console.log("Equal");
         }
+    }
+
+    IncrementItem(accountId) {
+        this.setState(prevState => ({
+            items: prevState.items.filter(item =>  {
+                item.quantity = item.quantity + 1;
+                return true;
+            })
+        }));
     }
 
     render() {

@@ -3,8 +3,10 @@ import Product from "../../images/images_sublime/details_1.jpg";
 import { connect } from 'react-redux';
 import { fetchSingleItem } from '../../actions/itemsAction'
 import { fetchCategoriesforItem } from '../../actions/categoriesAction'
+import { addItemToCart } from '../../actions/cartAction';
 import Banner from "../microComponents/Banner";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
+import {NORMAL_USER} from "../../CONSTANTS";
 
 
 class EachItem extends Component {
@@ -68,6 +70,29 @@ class EachItem extends Component {
         });
     }
 
+    addToCart = () => {
+        let accountId = null;
+        console.log(this.props.loggedInUser.id);
+        if(typeof this.props.loggedInUser !== "undefined")
+        {
+            if(this.props.userType === NORMAL_USER)
+            {
+                accountId = this.props.loggedInUser.id;
+                const item = this.props.singleItem[0];
+
+                const cart = { "idAccountForeign": accountId, "items": [{ "idItem": item.idItem, "itemQuantity": 3, "itemPrice": item.itemPrice}]};
+                this.props.addItemToCart(cart);
+                console.log("Added to cart", cart);
+            }
+        }
+        else
+        {
+            //notification to log in
+        }
+
+    };
+
+
     render() {
         console.log(this.props.singleItem);
         const item = this.props.singleItem[0];
@@ -84,7 +109,7 @@ class EachItem extends Component {
         }
 
         function originalPrice(item){
-            let num = item.itemPrice
+            let num = item.itemPrice;
             return num.toFixed(2);
         }
 
@@ -199,7 +224,9 @@ class EachItem extends Component {
 
                                         </div>
 
-                                        <div className="button cart_button"><a href="#">Add to cart</a></div>
+                                        <div className="button cart_button">
+                                            <button onClick={this.addToCart} type="button" className="btn btn-dark">Add to cart</button>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -234,10 +261,13 @@ class EachItem extends Component {
 const mapStateToProps = (state) => ({
     singleItem: state.items.singleItem,
     itemCategory: state.category.itemCategory,
+    loggedInUser : state.accounts.loggedInUser,
+    userType : state.accounts.userType,
 });
 
 const mapDispatchToProps = {
     fetchSingleItem,
     fetchCategoriesforItem,
+    addItemToCart,
 }
 export default connect(mapStateToProps, mapDispatchToProps) (EachItem);
