@@ -31,26 +31,10 @@ class EachItem extends Component {
             this.props.fetchSingleItem(this.props.match.params.id);
             this.props.fetchCategoriesforItem(this.props.match.params.id);
             this.setState.stockLevel = this.props.singleItem[0].itemStockLevel;
-            console.log("ITEM STOCK LEVEL IS: " + this.state.stockLevel);
         }
     }
 
-    createTable = () => {
-        let dropDownItems = []
-
-        // Outer loop to create parent
-        const size = this.props.singleItem[0].itemStockLevel;
-        console.log()
-        if(size>0)
-        {
-            for (let i = 1; i < size+1; i++) {
-                //Create the parent and add the children
-                dropDownItems.push(<DropdownItem>{i}</DropdownItem>)
-            }
-        }
-        return dropDownItems
-    }
-
+    //Handles button for decreasing stock
     handleClickInc(){
 
         let stockLevel = this.props.singleItem[0].itemStockLevel;
@@ -62,9 +46,8 @@ class EachItem extends Component {
         }
     }
 
+    //Handles button for increasing stock
     handleClickDec(){
-
-        let stockLevel = this.props.singleItem[0].itemStockLevel;
 
         if(this.state.count > 1) {
             this.setState(prevState => {
@@ -97,9 +80,7 @@ class EachItem extends Component {
 
 
     render() {
-        console.log(this.props.singleItem);
         const item = this.props.singleItem[0];
-        console.log(item);
 
         if(typeof item === "undefined")
         {
@@ -134,16 +115,17 @@ class EachItem extends Component {
                             </div>
 
                             {/*Content Description*/}
-
                             <div className="col-lg-6">
 
                                 <div className="details_content">
 
                                     <div className="details_name">{item.itemName}</div>
+
+                                    {/*Price or Discounted Price*/}
                                     <div className="row each-item-main-div">
 
                                         <div className="col-lg-4 price-div">
-                                                <h6 className="price">Price</h6>
+                                            <h6 className="price">Price</h6>
                                             {
                                                 item.itemSalePercentage > 0 &&
                                                 <div className="price-div">
@@ -157,10 +139,9 @@ class EachItem extends Component {
                                             }
                                         </div>
 
-
-
-
                                     </div>
+
+                                    {/*Increment/Decrement Buttons*/}
                                     <div className="quantity-button">
                                         <div>
                                             {
@@ -188,11 +169,10 @@ class EachItem extends Component {
                                             ):(
                                                 <div disabled className="button cart_button_disabled"><a href="#"><h9>Add to cart</h9></a></div>
                                             )
-
                                         }
-
-
                                     </div>
+
+                                    {/*Stock Availability --> Out of Stock/In Stock*/}
                                     <div>
                                         {
                                             (item.itemStockLevel > 0) ? (
@@ -251,6 +231,7 @@ class EachItem extends Component {
                         </div>
                     </div>
 
+                    {/*Product Description*/}
                     <div className="row description_row">
                         <div className="col">
                             <div className="description_title_container">

@@ -4,6 +4,8 @@ import { withFormik, Form, Field } from 'formik'
 import * as Yup from 'yup';
 import { connect } from "react-redux"
 import { addCategory } from "../../../actions/categoriesAction"
+import { notification } from 'antd';
+import { Button, ModalFooter } from 'mdbreact';
 
 class AddCategoryForm extends React.Component {
     constructor(props) {
@@ -11,6 +13,15 @@ class AddCategoryForm extends React.Component {
         this.state = {
           addCategoryMessage: this.props.addCategoryMessage
         };
+    }
+
+    componentDidUpdate(prevProps) {
+      if(this.props.categoryStatusAdded && (prevProps.categories != this.props.categories))
+      {
+        notification.success({
+            message: 'Category Added Successfully!'
+        });
+      }
     }
 
     render() {
@@ -25,9 +36,8 @@ class AddCategoryForm extends React.Component {
 
       return(
         <Form>
-          <h1 className="text-center has-padding">Add Category</h1>
+          <h1 className="text-center">Add Category</h1>
           <form className = "form">
-
             {/* Display Error/Success Message */}
             <div className={(this.props.addCategoryMessage != "") ? (this.props.categoryStatusAdded == true ? "alert alert-success" : "alert alert-danger") : null}>{this.props.addCategoryMessage}</div>
 
@@ -45,9 +55,9 @@ class AddCategoryForm extends React.Component {
               {touched.categoryDescription && errors.categoryDescription && <span><p className="text-danger">{errors.categoryDescription}</p></span>}
             </p>
 
-            <p className="fieldset">
-              <input className="full-width" type="submit" value="Add Category"/>
-            </p>
+            <ModalFooter className="justify-content-center">
+                <Button size="lg" color="danger" type="submit">Add Category</Button>
+            </ModalFooter>
           </form>
         </Form>
       )
@@ -65,7 +75,6 @@ const FormikApp = withFormik({
     categoryName: Yup.string().matches(/^[a-zA-Z]+( [a-zA-Z]+)*$/, "Category names must only contain letters.").required('A name is required for the category!')
   }),
   handleSubmit(values, { props, setSubmitting }) {
-    console.log(values.categoryName);
     const categoryData = {categoryName: values.categoryName, categoryDescription: values.categoryDescription};
     props.dispatch(addCategory(categoryData));
     setSubmitting(false);
@@ -74,6 +83,7 @@ const FormikApp = withFormik({
 
 const mapStateToProps = state => ({
   addCategoryMessage: state.category.messages,
+  categories: state.category.categories,
   categoryStatusAdded: state.category.added
 });
 
