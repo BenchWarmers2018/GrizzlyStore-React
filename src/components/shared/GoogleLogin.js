@@ -37,11 +37,10 @@ export class GoogleLogin extends Component {
         return (
             <div>
                 {
-                    <StyledFirebaseAuth
-                        uiConfig={this.uiConfig}
-                        firebaseAuth={firebase.auth()}
-                    />
-
+                            <StyledFirebaseAuth
+                                uiConfig={this.uiConfig}
+                                firebaseAuth={firebase.auth()}
+                            />
                 }
             </div>
         )

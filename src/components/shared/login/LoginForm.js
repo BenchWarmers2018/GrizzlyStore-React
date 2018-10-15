@@ -39,18 +39,24 @@ class LoginForm extends React.Component {
                         <span><p className="login-email-field text-danger">{errors.emailAddress}</p></span>}
                     </p>
 
+
                     {/* Password Field */}
                     <p className="fieldset">
-                        <label className="image-replace password" htmlFor="password">Password</label>
+                        <label className="image-replace password password-login" htmlFor="password">Password</label>
                         <Field className="full-width has-padding has-border login-password-field" name="password"
                                type="password" placeholder="Password" values={values.password} onChange={handleChange}
                                onBlur={handleBlur}/>
                         {touched.password && errors.password && <span className="text-danger">{errors.password}</span>}
                     </p>
 
-                    <p className="fieldset">
-                        <input className="full-width" type="submit" value="Login"/>
-                        <hr/>
+                    <p className="fieldset submit-login-button">
+                        <input className="full-width half-width" type="submit" value="Login"/>
+
+
+                        <div className="login-or hr-login">
+                        <hr className="hr-or"/>
+                        <span className="span-or">or</span>
+                        </div>
                         <GoogleLogin/>
                     </p>
                 </form>

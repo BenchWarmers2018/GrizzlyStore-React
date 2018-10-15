@@ -42,15 +42,6 @@ class Cart extends Component {
         }
     }
 
-    IncrementItem(accountId) {
-        this.setState(prevState => ({
-            items: prevState.items.filter(item =>  {
-                item.quantity = item.quantity + 1;
-                return true;
-            })
-        }));
-    }
-
     render() {
         let cartItems = null;
         const cart = this.props.cart;

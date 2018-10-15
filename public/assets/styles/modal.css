@@ -139,6 +139,11 @@ ul, li {
 }
 .form label.password {
     background-image: url("https://codyhouse.co/demo/login-signup-modal-window/img/cd-icon-password.svg");
+    passing-left: 30px;
+    /*margin-top: 10px!important;*/
+}
+.form label.password-login {
+    margin-top: 5px!important;
 }
 .form input {
     margin: 0;
@@ -149,7 +154,7 @@ ul, li {
     width: 100%;
 }
 .form input.has-padding, .form textarea.has-padding{
-    padding: 12px 20px 12px;
+    padding: 12px 50px 12px;
 }
 .form input.has-border, .form textarea.has-border {
     border: 1px solid #d2d8d8;
@@ -367,4 +372,109 @@ ul, li {
 
 #login.is-selected, #signup.is-selected, #reset-password.is-selected {
     display: block;
+}
+
+.firebaseui-idp-button{
+    height: 60px!important;
+    border-radius: 0.25em;
+}
+
+.half-width{
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+    margin-top: 10px;
+    max-width: 312px !important;
+}
+.submit-login-button{
+    text-align: center;
+}
+.firebaseui-idp-button{
+    max-width: 496px!important;
+}
+.firebaseui-idp-button span{
+    text-align: center;
+}
+
+.firebaseui-list-item{
+    max-width: 496px!important;
+    text-align: center;
+}
+.firebaseui-idp-list{
+    max-width: 496px!important;
+}
+#firebaseui_container{
+    margin: 0;
+    max-width:496px !important;
+    width: 100% !important;
+}
+.firebaseui-card-content, .firebaseui-card-footer, .firebaseui-card-content form{
+    max-width: 496px !important;
+    width: 100% !important;
+}
+
+.firebaseui-idp-text{
+    width:95%;
+    z-index: -111;
+    /*margin-left:30px;*/
+    /*padding-left:30px;*/
+}
+
+#hr-login{
+    width:100%;
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
+
+}
+.fieldset{
+    margin-top: 0 !important;
+}
+
+.user-modal-container .switcher a.selected{
+    border-radius: 15px 15px 15px 15px;
+}
+
+.separator>*{
+    display: inline-block;
+    vertical-align: middle;
+}
+.separator {
+    text-align: center;
+    border: 0;
+    white-space: nowrap;
+    display: block;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+.separator:before, .separator:after {
+    content: "";
+    height: 2px;
+    width: 50%;
+    background-color: gray;
+    margin: 0 1px 0 1px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.separator:before {
+    margin-left: -100%;
+}
+.separator:after {
+    margin-right: -100%;
+}
+.span-or{
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: -2px;
+    margin-left: -25px;
+    background-color: #fff;
+    width: 50px;
+    text-align: center;
+}
+.login-or{
+    position: relative;
+    color: #aaa;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }

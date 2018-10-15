@@ -3,7 +3,6 @@ import User from '../../../images/admin_images/users/1.jpg'
 import Icon from '@mdi/react';
 import { mdiViewDashboard, mdiAccountNetwork, mdiBorderAll, mdiPlusBox } from '@mdi/js';
 import { Link } from 'react-router-dom';
-import { connect } from "react-redux"
 import { Container, Row, Col, Input, Button, Fa, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
 import AddCategoryForm from '../forms/addCategoryForm.js';
 
@@ -109,20 +108,11 @@ class sidebar extends Component {
                 </Container>
 
                 <Modal isOpen={this.state.categoryModal} toggle={this.toggleCategoryModal} className="cascading-modal">
-                    <AddCategoryForm
-                      addCategoryMessage={this.props.addCategoryMessage}
-                      categoryStatusAdded={this.props.categoryStatusAdded}
-                    />
+                    <AddCategoryForm />
                 </Modal>
             </aside>
         );
     }
 }
 
-const mapStateToProps = state => ({
-    categories:state.category.categories,
-    addCategoryMessage: state.category.messages,
-    categoryStatusAdded:state.category.added
-});
-
-export default connect(mapStateToProps)(sidebar);
+export default sidebar;

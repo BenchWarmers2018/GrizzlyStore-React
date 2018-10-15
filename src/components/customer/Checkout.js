@@ -1,10 +1,26 @@
 import React, { Component } from 'react';
-import Background from '../../images/images_sublime/cart.jpg'
-import { Link } from 'react-router-dom';
 import Banner from "../microComponents/Banner";
+import PaypalExpressBtn from 'react-paypal-express-checkout';
 
 class Checkout extends Component {
     render() {
+        const onSuccess = (payment) =>
+            console.log('Successful payment!', payment);
+
+        const onError = (error) =>
+            console.log('Erroneous payment OR failed to load script!', error);
+
+        const onCancel = (data) =>
+            console.log('Cancelled payment!', data);
+
+        let env = 'sandbox'; // you can set here to 'production' for production
+        let currency = 'USD'; // or you can set this value from your props or state
+        let total = 1; // same as above, this is the total amount (based on currency) to be paid by using Paypal express checkout
+        // Document on Paypal's currency code: https://developer.paypal.com/docs/classic/api/currency_codes/
+        const client = {
+            sandbox:    'AQYXwgCRBWvS2TSDtOjMdhyuMRrx6SL0fI9fgZX42Q5z3Y8UnCboGMVKrDs0s9vdhq6sXF_613Bx2Qee',
+            production: 'YOUR-PRODUCTION-APP-ID',
+        }
         return (
             <div className="doNotRemoveDiv">
 
@@ -169,34 +185,16 @@ class Checkout extends Component {
                                         </ul>
                                     </div>
 
-
-                                    <div className="payment">
-                                        <div className="payment_options">
-                                            <label className="payment_option clearfix">Paypal
-                                                <input type="radio" name="radio"/>
-                                                    <span className="checkmark"></span>
-                                            </label>
-                                            <label className="payment_option clearfix">Cach on delivery
-                                                <input type="radio" name="radio"/>
-                                                    <span className="checkmark"></span>
-                                            </label>
-                                            <label className="payment_option clearfix">Credit card
-                                                <input type="radio" name="radio"/>
-                                                    <span className="checkmark"></span>
-                                            </label>
-                                            <label className="payment_option clearfix">Direct bank transfer
-                                                <input type="radio" checked="checked" name="radio"/>
-                                                    <span className="checkmark"></span>
-                                            </label>
-                                        </div>
-                                    </div>
+                                    <PaypalExpressBtn
+                                        env={env}
+                                        client={client}
+                                        currency={currency}
+                                        total={total}
+                                        onError={onError}
+                                        onSuccess={onSuccess}
+                                        onCancel={onCancel} />
 
 
-                                    <div className="order_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                        Proin pharetra temp or so dales. Phasellus sagittis auctor gravida. Integ er
-                                        bibendum sodales arcu id te mpus. Ut consectetur lacus.
-                                    </div>
-                                    <div className="button order_button"><Link to="/confirmation">Place Order</Link></div>
                                 </div>
                             </div>
                         </div>
