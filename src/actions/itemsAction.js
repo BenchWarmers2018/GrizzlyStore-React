@@ -186,7 +186,7 @@ const tempArr = [
         "itemName": "Beautiful Bear Silhouette Tree Landscape Painting",
         "itemDescription": "Cutest teddy bear in Pluto",
         "itemImage": "http://bw.ausgrads.academy/images/grizzlystore/iA04.jpg",
-        "itemPrice": 99.95,
+        "itemPrice": 95.95,
         "itemSalePercentage": 0,
         "lastModified": "2018-09-20T13:09:49.000+0000"
     },
