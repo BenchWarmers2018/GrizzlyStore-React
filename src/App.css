@@ -281,7 +281,7 @@
 }
 
 .newsletter_title{
-  padding-top: 5%;
+  padding-top: 2%;
 }
 
 .newsletter_container{
@@ -290,7 +290,7 @@
 
 .random_fact_card{
   text-align: center;
-  padding: 3% 10% 3% 10%;
+  padding: 2% 10% 2% 10%;
 }
 
 .quote-card {
@@ -302,6 +302,8 @@
   position: relative;
   overflow: hidden;
   min-height: 120px;
+  margin-bottom: 0 !important;
+
 }
 
 .quote-card p {
@@ -316,6 +318,7 @@
   position: absolute;
   top: 10px;
   left: 10px;
+  padding-left: 40px;
   font-size: 5em;
   color: rgba(238, 238, 238, 0.8);
   font-weight: normal;
@@ -327,7 +330,8 @@
   bottom: -110px;
   line-height: 100px;
   right: 1px;
-  padding-bottom: 10px;
+  padding-bottom: 40px;
+  padding-right: 40px;
   font-size: 25em;
   color: rgba(238, 238, 238, 0.8);
   font-weight: normal;
@@ -338,6 +342,10 @@
     right: -25px;
   }
 }
+.button-new-quote{
+  padding-top: 30px;
+}
+
 
 .wrapper {
   text-align: center;

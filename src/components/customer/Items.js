@@ -156,7 +156,7 @@ class Items extends Component {
 
                                 <div className="widget catagory mb-50">
 
-                                    <h6 className="widget-title mb-30">Catagories</h6>
+                                    <h6 className="widget-title mb-30">Categories</h6>
 
 
                                     <div className="catagories-menu">
