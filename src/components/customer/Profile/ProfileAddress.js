@@ -2,92 +2,50 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {connect} from "react-redux";
 import PropTypes from 'prop-types';
-import {fetchProfile, submitAddress} from "../../../actions/profileActions";
+import {submitAddress} from "../../../actions/profileActions";
 import {Formik, Field} from 'formik'
 import Autocomplete from 'react-google-autocomplete';
 import { Button, notification, Icon } from 'antd';
+import {errorNotification, successNotification} from "../../microComponents/Notifications";
 
 
 
 class ProfileAddress extends Component {
     constructor(props) {
         super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.getPostValues = this.getPostValues.bind(this);
-        const address = this.props.data;
         this.state = {
-                unitNo: address.addressUnitNo,
-                postcode: address.addressPostcode,
-                street: address.addressStreet,
-                streetNo: address.addressStreetNo,
-                streetType: address.addressStreetType,
-                country: address.addressCountry,
-                city: address.addressCity,
-                state: address.addressState,
-                success: "",
-                empty: false,
-            };
-    }
-
-//     componentDidMount() {
-//         this.props.fetchProfile();
-//     }
-
-//     componentDidUpdate(prevProps) {
-//         if (prevProps.profile !== this.props.profile) {
-
-//         }
-//     }
-
-    handleSubmit(values, formikBag) {
-        if (!((values.unitNo.toString().length === 0) && (values.city.length === 0) && (values.postcode.toString().length === 0)
-            && (values.country !== '--') && (values.state !== '--') && (values.streetType !== '--') &&
-            (values.street.length === 0) && (values.streetNo.toString().length === 0))) {
-            console.log(values);
-            formikBag.setSubmitting(false);
-            const submissionValues = this.getPostValues(values);
-            this.props.submitAddress(submissionValues);
-            console.log(this.props.updates + ' UPDATES COMING!');
-            this.props.fetchProfile();
-            this.setState({success: this.props.updates}); // Get update message back from Spring
-            console.log("SUCCESS " + this.state.success);
+            newAddress: null,
         }
-
-        else {
-            console.log('Cannot submit empty form. Please fill one field');
-            this.setState({empty: true});
-        }
-    }
-
-    getPostValues(values) {
-        var data = {
-            unitNo: '',
-            postcode: '',
-            street: '',
-            streetNo: '',
-            city: '',
-            state: '',
-            country: '',
-            streetType: ''
-        };
-        values.city.length === 0 ? data.city = this.state.city : data.city = values.city;
-        values.country.length === 0 ? data.country = this.state.country : data.country = values.country;
-        values.state === '--' ? data.state = this.state.state : data.country = values.state;
-        values.street.length === 0 ? data.street = this.state.street : data.street = values.street;
-        values.streetNo.toString().length === 0 ? data.streetNo = this.state.streetNo : data.streetNo = values.streetNo;
-        values.streetType.length === 0 ? data.streetType = this.state.streetType : data.streetType = values.streetType;
-        values.postcode.toString().length === 0 ? data.postcode = this.state.postcode : data.postcode = values.postcode;
-        values.unitNo.toString().length === 0 ? data.unitNo = this.state.unitNo : data.unitNo = values.unitNo;
-        return data;
     }
 
     handleUpdate = () => {
-        notification.success({
-            message: 'Address Updated Successfully.',
-            icon: <Icon type="smile" style={{ color: '#108ee9' }} />,
-            style: {
-            },
-        });
+        console.log(this.state.newAddress);
+        if(this.state.newAddress !== null && typeof this.state.newAddress !== "undefined")
+        {
+            if(typeof this.state.newAddress.address_components !== "undefined")
+            {
+                const addressList = this.state.newAddress.address_components;
+                const fullAddress = {
+                    addressStreetNo: addressList[0].long_name,
+                    addressStreet: addressList[1].long_name,
+                    addressCity: addressList[2].long_name,
+                    addressState: addressList[4].short_name,
+                    addressCountry: addressList[5].long_name,
+                    addressPostcode: addressList[6].long_name,
+                }
+                //Passing new address to parent component.
+                this.props.onAddressChange(fullAddress);
+
+                successNotification("Address Updated Successfully.");
+            }
+            else {
+                errorNotification("Address Update Failed", "Please choose a valid address from the Suggestions.");
+            }
+        }
+        else {
+            errorNotification("Address Update Failed", "Please choose a valid address from the Suggestions.");
+        }
+        this.setState({newAddress : null});
     }
 
     render() {
@@ -95,14 +53,30 @@ class ProfileAddress extends Component {
 
         return (
             <div style={{minHeight: "500px"}}>
-                <h4 className="card-subtitle card-subtitle-profile" style={{textAlign: 'center', color: 'black'}}>Edit
-                    Address</h4>
+                <h3 className="card-subtitle card-subtitle-profile" style={{textAlign: 'center', color: 'black'}}>Edit
+                    Address</h3>
                 <br/>
+                <div className="profile-overview-field-div">
+                    <label className="text-muted p-t-30 db">PRIMARY ADDRESS</label>
+                    {(address !== null) ?
+
+                        <h5 className="profile-overview-field">
+                            {(address.addressUnitNo !== null) ? address.addressUnitNo+"/" : ""}
+                            {address.addressStreetNo} {address.addressStreet} {address.addressStreetType}<br/>
+                            {address.addressCity}, {address.addressState}<br/>
+                            {address.addressCountry} {address.addressPostcode}
+                        </h5>
+                        :
+                        <h5>None Address Found. Please add below.</h5>
+
+                    }
+                </div>
+
 
                 <Autocomplete
                     className = "address-input"
                     onPlaceSelected={(place) => {
-                        console.log(place);
+                        this.setState({newAddress : place});
                     }}
                     types={[]}
                     componentRestrictions={{country: "au"}}
@@ -339,7 +313,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     submitAddress,
-    fetchProfile
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileAddress);

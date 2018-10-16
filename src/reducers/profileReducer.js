@@ -1,11 +1,15 @@
+import {RESET_PROFILE_ERRORS, UPDATE_PROFILE_ADDRESS, UPDATE_PROFILE_ADDRESS_FULFILLED, UPDATE_PROFILE_ADDRESS_REJECTED} from "../CONSTANTS";
+
 const initialState = {
+    loggedInAccount : null,
     profile: {},
-    updates: '',
+    errors: [],
     fetching: false,
     submitting: false,
     fetched: false,
     submitted: false,
     error: null,
+    status:"",
 };
 
 export default function reducer(state = initialState, action) {
@@ -18,7 +22,7 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 fetching: false,
                 fetched: true,
-                profile: action.payload.entities
+                loggedInAccount: action.payload[0],
             }
         }
         case "FETCH_PROFILE_REJECTED": {
@@ -32,12 +36,37 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 submitted: true,
                 submitting: false,
-                profile: action.payload.entities,
-                updates: action.payload.message
+                loggedInAccount: action.payload.entities,
+                status: action.payload.status,
             }
         }
         case "SUBMIT_PROFILE_REJECTED": {
-            return {...state, submitting: false, updates: action.payload}
+            return {...state,
+                submitting: false,
+                errors: action.payload.errors,
+                status: action.payload.status,
+            }
+        }
+        case UPDATE_PROFILE_ADDRESS: {
+            return {...state, fetching: true}
+        }
+        case UPDATE_PROFILE_ADDRESS_REJECTED: {
+            return {...state, fetching: false, errors: action.payload.errors}
+        }
+        case UPDATE_PROFILE_ADDRESS_FULFILLED: {
+            return {
+                ...state,
+                fetching: false,
+                fetched: true,
+                loggedInAccount: action.payload[0],
+            }
+        }
+        case RESET_PROFILE_ERRORS: {
+            return{
+                ...state,
+                errors:[],
+                status:"",
+            }
         }
 
         default:

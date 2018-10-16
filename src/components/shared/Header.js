@@ -185,7 +185,7 @@ class Header extends Component {
                                 <Dropdown>
                                     <DropdownToggle className="uppercase" nav caret>{name}</DropdownToggle>
                                     <DropdownMenu>
-                                        <DropdownItem href="/profile">Profile</DropdownItem>
+                                        <DropdownItem><Link to="/profile">Profile</Link></DropdownItem>
                                         <DropdownItem href="/" onClick={this.logUserOut}>Log out</DropdownItem>
                                     </DropdownMenu>
                                 </Dropdown>

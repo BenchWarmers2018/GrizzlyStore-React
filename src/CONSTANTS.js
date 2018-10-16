@@ -5,7 +5,7 @@
 // export const URL_GOOGLE_USER = "http://localhost:10006";
 
 // /***URL_ITEM's for the server. Please uncomment before pushing to git ***/
-export const URL_ITEM = "http://bw.ausgrads.academy:8765/grizzlystore-item_service"
+export const URL_ITEM = "http://bw.ausgrads.academy:8765/grizzlystore-item_service";
 export const URL_USER = "http://bw.ausgrads.academy:8765/grizzlystore-user_service";
 export const URL_ORDER = "http://bw.ausgrads.academy:8765/grizzlystore-order_service";
 export const URL_GOOGLE_USER = "http://bw.ausgrads.academy:8765/grizzlystore-googleuser_service";
@@ -22,6 +22,10 @@ export const FETCH_CATEGORY_ITEMS_REJECTED = "FETCH_CATEGORY_ITEMS_REJECTED";
 export const FETCH_ITEMS = "FETCH_ITEMS";
 export const FETCH_ITEMS_FULFILLED = "FETCH_ITEMS_FULFILLED";
 export const FETCH_ITEMS_REJECTED = "FETCH_ITEMS_REJECTED";
+
+export const FETCH_HOME_ITEMS = "FETCH_HOME_ITEMS";
+export const FETCH_HOME_ITEMS_FULFILLED = "FETCH_HOME_ITEMS_FULFILLED";
+export const FETCH_HOME_ITEMS_REJECTED = "FETCH_HOME_ITEMS_REJECTED";
 
 export const FETCH_ITEMS_PAGE = "FETCH_ITEMS_PAGE";
 export const FETCH_ITEMS_PAGE_FULFILLED = "FETCH_ITEMS_PAGE_FULFILLED";
@@ -53,6 +57,13 @@ export const FETCH_GOOGLE_ACCOUNTS_FULFILLED = "FETCH_GOOGLE_ACCOUNTS_FULFILLED"
 export const GET_CURRENT_USER = "GET_CURRENT_USER";
 export const GET_CURRENT_USER_REJECTED = "GET_CURRENT_USER_REJECTED";
 export const GET_CURRENT_USER_FULFILLED = "GET_CURRENT_USER_FULFILLED";
+
+export const UPDATE_PROFILE_ADDRESS = "UPDATE_PROFILE_ADDRESS";
+export const UPDATE_PROFILE_ADDRESS_REJECTED = "UPDATE_PROFILE_ADDRESS_REJECTED";
+export const UPDATE_PROFILE_ADDRESS_FULFILLED = "UPDATE_PROFILE_ADDRESS_FULFILLED";
+export const RESET_PROFILE_ERRORS = "RESET_PROFILE_ERRORS";
+
+
 
 export const GOOGLE_API_KEY = "AIzaSyAKaUWK8FOWzydOIbeMrVDHdycqCqVmpuw";
 

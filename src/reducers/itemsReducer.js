@@ -11,12 +11,13 @@ import {
     UPDATE_ITEM,
     UPDATE_ITEM_SUCCESSFUL,
     UPDATE_ITEM_REJECTED,
-    SERVER_NOT_FOUND
+    SERVER_NOT_FOUND, FETCH_HOME_ITEMS, FETCH_HOME_ITEMS_REJECTED, FETCH_HOME_ITEMS_FULFILLED
 
 } from "../CONSTANTS";
 
 const initialState = {
     items: [],
+    homePageItems : [],
     singleItem : [],
     pagedItems:[],
     pageProps : {
@@ -55,6 +56,19 @@ export default function reducer(state=initialState, action) {
                 fetching: false,
                 fetched: true,
                 items: action.payload,
+            }
+            //Fetching items for home page.
+        case FETCH_HOME_ITEMS: {
+            return {...state, fetching: true}}
+        case FETCH_HOME_ITEMS_REJECTED: {
+            return {...state, fetching: false, error: action.payload}
+        }
+        case FETCH_HOME_ITEMS_FULFILLED:
+            return{
+                ...state,
+                fetching: false,
+                fetched: true,
+                homePageItems: action.payload.content,
             }
 
             //Fetch single item cases.
@@ -110,9 +124,9 @@ export default function reducer(state=initialState, action) {
         case (UPDATE_ITEM_REJECTED):
               return {...state, updated: false, updating: false, updateItemMessages: action.payload}
         case (UPDATE_ITEM_SUCCESSFUL): {
-            const { idItem, itemName, itemDescription, itemImage, itemPrice, itemSalePercentage, last_modified } = action.payload
-            const newItems = [...state.items]
-            const itemToUpdate = newItems.findIndex(item => item.idItem === idItem)
+            const { idItem, itemName, itemDescription, itemImage, itemPrice, itemSalePercentage, last_modified } = action.payload;
+            const newItems = [...state.items];
+            const itemToUpdate = newItems.findIndex(item => item.idItem === idItem);
             newItems[itemToUpdate] = action.payload;
 
             return {
