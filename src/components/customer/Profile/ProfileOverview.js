@@ -17,7 +17,7 @@ class ProfileOverview extends Component {
                 <div className="profile-overview-mainDiv">
                     <div className="profile-overview-field-div">
                         <label className="text-muted">EMAIL ADDRESS</label>
-                        <h5 className="profile-overview-field">{account.username}</h5>
+                        <h5 className="profile-overview-field">{account.accountEmailAddress}</h5>
                     </div>
 
                     <div className="profile-overview-field-div">

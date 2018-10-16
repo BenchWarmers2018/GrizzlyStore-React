@@ -2,15 +2,15 @@ import React, {Component} from 'react';
 import Image from 'react-image-resizer';
 import {connect} from "react-redux";
 import PropTypes from 'prop-types';
-import BackgroundProfile from "../../../images/profile_images/background.png";
 import Background from "../../../images/images_essence/bg-img/breadcumb.jpg";
 import {Button} from 'react-bootstrap';
-import {fetchProfile} from "../../../actions/profileActions";
+import { fetchProfile, updateAddress, submitPassword, resetErrorsAndStatus } from "../../../actions/profileActions";
 import ProfileOverview from "./ProfileOverview.js"
 import NotFound from "../../shared/NotFound";
 import ProfileAddress from "./ProfileAddress";
 import ProfilePersonal from "./ProfilePersonal";
 import ProfilePassword from "./ProfilePassword";
+import {errorNotification, successNotification} from "../../microComponents/Notifications";
 
 
 class Profile extends Component {
@@ -23,11 +23,37 @@ class Profile extends Component {
         };
     }
 
+    componentDidMount(){
+        console.log("did went into did mount.")
+        if(this.props.userType.length >0 && this.props.loggedInUser !== null && typeof this.props.loggedInUser !== "undefined")
+        {
+            this.props.fetchProfile(this.props.loggedInUser.id);
+        }
+    }
 
-    refreshProfile = () => {
-        //this.props.fetchProfile();
-        //console.log('UPDATED PROFILE ' + JSON.stringify(this.props.profile));
-        this.forceUpdate();
+    componentDidUpdate(prevProps){
+        if(JSON.stringify(prevProps.loggedInAccount) !== JSON.stringify(this.props.loggedInAccount))
+        {
+            if(this.props.userType.length >0 && this.props.loggedInUser !== null && typeof this.props.loggedInUser !== "undefined")
+            {
+                this.props.fetchProfile(this.props.loggedInUser.id);
+            }
+            //Notification on password change.
+
+        }
+        if(this.props.status.length > 0)
+        {
+            if(this.props.status === "OK")
+            {
+                successNotification("Password Updated Successfully");
+            }
+            else
+            {
+                errorNotification("Password update unsuccessfull.", this.props.errors[0])
+            }
+            this.props.resetErrorsAndStatus();
+        }
+
     }
 
 
@@ -37,21 +63,36 @@ class Profile extends Component {
 
     }
 
+    handleAddressChange= (address) => {
+        const account = {
+            "idAccount": this.props.loggedInAccount.idAccount,
+            "profile" : {
+                "address": address
+            }
+        }
+        this.props.updateAddress(account);
+        console.log(account);
+    }
+
+    handlePasswordChange = (password) => {
+        this.props.submitPassword(password, this.props.loggedInAccount.idAccount)
+    }
+
     render() {
-        const userType = this.props.userType;
-        const account = this.props.account;
+
+        const account = this.props.loggedInAccount;
         let profile = null;
         let selectedOption;
-        if (userType.length > 0 && account !== null) {
+        if (this.props.userType.length > 0 && account !== null) {
             profile = account.profile;
             if (this.state.selected === "Overview")
                 selectedOption = <ProfileOverview data={account}/>
             else if(this.state.selected === "Personal Details")
                 selectedOption = <ProfilePersonal data={account}/>
             else if(this.state.selected === "Shipping Address")
-                selectedOption = <ProfileAddress data={profile.address}/>
+                selectedOption = <ProfileAddress onAddressChange={this.handleAddressChange} data={profile.address}/>
             else if(this.state.selected === "Change Password")
-                selectedOption = <ProfilePassword data={account}/>
+                selectedOption = <ProfilePassword onPasswordChange={this.handlePasswordChange} data={account}/>
 
         }
 
@@ -72,7 +113,7 @@ class Profile extends Component {
                 </div>
                 <br/>
 
-                {(profile !== null) ?
+                {(profile !== null && typeof profile !== "undefined") ?
 
                     <div className="container-fluid">
                         <div className="row">
@@ -80,7 +121,7 @@ class Profile extends Component {
                                 <div className="card">
 
                                     <div className=" profile-img-name">
-                                        <Image src={profile.profileImage} width={150} height={180}/>
+                                        <Image src={(profile.profileImage)} width={150} height={180}/>
                                         <h4 className="card-title m-t-10">{profile.profileFirstName}</h4>
                                     </div>
 
@@ -130,11 +171,20 @@ Profile.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    account: state.accounts.loggedInUser,
+    loggedInUser: state.accounts.loggedInUser,
     userType: state.accounts.userType,
+    loggedInAccount: state.profiles.loggedInAccount,
     fetched: state.profiles.fetched,
     fetching: state.profiles.fetching,
-    error: state.profiles.error
+    errors: state.profiles.errors,
+    status: state.profiles.status,
 });
 
-export default connect(mapStateToProps, {fetchProfile})(Profile);
+const mapDispatchToProps = {
+    fetchProfile,
+    updateAddress,
+    submitPassword,
+    resetErrorsAndStatus,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
