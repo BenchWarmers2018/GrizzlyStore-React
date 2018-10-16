@@ -88,4 +88,4 @@ class ProfileAddress extends Component {
 }
 
 
-export default (ProfileAddress);
+export default (ProfileAddress)
