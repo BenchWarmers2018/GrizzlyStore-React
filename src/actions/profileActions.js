@@ -60,16 +60,12 @@ export function submitPersonalDetails(profileData, accountID = '') {
     }
 }
 
-export function submitPassword(profileData, accoundID) {
+export function submitPassword(profileData) {
     return function (dispatch) {
-        var header = {
-            'SUBMISSION_TYPE': 'Password',
-            'accountID': accoundID,
-        };
+
         dispatch({type: "SUBMIT_PROFILE"}); //
         console.log(profileData);
-        console.log(accoundID);
-        axios.post(URL_USER+"/user/update-profile", profileData, {headers: header})
+        axios.post(URL_USER+"/user/update-profile", profileData)
             .then((response) => {
                 console.log("Updating profile successful " + JSON.stringify(response.data));
                 dispatch({type: "SUBMIT_PROFILE_ACCEPTED", payload: response.data})

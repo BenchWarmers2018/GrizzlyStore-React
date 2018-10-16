@@ -177,7 +177,7 @@ class Items extends Component {
                                 </div>
 
 
-                                <div className="widget price mb-50">
+                                <div className="widget mb-50">
 
                                     <h6 className="widget-title mb-30">Filter by</h6>
 
