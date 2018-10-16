@@ -7,7 +7,6 @@ import { updateItem } from "../../../actions/itemsAction";
 import { notification } from 'antd';
 import { Button, ModalFooter } from 'mdbreact';
 import './editItemForm.css';
-import Dropzone from 'react-dropzone';
 
 class EditItemForm extends React.Component {
 
@@ -131,7 +130,7 @@ const FormikApp = withFormik({
     itemStockLevel: Yup.string().matches(/^[0-9]+$/, "The stock level must be a whole number!").required('A stock level is required for the item!')
   }),
   handleSubmit(values, { props, setSubmitting }) {
-    const itemData = {idItem: props.rowData.idItem, itemName: values.itemName, itemDescription: values.itemDescription, itemImage: values.itemImage, itemPrice: values.itemPrice, itemSalePercentage: values.itemSalePercentage, itemStockLevel: values.itemStockLevel, lastModified: props.rowData.lastModified};
+    const itemData = {idItem: props.rowData.idItem, itemName: values.itemName, itemDescription: values.itemDescription, itemImage: values.itemImage, itemPrice: values.itemPrice, itemSalePercentage: values.itemSalePercentage, itemStockLevel: values.itemStockLevel};
     props.dispatch(updateItem(itemData));
     setSubmitting(false);
   }

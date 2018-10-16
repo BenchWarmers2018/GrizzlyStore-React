@@ -20,7 +20,6 @@ class ViewItemsTable extends Component {
       this.setState({
           modal: !this.state.modal
       });
-      console.log
   }
 
   componentDidUpdate(prevProps){
@@ -84,7 +83,6 @@ class ViewItemsTable extends Component {
                   this.state.rowData = rowInfo.original;
                   this.toggle();
                 }
-                console.log(rowInfo);
               }
             };
           }}
