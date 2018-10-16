@@ -103,4 +103,4 @@ class ProfilePassword extends Component {
 
 
 
-export default (ProfilePassword);
+export default (ProfilePassword)
