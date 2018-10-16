@@ -75,7 +75,8 @@ class Profile extends Component {
     }
 
     handlePasswordChange = (password) => {
-        this.props.submitPassword(password, this.props.loggedInAccount.idAccount)
+        password["accountID"] = this.props.loggedInAccount.idAccount;
+        this.props.submitPassword(password)
     }
 
     render() {
