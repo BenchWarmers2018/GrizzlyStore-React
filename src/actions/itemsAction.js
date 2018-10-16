@@ -69,7 +69,7 @@ export function fetchCategoryItems(catName, page, size) {
     }
 }
 
-const tempArr = [
+const popularArr = [
     {
         "idItem": 15,
         "category": {
@@ -193,12 +193,12 @@ const tempArr = [
 ]
 
 
-// export function fetchItems() {
-//     return {
-//         type: FETCH_ITEMS_FULFILLED,
-//         payload:tempArr
-//     }
-// }
+export function fetchPopularItems() {
+    return {
+        type: FETCH_ITEMS_FULFILLED,
+        payload:popularArr
+    }
+}
 
 
 
