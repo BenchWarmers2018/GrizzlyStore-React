@@ -165,7 +165,6 @@ class Profile extends Component {
 
 Profile.propTypes = {
     fetchProfile: PropTypes.func.isRequired,
-    profile: PropTypes.object.isRequired,
     fetched: PropTypes.bool.isRequired,
     fetching: PropTypes.bool.isRequired,
 };
