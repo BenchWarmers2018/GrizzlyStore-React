@@ -6,8 +6,8 @@ class Spinner extends Component {
         return (
             <div className="spinner-holder">
                 <Loader
-                    type="Bars"
-                    color="#00BFFF"
+                    type="Hearts"
+                    color="pink"
                     height="150"
                     width="150"
                 />
