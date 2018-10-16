@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import { Container, Row, Col, Input, Button, Fa, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
-// import EditItemForm from "../forms/editItemForm.js";
+import EditItemForm from "../forms/editItemForm.js";
 
 class ViewItemsTable extends Component {
   constructor(props) {
@@ -88,10 +88,10 @@ class ViewItemsTable extends Component {
           }}
         />
 
-        {/* <Modal isOpen={this.state.modal} toggle={this.toggle} className="cascading-modal">
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className="cascading-modal">
             <EditItemForm
               rowData={this.state.rowData}/>
-        </Modal> */}
+        </Modal>
       </div>
     );
   }

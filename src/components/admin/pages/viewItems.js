@@ -14,7 +14,6 @@ class ViewItems extends Component {
 
   componentDidMount() {
     this.props.dispatch(fetchItems());
-    console.log(this.props);
   }
 
   componentDidUpdate(prevProps){
@@ -22,12 +21,6 @@ class ViewItems extends Component {
     {
       this.setState({items: this.props.items})
     }
-
-    // if(prevProps.updatedItem !== this.props.updatedItem)
-    // {
-    //
-    //   this.setState({items: this.props.items})
-    // }
   }
 
   render() {
@@ -60,8 +53,7 @@ class ViewItems extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    items: state.items.items,
-    // updatedItem: state.items.updatedItem
+    items: state.items.items
 });
 
 export default connect(mapStateToProps)(ViewItems);
