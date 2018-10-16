@@ -1,12 +1,12 @@
 // URL_ITEM's for local machine. Please comment before pushing to git.
- export const URL_USER = "http://localhost:10003";
+// export const URL_USER = "http://localhost:10003";
 // export const URL_ORDER = "http://localhost:10004";
 // export const URL_ITEM = "http://localhost:10005";
 // export const URL_GOOGLE_USER = "http://localhost:10006";
 
 // /***URL_ITEM's for the server. Please uncomment before pushing to git ***/
 export const URL_ITEM = "http://bw.ausgrads.academy:8765/grizzlystore-item_service";
-//export const URL_USER = "http://bw.ausgrads.academy:8765/grizzlystore-user_service";
+export const URL_USER = "http://bw.ausgrads.academy:8765/grizzlystore-user_service";
 export const URL_ORDER = "http://bw.ausgrads.academy:8765/grizzlystore-order_service";
 export const URL_GOOGLE_USER = "http://bw.ausgrads.academy:8765/grizzlystore-googleuser_service";
 
@@ -22,6 +22,10 @@ export const FETCH_CATEGORY_ITEMS_REJECTED = "FETCH_CATEGORY_ITEMS_REJECTED";
 export const FETCH_ITEMS = "FETCH_ITEMS";
 export const FETCH_ITEMS_FULFILLED = "FETCH_ITEMS_FULFILLED";
 export const FETCH_ITEMS_REJECTED = "FETCH_ITEMS_REJECTED";
+
+export const FETCH_HOME_ITEMS = "FETCH_HOME_ITEMS";
+export const FETCH_HOME_ITEMS_FULFILLED = "FETCH_HOME_ITEMS_FULFILLED";
+export const FETCH_HOME_ITEMS_REJECTED = "FETCH_HOME_ITEMS_REJECTED";
 
 export const FETCH_ITEMS_PAGE = "FETCH_ITEMS_PAGE";
 export const FETCH_ITEMS_PAGE_FULFILLED = "FETCH_ITEMS_PAGE_FULFILLED";

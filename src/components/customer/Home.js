@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import { fetchHomeItemsPage } from "../../actions/itemsAction";
+import { connect } from "react-redux"
 // Carousel imports
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -9,9 +10,27 @@ import Slider3 from '../../images/pandawave.jpg';
 import Slider2 from '../../images/polarwave.jpg';
 import ItemSmartHome from './itemSmartHome';
 import Images from '../../images/images_sublime/product_1.jpg';
+import ItemsChild from "./ItemsChild";
 
 class Home extends Component {
+
+    constructor(props) {
+        super(props);
+
+    }
+
+    componentDidMount(){
+        this.props.fetchHomeItemsPage(1, 12);
+    }
+    componentDidUpdate(prevProps){
+        if(JSON.stringify(prevProps.homePageItems) !== JSON.stringify(this.props.homePageItems))
+        {
+            this.props.fetchHomeItemsPage(1, 12);
+        }
+    }
+
     render() {
+        const items = this.props.homePageItems;
         return (
 
             <div>
@@ -47,7 +66,12 @@ class Home extends Component {
                             <small className="text-muted"> Beary popular</small>
                         </h1>
                         <hr/>
-                        <ItemSmartHome/>
+                        <div className="row row-home">
+                            {items.map(item =>
+                                <ItemSmartHome key={item.idItem} data={item}/>
+                            )}
+                        </div>}
+                        {/*<ItemSmartHome/>*/}
                     </div>
 
                 </div>
@@ -57,4 +81,11 @@ class Home extends Component {
     }
 }
 
-export default Home;
+const mapStateToProps = state => ({
+    homePageItems: state.items.homePageItems,
+});
+const mapDispatchToProps = {
+    fetchHomeItemsPage,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (Home);

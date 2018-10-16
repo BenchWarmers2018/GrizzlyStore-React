@@ -12,7 +12,7 @@ import {
     UPDATE_ITEM,
     UPDATE_ITEM_SUCCESSFUL,
     UPDATE_ITEM_REJECTED,
-    SERVER_NOT_FOUND
+    SERVER_NOT_FOUND, FETCH_HOME_ITEMS, FETCH_HOME_ITEMS_FULFILLED, FETCH_HOME_ITEMS_REJECTED
 } from "../CONSTANTS";
 
 export function fetchItems() {
@@ -43,17 +43,17 @@ export function fetchSingleItem(id) {
     }
 }
 
-export function fetchItemsPage(page, size) {
+export function fetchHomeItemsPage(page, size) {
     return function(dispatch) {
-        dispatch({type: FETCH_ITEMS_PAGE});
+        dispatch({type: FETCH_HOME_ITEMS});
 
         page = page -1;
         axios.get(URL_ITEM+"/items/page?page="+ page + "&size=" + size)
             .then((response) => {
-                dispatch({type: FETCH_ITEMS_PAGE_FULFILLED, payload: response.data.entities})
+                dispatch({type: FETCH_HOME_ITEMS_FULFILLED, payload: response.data})
             })
             .catch((err) => {
-                dispatch({type: FETCH_ITEMS_PAGE_REJECTED, payload: err})
+                dispatch({type: FETCH_HOME_ITEMS_REJECTED, payload: err})
             })
     }
 }
