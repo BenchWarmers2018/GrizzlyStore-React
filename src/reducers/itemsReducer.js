@@ -8,6 +8,11 @@ import {
     FETCH_SINGLE_ITEM_REJECTED,
     FETCH_ITEMS_PAGE,
     FETCH_SINGLE_ITEM_FULFILLED,
+    UPDATE_ITEM,
+    UPDATE_ITEM_SUCCESSFUL,
+    UPDATE_ITEM_REJECTED,
+    SERVER_NOT_FOUND
+
 } from "../CONSTANTS";
 
 const initialState = {
@@ -29,8 +34,11 @@ const initialState = {
     fetching: false,
     fetched: false,
     error: null,
+    updating: false,
+    updated: false,
+    updateItemMessages: [],
+    messages: []
 }
-
 
 export default function reducer(state=initialState, action) {
 
@@ -97,7 +105,11 @@ export default function reducer(state=initialState, action) {
                 items: [...state.items, action.payload],
             }
         }
-        case "UPDATE_ITEM": {
+        case (UPDATE_ITEM):
+          return {...state, updating: true }
+        case (UPDATE_ITEM_REJECTED):
+              return {...state, updated: false, updating: false, updateItemMessages: action.payload}
+        case (UPDATE_ITEM_SUCCESSFUL): {
             const { idItem, itemName, itemDescription, itemImage, itemPrice, itemSalePercentage, last_modified } = action.payload
             const newItems = [...state.items]
             const itemToUpdate = newItems.findIndex(item => item.idItem === idItem)
@@ -106,6 +118,9 @@ export default function reducer(state=initialState, action) {
             return {
                 ...state,
                 items: newItems,
+                updating: false,
+                updated: true,
+                updateItemMessages: "Item updated successfully!",
             }
         }
         case "DELETE_ITEM": {
@@ -114,6 +129,8 @@ export default function reducer(state=initialState, action) {
                 items: state.items.filter(item => item.idItem !== action.payload),
             }
         }
+        case (SERVER_NOT_FOUND):
+            return {...state, messages: action.payload}
         default:
             return state;
     }

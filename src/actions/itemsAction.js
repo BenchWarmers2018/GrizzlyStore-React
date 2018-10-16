@@ -8,7 +8,11 @@ import {
     FETCH_SINGLE_ITEM,
     FETCH_SINGLE_ITEM_FULFILLED,
     FETCH_SINGLE_ITEM_REJECTED,
-    FETCH_ITEMS_PAGE, FETCH_ITEMS_PAGE_REJECTED
+    FETCH_ITEMS_PAGE, FETCH_ITEMS_PAGE_REJECTED,
+    UPDATE_ITEM,
+    UPDATE_ITEM_SUCCESSFUL,
+    UPDATE_ITEM_REJECTED,
+    SERVER_NOT_FOUND
 } from "../CONSTANTS";
 
 export function fetchItems() {
@@ -193,12 +197,12 @@ const tempArr = [
 ]
 
 
-// export function fetchItems() {
-//     return {
-//         type: FETCH_ITEMS_FULFILLED,
-//         payload:tempArr
-//     }
-// }
+export function fetchPopularItems() {
+    return {
+        type: FETCH_ITEMS_FULFILLED,
+        payload:tempArr
+    }
+}
 
 
 
@@ -217,18 +221,20 @@ export function addItem(idItem, itemName, itemDescription, itemImage, itemPrice,
     }
 }
 
-export function updateItem(idItem, itemName, itemDescription, itemImage, itemPrice, itemSalePercentage, last_modified) {
-    return {
-        type: 'UPDATE_ITEM',
-        payload: {
-            idItem,
-            itemName,
-            itemDescription,
-            itemImage,
-            itemPrice,
-            itemSalePercentage,
-            last_modified
-        },
+export function updateItem(item) {
+    return function (dispatch) {
+      dispatch({type: UPDATE_ITEM});
+
+      axios.post(URL_ITEM + "/items/edit", item)
+        .then(result => {
+          dispatch({type: UPDATE_ITEM_SUCCESSFUL, payload: result.data.entities[0]})
+        })
+        .catch((error) => {
+          if (error.message === "Network Error" )
+            dispatch({type: SERVER_NOT_FOUND, payload: 'The server is currently offline. Please try again later.'})
+          else
+            dispatch({type: UPDATE_ITEM_REJECTED, payload: error.response.data.errors})
+        })
     }
 }
 

@@ -11,8 +11,7 @@ const InitialState = {
     added : false,
     updating: false,
     updated: false,
-    editMessages: [],
-    updatedCategory: null,
+    editMessages: []
 }
 
 export default function reducer(state=InitialState, action) {
