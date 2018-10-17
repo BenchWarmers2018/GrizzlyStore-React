@@ -52,31 +52,35 @@ class ProfileAddress extends Component {
                 <h3 className="card-subtitle card-subtitle-profile" style={{textAlign: 'center', color: 'black'}}>Edit
                     Address</h3>
                 <br/>
-                <div className="profile-overview-field-div">
-                    <label className="text-muted p-t-30 db">PRIMARY ADDRESS</label>
-                    {(address !== null) ?
+                <div className="profile-overview-field-div profile-overview-field-div-address">
+                    <div className="profile-address-content-div">
 
-                        <h5 className="profile-overview-field">
-                            {(address.addressUnitNo !== null) ? address.addressUnitNo+"/" : ""}
-                            {address.addressStreetNo} {address.addressStreet} {address.addressStreetType}<br/>
-                            {address.addressCity}, {address.addressState}<br/>
-                            {address.addressCountry} {address.addressPostcode}
-                        </h5>
-                        :
-                        <h5>None Address Found. Please add below.</h5>
+                        <label className="text-muted p-t-30 db">PRIMARY ADDRESS</label>
+                        {(address !== null) ?
 
-                    }
+                            <h5 className="profile-overview-field">
+                                {(address.addressUnitNo !== null) ? address.addressUnitNo+"/" : ""}
+                                {address.addressStreetNo} {address.addressStreet} {address.addressStreetType}<br/>
+                                {address.addressCity}, {address.addressState}<br/>
+                                {address.addressCountry} {address.addressPostcode}
+                            </h5>
+                            :
+                            <h5>N/A <p className="text-muted">Address not saved. Please add below.</p></h5>
+
+                        }
+                    </div>
                 </div>
 
-
-                <Autocomplete
-                    className = "address-input"
-                    onPlaceSelected={(place) => {
-                        this.setState({newAddress : place});
-                    }}
-                    types={[]}
-                    componentRestrictions={{country: "au"}}
-                />
+                <div className="profile-address-autocomplete">
+                    <Autocomplete
+                        className = "address-input"
+                        onPlaceSelected={(place) => {
+                            this.setState({newAddress : place});
+                        }}
+                        types={[]}
+                        componentRestrictions={{country: "au"}}
+                    />
+                </div>
 
                 <div className="col-sm-12 col-md-12 col-lg-12" style={{bottom : "10%", position: "absolute"}}>
                     <button onClick={this.handleUpdate} className="btn btn-success-muted btn-block">UPDATE ADDRESS</button>

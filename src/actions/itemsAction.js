@@ -36,10 +36,10 @@ export function fetchItems() {
 }
 
 export function fetchSingleItem(id) {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch({type: FETCH_SINGLE_ITEM});
 
-        axios.get(URL_ITEM + "/items/id?itemId="+ id)
+        axios.get(URL_ITEM + "/items/id?itemId=" + id)
             .then((response) => {
                 dispatch({type: FETCH_SINGLE_ITEM_FULFILLED, payload: response.data.entities})
             })
@@ -53,9 +53,8 @@ export function fetchSingleItem(id) {
 export function fetchHomeItemsPage(page, size) {
     return function(dispatch) {
         dispatch({type: FETCH_HOME_ITEMS});
-
-        page = page -1;
-        axios.get(URL_ITEM+"/items/page?page="+ page + "&size=" + size)
+        page = page - 1;
+        axios.get(URL_ITEM + "/items/page?page=" + page + "&size=" + size)
             .then((response) => {
                 dispatch({type: FETCH_HOME_ITEMS_FULFILLED, payload: response.data})
             })
@@ -70,11 +69,11 @@ export function fetchCategoryItems(catName, page, size) {
 
         dispatch({type: FETCH_ITEMS_PAGE});
 
-        axios.get(URL_ITEM+"/items/page/categoryName?name="+catName+"&size="+size+"&page="+page)
-            .then((response)=> {
+        axios.get(URL_ITEM + "/items/page/categoryName?name=" + catName + "&size=" + size + "&page=" + page)
+            .then((response) => {
                 dispatch({type: FETCH_ITEMS_PAGE_FULFILLED, payload: response.data})
             })
-            .catch((err)=> {
+            .catch((err) => {
                 dispatch({type: FETCH_ITEMS_PAGE_REJECTED, payload: err})
             })
     }
@@ -206,33 +205,44 @@ const popularArr = [
 
 export function fetchPopularItems() {
     return {
-        type: FETCH_ITEMS_FULFILLED,
         payload:popularArr
     }
 }
 
 
+export function addItem(itemName, itemDescription, itemImage, itemPrice, itemStock, itemSales, itemCategory) {
+    return function (dispatch) {
+        let data = new FormData();
+        let header = {
+            'Content-Type': 'multipart/form-data'
+        };
+        let item = {
+            itemName: itemName,
+            itemPrice: itemPrice,
+            itemStockLevel: itemStock,
+            itemSalePercentage: itemSales,
+            itemDescription: itemDescription
+        };
+        data.append('file', itemImage);
+        data.append('item', JSON.stringify(item));
+        data.append('category', itemCategory);
 
-export function addItem(idItem, itemName, itemDescription, itemImage, itemPrice, itemSalePercentage, last_modified) {
-    return {
-        type: 'ADD_ITEM',
-        payload: {
-            idItem,
-            itemName,
-            itemDescription,
-            itemImage,
-            itemPrice,
-            itemSalePercentage,
-            last_modified
-        },
+        dispatch({type: "ADD_ITEM"}); //
+        axios.post(URL_ITEM + '/items/addItem', data, {headers: header}).then((response) => {
+            console.log("TESTING " + response.data.entities);
+            dispatch({type: "ADD_ITEM_FULFILLED", payload: response.data})
+        })
+            .catch((err) => {
+                dispatch({type: "ADD_ITEM_REJECTED", payload: err})
+            })
     }
 }
 
-export function updateItem(item) {
+export function updateItem(formData) {
     return function (dispatch) {
       dispatch({type: UPDATE_ITEM});
 
-      axios.post(URL_ITEM + "/items/edit", item)
+      axios.post(URL_ITEM + "/items/edit", formData)
         .then(result => {
           dispatch({type: UPDATE_ITEM_SUCCESSFUL, payload: result.data.entities[0]})
         })
@@ -246,5 +256,5 @@ export function updateItem(item) {
 }
 
 export function deleteItem(idItem) {
-    return { type: 'DELETE_ITEM', payload: idItem}
+    return {type: 'DELETE_ITEM', payload: idItem}
 }

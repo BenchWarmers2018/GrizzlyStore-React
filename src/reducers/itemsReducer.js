@@ -1,6 +1,9 @@
 import {
     FETCH_ITEMS,
     FETCH_ITEMS_PAGE_FULFILLED,
+    ADD_ITEM,
+    ADD_ITEM_FULFILLED,
+    ADD_ITEM_REJECTED,
     FETCH_ITEMS_REJECTED,
     FETCH_ITEMS_FULFILLED,
     FETCH_ITEMS_PAGE_REJECTED,
@@ -22,6 +25,7 @@ import {
 
 const initialState = {
     items: [],
+    updates: "",
     homePageItems : [],
     singleItem : [],
     pagedItems:[],
@@ -34,7 +38,8 @@ const initialState = {
         numberOfElements: undefined,
         first: false,
     },
-
+    adding: false,
+    added: false,
     leastItemPrice: undefined,
     mostItemPrice: undefined,
     fetching: false,
@@ -47,16 +52,17 @@ const initialState = {
 }
 
 export default function reducer(state=initialState, action) {
-
+  
     switch (action.type) {
         //Fetch items cases
         case FETCH_ITEMS: {
-            return {...state, fetching: true}}
+            return {...state, fetching: true}
+        }
         case FETCH_ITEMS_REJECTED: {
             return {...state, fetching: false, error: action.payload}
         }
         case FETCH_ITEMS_FULFILLED:
-            return{
+            return {
                 ...state,
                 fetching: false,
                 fetched: true,
@@ -76,15 +82,15 @@ export default function reducer(state=initialState, action) {
                 homePageItems: action.payload.content,
             }
 
-            //Fetch single item cases.
+        //Fetch single item cases.
         case FETCH_SINGLE_ITEM:
             return {...state, fetching: true}
 
         case FETCH_SINGLE_ITEM_REJECTED: {
             return {...state, fetching: false, error: action.payload}
         }
-        case FETCH_SINGLE_ITEM_FULFILLED:{
-            return{
+        case FETCH_SINGLE_ITEM_FULFILLED: {
+            return {
                 ...state,
                 fetching: false,
                 fetched: true,
@@ -106,23 +112,48 @@ export default function reducer(state=initialState, action) {
                 fetching: false,
                 fetched: true,
                 pagedItems: action.payload.content,
-                pageProps : {last: action.payload.last,
+                pageProps: {
+                    last: action.payload.last,
                     totalPages: action.payload.totalPages,
                     totalElements: action.payload.totalElements,
                     size: action.payload.size,
-                    number: action.payload.number+1,
+                    number: action.payload.number + 1,
                     numberOfElements: action.payload.numberOfElements,
-                    first: action.payload.first,},
+                    first: action.payload.first,
+                },
                 leastItemPrice: action.payload.size,
                 mostItemPrice: action.payload.numberOfElements,
             }
         }
 
 
-        case "ADD_ITEM": {
+        case ADD_ITEM: {
             return {
                 ...state,
                 items: [...state.items, action.payload],
+                adding: true
+            }
+        }
+
+        case ADD_ITEM_FULFILLED: {
+            console.log("HERE NOW!!");
+            return {
+                ...state,
+                updates: "Item successfully added",
+                items: [...state.items, action.payload],
+                added: true,
+                adding: false,
+                error: null
+            }
+        }
+
+        case ADD_ITEM_REJECTED: {
+            return {
+                ...state,
+                updates: "Unable to add item!",
+                added: true,
+                adding: false,
+                error: action.payload.response.errors
             }
         }
         case (UPDATE_ITEM):
@@ -154,6 +185,4 @@ export default function reducer(state=initialState, action) {
         default:
             return state;
     }
-
-    return state
 }
