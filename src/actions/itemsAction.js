@@ -220,7 +220,7 @@ export function addItem(itemName, itemDescription, itemImage, itemPrice, itemSto
         data.append('category', itemCategory);
 
         dispatch({type: "ADD_ITEM"}); //
-        axios.post('http://localhost:10005' + '/items/addItem', data, {headers: header}).then((response) => {
+        axios.post(URL_ITEM + '/items/addItem', data, {headers: header}).then((response) => {
             console.log("TESTING " + response.data.entities);
             dispatch({type: "ADD_ITEM_FULFILLED", payload: response.data})
         })
