@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import PropTypes from 'prop-types';
 import {Formik, Field} from 'formik';
-import { withRouter } from 'react-router';
-import {fetchProfile, submitPassword} from "../../../actions/profileActions";
 
 
 class ProfilePassword extends Component {
@@ -16,20 +14,15 @@ class ProfilePassword extends Component {
     }
 
     handleSubmit(values, formikBag) {
-        console.log(values);
-        this.props.submitPassword({password: values.password});
-        formikBag.setSubmitting(false);
-        this.props.fetchProfile();
-        this.setState({success: this.props.updates}); // Get update message back from Spring
+        const password =
+            {
+                password: values.password,
+                currentPassword : values.currentPassword
+            }
+        formikBag.setSubmitting(false); // Get update message back from Spring
+        this.props.onPasswordChange(password);
     }
 
-    componentDidMount() {
-        this.props.fetchProfile();
-    }
-
-    componentDidUpdate(prevProps) {
-
-    }
 
     render() {
         return (
@@ -38,9 +31,8 @@ class ProfilePassword extends Component {
                     Password</h4>
                 <br/>
                 <Formik
-                    initialValues={{password: "", confirmPassword: ""}}
+                    initialValues={{password: "", confirmPassword: "", currentPassword: ""}}
                     validate={(values) => {
-                        console.log(values);
                         let errors = {};
                         // VALIDATION
                         if (values.password.length < 8)
@@ -50,6 +42,9 @@ class ProfilePassword extends Component {
                         }
                         if (values.confirmPassword.length === 0) {
                             errors.confirmPassword = "Confirmation Password is required!"
+                        }
+                        if(values.currentPassword.length === 0){
+                            errors.currentPassword = "Current Password is required!"
                         }
                         return errors;
                     }}
@@ -63,6 +58,16 @@ class ProfilePassword extends Component {
                                  handleSubmit
                              }) => (
                         <form className="form-horizontal form-material " onSubmit={handleSubmit}>
+
+                            <div className="form-group form-group-password">
+                                <label className="col-md-12 text-muted label-padding-left">CURRENT PASSWORD</label>
+                                <div className="col-md-12">
+                                    <Field type="password" name="currentPassword" placeholder="Current Password"
+                                           className="form-control form-control-line" onChange={handleChange} onBlur={handleBlur}/>
+                                    {touched.currentPassword && errors.currentPassword && <span className="text-danger">{errors.currentPassword}</span>}
+                                </div>
+                            </div>
+
                             <div className="form-group form-group-password">
                                 <label className="col-md-12 text-muted label-padding-left">NEW PASSWORD</label>
                                 <div className="col-md-12">
@@ -96,24 +101,6 @@ class ProfilePassword extends Component {
     }
 };
 
-ProfilePassword.propTypes = {
-    submitPassword: PropTypes.func.isRequired,
-    fetchProfile: PropTypes.func.isRequired,
-    submitting: PropTypes.bool.isRequired,
-    submitted: PropTypes.bool.isRequired,
-    updates: PropTypes.string.isRequired
-};
 
-const mapStateToProps = state => ({
-    submitted: state.profiles.submitted,
-    submitting: state.profiles.submitting,
-    updates: state.profiles.updates,
-    error: state.profiles.error
-});
 
-const mapDispatchToProps = {
-    submitPassword,
-    fetchProfile
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProfilePassword));
+export default (ProfilePassword)
