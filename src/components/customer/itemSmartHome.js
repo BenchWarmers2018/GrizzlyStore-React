@@ -1,21 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux"
 import {fetchPopularItems} from "../../actions/itemsAction"
 import {Link} from "react-router-dom";
 
 class ItemSmart extends Component {
 
-    constructor(props) {
-        super(props)
-    }
-
-    componentWillMount() {
-        this.props.fetchPopularItems();
-    }
-
     render() {
-        const { items } = this.props;
+        const item = this.props.data;
 
         // Rounding price to 2 decimal points
         function roundPrice(item){
@@ -28,13 +19,7 @@ class ItemSmart extends Component {
             return num.toFixed(2);
         }
 
-        if(items.length == 0){
-            return <div><h2>No Items to display.</h2></div>
-        }
         return (
-            <div className="row row-home">
-
-                {items.map(item =>
 
                     <div key={item.idItem} className=" col col-12-home col-lg-4-home">
                         <Link onClick={this.handleItemClicked} value={item.idItem} to={'/items/'+ item.idItem}>
@@ -65,22 +50,9 @@ class ItemSmart extends Component {
                             </div>
                         </Link>
                     </div>
-                )}
-            </div>
         )
     }
 }
 
-ItemSmart.propTypes= {
-    fetchPopularItems: PropTypes.func.isRequired,
-    items: PropTypes.array.isRequired,
-}
 
-const mapStateToProps = state => ({
-    items: state.items.items,
-    fetched: state.items.fetched,
-    fetching :state.items.fetching,
-    error: state.items.error,
-});
-
-export default connect(mapStateToProps, { fetchPopularItems } )(ItemSmart);
+export default (ItemSmart);
