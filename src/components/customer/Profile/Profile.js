@@ -11,7 +11,7 @@ import ProfileAddress from "./ProfileAddress";
 import ProfilePersonal from "./ProfilePersonal";
 import ProfilePassword from "./ProfilePassword";
 import {errorNotification, successNotification} from "../../microComponents/Notifications";
-
+import NoProfilePic from "../../../images/profile_images/no-user-picture-icon.png";
 
 class Profile extends Component {
     constructor(props) {
@@ -24,7 +24,6 @@ class Profile extends Component {
     }
 
     componentDidMount(){
-        console.log("did went into did mount.")
         if(this.props.userType.length >0 && this.props.loggedInUser !== null && typeof this.props.loggedInUser !== "undefined")
         {
             this.props.fetchProfile(this.props.loggedInUser.id);
@@ -75,8 +74,7 @@ class Profile extends Component {
     }
 
     handlePasswordChange = (password) => {
-        password["accountID"] = this.props.loggedInAccount.idAccount;
-        this.props.submitPassword(password)
+        this.props.submitPassword(password, this.props.loggedInAccount.idAccount)
     }
 
     render() {
@@ -94,7 +92,8 @@ class Profile extends Component {
                 selectedOption = <ProfileAddress onAddressChange={this.handleAddressChange} data={profile.address}/>
             else if(this.state.selected === "Change Password")
                 selectedOption = <ProfilePassword onPasswordChange={this.handlePasswordChange} data={account}/>
-
+            else if(this.state.selected === "Logout")
+                selectedOption = <ProfilePassword onPasswordChange={this.handlePasswordChange} data={account}/>
         }
 
         console.log(profile);
@@ -116,14 +115,27 @@ class Profile extends Component {
 
                 {(profile !== null && typeof profile !== "undefined") ?
 
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-lg-4 col-xlg-3 col-md-5">
+                    <div className="container-fluid ">
+                        <div className="row profile-whole-div">
+                            <div className="profile-nav-div col-lg-4 col-xlg-3 col-md-5">
                                 <div className="card">
 
                                     <div className=" profile-img-name">
-                                        <Image src={(profile.profileImage)} width={150} height={180}/>
-                                        <h4 className="card-title m-t-10">{profile.profileFirstName}</h4>
+
+                                        {
+                                            profile.profileImage != null ? (
+                                                <Image src={(profile.profileImage)} width={150} height={180}/>
+                                            ): (
+                                                <Image className="no-profile-pic" src={(NoProfilePic)} width={150} height={180}/>)
+                                        }
+
+                                        {
+                                            profile.profileFirstName != null ? (
+                                                <h4 className="profile-name-nav card-title m-t-10">{profile.profileFirstName}</h4>
+                                            ): (
+                                                <h4 className="profile-name-nav card-title m-t-10">{account.accountEmailAddress}</h4>)
+                                        }
+
                                     </div>
 
                                     <div>
@@ -134,20 +146,15 @@ class Profile extends Component {
                                         <ul className="nav profile-nav">
                                             {this.state.menuOptions.map(option =>
                                                 <li>
-                                                    <Button value={option} bsSize="large" onClick={this.handleClick}
+                                                    <Button id="profile-list-option"  aria-pressed="true" value={option} bsSize="large" onClick={this.handleClick}
                                                             block>{option}</Button>
                                                 </li>
                                             )}
-                                            <li>
-                                                <h7 className="text-center profile-usermenu-option ">Log
-                                                    Out
-                                                </h7>
-                                            </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-8 col-xlg-9 col-md-7">
+                            <div className="profile-content-div col-lg-8 col-xlg-9 col-md-7">
                                 <div className="card">
                                     <div className="card-body card-body-profile">
                                         {selectedOption}

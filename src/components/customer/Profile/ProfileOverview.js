@@ -11,7 +11,7 @@ class ProfileOverview extends Component {
         const address = this.props.data.profile.address;
 
         return (
-            <div>
+            <div className="profile-overview-mainDiv">
                 <h4 className="card-subtitle card-subtitle-profile" style={{textAlign: 'center', color: 'black'}}>Profile Overview</h4>
                 <br/>
                 <div className="profile-overview-mainDiv">
@@ -22,22 +22,28 @@ class ProfileOverview extends Component {
 
                     <div className="profile-overview-field-div">
                         <label className="text-muted p-t-30 db">CONTACT PHONE</label>
-                        <h5 className="profile-overview-field">{account.profile.profilePhoneNumber}</h5>
+                        {
+                            account.profile.profilePhoneNumber ? (
+                                <h5 className="profile-overview-field">{account.profile.profilePhoneNumber}</h5>) :(
+                                <h5 className="profile-overview-field">N/A<p className="text-muted">Add in Profile Settings</p></h5>
+                            )
+
+                        }
                     </div>
 
                     <div className="profile-overview-field-div">
                         <label className="text-muted p-t-30 db">PRIMARY ADDRESS</label>
-                        {(address !== null) ?
+                        {(address !== null) ? (
 
-                        <h5 className="profile-overview-field">
-                            {(address.addressUnitNo !== null) ? address.addressUnitNo+"/" : ""}
-                            {address.addressStreetNo} {address.addressStreet} {address.addressStreetType}<br/>
-                            {address.addressCity}, {address.addressState}<br/>
-                            {address.addressCountry} {address.addressPostcode}
-                        </h5>
-                            :
-                            <h5>Please add your address from the link on the left</h5>
-
+                            <h5 className="profile-overview-field">
+                                {(address.addressUnitNo !== null) ? address.addressUnitNo+"/" : ""}
+                                {address.addressStreetNo} {address.addressStreet} {address.addressStreetType}<br/>
+                                {address.addressCity}, {address.addressState}<br/>
+                                {address.addressCountry} {address.addressPostcode}
+                            </h5>
+                        ):(
+                            <h5 className="profile-overview-field">N/A<p className="text-muted">Add in Profile Settings</p></h5>
+                        )
                         }
                     </div>
                 </div>

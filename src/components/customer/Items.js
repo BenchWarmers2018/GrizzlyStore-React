@@ -120,9 +120,8 @@ class Items extends Component {
         this.props.minPrice(0);
         this.props.maxPrice(0);
         this.props.filterText(this.state.searchText);
-
-
     }
+
     render() {
 
         const items = this.props.filteredPagedItems;
@@ -136,167 +135,167 @@ class Items extends Component {
             );
         }
         return(
-        <div className="container-fluid">
+            <div className="container-fluid">
 
-            {/* Banner component */}
-            {(this.props.sortAndFilter.category.length > 0) ?
-                <Banner data={this.props.sortAndFilter.category}/> :
-                <Banner data="All Items"/>
-            }
-            {/*Banner component end*/}
+                {/* Banner component */}
+                {(this.props.sortAndFilter.category.length > 0) ?
+                    <Banner data={this.props.sortAndFilter.category}/> :
+                    <Banner data="All Items"/>
+                }
+                {/*Banner component end*/}
 
-            <section className="shop_grid_area section-padding-80">
-                <div className="container">
-                    <div className="row">
+                <section className="shop_grid_area section-padding-80">
+                    <div className="container">
+                        <div className="row">
 
-                        {/* This is Filters dive*/}
-                        <div className="col-12 col-md-4 col-lg-3">
-                            <div className="shop_sidebar_area">
-
-
-                                <div className="widget catagory mb-50">
-
-                                    <h6 className="widget-title mb-30">Categories</h6>
+                            {/* This is Filters dive*/}
+                            <div className="col-12 col-md-4 col-lg-3">
+                                <div className="shop_sidebar_area">
 
 
-                                    <div className="catagories-menu">
-                                        <form>
-                                            {categories.map(category=>
-                                            <Categories activeCategory={this.props.sortAndFilter.category} key={category.idCategory} data={category} onCategoryChange={this.handleCategoryChange}/>
-                                            )}
-                                            <div className="form-check">
-                                                <label>
-                                                    <input type="radio" value="" className="form-check-input"
-                                                           checked= {this.props.sortAndFilter.category===""}
-                                                           onChange={this.resetCategory}/>
-                                                    All
-                                                </label>
-                                            </div>
-                                        </form>
+                                    <div className="widget catagory mb-50">
+
+                                        <h6 className="widget-title mb-30">Categories</h6>
+
+
+                                        <div className="catagories-menu">
+                                            <form>
+                                                {categories.map(category=>
+                                                    <Categories activeCategory={this.props.sortAndFilter.category} key={category.idCategory} data={category} onCategoryChange={this.handleCategoryChange}/>
+                                                )}
+                                                <div className="form-check">
+                                                    <label>
+                                                        <input type="radio" value="" className="form-check-input"
+                                                               checked= {this.props.sortAndFilter.category===""}
+                                                               onChange={this.resetCategory}/>
+                                                        All
+                                                    </label>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
 
 
-                                <div className="widget mb-50">
+                                    <div className="widget mb-50">
 
-                                    <h6 className="widget-title mb-30">Filter by</h6>
+                                        <h6 className="widget-title mb-30">Filter by</h6>
 
-                                    <p className="widget-title2 mb-30">Price</p>
+                                        <p className="widget-title2 mb-30">Price</p>
 
-                                    <div>
+                                        <div>
 
-                                        {/*Slider bar here to come.*/}
-                                        <InputRange
-                                            draggableTrack
-                                            minValue={this.state.leastPrice}
-                                            maxValue={this.state.mostPrice}
-                                            formatLabel={value => `$${value}`}
-                                            onChange={value => this.setState({ chosenVal: value })}
-                                            onChangeComplete={this.updatePrice}
-                                            value={this.state.chosenVal} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* This is products dive*/}
-                        <div className="col-12 col-md-8 col-lg-9">
-                            <div className="shop_grid_product_area">
-
-                                {/* This is Sort dive*/}
-                                <div className="row" style={{backgroundColor: "#f8f9f9", marginBottom: "5%"}}>
-                                    <div className="col-12">
-                                        <div
-                                            className="product-topbar d-flex align-items-center justify-content-between row">
-
-                                            <div className="total-products col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                                                <p><span>{this.props.pageProps.totalElements}</span> Products found</p>
-                                            </div>
-
-                                            <div
-                                                className="search_panel_content d-flex flex-row align-items-center justify-content-between col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                                                {/*<input type="text" className="search_input" placeholder="Search"*/}
-                                                       {/*required="required" value={this.props.sortAndFilter.text}*/}
-                                                       {/*onChange={(e) => {*/}
-                                                           {/*this.props.filterText(e.target.value);*/}
-                                                           {/*//Setting price range to default*/}
-                                                           {/*this.props.minPrice(0);*/}
-                                                           {/*this.props.maxPrice(0);*/}
-                                                       {/*}}/>*/}
-                                                <form className="form-inline md-form mr-auto mb-4" onSubmit={this.handleSearch}>
-                                                    <input className="form-control mr-sm-2" type="text"
-                                                           placeholder="Search..." aria-label="Search" value={this.state.searchText}
-                                                           onChange={(e) => {
-                                                               this.setState({searchText: e.target.value});
-
-                                                           }}/>
-                                                </form>
-                                            </div>
-
-
-                                            <div
-                                                className="product-sorting align-items-center d-flex col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                                                <p>Sort by:</p>
-                                                <select value={this.props.sortAndFilter.sortBy}
-                                                        onChange={(e) => {
-                                                            this.props.sortBy(e.target.value);
-                                                        }} id="sortByselect">
-                                                    <option value="title">Title</option>
-                                                    <option value="hightolow">Price: $$ - $</option>
-                                                    <option value="lowtohigh">Price: $ - $$</option>
-                                                </select>
-                                            </div>
+                                            {/*Slider bar here to come.*/}
+                                            <InputRange
+                                                draggableTrack
+                                                minValue={this.state.leastPrice}
+                                                maxValue={this.state.mostPrice}
+                                                formatLabel={value => `$${value}`}
+                                                onChange={value => this.setState({ chosenVal: value })}
+                                                onChangeComplete={this.updatePrice}
+                                                value={this.state.chosenVal} />
                                         </div>
                                     </div>
                                 </div>
-
-                                {/* This is products child class that displays all the items*/}
-
-                                { this.props.filteredPagedItems.length === 0 ? <h2>No items to diplay</h2> :
-                                    <div className="row">
-                                        {items.map(item =>
-                                        <ItemsChild key={item.idItem} data={item}/>
-                                        )}
-
-                                    </div>}
-
-                                {/* End of child class */}
-
-
                             </div>
 
-                            {/**
-                            *** Pgination ultimate boot 4 methods***
-                             *
-                             currentPage = props.currentPage,
-                             totalPages = props.totalPages,
-                             boundaryPagesRange = props.boundaryPagesRange,
-                             siblingPagesRange = props.siblingPagesRange,
-                             hideEllipsis = props.hideEllipsis,
-                             hidePreviousAndNextPageLinks = props.hidePreviousAndNextPageLinks,
-                             hideFirstAndLastPageLinks = props.hideFirstAndLastPageLinks,
-                             onChange = props.onChange,
-                             restProps = _objectWithoutProperties(props, ['currentPage', 'totalPages', 'boundaryPagesRange', 'siblingPagesRange', 'hideEllipsis', 'hidePreviousAndNextPageLinks', 'hideFirstAndLastPageLinks', 'onChange']);
+                            {/* This is products dive*/}
+                            <div className="whole-products-div col-12 col-md-8 col-lg-9">
+                                <div className="shop_grid_product_area">
 
-                             */}
+                                    {/* This is Sort dive*/}
+                                    <div className="row" style={{backgroundColor: "#f8f9f9", marginBottom: "5%"}}>
+                                        <div className="col-12">
+                                            <div
+                                                className="product-topbar d-flex align-items-center justify-content-between row">
 
-                                 <div className="col-lg-8 col-md-8 col-sm-10" styles="alignContent:center">
-                                     {this.props.pageProps.number===undefined || this.props.pageProps.number <= 0 ?
-                                         <PaginationComponent currentPage={1}
-                                                              totalPages={1}/> :
-                                         <PaginationComponent currentPage={this.props.pageProps.number}
-                                                              totalPages={this.props.pageProps.totalPages}
-                                                              onPageChange={this.handlePageChange}
-                                         />
-                                     }
+                                                <div className="total-products col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                                                    <p><span>{this.props.pageProps.totalElements}</span> Products found</p>
+                                                </div>
 
-                                 </div>
+                                                <div className="search_panel_content d-flex flex-row align-items-center justify-content-between col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                                                    {/*<input type="text" className="search_input" placeholder="Search"*/}
+                                                    {/*required="required" value={this.props.sortAndFilter.text}*/}
+                                                    {/*onChange={(e) => {*/}
+                                                    {/*this.props.filterText(e.target.value);*/}
+                                                    {/*//Setting price range to default*/}
+                                                    {/*this.props.minPrice(0);*/}
+                                                    {/*this.props.maxPrice(0);*/}
+                                                    {/*}}/>*/}
+                                                    <form className="form-inline md-form mr-auto mb-4" onSubmit={this.handleSearch}>
+                                                        <input className="form-control mr-sm-2" type="text"
+                                                               placeholder="Search..." aria-label="Search" value={this.state.searchText}
+                                                               onChange={(e) => {
+                                                                   this.setState({searchText: e.target.value});
+
+                                                               }}/>
+                                                    </form>
+                                                </div>
+
+
+                                                <div className="product-sorting align-items-center d-flex col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                                                    <p>Sort by:</p>
+                                                    <select
+                                                        className="sort-by-item"
+                                                        value={this.props.sortAndFilter.sortBy}
+                                                        onChange={(e) => {
+                                                            this.props.sortBy(e.target.value);
+                                                        }} id="sortByselect">
+                                                        <option value="title">Title</option>
+                                                        <option value="hightolow">Price: $$ - $</option>
+                                                        <option value="lowtohigh">Price: $ - $$</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* This is products child class that displays all the items*/}
+
+                                    { this.props.filteredPagedItems.length === 0 ? <h2>No items to diplay</h2> :
+                                        <div className="row">
+                                            {items.map(item =>
+                                                <ItemsChild key={item.idItem} data={item}/>
+                                            )}
+
+                                        </div>}
+
+                                    {/* End of child class */}
+
+
+                                </div>
+
+                                {/**
+                                 *** Pgination ultimate boot 4 methods***
+                                 *
+                                 currentPage = props.currentPage,
+                                 totalPages = props.totalPages,
+                                 boundaryPagesRange = props.boundaryPagesRange,
+                                 siblingPagesRange = props.siblingPagesRange,
+                                 hideEllipsis = props.hideEllipsis,
+                                 hidePreviousAndNextPageLinks = props.hidePreviousAndNextPageLinks,
+                                 hideFirstAndLastPageLinks = props.hideFirstAndLastPageLinks,
+                                 onChange = props.onChange,
+                                 restProps = _objectWithoutProperties(props, ['currentPage', 'totalPages', 'boundaryPagesRange', 'siblingPagesRange', 'hideEllipsis', 'hidePreviousAndNextPageLinks', 'hideFirstAndLastPageLinks', 'onChange']);
+
+                                 */}
+
+                                <div className="pagination-items col-lg-8 col-md-8 col-sm-10" styles="alignContent:center">
+                                    {this.props.pageProps.number===undefined || this.props.pageProps.number <= 0 ?
+                                        <PaginationComponent currentPage={1}
+                                                             totalPages={1}/> :
+                                        <PaginationComponent currentPage={this.props.pageProps.number}
+                                                             totalPages={this.props.pageProps.totalPages}
+                                                             onPageChange={this.handlePageChange}
+                                        />
+                                    }
+
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-        </div>
-    );
+                </section>
+            </div>
+        );
     }
 }
 
