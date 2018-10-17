@@ -121,9 +121,8 @@ class Items extends Component {
         this.props.minPrice(0);
         this.props.maxPrice(0);
         this.props.filterText(this.state.searchText);
-
-
     }
+
     render() {
 
         const items = this.props.filteredPagedItems;

@@ -97,7 +97,7 @@ class ProfilePersonal extends Component {
             this.setState({empty: false});
             console.log(values);
             const submissionValues = this.getPostValues(values);
-            this.submitPersonalDetails(submissionValues);
+            this.props.submitPersonalDetails(submissionValues);
             formikBag.setSubmitting(false);
             this.props.fetchProfile();
             this.setState({success: this.props.updates}); // Get update message back from Spring

@@ -60,7 +60,7 @@ const FormikApp = withFormik({
     props.dispatch(addCategory(categoryData));
     setSubmitting(false);
   }
-})(AddCategoryForm)
+})(AddCategoryForm);
 
 function mapStateToProps(state) {
   return {

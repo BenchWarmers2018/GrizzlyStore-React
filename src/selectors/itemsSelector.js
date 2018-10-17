@@ -5,7 +5,6 @@ import axios from "axios";
 
 export function fetchFilteredItems(text, minPrice, maxPrice, sortBy, catName, page, size) {
     return function (dispatch) {
-
         page = page - 1;
         if(sortBy.length <=0)
         {
@@ -22,7 +21,6 @@ export function fetchFilteredItems(text, minPrice, maxPrice, sortBy, catName, pa
                 .catch((err)=> {
                     dispatch({type: FETCH_ITEMS_PAGE_REJECTED, payload: err})
                 })
-
     }
 }
 

@@ -27,7 +27,6 @@ export function submitPersonalDetails(profileData, accountID = '') {
         let header = {
             'SUBMISSION_TYPE': 'Personal',
             'accountID': acc.idAccount,
-            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'multipart/form-data'
         };
         console.log('image being sent . . .');
