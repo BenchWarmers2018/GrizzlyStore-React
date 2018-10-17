@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { connect } from "react-redux";
-import { updateItem, uploadImage } from "../../../actions/itemsAction";
+import { updateItem } from "../../../actions/itemsAction";
 import { notification } from 'antd';
 import { Button, ModalFooter } from 'mdbreact';
 import './editItemForm.css';
