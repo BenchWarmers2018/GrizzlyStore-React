@@ -903,7 +903,7 @@ section
 }
 .cart_info_col_product
 {
-	width: 63%;
+	width: 50%;
 }
 .cart_info_col_price
 {
@@ -917,8 +917,14 @@ section
 .cart_info_col_total
 {
 	width: 10%;
+	text-align: center;
+}
+.cart_info_col_actions
+{
+	width: 13%;
 	text-align: right;
 }
+
 .cart_item
 {
 	padding-top: 33px;
@@ -926,7 +932,7 @@ section
 }
 .cart_item_product
 {
-	width: 63%;
+	width: 50%;
 }
 .cart_item_price
 {
@@ -940,8 +946,14 @@ section
 .cart_item_total
 {
 	width: 10%;
+	text-align: center;
+}
+.cart_item_actions
+{
+	width: 13%;
 	text-align: right;
 }
+
 .cart_item_image div
 {
 	width: 183px;
