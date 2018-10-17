@@ -12,7 +12,10 @@ import {
     UPDATE_ITEM,
     UPDATE_ITEM_SUCCESSFUL,
     UPDATE_ITEM_REJECTED,
-    SERVER_NOT_FOUND, FETCH_HOME_ITEMS, FETCH_HOME_ITEMS_FULFILLED, FETCH_HOME_ITEMS_REJECTED
+    SERVER_NOT_FOUND,
+    FETCH_HOME_ITEMS,
+    FETCH_HOME_ITEMS_FULFILLED,
+    FETCH_HOME_ITEMS_REJECTED
 } from "../CONSTANTS";
 
 export function fetchItems() {
@@ -221,11 +224,11 @@ export function addItem(idItem, itemName, itemDescription, itemImage, itemPrice,
     }
 }
 
-export function updateItem(item) {
+export function updateItem(formData) {
     return function (dispatch) {
       dispatch({type: UPDATE_ITEM});
 
-      axios.post(URL_ITEM + "/items/edit", item)
+      axios.post(URL_ITEM + "/items/edit", formData)
         .then(result => {
           dispatch({type: UPDATE_ITEM_SUCCESSFUL, payload: result.data.entities[0]})
         })

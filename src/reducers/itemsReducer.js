@@ -11,7 +11,10 @@ import {
     UPDATE_ITEM,
     UPDATE_ITEM_SUCCESSFUL,
     UPDATE_ITEM_REJECTED,
-    SERVER_NOT_FOUND, FETCH_HOME_ITEMS, FETCH_HOME_ITEMS_REJECTED, FETCH_HOME_ITEMS_FULFILLED
+    SERVER_NOT_FOUND,
+    FETCH_HOME_ITEMS,
+    FETCH_HOME_ITEMS_REJECTED,
+    FETCH_HOME_ITEMS_FULFILLED
 
 } from "../CONSTANTS";
 
@@ -148,6 +151,4 @@ export default function reducer(state=initialState, action) {
         default:
             return state;
     }
-
-    return state
 }
