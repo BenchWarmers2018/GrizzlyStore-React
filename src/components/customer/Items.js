@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PaginationComponent from '../microComponents/PaginationComponent'
 import PropTypes from 'prop-types';
 import { connect } from "react-redux"
 import { fetchCategories } from "../../actions/categoriesAction"
 import { filterText, category, minPrice, maxPrice, sortBy, page } from '../../actions/filterActions';
 import { getVisibleItems, fetchFilteredItems } from "../../selectors/itemsSelector";
-import Background from "../../images/images_essence/bg-img/breadcumb.jpg";
 import ItemsChild from "./ItemsChild"
 import InputRange from 'react-input-range';
 import '../../../node_modules/react-input-range/lib/css/index.css';
 import Categories from "../microComponents/Categories";
 import Banner from "../microComponents/Banner";
 import {ITEM_PAGE_SIZE} from "../../CONSTANTS";
+import Spinner from "../microComponents/Spinner";
 
 class Items extends Component {
 
@@ -129,6 +128,12 @@ class Items extends Component {
         const categories = this.props.categories;
         console.log(items);
 
+
+        if(this.props.fetching === true){
+            return(
+                <Spinner/>
+            );
+        }
         return(
         <div className="container-fluid">
 
@@ -150,7 +155,7 @@ class Items extends Component {
 
                                 <div className="widget catagory mb-50">
 
-                                    <h6 className="widget-title mb-30">Catagories</h6>
+                                    <h6 className="widget-title mb-30">Categories</h6>
 
 
                                     <div className="catagories-menu">
@@ -171,7 +176,7 @@ class Items extends Component {
                                 </div>
 
 
-                                <div className="widget price mb-50">
+                                <div className="widget mb-50">
 
                                     <h6 className="widget-title mb-30">Filter by</h6>
 

@@ -8,22 +8,26 @@ import {
     FETCH_SINGLE_ITEM,
     FETCH_SINGLE_ITEM_FULFILLED,
     FETCH_SINGLE_ITEM_REJECTED,
-    FETCH_ITEMS_PAGE, FETCH_ITEMS_PAGE_REJECTED
+    FETCH_ITEMS_PAGE, FETCH_ITEMS_PAGE_REJECTED,
+    UPDATE_ITEM,
+    UPDATE_ITEM_SUCCESSFUL,
+    UPDATE_ITEM_REJECTED,
+    SERVER_NOT_FOUND, FETCH_HOME_ITEMS, FETCH_HOME_ITEMS_FULFILLED, FETCH_HOME_ITEMS_REJECTED
 } from "../CONSTANTS";
 
-// export function fetchItems() {
-//     return function(dispatch) {
-//         dispatch({type: "FETCH_ITEMS"});
-//
-//         axios.get("http://localhost:8080/items/all")
-//             .then((response) => {
-//                 dispatch({type: "FETCH_ITEMS_FULFILLED", payload: response.data.entities})
-//             })
-//             .catch((err) => {
-//                 dispatch({type: "FETCH_ITEMS_REJECTED", payload: err})
-//             })
-//     }
-// }
+export function fetchItems() {
+    return function(dispatch) {
+        dispatch({type: FETCH_ITEMS});
+
+        axios.get(URL_ITEM + "/items/all")
+            .then((response) => {
+                dispatch({type: "FETCH_ITEMS_FULFILLED", payload: response.data.entities})
+            })
+            .catch((err) => {
+                dispatch({type: "FETCH_ITEMS_REJECTED", payload: err})
+            })
+    }
+}
 
 export function fetchSingleItem(id) {
     return function (dispatch) {
@@ -31,7 +35,6 @@ export function fetchSingleItem(id) {
 
         axios.get(URL_ITEM + "/items/id?itemId=" + id)
             .then((response) => {
-                console.log(response.data);
                 dispatch({type: FETCH_SINGLE_ITEM_FULFILLED, payload: response.data.entities})
             })
             .catch((err) => {
@@ -40,17 +43,16 @@ export function fetchSingleItem(id) {
     }
 }
 
-export function fetchItemsPage(page, size) {
-    return function (dispatch) {
-        dispatch({type: FETCH_ITEMS_PAGE});
-
+export function fetchHomeItemsPage(page, size) {
+    return function(dispatch) {
+        dispatch({type: FETCH_HOME_ITEMS});
         page = page - 1;
         axios.get(URL_ITEM + "/items/page?page=" + page + "&size=" + size)
             .then((response) => {
-                dispatch({type: FETCH_ITEMS_PAGE_FULFILLED, payload: response.data.entities})
+                dispatch({type: FETCH_HOME_ITEMS_FULFILLED, payload: response.data})
             })
             .catch((err) => {
-                dispatch({type: FETCH_ITEMS_PAGE_REJECTED, payload: err})
+                dispatch({type: FETCH_HOME_ITEMS_REJECTED, payload: err})
             })
     }
 }
@@ -70,134 +72,133 @@ export function fetchCategoryItems(catName, page, size) {
     }
 }
 
-const tempArr = [
+const popularArr = [
     {
-        "idItem": 7,
+        "idItem": 15,
         "category": {
             "idCategory": 1,
-            "categoryName": "Jewellery",
+            "categoryName": "Art",
             "categoryDescription": "Show someone that you can't bear to be without them with one of our lovely bear themed jewellery pieces!",
             "last_modified": "2018-09-20T13:09:49.000+0000"
         },
-        "itemName": "Weddy",
+        "itemName": "Abstract Polar Bear Painting Canvas",
         "itemDescription": "Cutest teddy bear in the world",
-        "itemImage": "<INSERT URL_ITEM HERE>",
-        "itemPrice": 12,
+        "itemImage": "http://bw.ausgrads.academy/images/grizzlystore/iA09.jpg",
+        "itemPrice": 29.99,
         "itemSalePercentage": 0,
         "lastModified": "2018-09-20T13:09:49.000+0000"
     },
     {
-        "idItem": 8,
+        "idItem": 145,
         "category": {
-            "idCategory": 1,
-            "categoryName": "Jewellery",
+            "idCategory": 3,
+            "categoryName": "Home",
             "categoryDescription": "Show someone that you can't bear to be without them with one of our lovely bear themed jewellery pieces!",
             "last_modified": "2018-09-20T13:09:49.000+0000"
         },
-        "itemName": "Reddy2",
+        "itemName": "Cheerful Toilet Paper Bear Holder",
         "itemDescription": "Cutest teddy bear in Asia",
-        "itemImage": "<INSERT URL_ITEM HERE>",
-        "itemPrice": 14,
+        "itemImage": "http://bw.ausgrads.academy/images/grizzlystore/iH26.jpg",
+        "itemPrice": 30.99,
         "itemSalePercentage": 25,
         "lastModified": "2018-09-20T13:09:49.000+0000"
     },
     {
-        "idItem": 9,
+        "idItem": 162,
         "category": {
-            "idCategory": 2,
-            "categoryName": "Art",
+            "idCategory": 4,
+            "categoryName": "Jewellery",
             "categoryDescription": "Fur all those with bearly any artistic talent, we have your back!",
             "last_modified": "2018-09-20T13:09:49.000+0000"
         },
-        "itemName": "Teddy3",
+        "itemName": "Gold or Silver Star Silhouette Charm",
         "itemDescription": "Cutest teddy bear in Europe",
-        "itemImage": "<INSERT URL_ITEM HERE>",
-        "itemPrice": 16,
+        "itemImage": "http://bw.ausgrads.academy/images/grizzlystore/iJ13.jpg",
+        "itemPrice": 29.99,
         "itemSalePercentage": 0,
+        "lastModified": "2018-09-20T13:09:49.000+0000"
+    },
+    {
+        "idItem": 167,
+        "category": {
+            "idCategory": 4,
+            "categoryName": "Jewellery",
+            "categoryDescription": "Fur all those with bearly any artistic talent, we have your back!",
+            "last_modified": "2018-09-20T13:09:49.000+0000"
+        },
+        "itemName": "Origami Styled Bear Charm",
+        "itemDescription": "Cutest teddy bear in Australia",
+        "itemImage": "http://bw.ausgrads.academy/images/grizzlystore/iJ18.jpg",
+        "itemPrice": 29,
+        "itemSalePercentage": 0,
+        "lastModified": "2018-09-20T13:09:49.000+0000"
+    },
+    {
+        "idItem": 89,
+        "category": {
+            "idCategory": 2,
+            "categoryName": "Clothing",
+            "categoryDescription": "Never get caught bearly  dressed with one of our adorable bear pieces!",
+            "last_modified": "2018-09-20T13:09:49.000+0000"
+        },
+        "itemName": "Bear Knitted Beanie",
+        "itemDescription": "Cutest teddy bear in America",
+        "itemImage": "http://bw.ausgrads.academy/images/grizzlystore/iC40.jpeg",
+        "itemPrice": 32.95,
+        "itemSalePercentage": 0,
+        "lastModified": "2018-09-20T13:09:49.000+0000"
+    },
+    {
+        "idItem": 121,
+        "category": {
+            "idCategory": 3,
+            "categoryName": "Homing",
+            "categoryDescription": "Never get caught bearly  dressed with one of our adorable bear pieces!",
+            "last_modified": "2018-09-20T13:09:49.000+0000"
+        },
+        "itemName": "Drunk Bears 3 Bottle Wine Holder",
+        "itemDescription": "Cutest teddy bear in Antartica",
+        "itemImage": "http://bw.ausgrads.academy/images/grizzlystore/iH02.jpg",
+        "itemPrice": 49.99,
+        "itemSalePercentage": 25,
+        "lastModified": "2018-09-20T13:09:49.000+0000"
+    },
+    {
+        "idItem": 214,
+        "category": {
+            "idCategory": 5,
+            "categoryName": "Home",
+            "categoryDescription": "Have a bearly decorated house? Never fear! We are here!",
+            "last_modified": "2018-09-20T13:09:49.000+0000"
+        },
+        "itemName": "Kawaii Brown Bear Laptop Case 15inches",
+        "itemDescription": "Cutest teddy bear in the Artic",
+        "itemImage": "http://bw.ausgrads.academy/images/grizzlystore/iT24.jpg",
+        "itemPrice": 24.99,
+        "itemSalePercentage": 10,
         "lastModified": "2018-09-20T13:09:49.000+0000"
     },
     {
         "idItem": 10,
         "category": {
-            "idCategory": 2,
+            "idCategory": 1,
             "categoryName": "Art",
-            "categoryDescription": "Fur all those with bearly any artistic talent, we have your back!",
-            "last_modified": "2018-09-20T13:09:49.000+0000"
-        },
-        "itemName": "Ueddy4",
-        "itemDescription": "Cutest teddy bear in Australia",
-        "itemImage": "<INSERT URL_ITEM HERE>",
-        "itemPrice": 18,
-        "itemSalePercentage": 0,
-        "lastModified": "2018-09-20T13:09:49.000+0000"
-    },
-    {
-        "idItem": 11,
-        "category": {
-            "idCategory": 3,
-            "categoryName": "Clothing",
-            "categoryDescription": "Never get caught bearly  dressed with one of our adorable bear pieces!",
-            "last_modified": "2018-09-20T13:09:49.000+0000"
-        },
-        "itemName": "Oeddy5",
-        "itemDescription": "Cutest teddy bear in America",
-        "itemImage": "<INSERT URL_ITEM HERE>",
-        "itemPrice": 11,
-        "itemSalePercentage": 30,
-        "lastModified": "2018-09-20T13:09:49.000+0000"
-    },
-    {
-        "idItem": 12,
-        "category": {
-            "idCategory": 3,
-            "categoryName": "Clothing",
-            "categoryDescription": "Never get caught bearly  dressed with one of our adorable bear pieces!",
-            "last_modified": "2018-09-20T13:09:49.000+0000"
-        },
-        "itemName": "Peddy6",
-        "itemDescription": "Cutest teddy bear in Antartica",
-        "itemImage": "<INSERT URL_ITEM HERE>",
-        "itemPrice": 13,
-        "itemSalePercentage": 0,
-        "lastModified": "2018-09-20T13:09:49.000+0000"
-    },
-    {
-        "idItem": 13,
-        "category": {
-            "idCategory": 4,
-            "categoryName": "Home",
             "categoryDescription": "Have a bearly decorated house? Never fear! We are here!",
             "last_modified": "2018-09-20T13:09:49.000+0000"
         },
-        "itemName": "Veddy7",
-        "itemDescription": "Cutest teddy bear in the Artic",
-        "itemImage": "<INSERT URL_ITEM HERE>",
-        "itemPrice": 19,
-        "itemSalePercentage": 20,
-        "lastModified": "2018-09-20T13:09:49.000+0000"
-    },
-    {
-        "idItem": 14,
-        "category": {
-            "idCategory": 4,
-            "categoryName": "Home",
-            "categoryDescription": "Have a bearly decorated house? Never fear! We are here!",
-            "last_modified": "2018-09-20T13:09:49.000+0000"
-        },
-        "itemName": "Beddy8",
+        "itemName": "Beautiful Bear Silhouette Tree Landscape Painting",
         "itemDescription": "Cutest teddy bear in Pluto",
-        "itemImage": "<INSERT URL_ITEM HERE>",
-        "itemPrice": 10,
+        "itemImage": "http://bw.ausgrads.academy/images/grizzlystore/iA04.jpg",
+        "itemPrice": 95.95,
         "itemSalePercentage": 0,
         "lastModified": "2018-09-20T13:09:49.000+0000"
     },
 ]
 
 
-export function fetchItems() {
+export function fetchPopularItems() {
     return {
-        type: FETCH_ITEMS_FULFILLED,
-        payload: tempArr
+        payload:popularArr
     }
 }
 
@@ -230,18 +231,20 @@ export function addItem(itemName, itemDescription, itemImage, itemPrice, itemSto
     }
 }
 
-export function updateItem(idItem, itemName, itemDescription, itemImage, itemPrice, itemSalePercentage, last_modified) {
-    return {
-        type: 'UPDATE_ITEM',
-        payload: {
-            idItem,
-            itemName,
-            itemDescription,
-            itemImage,
-            itemPrice,
-            itemSalePercentage,
-            last_modified
-        },
+export function updateItem(item) {
+    return function (dispatch) {
+      dispatch({type: UPDATE_ITEM});
+
+      axios.post(URL_ITEM + "/items/edit", item)
+        .then(result => {
+          dispatch({type: UPDATE_ITEM_SUCCESSFUL, payload: result.data.entities[0]})
+        })
+        .catch((error) => {
+          if (error.message === "Network Error" )
+            dispatch({type: SERVER_NOT_FOUND, payload: 'The server is currently offline. Please try again later.'})
+          else
+            dispatch({type: UPDATE_ITEM_REJECTED, payload: error.response.data.errors})
+        })
     }
 }
 

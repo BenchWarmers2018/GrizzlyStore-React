@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import { Container, Row, Col, Input, Button, Fa, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
-import EditCategoryForm from "../forms/editCategoryForm.js";
+import EditItemForm from "../forms/editItemForm.js";
 
-class ViewCategoriesTable extends Component {
+class ViewItemsTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
       modal: false,
-      data: props.categoryData,
+      data: props.itemData,
       rowData: []
     };
 
@@ -23,9 +23,9 @@ class ViewCategoriesTable extends Component {
   }
 
   componentDidUpdate(prevProps){
-    if(prevProps.categoryData !== this.props.categoryData)
+    if(prevProps.itemData !== this.props.itemData)
     {
-      this.setState({data: this.props.categoryData})
+      this.setState({data: this.props.itemData})
     }
   }
 
@@ -39,18 +39,35 @@ class ViewCategoriesTable extends Component {
             {
               columns: [
                 {
-                  Header: "Category ID",
-                  id: "idCategory",
-                  accessor: d => d.idCategory,
+                  Header: "Item ID",
+                  id: "idItem",
+                  accessor: d => d.idItem,
+                  width: 75
+                },
+                {
+                  Header: "Name",
+                  accessor: "itemName",
+                  width: 400
+                },
+                {
+                  Header: "Description",
+                  accessor: "itemDescription",
+                  width: 400
+                },
+                {
+                  Header: "Price ($)",
+                  accessor: "itemPrice",
+                  width: 75
+                },
+                {
+                  Header: "Sale %",
+                  accessor: "itemSalePercentage",
+                  width: 75
+                },
+                {
+                  Header: "Stock Level",
+                  accessor: "itemStockLevel",
                   width: 100
-                },
-                {
-                  Header: "Category Name",
-                  accessor: "categoryName"
-                },
-                {
-                  Header: "Category Description",
-                  accessor: "categoryDescription",
                 }
               ]
             }
@@ -72,7 +89,7 @@ class ViewCategoriesTable extends Component {
         />
 
         <Modal isOpen={this.state.modal} toggle={this.toggle} className="cascading-modal">
-            <EditCategoryForm
+            <EditItemForm
               rowData={this.state.rowData}/>
         </Modal>
       </div>
@@ -80,4 +97,4 @@ class ViewCategoriesTable extends Component {
   }
 }
 
-export default ViewCategoriesTable;
+export default ViewItemsTable;

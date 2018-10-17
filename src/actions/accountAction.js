@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_BASE_URL, ACCESS_TOKEN } from '../';
-import {URL_USER} from "../CONSTANTS";
+import {GET_CURRENT_USER, GET_CURRENT_USER_FULFILLED, GET_CURRENT_USER_REJECTED, URL_USER} from "../CONSTANTS";
 
 
 export function createAccount(user) {
@@ -34,6 +34,7 @@ export function createAccount(user) {
 export function getCurrentUser()
 {
     return function (dispatch) {
+        dispatch({type: GET_CURRENT_USER});
         if (localStorage.getItem(ACCESS_TOKEN)) {
 
             const token = localStorage.getItem(ACCESS_TOKEN);
@@ -49,9 +50,9 @@ export function getCurrentUser()
 
             axios.get(URL_USER+"/login/user", config)
                 .then(result => {
-                    dispatch({type: "GET_CURRENT_USER_FULFILLED", payload: result.data})
+                    dispatch({type: GET_CURRENT_USER_FULFILLED, payload: result.data})
                 }).catch(err =>
-                dispatch({type: "GET_CURRENT_USER_REJECTED", payload: err})
+                dispatch({type: GET_CURRENT_USER_REJECTED, payload: err})
             )
 
 

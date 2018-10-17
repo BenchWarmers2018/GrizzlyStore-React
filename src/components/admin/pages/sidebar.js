@@ -83,15 +83,15 @@ class sidebar extends Component {
                                 className="sidebar-link waves-effect waves-dark sidebar-link"
                                 aria-expanded="false"><Icon path={mdiAccountNetwork} size={1.5}/><span
                                 className="hide-menu">Profile</span></a></Link></li>
-                            <li className="sidebar-item"><a
-                                className="sidebar-link waves-effect waves-dark sidebar-link"
-                                aria-expanded="false"><Icon path={mdiBorderAll} size={1.5}/><span
-                                className="hide-menu">Table</span></a></li>
                             <li className="sidebar-item"><Link
                                 to={{pathname: "/viewcategories", state: this.state.categories}}><a
                                 className="sidebar-link waves-effect waves-dark sidebar-link"
                                 aria-expanded="false"><Icon path={mdiBorderAll} size={1.5}/><span
                                 className="hide-menu">View Categories</span></a></Link></li>
+                            <li className="sidebar-item"><Link to="/viewitems"><a
+                                className="sidebar-link waves-effect waves-dark sidebar-link"
+                                aria-expanded="false"><Icon path={mdiBorderAll} size={1.5}/><span
+                                className="hide-menu">View Items</span></a></Link></li>
                         </ul>
 
                     </nav>
@@ -103,10 +103,7 @@ class sidebar extends Component {
                 </Modal>
 
                 <Modal isOpen={this.state.categoryModal} toggle={this.toggleCategoryModal} className="cascading-modal">
-                    <AddCategoryForm
-                        addCategoryMessage={this.props.addCategoryMessage}
-                        categoryStatusAdded={this.props.categoryStatusAdded}
-                    />
+                    <AddCategoryForm />
                 </Modal>
             </aside>
         );

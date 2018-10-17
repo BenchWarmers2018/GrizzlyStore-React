@@ -1,4 +1,11 @@
-import {FETCH_ITEMS, FETCH_ITEMS_PAGE_FULFILLED, FETCH_ITEMS_REJECTED, FETCH_ITEMS_PAGE_REJECTED, URL_ITEM} from "../CONSTANTS";
+import {
+    FETCH_ITEMS,
+    FETCH_ITEMS_PAGE_FULFILLED,
+    FETCH_ITEMS_REJECTED,
+    FETCH_ITEMS_PAGE_REJECTED,
+    URL_ITEM,
+    FETCH_ITEMS_PAGE
+} from "../CONSTANTS";
 import axios from "axios";
 
 
@@ -10,7 +17,7 @@ export function fetchFilteredItems(text, minPrice, maxPrice, sortBy, catName, pa
         {
             sortBy = "title";
         }
-        dispatch({type: FETCH_ITEMS});
+        dispatch({type: FETCH_ITEMS_PAGE});
 
             console.log(URL_ITEM+"/items/page/filtered?text="+text+"&minPrice="+minPrice+"&maxPrice="+maxPrice+"&sortBy="+sortBy+"&name="+catName+"&size="+size+"&page="+page)
 

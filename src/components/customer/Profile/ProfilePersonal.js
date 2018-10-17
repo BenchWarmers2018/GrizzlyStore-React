@@ -69,7 +69,7 @@ class ProfilePersonal extends Component {
 
 
     componentDidMount() {
-        this.props.fetchProfile();
+        //this.props.fetchProfile();
     }
 
     componentDidUpdate(prevProps) {
@@ -99,7 +99,7 @@ class ProfilePersonal extends Component {
             const submissionValues = this.getPostValues(values);
             this.props.submitPersonalDetails(submissionValues);
             formikBag.setSubmitting(false);
-            this.props.fetchProfile();
+            //this.props.fetchProfile();
             this.setState({success: this.props.updates}); // Get update message back from Spring
             console.log("SUCCESS " + JSON.stringify(this.props.profile[0]) + " " + this.state.success);
         }

@@ -145,6 +145,45 @@ section
 	position: relative;
 	box-sizing: border-box;
 }
+.address-input
+{
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+	border: honeydew;
+	display: block;
+	width: 100%;
+	padding: 16px;
+	font-size: 16px;
+	border-radius: 2px;
+	outline: none;
+	position: absolute;
+	bottom: 55%;
+}
+.spinner-holder
+{
+	background: transparent;
+	width: 100%;
+	height: 100%;
+	padding: 20% 50% 30% 45%;
+}
+
+@media only screen and (max-width: 1000px) {
+	.spinner-holder {
+		background: transparent;
+		width: 100%;
+		height: 100%;
+		padding: 25% 50% 40% 45%;
+	}
+}
+@media only screen and (max-width: 700px) {
+	.spinner-holder {
+		background: transparent;
+		width: 100%;
+		height: 100%;
+		padding: 25% 50% 60% 45%;
+	}
+}
+
+
 .clear
 {
 	clear: both;
