@@ -143,10 +143,15 @@ class Header extends Component {
                                     <DropdownToggle nav caret>CATEGORIES</DropdownToggle>
                                     <DropdownMenu>
                                         <DropdownItem><Link to="/category/art">Art</Link></DropdownItem>
+                                        <hr/>
                                         <DropdownItem><Link to="/category/clothing">Clothing</Link></DropdownItem>
+                                        <hr/>
                                         <DropdownItem><Link to="/category/technology">Technology</Link></DropdownItem>
+                                        <hr/>
                                         <DropdownItem><Link to="/category/home and living">Home & Living</Link></DropdownItem>
+                                        <hr/>
                                         <DropdownItem><Link to="/category/jewellery">Jewellery</Link></DropdownItem>
+                                        <hr/>
                                         <DropdownItem><Link to="/category/toys">Toys</Link></DropdownItem>
                                     </DropdownMenu>
                                 </Dropdown>
@@ -158,9 +163,9 @@ class Header extends Component {
                                     <Redirect to={'/items/all'}/>
                                 )}
 
-                                <form onSubmit={this.submitForm} className="search-bar-large form-inline md-form mt-0">
-                                    <input className="form-control mr-sm-2 mb-0 text-black" type="text" placeholder="Search" aria-label="Search"/>
-                                </form>
+                                {/*<form onSubmit={this.submitForm} className="search-bar-large form-inline md-form mt-0">*/}
+                                    {/*<input className="form-control mr-sm-2 mb-0 text-black" type="text" placeholder="Search" aria-label="Search"/>*/}
+                                {/*</form>*/}
 
                                 <form onSubmit={this.submitForm} className="search search-bar-small form-inline mt-0">
                                     <div className="search__wrapper">
@@ -186,7 +191,8 @@ class Header extends Component {
                                     <DropdownToggle className="uppercase" nav caret>{name}</DropdownToggle>
                                     <DropdownMenu>
                                         <DropdownItem><Link to="/profile">Profile</Link></DropdownItem>
-                                        <DropdownItem href="/" onClick={this.logUserOut}>Log out</DropdownItem>
+                                        <hr/>
+                                        <DropdownItem className="header-user-logout" href="/" onClick={this.logUserOut}>Log out</DropdownItem>
                                     </DropdownMenu>
                                 </Dropdown>
                             }

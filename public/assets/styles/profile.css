@@ -54,15 +54,16 @@ hr {
     padding: 60px 20px 20px 20px;
 }
 
-.card-subtitle-profile {
-    text-decoration: none;
-    color: #3c9bbf;
-    background-color: rgba(255, 255, 255, 0);
-    /*font-size: 20px;*/
-    display: block;
-    padding: 0 0 0 20px;
-    font-weight: 600;
-    font-family: 'K2D', sans-serif;
+
+.card-subtitle-profile{
+  text-decoration: none;
+  color: #3c9bbf;
+  background-color: rgba(255,255,255,0);
+  /*font-size: 20px;*/
+  display: block;
+  /*padding: 0 0 0 20px;*/
+  font-weight: 600;
+  font-family: 'K2D', sans-serif;
 }
 
 .text-muted {
@@ -73,10 +74,12 @@ hr {
     background-color: #FAFCFD;
 }
 
-.btn-success-muted {
-    background-color: #78CE6F !important;
-    /*float: right;*/
-    /*margin-right: 5% !important;*/
+.btn-success-muted{
+  background-color: #78CE6F !important;
+  max-width: 195px;
+  /*float: right;*/
+  margin: 0 auto !important;
+  bottom: 10%;
 }
 
 .btn-fail-muted {
@@ -104,16 +107,28 @@ hr {
 }
 
 .profile-nav li Button:not(.disabled):focus, .profile-nav li Button:not(.disabled):active:focus {
-    color: black !important;
-    width: 100%;
-    font-weight: bold !important;
-    background: #C7CFD4 !important;
-    border-bottom: none !important;
-    border-left: 2px solid #5b9bd1 !important;
-    margin-left: -2px !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    outline: 0 !important;
+color: black !important;
+width: 100%;
+font-weight: bold !important;
+background: #C7CFD4 !important;
+border-bottom: none !important;
+border-left: 2px solid #5b9bd1 !important;
+margin-left: -2px !important;
+-webkit-box-shadow: none !important;
+box-shadow: none !important;
+outline: 0 !important;
+}
+.profile-nav li Button:active{
+  color: black !important;
+  width: 100%;
+  font-weight: bold !important;
+  background: #C7CFD4 !important;
+  border-bottom: none !important;
+  border-left: 2px solid #5b9bd1 !important;
+  margin-left: -2px !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  outline: 0 !important;
 }
 
 .profile-option-button {
@@ -158,24 +173,28 @@ hr {
     padding: 0 0 20px 0; /* TOP RIGHT BOTTOM LEFT */
 }
 
-.profile-overview-field-div {
-    display: block;
-    width: 100%;
+.profile-overview-field-div{
+  display: block;
+  width: auto;
+  margin: 0 auto;
+  padding: 0 auto;
+  text-align: left;
 }
 
-.profile-overview-field-div label {
-    display: table-cell;
-    min-width: 250px;
-    padding-bottom: 50px;
-    margin-left: 30%;
+.profile-overview-field-div label{
+  display: table-cell;
+  min-width: 250px;
+  padding-bottom: 50px;
 }
 
 .profile-overview-field-div h5 {
     display: table-cell;
 }
 
-.profile-overview-mainDiv {
-    text-align: center;
+.profile-overview-mainDiv{
+  text-align: center;
+  width: fit-content;
+  margin: 0 auto;
 }
 
 /*Profile Forms --> Address/Password/Personal*/
@@ -340,4 +359,61 @@ hr {
   padding: 20px;
   background: #fff;
   min-height: 460px;
+}
+
+.no-profile-pic{
+  opacity: 0.20 !important;
+}
+.profile-img-name img{
+  opacity: 0.2 !important;
+}
+.profile-name-nav{
+  padding-bottom: 20px;
+}
+.profile-whole-div{
+  padding-left: 15px;
+  padding-right: 15px;
+}
+/*.profile-nav-div{*/
+/*height:100% !important;*/
+/*}*/
+/*.profile-content-div{*/
+/*height: 100% !important;*/
+/*}*/
+/*.profile-nav-div, .profile-content-div {*/
+/*!*min-height: 210px;*!*/
+/*padding-bottom: 20px;*/
+/*display: table-cell !important;*/
+/*height: auto;*/
+/*overflow: hidden;*/
+/*}*/
+#profile-list-option:hover, #profile-list-option:active{
+  color: black !important;
+  width: 100%;
+  font-weight: bold !important;
+  background: #C7CFD4 !important;
+  border-bottom: none !important;
+  border-left: 2px solid #5b9bd1 !important;
+  margin-left: -2px !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+}
+.profile-address-content-div{
+  margin: 0 auto;
+  width: fit-content;
+}
+.profile-address-autocomplete{
+  margin-top: 100px;
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+.profile-address-autocomplete input{
+  width: 80%;
+  left: 10%;
+  margin: 0 auto !important;
+}
+.profile-overview-field-div-address{
+  margin: 0 !important;
 }
