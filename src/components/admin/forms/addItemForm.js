@@ -129,7 +129,8 @@ class AddItemForm extends React.Component {
                                 {touched.itemPrice && errors.itemPrice &&
                                 <span><p className="text-danger">{errors.itemPrice}</p></span>}
                                 <div>
-                                    <span className="fa fa-photo" style={{'fontSize': '16px'}}> Category Type</span>
+                                    <span className="fa fa-language" style={{'fontSize': '20px'}}/>
+                                    <span style={{'fontSize': '15px', 'color': '#757575'}}> Category Type</span>
                                     <select className="form-control form-control-line"
                                             value={values.itemCategory} name="itemCategory"
                                             onChange={handleChange}
@@ -141,13 +142,14 @@ class AddItemForm extends React.Component {
                                     {touched.itemCategory && errors.itemCategory &&
                                     <span><p className="text-danger">{errors.itemCategory}</p></span>}
                                 </div>
-                                <span className="fa fa-photo"
-                                      style={{'fontSize': '16px', 'paddingTop': '20px'}}>  Image</span>
+                                <span className="fa fa-photo" style={{'fontSize': '20px', 'paddingTop': '20px'}}/>
+                                <span style={{'fontSize': '15px', 'color': '#757575'}}> Image</span>
                                 <Dropzone accept="image/*" id='itemImage' name='itemImage' label='Image Upload'
                                           style={{textAlignVertical: 'center', alignItems: 'center',}}
                                           className="dropzone col-md-12" onDrop={this.onDrop}>
                                     <p className="textDrop">
-                                        <b>Upload new Profile Image</b>
+                                        {this.state.image === null ?
+                                            <b>Upload new Item Image</b> : <b>{this.state.image.name}</b>}
                                     </p>
                                 </Dropzone>
                                 {touched.itemImage && errors.itemImage &&
