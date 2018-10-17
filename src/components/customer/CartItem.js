@@ -1,5 +1,6 @@
 import SAMPLE from "../../images/images_sublime/cart_1.jpg";
 import React from "react";
+import {deleteItemFromCart} from "../../actions/cartAction";
 
 class CartItem extends React.Component {
 
@@ -41,7 +42,7 @@ class CartItem extends React.Component {
 
                         <div className="cart_item_total">${item.total}</div>
                         <div className="cart_item_actions">
-                            <button className="btn btn-sm btn-danger"><i
+                            <button className="btn btn-sm btn-danger" onClick={this.deleteItemFromCart}><i
                                 className="fa fa-trash fa-2x"></i></button></div>
                     </div>
 

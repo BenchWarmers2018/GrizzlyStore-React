@@ -1,8 +1,9 @@
 import {
-    ADD_TO_CART, ADD_TO_CART_FULFILLED, ADD_TO_CART_REJECTED,
+    ADD_TO_CART, ADD_TO_CART_FULFILLED, ADD_TO_CART_REJECTED, DELETE_ITEM_FROM_CART,
     FETCH_CART, FETCH_CART_FULFILLED, FETCH_CART_REJECTED, FETCH_SINGLE_CART_ITEM,
-    FETCH_SINGLE_CART_ITEM_FULFILLED, FETCH_SINGLE_CART_ITEM_REJECTED, REMOVE_FETCHED_ITEMS_FOR_CART
-} from "../CONSTANTS";
+    FETCH_SINGLE_CART_ITEM_FULFILLED, FETCH_SINGLE_CART_ITEM_REJECTED, REMOVE_FETCHED_ITEMS_FOR_CART,
+}
+from "../CONSTANTS";
 
 const InitialState = {
     cart: [],
@@ -54,6 +55,13 @@ export default function reducer(state=InitialState, action) {
             }
         }
         case REMOVE_FETCHED_ITEMS_FOR_CART:{
+            return {
+                ...state,
+                cartItems: [],
+            }
+        }
+        //Deleting individual items from cart
+        case DELETE_ITEM_FROM_CART: {
             return {
                 ...state,
                 cartItems: [],

@@ -3,7 +3,7 @@ import Product from "../../images/images_sublime/details_1.jpg";
 import { connect } from 'react-redux';
 import { fetchSingleItem } from '../../actions/itemsAction'
 import { fetchCategoriesforItem } from '../../actions/categoriesAction'
-import { addItemToCart } from '../../actions/cartAction';
+import {addItemToCart, deleteItemFromCart} from '../../actions/cartAction';
 import Banner from "../microComponents/Banner";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
 import {NORMAL_USER} from "../../CONSTANTS";
@@ -259,5 +259,7 @@ const mapDispatchToProps = {
     fetchSingleItem,
     fetchCategoriesforItem,
     addItemToCart,
+    deleteItemFromCart,
 }
+
 export default connect(mapStateToProps, mapDispatchToProps) (EachItem);

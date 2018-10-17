@@ -2,7 +2,7 @@ import axios from "axios";
 import {
     ADD_TO_CART,
     ADD_TO_CART_FULFILLED,
-    ADD_TO_CART_REJECTED,
+    ADD_TO_CART_REJECTED, DELETE_ITEM_FROM_CART,
     FETCH_CART,
     FETCH_CART_FULFILLED,
     FETCH_CART_REJECTED,
@@ -65,3 +65,8 @@ export function removeFetchedItemsForCart() {
         dispatch({type: REMOVE_FETCHED_ITEMS_FOR_CART});
     }
 }
+
+//idCartItem
+export function deleteItemFromCart(idCartItem) {
+    return {TYPE: DELETE_ITEM_FROM_CART, payload: idCartItem}
+    }
