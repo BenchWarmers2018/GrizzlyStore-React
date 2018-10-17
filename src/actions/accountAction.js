@@ -38,7 +38,7 @@ export function getCurrentUser()
         if (localStorage.getItem(ACCESS_TOKEN)) {
 
             const token = localStorage.getItem(ACCESS_TOKEN);
-            const headerData = {headers: {Authorization: "Bearer " + token}}
+            const headerData = {headers: {Authorization: "Bearer " + token}};
 
             const config = {
                 headers: {
