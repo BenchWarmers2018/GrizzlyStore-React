@@ -170,8 +170,7 @@ const FormikApp = withFormik({
 const mapStateToProps = (state) => ({
   editItemMessage: state.items.updateItemMessages,
   itemStatusUpdated: state.items.updated,
-  items: state.items.items,
-  updatedItem: state.items.updatedItem
+  items: state.items.items
 });
 
 export default connect(mapStateToProps)(FormikApp)
