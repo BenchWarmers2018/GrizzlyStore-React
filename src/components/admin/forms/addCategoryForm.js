@@ -6,6 +6,7 @@ import { connect } from "react-redux"
 import { addCategory } from "../../../actions/categoriesAction"
 import { notification } from 'antd';
 import { Button, ModalFooter } from 'mdbreact';
+import './sharedFormStyling.css';
 
 class AddCategoryForm extends React.Component {
     constructor(props) {
@@ -35,31 +36,33 @@ class AddCategoryForm extends React.Component {
       } = this.props;
 
       return(
-        <Form>
-          <h1 className="text-center">Add Category</h1>
-          <form className = "form">
-            {/* Display Error/Success Message */}
-            <div className={(this.props.addCategoryMessage != "") ? (this.props.categoryStatusAdded == true ? "alert alert-success" : "alert alert-danger") : null}>{this.props.addCategoryMessage}</div>
+        <div>
+          <h1 className="text-center title">Add Category</h1>
+          <Form>
+            <form className = "form">
+              {/* Display Error/Success Message */}
+              <div className={(this.props.addCategoryMessage != "") ? (this.props.categoryStatusAdded == true ? "alert alert-success" : "alert alert-danger") : null}>{this.props.addCategoryMessage}</div>
 
-            {/* Name Field */}
-            <p className="fieldset">
-              <label htmlFor="categoryName">Name</label>
-              <Field className="full-width has-padding has-border" name="categoryName" type="text" placeholder="Category Name" value={values.categoryName} onChange={handleChange} onBlur={handleBlur}/>
-              {touched.categoryName && errors.categoryName && <span><p className="text-danger">{errors.categoryName}</p></span>}
-            </p>
+              {/* Name Field */}
+              <p className="fieldset">
+                <label htmlFor="categoryName">Name</label>
+                <Field className="full-width has-padding has-border" name="categoryName" type="text" placeholder="Category Name" value={values.categoryName} onChange={handleChange} onBlur={handleBlur}/>
+                {touched.categoryName && errors.categoryName && <span><p className="text-danger">{errors.categoryName}</p></span>}
+              </p>
 
-            {/* Description Field */}
-            <p className="fieldset">
-              <label htmlFor="categoryDescription">Description</label>
-              <Field className="full-width has-padding has-border" name="categoryDescription" component="textarea" placeholder="Category Description" value={values.categoryDescription} onChange={handleChange} onBlur={handleBlur}/>
-              {touched.categoryDescription && errors.categoryDescription && <span><p className="text-danger">{errors.categoryDescription}</p></span>}
-            </p>
+              {/* Description Field */}
+              <p className="fieldset">
+                <label htmlFor="categoryDescription">Description</label>
+                <Field className="full-width has-padding has-border" name="categoryDescription" component="textarea" placeholder="Category Description" value={values.categoryDescription} onChange={handleChange} onBlur={handleBlur}/>
+                {touched.categoryDescription && errors.categoryDescription && <span><p className="text-danger">{errors.categoryDescription}</p></span>}
+              </p>
 
-            <ModalFooter className="justify-content-center">
-                <Button size="lg" color="danger" type="submit">Add Category</Button>
-            </ModalFooter>
-          </form>
-        </Form>
+              <ModalFooter className="justify-content-center">
+                  <Button size="lg" color="danger" type="submit">Add Category</Button>
+              </ModalFooter>
+            </form>
+          </Form>
+        </div>
       )
     }
 };

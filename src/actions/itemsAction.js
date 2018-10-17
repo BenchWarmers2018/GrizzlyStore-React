@@ -12,7 +12,10 @@ import {
     UPDATE_ITEM,
     UPDATE_ITEM_SUCCESSFUL,
     UPDATE_ITEM_REJECTED,
-    SERVER_NOT_FOUND
+    SERVER_NOT_FOUND,
+    UPLOAD_IMAGE,
+    UPLOAD_IMAGE_REJECTED,
+    UPLOAD_IMAGE_SUCCESSFUL
 } from "../CONSTANTS";
 
 export function fetchItems() {
@@ -221,11 +224,11 @@ export function addItem(idItem, itemName, itemDescription, itemImage, itemPrice,
     }
 }
 
-export function updateItem(item) {
+export function updateItem(itemData) {
     return function (dispatch) {
       dispatch({type: UPDATE_ITEM});
 
-      axios.post(URL_ITEM + "/items/edit", item)
+      axios.post(URL_ITEM + "/items/edit", itemData)
         .then(result => {
           dispatch({type: UPDATE_ITEM_SUCCESSFUL, payload: result.data.entities[0]})
         })
@@ -234,6 +237,23 @@ export function updateItem(item) {
             dispatch({type: SERVER_NOT_FOUND, payload: 'The server is currently offline. Please try again later.'})
           else
             dispatch({type: UPDATE_ITEM_REJECTED, payload: error.response.data.errors})
+        })
+    }
+}
+
+export function uploadImage(file) {
+    return function (dispatch) {
+      dispatch({type: UPLOAD_IMAGE});
+
+      axios.post(URL_ITEM + "/items/upload", file)
+        .then(result => {
+          dispatch({type: UPLOAD_IMAGE_SUCCESSFUL, payload: result.data.entities[0]})
+        })
+        .catch((error) => {
+          if (error.message === "Network Error" )
+            dispatch({type: SERVER_NOT_FOUND, payload: 'The server is currently offline. Please try again later.'})
+          else
+            dispatch({type: UPLOAD_IMAGE_REJECTED, payload: error.response.data.errors})
         })
     }
 }
