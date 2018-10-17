@@ -41,10 +41,7 @@ const initialState = {
     updating: false,
     updated: false,
     updateItemMessages: [],
-    messages: [],
-    uploading: false,
-    uploaded: false,
-    updatedItem: null
+    messages: []
 }
 
 export default function reducer(state=initialState, action) {
