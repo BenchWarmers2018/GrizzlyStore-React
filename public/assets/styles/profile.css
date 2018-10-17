@@ -1,50 +1,59 @@
 /*Customised CSS*/
-hr{
-  margin-top: 0;
-  margin-bottom: 0;
+hr {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
-.bg-img{
-  margin:0;
+.bg-img {
+    margin: 0;
 }
 
 .dropzone {
-  width : 100% !important;
-  height : 100px;
-  display: block !important;
-  border-radius: 25px;
-  /*margin: 0 25% 0 25% !important;*/
-  border : 1px dashed black;
-  color: black;
-  background: #C1CAD0;
+    width: 100% !important;
+    height: 100px;
+    display: block !important;
+    border-radius: 25px;
+    /*margin: 0 25% 0 25% !important;*/
+    border: 1px dashed black;
+    color: black;
+    background: #C1CAD0;
 }
 
-.imageInput {
-  width: 100%;
-  margin: 0 25% 5px 25%;
+.item-submission, .item-submission #item-modal#image {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 0 0 0 !important;
+    align-content: center !important;
+    align-items: center !important;
+    padding-left: -14px !important;
 }
-.card-body{
-  background-image: url('../../../src/images/profile_images/background.png');
-  background-size: cover;
+
+.item-submission #footer#button {
+    justify-content: center !important;
 }
+
+.card-body {
+    background-image: url('../../../src/images/profile_images/background.png');
+    background-size: cover;
+}
+
 .imageName {
-  float: none;
-  font-size: 1em;
-  margin: 0 0 0 0;
+    justify-content: center !important;
 }
+
 .textDrop {
-  left: 0;
-  position:absolute;
-  text-align:center;
-  top: 30px;
-  width: 100%
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 30px;
+    width: 100%
 }
 
-
-.card-body-profile{
-  min-height: 528px;
-  padding: 60px 20px 20px 20px;
+.card-body-profile {
+    min-height: 528px;
+    padding: 60px 20px 20px 20px;
 }
+
 
 .card-subtitle-profile{
   text-decoration: none;
@@ -57,12 +66,12 @@ hr{
   font-family: 'K2D', sans-serif;
 }
 
-.text-muted{
-  color: #B7B7B7 !important;
+.text-muted {
+    color: #B7B7B7 !important;
 }
 
-.page-wrapper{
-  background-color: #FAFCFD;
+.page-wrapper {
+    background-color: #FAFCFD;
 }
 
 .btn-success-muted{
@@ -73,29 +82,28 @@ hr{
   bottom: 10%;
 }
 
-.btn-fail-muted{
-  background-color: red !important;
-  /*float: right;*/
-  /*margin-right: 5% !important;*/
+.btn-fail-muted {
+    background-color: red !important;
+    /*float: right;*/
+    /*margin-right: 5% !important;*/
 }
-
 
 /*Main profile img*/
-.btn-default{
-  background-color: white !important;
-  color: #93a3b5 !important;
+.btn-default {
+    background-color: white !important;
+    color: #93a3b5 !important;
 }
 
-.profile-nav li Button{
-  background-color: white !important;
-  color: #93a3b5 !important;
-  text-align: left !important;
+.profile-nav li Button {
+    background-color: white !important;
+    color: #93a3b5 !important;
+    text-align: left !important;
 }
 
-.profile-nav li Button:hover{
-  background-color: white !important;
-  color: #5b9bd1 !important;
-  text-align: left !important;
+.profile-nav li Button:hover {
+    background-color: white !important;
+    color: #5b9bd1 !important;
+    text-align: left !important;
 }
 
 .profile-nav li Button:not(.disabled):focus, .profile-nav li Button:not(.disabled):active:focus {
@@ -123,46 +131,46 @@ outline: 0 !important;
   outline: 0 !important;
 }
 
-.profile-option-button{
-  background-color: white !important;
-  color: #93a3b5 !important;
+.profile-option-button {
+    background-color: white !important;
+    color: #93a3b5 !important;
 }
 
 .profile-img-name {
-  display: block;
-  margin: auto;
-  text-align: center !important;
+    display: block;
+    margin: auto;
+    text-align: center !important;
 }
 
-.col-lg-4.col-xlg-3.col-md-5{
-  min-width: 300px;
+.col-lg-4.col-xlg-3.col-md-5 {
+    min-width: 300px;
 }
 
 /*Profile Nav Bar*/
 .profile-usermenu {
-  width: 100%;
-  margin: 0;
+    width: 100%;
+    margin: 0;
 }
 
 .profile-usermenu ul {
-  padding: 0 0 5px 0;
-  list-style-type: none;
+    padding: 0 0 5px 0;
+    list-style-type: none;
 }
 
-.profile-usermenu-option{
-  text-decoration: none;
-  color: #3c9bbf;
-  background-color: rgba(255,255,255,0);
-  font-size: 2em;
-  display: block;
-  font-weight: 600;
-  font-variant: all-petite-caps;
+.profile-usermenu-option {
+    text-decoration: none;
+    color: #3c9bbf;
+    background-color: rgba(255, 255, 255, 0);
+    font-size: 2em;
+    display: block;
+    font-weight: 600;
+    font-variant: all-petite-caps;
 
 }
 
 /*Profile Overview*/
-.profile-overview-field{
-  padding: 0 0 20px 0; /* TOP RIGHT BOTTOM LEFT */
+.profile-overview-field {
+    padding: 0 0 20px 0; /* TOP RIGHT BOTTOM LEFT */
 }
 
 .profile-overview-field-div{
@@ -171,8 +179,6 @@ outline: 0 !important;
   margin: 0 auto;
   padding: 0 auto;
   text-align: left;
-
-
 }
 
 .profile-overview-field-div label{
@@ -181,8 +187,8 @@ outline: 0 !important;
   padding-bottom: 50px;
 }
 
-.profile-overview-field-div h5{
-  display: table-cell;
+.profile-overview-field-div h5 {
+    display: table-cell;
 }
 
 .profile-overview-mainDiv{
@@ -192,166 +198,160 @@ outline: 0 !important;
 }
 
 /*Profile Forms --> Address/Password/Personal*/
-.form-horizontal{
-  text-align: center;
+.form-horizontal {
+    text-align: center;
 }
 
-.form-group{
-  margin-bottom: 30px;
+.form-group {
+    margin-bottom: 30px;
 }
 
-.form-group-address{
-  display: inline-block !important;
-  min-width: 45%;
+.form-group-address {
+    display: inline-block !important;
+    min-width: 45%;
 }
 
-.form-group-personal, .form-group-password{
-  padding-left: 20%;
-  padding-right: 20%;
+.form-group-personal, .form-group-password {
+    padding-left: 20%;
+    padding-right: 20%;
 }
 
-.label-padding-left{
-  margin-left: 5px;
-  text-align: left;
+.label-padding-left {
+    margin-left: 5px;
+    text-align: left;
 }
 
-.label-address-unitno{
-  width: 30%;
+.label-address-unitno {
+    width: 30%;
 }
 
 .label-address-streetno {
-  width: 30%;
+    width: 30%;
 }
 
-.button-center a div
-{
-  text-align: center;
-  width: 150%;
-  left: 80%;
-  display:block;
-  margin-left:200px;
+.button-center a div {
+    text-align: center;
+    width: 150%;
+    left: 80%;
+    display: block;
+    margin-left: 200px;
 }
 
-
-.headingAlignment
-{
-  padding: 0px;
+.headingAlignment {
+    padding: 0px;
 }
 
-.profileTitle
-{
-  color: #000000
+.profileTitle {
+    color: #000000
 }
-
 
 /* Profile container */
 .profile {
-  margin: 20px 0;
+    margin: 20px 0;
 }
 
 /* Profile sidebar */
 .profile-sidebar {
-  padding: 20px 0 10px 0;
-  background: #fff;
+    padding: 20px 0 10px 0;
+    background: #fff;
 }
 
 .profile-userpic img {
-  float: none;
-  margin: 0 auto;
-  width: 50%;
-  height: 50%;
-  -webkit-border-radius: 50% !important;
-  -moz-border-radius: 50% !important;
-  border-radius: 50% !important;
+    float: none;
+    margin: 0 auto;
+    width: 50%;
+    height: 50%;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 50% !important;
 }
 
 .profile-usertitle {
-  text-align: center;
-  margin-top: 20px;
+    text-align: center;
+    margin-top: 20px;
 }
 
 .profile-usertitle-name {
-  color: #5a7391;
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 7px;
+    color: #5a7391;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 7px;
 }
 
 .profile-usertitle-job {
-  text-transform: uppercase;
-  color: #5b9bd1;
-  font-size: 12px;
-  font-weight: 600;
-  margin-bottom: 15px;
+    text-transform: uppercase;
+    color: #5b9bd1;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 15px;
 }
 
 .profile-userbuttons {
-  text-align: center;
-  margin-top: 10px;
+    text-align: center;
+    margin-top: 10px;
 }
 
 .profile-userbuttons .btn {
-  text-transform: uppercase;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 6px 15px;
-  margin-right: 5px;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 15px;
+    margin-right: 5px;
 }
 
 .profile-userbuttons .btn:last-child {
-  margin-right: 0px;
+    margin-right: 0px;
 }
 
 .profile-usermenu {
-  margin-top: 30px;
+    margin-top: 30px;
 }
 
 .profile-usermenu ul li {
-  border-bottom: 1px solid #f0f4f7;
-  width:100%
+    border-bottom: 1px solid #f0f4f7;
+    width: 100%
 }
 
 .profile-usermenu ul li:last-child {
-  border-bottom: none;
+    border-bottom: none;
 }
 
 .profile-usermenu ul li a {
-  color: #93a3b5;
-  font-size: 21px;
-  font-weight: 400;
-
+    color: #93a3b5;
+    font-size: 21px;
+    font-weight: 400;
 
 }
 
 .profile-usermenu ul li a i {
-  margin-right: 8px;
-  font-size: 14px;
+    margin-right: 8px;
+    font-size: 14px;
 }
 
 .profile-usermenu ul li a:hover {
-  background-color: #fafcfd;
-  color: #5b9bd1;
+    background-color: #fafcfd;
+    color: #5b9bd1;
 
 }
 
 .profile-usermenu ul li.active {
-  border-bottom: none;
-  width: 100%;
+    border-bottom: none;
+    width: 100%;
 }
 
 .profile-usermenu ul li a.active {
-  color: black;
-  border-bottom: none;
-  width: 100%;
-  font-weight: bold;
-  background-color: #C7CFD4;
+    color: black;
+    border-bottom: none;
+    width: 100%;
+    font-weight: bold;
+    background-color: #C7CFD4;
 }
 
 .profile-usermenu ul li.active a {
-  color: #5b9bd1;
-  background-color: #f6f9fb;
-  border-left: 2px solid #5b9bd1;
-  margin-left: -2px;
+    color: #5b9bd1;
+    background-color: #f6f9fb;
+    border-left: 2px solid #5b9bd1;
+    margin-left: -2px;
 }
 
 /* Profile Content */

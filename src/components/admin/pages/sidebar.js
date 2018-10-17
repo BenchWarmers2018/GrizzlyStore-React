@@ -1,27 +1,25 @@
 import React, {Component} from 'react';
 import User from '../../../images/admin_images/users/1.jpg'
 import Icon from '@mdi/react';
-import { mdiViewDashboard, mdiAccountNetwork, mdiBorderAll, mdiPlusBox } from '@mdi/js';
-import { Link } from 'react-router-dom';
-import { Container, Row, Col, Input, Button, Fa, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
+import {mdiViewDashboard, mdiAccountNetwork, mdiBorderAll, mdiPlusBox} from '@mdi/js';
+import {Link} from 'react-router-dom';
+import {connect} from "react-redux"
+import {Container, Row, Col, Input, Button, Fa, Modal, ModalBody, ModalHeader, ModalFooter} from 'mdbreact';
 import AddCategoryForm from '../forms/addCategoryForm.js';
-
+import AddItemForm from '../forms/addItemForm.js';
+import {fetchCategories} from "../../../actions/categoriesAction";
 
 class sidebar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            modal: false,
-            categoryModal: false
-        }
-        this.toggle = this.toggle.bind(this);
+            itemModal: false,
+            categoryModal: false,
+            categories: this.props.categories
+        };
         this.toggleCategoryModal = this.toggleCategoryModal.bind(this);
-    }
-
-    toggle() {
-        this.setState({
-            modal: !this.state.modal
-        });
+        this.toggleItemModal = this.toggleItemModal.bind(this);
+        this.props.dispatch(fetchCategories());
     }
 
     toggleCategoryModal() {
@@ -29,6 +27,19 @@ class sidebar extends Component {
             categoryModal: !this.state.categoryModal
         });
     }
+
+    toggleItemModal() {
+        this.setState({
+            itemModal: !this.state.itemModal
+        });
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.categories !== this.props.categories) {
+            this.setState({categories: this.props.categories})
+        }
+    }
+
     render() {
         return (
             <aside className="left-sidebar" data-sidebarbg="skin6">
@@ -50,13 +61,19 @@ class sidebar extends Component {
                             </li>
                             <li className="p-15 m-t-10"><a onClick={this.toggle} href="javascript:void(0)"
                                                            className="btn btn-block create-btn text-white no-block d-flex align-items-center">
-                                <Icon path={mdiPlusBox} size={1.5} />
-                                 <span className="hide-menu m-l-5">Create New</span>
+                                <Icon path={mdiPlusBox} size={1.5}/>
+                                <span className="hide-menu m-l-5">Create New</span>
                             </a></li>
                             <li className="sidebar-item"><a onClick={this.toggleCategoryModal} href="javascript:void(0)"
-                                                           className="sidebar-link waves-effect waves-dark sidebar-link">
-                                <Icon path={mdiPlusBox} size={1.5} />
-                                 <span className="hide-menu m-l-5">Add New Category</span>
+                                                            className="sidebar-link waves-effect waves-dark sidebar-link">
+                                <Icon path={mdiPlusBox} size={1.5}/>
+                                <span className="hide-menu m-l-5">Add New Category</span>
+                            </a></li>
+                            <li className="sidebar-item"><
+                                a onClick={this.toggleItemModal} href="javascript:void(0)"
+                                  className="sidebar-link waves-effect waves-dark sidebar-link">
+                                <Icon path={mdiPlusBox} size={1.5}/>
+                                <span className="hide-menu m-l-5">Add New Item</span>
                             </a></li>
                             <li className="sidebar-item"><Link to="/"><a
                                 className="sidebar-link waves-effect waves-dark sidebar-link"
@@ -66,7 +83,8 @@ class sidebar extends Component {
                                 className="sidebar-link waves-effect waves-dark sidebar-link"
                                 aria-expanded="false"><Icon path={mdiAccountNetwork} size={1.5}/><span
                                 className="hide-menu">Profile</span></a></Link></li>
-                            <li className="sidebar-item"><Link to="/viewcategories"><a
+                            <li className="sidebar-item"><Link
+                                to={{pathname: "/viewcategories", state: this.state.categories}}><a
                                 className="sidebar-link waves-effect waves-dark sidebar-link"
                                 aria-expanded="false"><Icon path={mdiBorderAll} size={1.5}/><span
                                 className="hide-menu">View Categories</span></a></Link></li>
@@ -79,33 +97,10 @@ class sidebar extends Component {
                     </nav>
                 </div>
 
-
-
-                <Container>
-                    <Row>
-                        <Col md="6">
-                            <Modal isOpen={this.state.modal} toggle={this.toggle} className="cascading-modal">
-                                <div className="modal-header primary-color white-text">
-                                    <h4 className="title">
-                                        <Fa className="fa fa-pencil" /> Add new ITEM</h4>
-                                    <button type="button" className="close" onClick={this.toggle}>
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <ModalBody className="grey-text">
-                                    <Input size="sm" label="Your name" icon="user" group type="text" validate error="wrong" success="right"/>
-                                    <Input size="sm" label="Your email" icon="envelope" group type="email" validate error="wrong" success="right"/>
-                                    <Input size="sm" label="Subject" icon="tag" group type="text" validate error="wrong" success="right"/>
-                                    <Input size="sm" type="textarea" rows="2" label="Your message" icon="pencil"/>
-                                </ModalBody>
-                                <ModalFooter>
-                                    <Button color="secondary" onClick={this.toggle}>Close</Button>{' '}
-                                    <Button color="primary">Save changes</Button>
-                                </ModalFooter>
-                            </Modal>
-                        </Col>
-                    </Row>
-                </Container>
+                <Modal isOpen={this.state.itemModal} toggle={this.toggleItemModal} className="cascading-modal">
+                    {console.log('SIDEBAR CATEGORIES: ' + this.state.categories)}
+                    <AddItemForm categories={this.state.categories} toggle={this.toggleItemModal}/>
+                </Modal>
 
                 <Modal isOpen={this.state.categoryModal} toggle={this.toggleCategoryModal} className="cascading-modal">
                     <AddCategoryForm />
@@ -115,4 +110,10 @@ class sidebar extends Component {
     }
 }
 
-export default sidebar;
+const mapStateToProps = state => ({
+    categories: state.category.categories,
+    addCategoryMessage: state.category.messages,
+    categoryStatusAdded: state.category.added
+});
+
+export default connect(mapStateToProps)(sidebar);
