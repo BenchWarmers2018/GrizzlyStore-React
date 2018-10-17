@@ -228,9 +228,6 @@ export function updateItem(formData) {
     return function (dispatch) {
       dispatch({type: UPDATE_ITEM});
 
-      console.log(formData.get('item'))
-      console.log(formData.get('file'))
-
       axios.post(URL_ITEM + "/items/edit", formData)
         .then(result => {
           dispatch({type: UPDATE_ITEM_SUCCESSFUL, payload: result.data.entities[0]})
