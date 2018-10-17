@@ -13,9 +13,6 @@ import {
     UPDATE_ITEM_SUCCESSFUL,
     UPDATE_ITEM_REJECTED,
     SERVER_NOT_FOUND,
-    UPLOAD_IMAGE,
-    UPLOAD_IMAGE_REJECTED,
-    UPLOAD_IMAGE_SUCCESSFUL,
     FETCH_HOME_ITEMS,
     FETCH_HOME_ITEMS_FULFILLED,
     FETCH_HOME_ITEMS_REJECTED
@@ -227,11 +224,14 @@ export function addItem(idItem, itemName, itemDescription, itemImage, itemPrice,
     }
 }
 
-export function updateItem(itemData) {
+export function updateItem(formData) {
     return function (dispatch) {
       dispatch({type: UPDATE_ITEM});
 
-      axios.post(URL_ITEM + "/items/edit", itemData)
+      console.log(formData.get('item'))
+      console.log(formData.get('file'))
+
+      axios.post(URL_ITEM + "/items/edit", formData)
         .then(result => {
           dispatch({type: UPDATE_ITEM_SUCCESSFUL, payload: result.data.entities[0]})
         })
@@ -240,23 +240,6 @@ export function updateItem(itemData) {
             dispatch({type: SERVER_NOT_FOUND, payload: 'The server is currently offline. Please try again later.'})
           else
             dispatch({type: UPDATE_ITEM_REJECTED, payload: error.response.data.errors})
-        })
-    }
-}
-
-export function uploadImage(file) {
-    return function (dispatch) {
-      dispatch({type: UPLOAD_IMAGE});
-
-      axios.post(URL_ITEM + "/items/upload", file)
-        .then(result => {
-          dispatch({type: UPLOAD_IMAGE_SUCCESSFUL, payload: result.data.entities[0]})
-        })
-        .catch((error) => {
-          if (error.message === "Network Error" )
-            dispatch({type: SERVER_NOT_FOUND, payload: 'The server is currently offline. Please try again later.'})
-          else
-            dispatch({type: UPLOAD_IMAGE_REJECTED, payload: error.response.data.errors})
         })
     }
 }

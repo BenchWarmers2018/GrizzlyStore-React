@@ -42,14 +42,6 @@ class EditItemForm extends Component {
       {
         successNotification("Item updated successfully!");
       }
-
-      if (this.props.updatedItem != null)
-      {
-        if(this.props.updatedItem.itemImage !== this.props.rowData.itemImage)
-        {
-          successNotification("Image updated successfully!");
-        }
-      }
     }
 
     onPreviewDrop = (acceptedFiles) => {
@@ -165,15 +157,11 @@ const FormikApp = withFormik({
   handleSubmit(values, { props, setSubmitting }) {
     const itemData = {idItem: props.rowData.idItem, itemName: values.itemName, itemDescription: values.itemDescription, itemImage: values.itemImage, itemPrice: values.itemPrice, itemSalePercentage: values.itemSalePercentage, itemStockLevel: values.itemStockLevel};
 
-    props.dispatch(updateItem(itemData))
+    let formData = new FormData();
+    formData.append('item', JSON.stringify(itemData))
+    formData.append('file', values.file)
 
-    if (values.file != null)
-    {
-      let imageData = new FormData();
-      imageData.append('idItem', values.idItem)
-      imageData.append('file', values.file)
-      props.dispatch(uploadImage(imageData))
-    }
+    props.dispatch(updateItem(formData))
 
     setSubmitting(false);
   }
