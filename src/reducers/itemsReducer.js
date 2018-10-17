@@ -136,7 +136,6 @@ export default function reducer(state=initialState, action) {
                 ...state,
                 items: newItems,
                 updating: false,
-                uploaded: true,
                 updated: true,
                 updateItemMessages: "Item updated successfully!",
             }
