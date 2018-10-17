@@ -7,6 +7,7 @@ import { addCategory } from "../../../actions/categoriesAction"
 import { notification } from 'antd';
 import { Button, ModalFooter } from 'mdbreact';
 import './sharedFormStyling.css';
+import { successNotification } from '../../microComponents/Notifications.js';
 
 class AddCategoryForm extends React.Component {
     constructor(props) {
@@ -19,9 +20,7 @@ class AddCategoryForm extends React.Component {
     componentDidUpdate(prevProps) {
       if(this.props.categoryStatusAdded && (prevProps.categories != this.props.categories))
       {
-        notification.success({
-            message: 'Category Added Successfully!'
-        });
+        successNotification('Category added successfully!');
       }
     }
 

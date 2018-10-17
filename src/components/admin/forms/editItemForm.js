@@ -9,6 +9,7 @@ import { Button, ModalFooter } from 'mdbreact';
 import './editItemForm.css';
 import './sharedFormStyling.css';
 import Dropzone from 'react-dropzone';
+import { successNotification } from '../../microComponents/Notifications.js';
 
 class EditItemForm extends Component {
 
@@ -39,9 +40,15 @@ class EditItemForm extends Component {
 
       if(prevProps.items != this.props.items)
       {
-        notification.success({
-            message: 'Item Edited Successfully!'
-        });
+        successNotification("Item updated successfully!");
+      }
+
+      if (this.props.updatedItem != null)
+      {
+        if(this.props.updatedItem.itemImage !== this.props.rowData.itemImage)
+        {
+          successNotification("Image updated successfully!");
+        }
       }
     }
 
@@ -156,12 +163,13 @@ const FormikApp = withFormik({
     itemStockLevel: Yup.string().matches(/^[0-9]+$/, "The stock level must be a whole number!").required('A stock level is required for the item!')
   }),
   handleSubmit(values, { props, setSubmitting }) {
-    const item = {idItem: props.rowData.idItem, itemName: values.itemName, itemDescription: values.itemDescription, itemImage: values.itemImage, itemPrice: values.itemPrice, itemSalePercentage: values.itemSalePercentage, itemStockLevel: values.itemStockLevel};
+    const itemData = {idItem: props.rowData.idItem, itemName: values.itemName, itemDescription: values.itemDescription, itemImage: values.itemImage, itemPrice: values.itemPrice, itemSalePercentage: values.itemSalePercentage, itemStockLevel: values.itemStockLevel};
+
+    props.dispatch(updateItem(itemData))
 
     if (values.file != null)
     {
       let imageData = new FormData();
-      console.log(values.idItem)
       imageData.append('idItem', values.idItem)
       imageData.append('file', values.file)
       props.dispatch(uploadImage(imageData))
@@ -174,7 +182,8 @@ const FormikApp = withFormik({
 const mapStateToProps = (state) => ({
   editItemMessage: state.items.updateItemMessages,
   itemStatusUpdated: state.items.updated,
-  items: state.items.items
+  items: state.items.items,
+  updatedItem: state.items.updatedItem
 });
 
 export default connect(mapStateToProps)(FormikApp)

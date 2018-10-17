@@ -11,7 +11,13 @@ import {
     UPDATE_ITEM,
     UPDATE_ITEM_SUCCESSFUL,
     UPDATE_ITEM_REJECTED,
-    SERVER_NOT_FOUND, FETCH_HOME_ITEMS, FETCH_HOME_ITEMS_REJECTED, FETCH_HOME_ITEMS_FULFILLED
+    SERVER_NOT_FOUND,
+    FETCH_HOME_ITEMS,
+    FETCH_HOME_ITEMS_REJECTED,
+    FETCH_HOME_ITEMS_FULFILLED,
+    UPLOAD_IMAGE,
+    UPLOAD_IMAGE_REJECTED,
+    UPLOAD_IMAGE_SUCCESSFUL
 
 } from "../CONSTANTS";
 
@@ -38,7 +44,10 @@ const initialState = {
     updating: false,
     updated: false,
     updateItemMessages: [],
-    messages: []
+    messages: [],
+    uploading: false,
+    uploaded: false,
+    updatedItem: null
 }
 
 export default function reducer(state=initialState, action) {
@@ -133,8 +142,28 @@ export default function reducer(state=initialState, action) {
                 ...state,
                 items: newItems,
                 updating: false,
+                uploaded: true,
                 updated: true,
                 updateItemMessages: "Item updated successfully!",
+            }
+        }
+        case (UPLOAD_IMAGE):
+            return {...state, uploading: true }
+        case (UPLOAD_IMAGE_REJECTED):
+            return {...state, uploaded: false, uploading: false, updateItemMessages: action.payload}
+        case (UPLOAD_IMAGE_SUCCESSFUL): {
+            const { idItem, itemName, itemDescription, itemImage, itemPrice, itemSalePercentage, last_modified } = action.payload;
+            const newItems = [...state.items];
+            const itemToUpdate = newItems.findIndex(item => item.idItem === idItem);
+            newItems[itemToUpdate] = action.payload;
+
+            return {
+                ...state,
+                items: newItems,
+                updatedItem: action.payload,
+                uploading: false,
+                updated: true,
+                updateItemMessages: "Image uploaded successfully!",
             }
         }
         case "DELETE_ITEM": {
@@ -148,6 +177,4 @@ export default function reducer(state=initialState, action) {
         default:
             return state;
     }
-
-    return state
 }

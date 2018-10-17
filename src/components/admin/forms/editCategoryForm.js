@@ -7,6 +7,7 @@ import { editCategory } from "../../../actions/categoriesAction"
 import { notification } from 'antd';
 import { Button, ModalFooter } from 'mdbreact';
 import './sharedFormStyling.css';
+import { successNotification } from '../../microComponents/Notifications.js';
 
 class EditCategoryForm extends React.Component {
 
@@ -29,9 +30,7 @@ class EditCategoryForm extends React.Component {
 
       if(this.props.categoryStatusUpdated && (prevProps.categories != this.props.categories))
       {
-        notification.success({
-            message: 'Category Edited Successfully!'
-        });
+        successNotification('Category edited successfully!');
       }
     }
 
