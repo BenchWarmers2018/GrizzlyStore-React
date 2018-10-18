@@ -55,7 +55,7 @@ class adminHeader extends Component {
                                     src={User} alt="user" className="rounded-circle"
                                     width="31"/></DropdownToggle>
                                 <DropdownMenu>
-                                    <DropdownItem href="/profile"> My Profile </DropdownItem>
+                                    <DropdownItem><Link to="/profile">My Profile</Link></DropdownItem>
                                     <DropdownItem> Log Out </DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>

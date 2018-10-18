@@ -42,9 +42,9 @@ class ProfilePersonal extends Component {
     /**** End of upload image functions ****/
     getPostValues = (values) => {
         var data = {
-            phone: values.phone,
-            lastName: values.lastName,
-            firstName: values.firstName,
+            phone: values.phone.length === 0 ? this.props.data.profilePhoneNumber : values.phone,
+            lastName: values.lastName.length === 0 ? this.props.data.profileLastName : values.lastName,
+            firstName: values.firstName.length === 0 ? this.props.data.profileFirstName : values.firstName,
             image: this.state.image,
             imageName: this.state.imageName
         };
@@ -53,7 +53,7 @@ class ProfilePersonal extends Component {
 
 
     validatePhone = (phone) => {
-        let re = /^\d{10}$/;
+        let re = /^\d{10}$|^$/;
         return re.test(phone);
     };
     validateName = (name) => {
