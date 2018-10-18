@@ -107,7 +107,7 @@ class Header extends Component {
             }
             else if (this.props.type === NORMAL_USER)
             {
-                name = this.props.data.accountEmailAddress;
+                name = this.props.data.username;
             }
         }
 
