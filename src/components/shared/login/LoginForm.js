@@ -95,7 +95,6 @@ const mapStateToProps = (state) => ({
     error: state.accounts.error,
 });
 
-
 const mapDispatchToProps = {
     authenticateUser,
 };

@@ -65,7 +65,7 @@ export default function reducer(state=initialState, action){
             }
         }
 
-        /* For Google accounts*/
+        /* For Google accounts */
         case FETCH_GOOGLE_ACCOUNTS: {
             return {...state, fetching: true}
         }
