@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import PropTypes from 'prop-types';
 import Background from "../../../images/images_essence/bg-img/breadcumb.jpg";
 import {Button} from 'react-bootstrap';
-import { fetchProfile, updateAddress, submitPassword, resetErrorsAndStatus } from "../../../actions/profileActions";
+import { fetchProfile, updateAddress, submitPassword, resetErrorsAndStatus, submitPersonalDetails } from "../../../actions/profileActions";
 import ProfileOverview from "./ProfileOverview.js"
 import NotFound from "../../shared/NotFound";
 import ProfileAddress from "./ProfileAddress";
@@ -31,15 +31,15 @@ class Profile extends Component {
     }
 
     componentDidUpdate(prevProps){
-        if(JSON.stringify(prevProps.loggedInAccount) !== JSON.stringify(this.props.loggedInAccount))
-        {
+        console.log("Logged in account is ", this.props.loggedInAccount);
+        if(prevProps.continueLogin !== this.props.continueLogin){
+            console.log("Tried this");
             if(this.props.userType.length >0 && this.props.loggedInUser !== null && typeof this.props.loggedInUser !== "undefined")
             {
                 this.props.fetchProfile(this.props.loggedInUser.id);
             }
-            //Notification on password change.
-
         }
+
         if(this.props.status.length > 0)
         {
             if(this.props.status === "OK")
@@ -62,6 +62,11 @@ class Profile extends Component {
 
     }
 
+    handleProfileChange= (profileChanges) => {
+        profileChanges["accountID"] = this.props.loggedInAccount.idAccount;
+        this.props.submitPersonalDetails(profileChanges);
+    }
+
     handleAddressChange= (address) => {
         const account = {
             "idAccount": this.props.loggedInAccount.idAccount,
@@ -79,24 +84,36 @@ class Profile extends Component {
 
     render() {
 
-        const account = this.props.loggedInAccount;
+        const accountArray = this.props.loggedInAccount;
         let profile = null;
-        let selectedOption;
-        if (this.props.userType.length > 0 && account !== null) {
-            profile = account.profile;
-            if (this.state.selected === "Overview")
-                selectedOption = <ProfileOverview data={account}/>
-            else if(this.state.selected === "Personal Details")
-                selectedOption = <ProfilePersonal data={account}/>
-            else if(this.state.selected === "Shipping Address")
-                selectedOption = <ProfileAddress onAddressChange={this.handleAddressChange} data={profile.address}/>
-            else if(this.state.selected === "Change Password")
-                selectedOption = <ProfilePassword onPasswordChange={this.handlePasswordChange} data={account}/>
-            else if(this.state.selected === "Logout")
-                selectedOption = <ProfilePassword onPasswordChange={this.handlePasswordChange} data={account}/>
+        let account = null;
+        let selectedOption= <div>"No details of account found"</div>;
+        if(accountArray !== null && accountArray.length > 0)
+        {
+            console.log(accountArray);
+            account = accountArray[0];
+
+            if (this.props.userType.length > 0 && account !== null) {
+                profile = account.profile;
+                if (this.state.selected === "Overview")
+                    selectedOption = <ProfileOverview data={account}/>
+                else if(this.state.selected === "Personal Details")
+                    selectedOption = <ProfilePersonal onProfileChange={this.handleProfileChange} data={profile}/>
+                else if(this.state.selected === "Shipping Address")
+                    selectedOption = <ProfileAddress onAddressChange={this.handleAddressChange} data={profile.address}/>
+                else if(this.state.selected === "Change Password")
+                    selectedOption = <ProfilePassword onPasswordChange={this.handlePasswordChange}/>
+                console.log(profile);
+            }
+        }
+        else
+        {
+            return(<div><h2>No Account found.</h2></div>)
+
         }
 
-        console.log(profile);
+
+
 
         return (
             <div className="page-wrapper">
@@ -145,11 +162,13 @@ class Profile extends Component {
                                     <div className="profile-usermenu">
                                         <ul className="nav profile-nav">
                                             {this.state.menuOptions.map(option =>
-                                                <li>
+
+                                                <li key={option}>
                                                     <Button id="profile-list-option"  aria-pressed="true" value={option} bsSize="large" onClick={this.handleClick}
                                                             block>{option}</Button>
                                                 </li>
                                             )}
+
                                         </ul>
                                     </div>
                                 </div>
@@ -181,6 +200,7 @@ const mapStateToProps = state => ({
     loggedInUser: state.accounts.loggedInUser,
     userType: state.accounts.userType,
     loggedInAccount: state.profiles.loggedInAccount,
+    continueLogin: state.accounts.continueLogin,
     fetched: state.profiles.fetched,
     fetching: state.profiles.fetching,
     errors: state.profiles.errors,
@@ -192,6 +212,7 @@ const mapDispatchToProps = {
     updateAddress,
     submitPassword,
     resetErrorsAndStatus,
+    submitPersonalDetails,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

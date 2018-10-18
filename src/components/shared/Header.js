@@ -28,20 +28,17 @@ class Header extends Component {
             isSignedIn : false,
             user: null,
         };
-        this.onClick = this.onClick.bind(this);
     }
 
-    onClick(){
+    onClick = () => {
         this.setState({
             collapse: !this.state.collapse,
         });
     }
 
-    submitForm = (e) => {
-        e.preventDefault()
-        this.setState({
-            redirect: true
-        })
+    handleSearch = (e) =>
+    {
+        console.log("Search ", e.target.value);
     }
 
 
@@ -110,7 +107,7 @@ class Header extends Component {
             }
             else if (this.props.type === NORMAL_USER)
             {
-                name = this.props.data.username;
+                name = this.props.data.accountEmailAddress;
             }
         }
 
@@ -159,21 +156,24 @@ class Header extends Component {
                         </NavbarNav>
                         <NavbarNav right>
                             <NavItem>
-                                {(this.state.redirect) && (
-                                    <Redirect to={'/items/all'}/>
-                                )}
 
                                 {/*<form onSubmit={this.submitForm} className="search-bar-large form-inline md-form mt-0">*/}
                                     {/*<input className="form-control mr-sm-2 mb-0 text-black" type="text" placeholder="Search" aria-label="Search"/>*/}
                                 {/*</form>*/}
 
-                                <form onSubmit={this.submitForm} className="search search-bar-small form-inline mt-0">
-                                    <div className="search__wrapper">
-                                        <input aria-label="Search" type="text" name="" placeholder="Search" className="search__field text-black"/>
-                                            <button type="submit" className="fa fa-search search__icon"></button>
-                                    </div>
+                                {/*<form className="search search-bar-small form-inline mt-0">*/}
+                                    {/*<div className="search__wrapper">*/}
+                                        {/*<input aria-label="Search" type="text" name="" placeholder="Search" className="search__field text-black"/>*/}
+                                            {/*<button onClick={this.handleSearch} type="button" className="fa fa-search search__icon"></button>*/}
+                                    {/*</div>*/}
+                                {/*</form>*/}
+                                {/*<div className="active-cyan-4 mb-3">*/}
+                                    {/*<input onKeyDown={this.handleSearch} value="" className="form-control" type="text" placeholder="Search" aria-label="Search"/>*/}
+                                {/*</div>*/}
+                                <form className="form-inline mb-4">
+                                    <input className="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search" />
+                                    <i className="fa fa-search" aria-hidden="true"></i>
                                 </form>
-
                             </NavItem>
 
 
