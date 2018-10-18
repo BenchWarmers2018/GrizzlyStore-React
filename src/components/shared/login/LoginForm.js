@@ -93,11 +93,11 @@ const displayError = error => {
 const mapStateToProps = (state) => ({
     userAccount: state.accounts.userAccount,
     error: state.accounts.error,
-
 });
 
 const mapDispatchToProps = {
     authenticateUser,
+    
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormikApp)
