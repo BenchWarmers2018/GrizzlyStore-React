@@ -86,11 +86,12 @@ class Profile extends Component {
 
         const accountArray = this.props.loggedInAccount;
         let profile = null;
+        let account = null;
         let selectedOption= <div>"No details of account found"</div>;
         if(accountArray !== null && accountArray.length > 0)
         {
             console.log(accountArray);
-            const account = accountArray[0]
+            account = accountArray[0];
 
             if (this.props.userType.length > 0 && account !== null) {
                 profile = account.profile;
@@ -161,24 +162,13 @@ class Profile extends Component {
                                     <div className="profile-usermenu">
                                         <ul className="nav profile-nav">
                                             {this.state.menuOptions.map(option =>
-<<<<<<< HEAD
+
                                                 <li key={option}>
-                                                    <Button value={option} bsSize="large" onClick={this.handleClick}
-                                                            block>{option}</Button>
-                                                </li>
-                                            )}
-                                            <li>
-                                                <h6 className="text-center profile-usermenu-option ">Log
-                                                    Out
-                                                </h6>
-                                            </li>
-=======
-                                                <li>
                                                     <Button id="profile-list-option"  aria-pressed="true" value={option} bsSize="large" onClick={this.handleClick}
                                                             block>{option}</Button>
                                                 </li>
                                             )}
->>>>>>> 563fe56aea58469601331d35c7b937cd3c37c3eb
+
                                         </ul>
                                     </div>
                                 </div>
