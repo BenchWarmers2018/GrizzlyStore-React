@@ -17,7 +17,9 @@ import {
     SERVER_NOT_FOUND,
     FETCH_HOME_ITEMS,
     FETCH_HOME_ITEMS_REJECTED,
-    FETCH_HOME_ITEMS_FULFILLED
+    FETCH_HOME_ITEMS_FULFILLED,
+    FETCH_SINGLE_CART_ITEM,
+    FETCH_SINGLE_CART_ITEM_REJECTED, FETCH_SINGLE_CART_ITEM_FULFILLED
 
 } from "../CONSTANTS";
 
@@ -95,6 +97,7 @@ export default function reducer(state=initialState, action) {
                 singleItem: action.payload,
             }
         }
+
 
 
         case FETCH_ITEMS_PAGE: {

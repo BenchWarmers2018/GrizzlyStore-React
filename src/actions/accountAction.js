@@ -48,7 +48,7 @@ export function getCurrentUser()
                 data: {},
             };
 
-            axios.get(URL_USER+"/login/user", config)
+            axios.get(URL_USER +"/login/user", config)
                 .then(result => {
                     dispatch({type: GET_CURRENT_USER_FULFILLED, payload: result.data})
                 }).catch(err =>
