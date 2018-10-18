@@ -63,13 +63,13 @@ class Profile extends Component {
     }
 
     handleProfileChange= (profileChanges) => {
-        profileChanges["accountID"] = this.props.loggedInAccount.idAccount;
+        profileChanges["accountID"] = this.props.loggedInAccount[0].idAccount;
         this.props.submitPersonalDetails(profileChanges);
     }
 
     handleAddressChange= (address) => {
         const account = {
-            "idAccount": this.props.loggedInAccount.idAccount,
+            "idAccount": this.props.loggedInAccount[0].idAccount,
             "profile" : {
                 "address": address
             }
@@ -79,7 +79,7 @@ class Profile extends Component {
     }
 
     handlePasswordChange = (password) => {
-        this.props.submitPassword(password, this.props.loggedInAccount.idAccount)
+        this.props.submitPassword(password, this.props.loggedInAccount[0].idAccount)
     }
 
     render() {
