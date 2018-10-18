@@ -46,18 +46,14 @@ export function submitPersonalDetails(profileData) {
 
         dispatch({type: UPDATE_PROFILE_DETAILS}); //
 
-        console.log('image being sent . . .');
-        console.log(profileData);
         let data = new FormData();
         data.append('file', profileData.image);
         data.append('firstName', profileData.firstName);
         data.append('lastName', profileData.lastName);
         data.append('phone', profileData.phone);
         data.append('accountID', profileData.accountID);
-        console.log(data.get('file'));
-        console.log(' new data being sent . . .');
 
-
+        console.log("User data to be sent ", data);
         axios.post(URL_USER+"/user/update-personal", data)
             .then((response) => {
                 console.log("Updating profile successful " + response);
