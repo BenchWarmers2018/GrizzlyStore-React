@@ -5,7 +5,7 @@ import NotFound from "../shared/NotFound";
 import Dashboard from "./pages/dashboard";
 import ViewCategories from "./pages/viewCategories"
 import ViewItems from "./pages/viewItems"
-
+import ViewAccounts from "./pages/viewAccounts"
 
 class adminMain extends Component {
     render() {
@@ -17,6 +17,7 @@ class adminMain extends Component {
                         <Route path='/profile' component={Profile}/>
                         <Route path='/viewcategories' component={ViewCategories}/>
                         <Route path='/viewitems' component={ViewItems}/>
+                        <Route path='/viewaccounts' component={ViewAccounts}/>
                         { /* More categories links here */ }
                         <Route path='*' component={NotFound} />
                     </Switch>

@@ -11,7 +11,10 @@ import {
     SERVER_NOT_FOUND,
     AUTHENTICATING_USER_SUCCESSFUL,
     AUTHENTICATE_USER,
-    AUTHENTICATE_USER_REJECTED
+    AUTHENTICATE_USER_REJECTED,
+    GET_ALL_USERS,
+    GET_ALL_USERS_REJECTED,
+    GET_ALL_USERS_SUCCESSFUL
 
 } from "../CONSTANTS";
 
@@ -97,6 +100,20 @@ export default function reducer(state=initialState, action){
             authenticated: true,
             continueLogin: true,
             token: action.payload,
+          }
+        }
+        case GET_ALL_USERS: {
+          return {...state, fetching: true}
+        }
+        case GET_ALL_USERS_REJECTED: {
+          return {...state, fetching: false, error: action.payload}
+        }
+        case GET_ALL_USERS_SUCCESSFUL: {
+          return {
+            ...state,
+            fetching: false,
+            fetched: true,
+            accounts: action.payload
           }
         }
         case SERVER_NOT_FOUND: {

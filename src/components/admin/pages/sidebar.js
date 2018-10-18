@@ -92,13 +92,16 @@ class sidebar extends Component {
                                 className="sidebar-link waves-effect waves-dark sidebar-link"
                                 aria-expanded="false"><Icon path={mdiBorderAll} size={1.5}/><span
                                 className="hide-menu">View Items</span></a></Link></li>
+                            <li className="sidebar-item"><Link to="/viewaccounts"><a
+                                className="sidebar-link waves-effect waves-dark sidebar-link"
+                                aria-expanded="false"><Icon path={mdiBorderAll} size={1.5}/><span
+                                className="hide-menu">View Accounts</span></a></Link></li>
                         </ul>
 
                     </nav>
                 </div>
 
                 <Modal isOpen={this.state.itemModal} toggle={this.toggleItemModal} className="cascading-modal">
-                    {console.log('SIDEBAR CATEGORIES: ' + this.state.categories)}
                     <AddItemForm categories={this.state.categories} toggle={this.toggleItemModal}/>
                 </Modal>
 
