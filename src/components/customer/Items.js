@@ -31,28 +31,62 @@ class Items extends Component {
 
     componentDidMount() {
 
+        console.log("I start here");
         this.props.fetchCategories();
         if(typeof this.props.match.params.categoryName !== "undefined")
         {
             this.props.category(this.props.match.params.categoryName);
             //this.props.fetchFilteredItems(this.props.sortAndFilter.text, this.props.sortAndFilter.minPrice, this.props.sortAndFilter.maxPrice, this.props.sortAndFilter.sortBy, this.props.sortAndFilter.category, this.props.sortAndFilter.page, ITEM_PAGE_SIZE);
         }
+        if(typeof this.props.match.params.searchText !== "undefined")
+        {
+            this.props.minPrice(0);
+            this.props.maxPrice(0);
+            this.props.filterText(this.props.match.params.searchText);
+            //this.props.fetchFilteredItems(this.props.sortAndFilter.text, this.props.sortAndFilter.minPrice, this.props.sortAndFilter.maxPrice, this.props.sortAndFilter.sortBy, this.props.sortAndFilter.category, this.props.sortAndFilter.page, ITEM_PAGE_SIZE);
+        }
         if(typeof this.props.pageProps.number === "undefined" || this.props.pageProps.number <= 0)
         {
-            this.props.fetchFilteredItems(this.props.sortAndFilter.text, this.props.sortAndFilter.minPrice, this.props.sortAndFilter.maxPrice, this.props.sortAndFilter.sortBy, this.props.sortAndFilter.category, this.props.sortAndFilter.page, ITEM_PAGE_SIZE);
+            this.props.fetchFilteredItems(
+                this.props.sortAndFilter.text,
+                this.props.sortAndFilter.minPrice,
+                this.props.sortAndFilter.maxPrice,
+                this.props.sortAndFilter.sortBy,
+                this.props.sortAndFilter.category,
+                this.props.sortAndFilter.page,
+                ITEM_PAGE_SIZE
+            );
         }
     }
 
 
     componentDidUpdate(prevProps) {
         console.log("I tried atleast " , this.props.match.params.categoryName);
-        if(prevProps.sortAndFilter !== this.props.sortAndFilter || prevProps.match.params.categoryName !== this.props.match.params.categoryName)
+        if(
+            prevProps.sortAndFilter !== this.props.sortAndFilter ||
+            prevProps.match.params.categoryName !== this.props.match.params.categoryName ||
+            prevProps.match.params.searchText !== this.props.match.params.searchText)
         {
             if(prevProps.match.params.categoryName !== this.props.match.params.categoryName)
             {
                 this.props.category(this.props.match.params.categoryName);
             }
-            this.props.fetchFilteredItems(this.props.sortAndFilter.text, this.props.sortAndFilter.minPrice, this.props.sortAndFilter.maxPrice, this.props.sortAndFilter.sortBy, this.props.sortAndFilter.category, this.props.sortAndFilter.page, ITEM_PAGE_SIZE);
+            if(prevProps.match.params.searchText !== this.props.match.params.searchText)
+            {
+                this.props.minPrice(0);
+                this.props.maxPrice(0);
+                this.props.filterText(this.props.match.params.searchText);
+            }
+
+            this.props.fetchFilteredItems(
+                this.props.sortAndFilter.text,
+                this.props.sortAndFilter.minPrice,
+                this.props.sortAndFilter.maxPrice,
+                this.props.sortAndFilter.sortBy,
+                this.props.sortAndFilter.category,
+                this.props.sortAndFilter.page,
+                ITEM_PAGE_SIZE
+            );
             console.log("Category in items " , this.props.sortAndFilter.category);
             console.log("Sort in items " , this.props.sortAndFilter.sortBy);
             console.log("Min in items " , this.props.sortAndFilter.minPrice);
