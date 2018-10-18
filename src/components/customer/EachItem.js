@@ -3,8 +3,12 @@ import Product from "../../images/images_sublime/details_1.jpg";
 import { connect } from 'react-redux';
 import { fetchSingleItem } from '../../actions/itemsAction'
 import { fetchCategoriesforItem } from '../../actions/categoriesAction'
+import {addItemToCart, deleteItemFromCart} from '../../actions/cartAction';
 import Banner from "../microComponents/Banner";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
+import {NORMAL_USER} from "../../CONSTANTS";
+import {Icon, notification} from "antd";
+import {successNotification} from "../microComponents/Notifications";
 
 
 class EachItem extends Component {
@@ -54,6 +58,29 @@ class EachItem extends Component {
         }
     }
 
+    addToCart = () => {
+        let accountId = null;
+        console.log(this.props.loggedInUser.id);
+        if(typeof this.props.loggedInUser !== "undefined")
+        {
+            if(this.props.userType === NORMAL_USER)
+            {
+                accountId = this.props.loggedInUser.id;
+                const item = this.props.singleItem[0];
+
+                const cart = { "idAccountForeign": accountId, "items": [{ "idItem": item.idItem, "itemQuantity": this.state.count, "itemPrice": item.itemPrice}]};
+                this.props.addItemToCart(cart);
+                successNotification("Successfully Added to Cart");
+            }
+        }
+        else
+        {
+
+        }
+
+    };
+
+
     render() {
         const item = this.props.singleItem[0];
 
@@ -68,7 +95,7 @@ class EachItem extends Component {
         }
 
         function originalPrice(item){
-            let num = item.itemPrice
+            let num = item.itemPrice;
             return num.toFixed(2);
         }
 
@@ -140,9 +167,9 @@ class EachItem extends Component {
 
                                         {
                                             (item.itemStockLevel >= 1) ? (
-                                                <div className="button cart_button"><a href="#"><h9>Add to cart</h9></a></div>
+                                                <div className="button cart_button" onClick={this.addToCart}><h9>Add to cart</h9></div>
                                             ):(
-                                                <div disabled className="button cart_button_disabled"><a href="#"><h9>Add to cart</h9></a></div>
+                                                <div disabled className="button cart_button_disabled"><h9>Add to cart</h9></div>
                                             )
                                         }
                                     </div>
@@ -160,6 +187,34 @@ class EachItem extends Component {
                                                     <span className="discount-text-red">OUT OF STOCK</span>
                                                 </div> )
                                         }
+
+                                        {/*<Dropdown size="lg">*/}
+                                        {/*/!*<DropdownToggle caret color="dark">*!/*/}
+                                        {/*/!*Quantity*!/*/}
+                                        {/*/!*</DropdownToggle>*!/*/}
+
+                                        {/*<DropdownMenu>*/}
+                                        {/*{this.createTable()}*/}
+                                        {/*</DropdownMenu>*/}
+                                        {/*</Dropdown>*/}
+
+                                        {/*<div>*/}
+                                        {/*{doDecrement()}*/}
+                                        {/*<input type="text" className="number" value={this.state.value}></input>*/}
+                                        {/*<button onClick={doIncrement} className=" item-stock-increment fa fa-plus fa-inverse fa-2x"></button>*/}
+                                        {/*<sub>{this.state.message}</sub>*/}
+                                        {/*</div>*/}
+
+                                        {/*<div className="product_quantity clearfix">*/}
+                                        {/*<span>Qty</span>*/}
+                                        {/*<select id="quantity_input" type="number" value="1"/>*/}
+                                        {/*<div className="quantity_buttons">*/}
+                                        {/*<div id="quantity_inc_button" className="quantity_inc quantity_control">*/}
+                                        {/*<i className="fa fa-chevron-up" aria-hidden="true"></i></div>*/}
+                                        {/*<div id="quantity_dec_button" className="quantity_dec quantity_control">*/}
+                                        {/*<i className="fa fa-chevron-down" aria-hidden="true"></i></div>*/}
+                                        {/*</div>*/}
+                                        {/*</div>*/}
                                     </div>
 
                                 </div>
@@ -196,10 +251,15 @@ class EachItem extends Component {
 const mapStateToProps = (state) => ({
     singleItem: state.items.singleItem,
     itemCategory: state.category.itemCategory,
+    loggedInUser : state.accounts.loggedInUser,
+    userType : state.accounts.userType,
 });
 
 const mapDispatchToProps = {
     fetchSingleItem,
     fetchCategoriesforItem,
+    addItemToCart,
+    deleteItemFromCart,
 }
+
 export default connect(mapStateToProps, mapDispatchToProps) (EachItem);

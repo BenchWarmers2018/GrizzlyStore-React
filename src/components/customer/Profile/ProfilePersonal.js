@@ -69,8 +69,10 @@ class ProfilePersonal extends Component {
             //Getting values for posting
             const submissionValues = this.getPostValues(values);
 
+
             //Passing values to parent component
             this.props.onProfileChange(submissionValues);
+
             formikBag.setSubmitting(false);
         }
         else {

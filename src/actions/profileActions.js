@@ -43,6 +43,7 @@ export function fetchProfile(accountID) {
 
 export function submitPersonalDetails(profileData) {
     return function (dispatch) {
+
         dispatch({type: UPDATE_PROFILE_DETAILS}); //
 
         console.log('image being sent . . .');

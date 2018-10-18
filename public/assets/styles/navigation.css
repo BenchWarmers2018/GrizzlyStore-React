@@ -151,3 +151,8 @@
     max-height: 100px;
     position: relative;
 }
+.header-user-logout{
+    padding-left: 14px !important;
+    margin-left: 20px !important;
+
+}

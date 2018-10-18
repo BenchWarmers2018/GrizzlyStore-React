@@ -4,7 +4,15 @@ import {
     FETCH_GOOGLE_ACCOUNTS_FULFILLED,
     FETCH_GOOGLE_ACCOUNTS_REJECTED, GET_CURRENT_USER, GET_CURRENT_USER_FULFILLED, GET_CURRENT_USER_REJECTED,
     GOOGLE_USER,
-    NORMAL_USER
+    NORMAL_USER,
+    CREATE_ACCOUNT,
+    CREATE_ACCOUNT_REJECTED,
+    CREATE_ACCOUNT_FULFILLED,
+    SERVER_NOT_FOUND,
+    AUTHENTICATING_USER_SUCCESSFUL,
+    AUTHENTICATE_USER,
+    AUTHENTICATE_USER_REJECTED
+
 } from "../CONSTANTS";
 
 const initialState = {
@@ -25,13 +33,13 @@ const initialState = {
 export default function reducer(state=initialState, action){
 
     switch (action.type) {
-        case "CREATE_ACCOUNT": {
+        case CREATE_ACCOUNT: {
             return {...state, fetching: true}
         }
-        case "CREATE_ACCOUNT_REJECTED": {
+        case CREATE_ACCOUNT_REJECTED: {
             return {...state, fetching: false, createAccountError: action.payload}
         }
-        case "CREATE_ACCOUNT_FULFILLED": {
+        case CREATE_ACCOUNT_FULFILLED: {
             return {
                 ...state,
                 fetching: false,
@@ -57,7 +65,7 @@ export default function reducer(state=initialState, action){
             }
         }
 
-        /* For Google accounts*/
+        /* For Google accounts */
         case FETCH_GOOGLE_ACCOUNTS: {
             return {...state, fetching: true}
         }
@@ -74,13 +82,13 @@ export default function reducer(state=initialState, action){
             }
         }
 
-        case "AUTHENTICATE_USER": {
+        case AUTHENTICATE_USER: {
           return {...state, fetching: true, authenticating: true}
         }
-        case "AUTHENTICATE_USER_REJECTED": {
+        case AUTHENTICATE_USER_REJECTED: {
           return {...state, fetching: false, authenticating: false, error: action.payload}
         }
-        case "AUTHENTICATING_USER_SUCCESSFUL": {
+        case AUTHENTICATING_USER_SUCCESSFUL: {
           return {
             ...state,
               fetching: false,
@@ -91,7 +99,7 @@ export default function reducer(state=initialState, action){
             token: action.payload,
           }
         }
-        case "SERVER_NOT_FOUND": {
+        case SERVER_NOT_FOUND: {
           return {
             ...state,
               fetching: false,
