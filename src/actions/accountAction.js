@@ -76,7 +76,7 @@ export function authenticateUser(loginData) {
   return function (dispatch) {
     dispatch({type: AUTHENTICATE_USER});
 
-    axios.post("http://localhost:8080/login/authenticate", loginData)
+    axios.post(URL_USER + "/login/authenticate", loginData)
       .then(result => {
           localStorage.setItem(ACCESS_TOKEN, result.data.accessToken);
           dispatch({type: AUTHENTICATING_USER_SUCCESSFUL, payload: result.data.accessToken})

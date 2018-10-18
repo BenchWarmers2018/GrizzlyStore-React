@@ -97,6 +97,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     authenticateUser,
+    
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormikApp)
