@@ -7,12 +7,25 @@ import User from '../../../images/admin_images/users/1.jpg';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
 import '../../../../node_modules/mdbreact/dist/css/mdb.css';
 import { Link } from 'react-router-dom';
-
 import Icon from '@mdi/react';
 import { mdiClose, mdiMenu, mdiTableSearch } from '@mdi/js';
-
+import firebase from "firebase";
+import {ACCESS_TOKEN} from "../../../index";
+import {resetUserStore} from "../../../actions/accountAction";
+import { connect } from 'react-redux';
 
 class adminHeader extends Component {
+
+    constructor(props) {
+        super(props);
+
+    }
+
+    logUserOut = () => {
+        localStorage.removeItem(ACCESS_TOKEN);
+        this.props.dispatch(resetUserStore());
+    }
+
     render() {
         return (
             <header className="topbar" data-navbarbg="skin5">
@@ -56,7 +69,7 @@ class adminHeader extends Component {
                                     width="31"/></DropdownToggle>
                                 <DropdownMenu>
                                     <DropdownItem><Link to="/profile">My Profile</Link></DropdownItem>
-                                    <DropdownItem> Log Out </DropdownItem>
+                                    <DropdownItem onClick={this.logUserOut}><Link to="/">Log Out</Link> </DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                         </ul>
@@ -67,4 +80,4 @@ class adminHeader extends Component {
     }
 }
 
-export default adminHeader;
+export default connect() (adminHeader);

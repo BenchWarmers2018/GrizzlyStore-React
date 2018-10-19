@@ -91,7 +91,6 @@ const displayError = error => {
 };
 
 const mapStateToProps = (state) => ({
-    userAccount: state.accounts.userAccount,
     error: state.accounts.error,
 });
 

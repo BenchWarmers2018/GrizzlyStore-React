@@ -8,7 +8,7 @@ import Banner from "../microComponents/Banner";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
 import {NORMAL_USER} from "../../CONSTANTS";
 import {Icon, notification} from "antd";
-import {successNotification} from "../microComponents/Notifications";
+import {errorNotification, successNotification} from "../microComponents/Notifications";
 
 
 class EachItem extends Component {
@@ -60,12 +60,12 @@ class EachItem extends Component {
 
     addToCart = () => {
         let accountId = null;
-        console.log(this.props.loggedInUser.id);
+        console.log(this.props.loggedInUser.idAccount);
         if(typeof this.props.loggedInUser !== "undefined")
         {
             if(this.props.userType === NORMAL_USER)
             {
-                accountId = this.props.loggedInUser.id;
+                accountId = this.props.loggedInUser.idAccount;
                 const item = this.props.singleItem[0];
 
                 const cart = { "idAccountForeign": accountId, "items": [{ "idItem": item.idItem, "itemQuantity": this.state.count, "itemPrice": item.itemPrice}]};
@@ -77,8 +77,12 @@ class EachItem extends Component {
         {
 
         }
-
     };
+
+    notAllowed = () =>
+    {
+        errorNotification("No Account Detected", "Please login to add items to your cart.")
+    }
 
 
     render() {
@@ -167,10 +171,10 @@ class EachItem extends Component {
                                         </div>
 
                                         {
-                                            (item.itemStockLevel >= 1) ? (
-                                                <button className="btn btn-dark" onClick={this.addToCart}><h9>Add to cart</h9></button>
+                                            (item.itemStockLevel >= 1 && this.props.loggedInUser!== null) ? (
+                                                <div className="button cart_button" onClick={this.addToCart}><h9>Add to cart</h9></div>
                                             ):(
-                                                <button disabled className="btn btn-dark"><h9>Add to cart</h9></button>
+                                                <div onClick={this.notAllowed} disabled className="button cart_button_disabled"><h9>Add to cart</h9></div>
                                             )
                                         }
                                     </div>
