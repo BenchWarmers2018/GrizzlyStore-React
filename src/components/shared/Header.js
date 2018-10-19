@@ -87,7 +87,7 @@ class Header extends Component {
 
             if(!!user)
             {
-                const googleUser = {googleAccountEmailAddress: user.email};
+                const googleUser = {"accountEmailAddress": user.email};
                 this.props.dispatch(fetchGoogleAccounts(googleUser));
             }
         });
@@ -107,7 +107,7 @@ class Header extends Component {
         {
             if(this.props.type === GOOGLE_USER)
             {
-                name = this.props.data.googleAccountEmailAddress;
+                name = this.props.data.accountEmailAddress;
             }
             else if (this.props.type === NORMAL_USER)
             {
