@@ -148,8 +148,8 @@ class EachItem extends Component {
                                         <div>
                                             {
                                                 (this.state.count > 1 && item.itemStockLevel >= 1) ? (
-                                                    <button className="quantity-buttons" onClick={(e) => this.handleClickDec(e)}>-</button>):(
-                                                    <button disabled className="quantity-buttons-disabled" onClick={(e) => this.handleClickDec(e)}>-</button>
+                                                    <button className="btn btn-primary" onClick={(e) => this.handleClickDec(e)}>-</button>):(
+                                                    <button disabled className="btn btn-primary" onClick={(e) => this.handleClickDec(e)}>-</button>
                                                 )
                                             }
                                         </div>
@@ -157,19 +157,20 @@ class EachItem extends Component {
                                             <h9>{this.state.count}</h9>
                                         </div>
                                         <div >
+                                            {/* "quantity-buttons-disabled" class disabled and used bootstrap "btn btn-dark"*/}
                                             {
                                                 (this.state.count >= 1 && this.state.count < item.itemStockLevel) ? (
-                                                    <button className="quantity-buttons" onClick={(e) => this.handleClickInc(e)}>+</button>):(
-                                                    <button disabled className="quantity-buttons-disabled" onClick={(e) => this.handleClickInc(e)}>+</button>
+                                                    <button className="btn btn-primary" onClick={(e) => this.handleClickInc(e)}>+</button>):(
+                                                    <button disabled className=" btn btn-primary" onClick={(e) => this.handleClickInc(e)}>+</button>
                                                 )
                                             }
                                         </div>
 
                                         {
                                             (item.itemStockLevel >= 1) ? (
-                                                <div className="button cart_button" onClick={this.addToCart}><h9>Add to cart</h9></div>
+                                                <button className="btn btn-dark" onClick={this.addToCart}><h9>Add to cart</h9></button>
                                             ):(
-                                                <div disabled className="button cart_button_disabled"><h9>Add to cart</h9></div>
+                                                <button disabled className="btn btn-dark"><h9>Add to cart</h9></button>
                                             )
                                         }
                                     </div>

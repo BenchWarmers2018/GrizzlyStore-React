@@ -478,3 +478,8 @@ hr{
   padding-top: 0 !important;
 }
 
+.btn-no-decoration {
+  text-decoration: none;
+  color: inherit;
+}
+
