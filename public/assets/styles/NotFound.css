@@ -22,7 +22,30 @@ body {
     transform: translate(-50%, -50%);
 }
 
-.notfound {
+.comingsoon {
+    max-width: 520px;
+    width: 100%;
+    line-height: 1.4;
+    width: fit-content;
+    /*text-align: center;*/
+    /*top: 50%;*/
+}
+
+#comingsoon {
+    position: relative;
+    height: 100vh;
+}
+
+#comingsoon .comingsoon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.comingsoon {
     max-width: 520px;
     width: 100%;
     line-height: 1.4;

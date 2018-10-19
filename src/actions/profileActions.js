@@ -1,11 +1,23 @@
 import store from '../store';
 import axios from 'axios';
 import {
+    FETCH_PROFILE,
+    FETCH_PROFILE_FULFILLED,
+    FETCH_PROFILE_REJECTED,
     FETCH_SINGLE_ITEM,
     FETCH_SINGLE_ITEM_FULFILLED,
-    FETCH_SINGLE_ITEM_REJECTED, RESET_PROFILE_ERRORS,
-    UPDATE_PROFILE_ADDRESS, UPDATE_PROFILE_ADDRESS_FULFILLED, UPDATE_PROFILE_ADDRESS_REJECTED,
-    URL_ITEM, URL_USER
+    FETCH_SINGLE_ITEM_REJECTED,
+    RESET_PROFILE_ERRORS,
+    UPDATE_PROFILE_ADDRESS,
+    UPDATE_PROFILE_ADDRESS_FULFILLED,
+    UPDATE_PROFILE_ADDRESS_REJECTED,
+    UPDATE_PROFILE_DETAILS,
+    UPDATE_PROFILE_DETAILS_FULFILLED,
+    UPDATE_PROFILE_DETAILS_REJECTED,
+    UPDATE_PROFILE_PASSWORD,
+    UPDATE_PROFILE_PASSWORD_FULFILLED, UPDATE_PROFILE_PASSWORD_REJECTED,
+    URL_ITEM,
+    URL_USER
 } from "../CONSTANTS";
 
 const acc = {
@@ -17,44 +29,37 @@ const acc = {
 
 export function fetchProfile(accountID) {
     return function (dispatch) {
-        dispatch({type: "FETCH_PROFILE"});
+        dispatch({type: FETCH_PROFILE});
         const account = { "idAccount" : accountID}
         axios.post(URL_USER+"/user/profile", account)
             .then((response) => {
-                dispatch({type: "FETCH_PROFILE_FULFILLED", payload: response.data.entities})
+                dispatch({type: FETCH_PROFILE_FULFILLED, payload: response.data})
             })
             .catch((err) => {
-                dispatch({type: "FETCH_PROFILE_REJECTED", payload: err})
+                dispatch({type: FETCH_PROFILE_REJECTED, payload: err.response.data})
             })
     }
 }
 
-export function submitPersonalDetails(profileData, accountID = '') {
+export function submitPersonalDetails(profileData) {
     return function (dispatch) {
-        let header = {
-            'SUBMISSION_TYPE': 'Personal',
-            'accountID': acc.idAccount,
-            'Content-Type': 'multipart/form-data'
-        };
-        console.log('image being sent . . .');
-        console.log(profileData);
+
+        dispatch({type: UPDATE_PROFILE_DETAILS}); //
+
         let data = new FormData();
         data.append('file', profileData.image);
         data.append('firstName', profileData.firstName);
         data.append('lastName', profileData.lastName);
         data.append('phone', profileData.phone);
-        console.log(data.get('file'));
-        console.log(' new data being sent . . .');
-        dispatch({type: "SUBMIT_PROFILE"}); //
-        axios.post("http://localhost:10003/user/update-personal", data, {headers: header})
+        data.append('accountID', profileData.accountID);
+
+        console.log("User data to be sent ", data);
+        axios.post(URL_USER+"/user/update-personal", data)
             .then((response) => {
                 console.log("Updating profile successful " + response);
-                dispatch({type: "SUBMIT_PROFILE_ACCEPTED", payload: response.data})
-            })
-            .catch((err) => {
-                console.log("Update file unsuccessful. Error: " + err);
+                dispatch({type: UPDATE_PROFILE_DETAILS_FULFILLED, payload: response.data})
             }).catch((err) => {
-            dispatch({type: "SUBMIT_PROFILE_REJECTED", payload: err})
+            dispatch({type: UPDATE_PROFILE_DETAILS_REJECTED, payload: err.response.data})
         })
     }
 }
@@ -62,40 +67,21 @@ export function submitPersonalDetails(profileData, accountID = '') {
 export function submitPassword(profileData) {
     return function (dispatch) {
 
-        dispatch({type: "SUBMIT_PROFILE"}); //
+        dispatch({type: UPDATE_PROFILE_PASSWORD}); //
         console.log(profileData);
-        axios.post(URL_USER+"/user/update-profile", profileData)
+        axios.post(URL_USER+"/user/update-password", profileData)
             .then((response) => {
                 console.log("Updating profile successful " + JSON.stringify(response.data));
-                dispatch({type: "SUBMIT_PROFILE_ACCEPTED", payload: response.data})
+                dispatch({type: UPDATE_PROFILE_PASSWORD_FULFILLED, payload: response.data})
             })
             .catch((err) => {
                 console.log(JSON.stringify(err));
-                dispatch({type: "SUBMIT_PROFILE_REJECTED", payload: err.response.data})
+                dispatch({type: UPDATE_PROFILE_PASSWORD_REJECTED, payload: err.response.data})
 
             })
     }
 }
 
-export function submitAddress(profileData, accountID = '') {
-    return function (dispatch) {
-        var header = {
-            'SUBMISSION_TYPE': 'Address',
-            'accountID': acc.idAccount
-        };
-        dispatch({type: "SUBMIT_PROFILE"}); //
-        axios.post("http://localhost:10003/user/update-profile", profileData, {headers: header})
-            .then((response) => {
-                console.log("Updating profile successful " + response);
-                dispatch({type: "SUBMIT_PROFILE_ACCEPTED", payload: response.data.entities})
-            })
-            .catch((err) => {
-                console.log("Update file unsuccessful. Error: " + err);
-            }).catch((err) => {
-            dispatch({type: "SUBMIT_PROFILE_REJECTED", payload: err})
-        })
-    }
-}
 
 export function updateAddress(account) {
     return function(dispatch) {
@@ -103,10 +89,10 @@ export function updateAddress(account) {
 
         axios.post(URL_USER + "/user/update-address", account)
             .then((response) => {
-                dispatch({type: UPDATE_PROFILE_ADDRESS_FULFILLED, payload: response.data.entities})
+                dispatch({type: UPDATE_PROFILE_ADDRESS_FULFILLED, payload: response.data})
             })
             .catch((err) => {
-                dispatch({type: UPDATE_PROFILE_ADDRESS_REJECTED, payload: err})
+                dispatch({type: UPDATE_PROFILE_ADDRESS_REJECTED, payload: err.response.data})
             })
     }
 }

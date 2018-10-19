@@ -59,11 +59,15 @@ class sidebar extends Component {
                                     </div>
                                 </div>
                             </li>
-                            <li className="p-15 m-t-10"><a onClick={this.toggle} href="javascript:void(0)"
-                                                           className="btn btn-block create-btn text-white no-block d-flex align-items-center">
-                                <Icon path={mdiPlusBox} size={1.5}/>
-                                <span className="hide-menu m-l-5">Create New</span>
-                            </a></li>
+                            {/*<li className="p-15 m-t-10"><a onClick={this.toggle} href="javascript:void(0)"*/}
+                                                           {/*className="btn btn-block create-btn text-white no-block d-flex align-items-center">*/}
+                                {/*<Icon path={mdiPlusBox} size={1.5}/>*/}
+                                {/*<span className="hide-menu m-l-5">Create New</span>*/}
+                            {/*</a></li>*/}
+                            <li className="sidebar-item"><Link to="/"><a
+                                className="sidebar-link waves-effect waves-dark sidebar-link"
+                                aria-expanded="false"><Icon path={mdiViewDashboard} size={1.5}/><span
+                                className="hide-menu">Dashboard</span></a></Link></li>
                             <li className="sidebar-item"><a onClick={this.toggleCategoryModal} href="javascript:void(0)"
                                                             className="sidebar-link waves-effect waves-dark sidebar-link">
                                 <Icon path={mdiPlusBox} size={1.5}/>
@@ -75,14 +79,6 @@ class sidebar extends Component {
                                 <Icon path={mdiPlusBox} size={1.5}/>
                                 <span className="hide-menu m-l-5">Add New Item</span>
                             </a></li>
-                            <li className="sidebar-item"><Link to="/"><a
-                                className="sidebar-link waves-effect waves-dark sidebar-link"
-                                aria-expanded="false"><Icon path={mdiViewDashboard} size={1.5}/><span
-                                className="hide-menu">Dashboard</span></a></Link></li>
-                            <li className="sidebar-item"><Link to="/profile"><a
-                                className="sidebar-link waves-effect waves-dark sidebar-link"
-                                aria-expanded="false"><Icon path={mdiAccountNetwork} size={1.5}/><span
-                                className="hide-menu">Profile</span></a></Link></li>
                             <li className="sidebar-item"><Link
                                 to={{pathname: "/viewcategories", state: this.state.categories}}><a
                                 className="sidebar-link waves-effect waves-dark sidebar-link"

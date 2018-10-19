@@ -10,14 +10,17 @@ import {
     FETCH_SINGLE_ITEM,
     FETCH_SINGLE_ITEM_FULFILLED,
     FETCH_SINGLE_ITEM_REJECTED,
-    FETCH_ITEMS_PAGE, FETCH_ITEMS_PAGE_REJECTED,
+    FETCH_ITEMS_PAGE,
+    FETCH_ITEMS_PAGE_REJECTED,
     UPDATE_ITEM,
     UPDATE_ITEM_SUCCESSFUL,
     UPDATE_ITEM_REJECTED,
     SERVER_NOT_FOUND,
     FETCH_HOME_ITEMS,
     FETCH_HOME_ITEMS_FULFILLED,
-    FETCH_HOME_ITEMS_REJECTED
+    FETCH_HOME_ITEMS_REJECTED,
+    FETCH_SINGLE_CART_ITEM,
+    FETCH_SINGLE_CART_ITEM_FULFILLED, FETCH_SINGLE_CART_ITEM_REJECTED
 } from "../CONSTANTS";
 
 export function fetchItems() {
@@ -47,6 +50,7 @@ export function fetchSingleItem(id) {
             })
     }
 }
+
 
 export function fetchHomeItemsPage(page, size) {
     return function (dispatch) {

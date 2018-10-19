@@ -433,6 +433,14 @@ hr{
   margin: 0 !important;
   background-size: 100% 100%;
 }
+#comingsoon{
+  background-image: url('./images/comingsoonbear.png') !important;
+  background-size: cover;
+  /*background-repeat: no-repeat;*/
+  /*height: 100vh;*/
+  margin: 0 !important;
+  background-size: 100% 100%;
+}
 
 @media only screen and (max-width: 620px) {
   #notfound{
@@ -476,5 +484,10 @@ hr{
   padding-left: 0 !important;
   padding-right: 0 !important;
   padding-top: 0 !important;
+}
+
+.btn-no-decoration {
+  text-decoration: none;
+  color: inherit;
 }
 

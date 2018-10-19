@@ -17,7 +17,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isAdmin: true,
+            isAdmin: false,
 
             currentUser: null,
             isAuthenticated: false,
@@ -40,7 +40,37 @@ class App extends Component {
 
     }
 
-    render() {
+    render()
+    {
+        // if(this.props.loggedInUser !== null)
+        // {
+        //     if(typeof this.props.loggedInUser !== "undefined")
+        //     {
+        //         if(this.props.loggedInUser.admin === true)
+        //         {
+        //             return (
+        //                 <BrowserRouter>
+        //                     <div className="super_container">
+        //
+        //
+        //                             <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        //                                 <AdminHeader/>
+        //                                 <SideBar/>
+        //                                 {(this.props.fetching) ?
+        //                                     <Spinner/>
+        //                                     :
+        //                                     <AdminMain />
+        //                                 }
+        //                             </div>
+        //                         <Footer/>
+        //                     </div>
+        //                 </BrowserRouter>
+        //
+        //             );
+        //         }
+        //
+        //     }
+        // }
         return (
             <BrowserRouter>
                 <div className="super_container">

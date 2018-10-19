@@ -7,12 +7,12 @@ import LogoSmall from "../../images/images_sublime/bearlogo.png";
 import LoginForm from "../shared/login/LoginForm.js";
 import { connect } from "react-redux"
 import { fetchAccounts } from "../../actions/accountAction"
-import GoogleLogin from "../shared/GoogleLogin.js";
 import { createAccount } from "../../actions/accountAction";
 import {ACCESS_TOKEN} from "../../index";
 import firebase from "firebase";
 import {fetchGoogleAccounts} from "../../actions/googleaccountAction";
 import {GOOGLE_USER, NORMAL_USER} from "../../CONSTANTS";
+import { withRouter } from "react-router";
 
 class Header extends Component {
 
@@ -27,21 +27,22 @@ class Header extends Component {
             googleEmailAddress:"",
             isSignedIn : false,
             user: null,
+            searchValue: "",
         };
-        this.onClick = this.onClick.bind(this);
     }
 
-    onClick(){
+    onClick = () => {
         this.setState({
             collapse: !this.state.collapse,
         });
     }
 
-    submitForm = (e) => {
-        e.preventDefault()
-        this.setState({
-            redirect: true
-        })
+    handleSearch = (e) =>
+    {
+        e.preventDefault();
+
+            this.props.history.push('/search/'+ this.state.searchValue)
+
     }
 
 
@@ -54,7 +55,7 @@ class Header extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const user = {accountEmailAddress: this.state.emailAddress, accountPassword: this.state.password};
+        const user = {accountEmailAddress: this.state.emailAddress, accountPassword: this.state.password, admin: true};
         this.props.dispatch(createAccount(user));
     }
 
@@ -86,7 +87,7 @@ class Header extends Component {
 
             if(!!user)
             {
-                const googleUser = {googleAccountEmailAddress: user.email};
+                const googleUser = {"accountEmailAddress": user.email};
                 this.props.dispatch(fetchGoogleAccounts(googleUser));
             }
         });
@@ -106,7 +107,7 @@ class Header extends Component {
         {
             if(this.props.type === GOOGLE_USER)
             {
-                name = this.props.data.googleAccountEmailAddress;
+                name = this.props.data.accountEmailAddress;
             }
             else if (this.props.type === NORMAL_USER)
             {
@@ -136,7 +137,7 @@ class Header extends Component {
                                 <NavLink to="/items/all">ITEMS</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink to="/sale">SALE</NavLink>
+                                <NavLink to="/sales">SALE</NavLink>
                             </NavItem>
                             <NavItem>
                                 <Dropdown>
@@ -159,21 +160,18 @@ class Header extends Component {
                         </NavbarNav>
                         <NavbarNav right>
                             <NavItem>
-                                {(this.state.redirect) && (
-                                    <Redirect to={'/items/all'}/>
-                                )}
-
-                                {/*<form onSubmit={this.submitForm} className="search-bar-large form-inline md-form mt-0">*/}
-                                    {/*<input className="form-control mr-sm-2 mb-0 text-black" type="text" placeholder="Search" aria-label="Search"/>*/}
+                                {/*<form className="search search-bar-small form-inline mt-0">*/}
+                                    {/*<div className="search__wrapper">*/}
+                                        {/*<input aria-label="Search" type="text" name="" placeholder="Search" className="search__field text-black"/>*/}
+                                            {/*<button onClick={this.handleSearch} type="button" className="fa fa-search search__icon"></button>*/}
+                                    {/*</div>*/}
                                 {/*</form>*/}
-
-                                <form onSubmit={this.submitForm} className="search search-bar-small form-inline mt-0">
-                                    <div className="search__wrapper">
-                                        <input aria-label="Search" type="text" name="" placeholder="Search" className="search__field text-black"/>
-                                            <button type="submit" className="fa fa-search search__icon"></button>
-                                    </div>
+                                <form onSubmit={this.handleSearch} className="form-inline mb-4">
+                                    <input className="form-control form-control-sm mr-3 w-75" type="text" onChange={(e) => {
+                                        this.setState({ searchValue: e.target.value}
+                                    )}} value={this.state.searchValue} placeholder="Search" aria-label="Search" />
+                                    <i className="fa fa-search" aria-hidden="true"></i>
                                 </form>
-
                             </NavItem>
 
 
@@ -293,4 +291,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(withRouter(Header));
