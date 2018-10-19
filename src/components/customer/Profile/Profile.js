@@ -12,6 +12,7 @@ import ProfilePersonal from "./ProfilePersonal";
 import ProfilePassword from "./ProfilePassword";
 import {errorNotification, successNotification} from "../../microComponents/Notifications";
 import NoProfilePic from "../../../images/profile_images/no-user-picture-icon.png";
+import { Redirect } from 'react-router-dom'
 
 class Profile extends Component {
     constructor(props) {
@@ -26,17 +27,16 @@ class Profile extends Component {
     componentDidMount(){
         if(this.props.userType.length >0 && this.props.loggedInUser !== null && typeof this.props.loggedInUser !== "undefined")
         {
-            this.props.fetchProfile(this.props.loggedInUser.id);
+            this.props.fetchProfile(this.props.loggedInUser.idAccount);
         }
     }
 
     componentDidUpdate(prevProps){
-        console.log("Logged in account is ", this.props.loggedInAccount);
         if(prevProps.continueLogin !== this.props.continueLogin){
-            console.log("Tried this");
+
             if(this.props.userType.length >0 && this.props.loggedInUser !== null && typeof this.props.loggedInUser !== "undefined")
             {
-                this.props.fetchProfile(this.props.loggedInUser.id);
+                this.props.fetchProfile(this.props.loggedInUser.idAccount);
             }
         }
 
@@ -44,11 +44,11 @@ class Profile extends Component {
         {
             if(this.props.status === "OK")
             {
-                successNotification("Password Updated Successfully");
+                successNotification("Profile Updated Successfully");
             }
             else
             {
-                errorNotification("Password update unsuccessfull.", this.props.errors[0])
+                errorNotification("Profile update unsuccessfull.", this.props.errors[0])
             }
             this.props.resetErrorsAndStatus();
         }
@@ -57,7 +57,6 @@ class Profile extends Component {
 
 
     handleClick = (e) => {
-        console.log(e.target.value);
         this.setState({selected: e.target.value})
 
     }
@@ -75,7 +74,6 @@ class Profile extends Component {
             }
         }
         this.props.updateAddress(account);
-        console.log(account);
     }
 
     handlePasswordChange = (password) => {
@@ -83,6 +81,12 @@ class Profile extends Component {
     }
 
     render() {
+        if(this.props.loggedInUser == null)
+        {
+            return(
+                <Redirect to="/"/>
+            )
+        }
 
         const accountArray = this.props.loggedInAccount;
         let profile = null;
@@ -90,7 +94,6 @@ class Profile extends Component {
         let selectedOption= <div>"No details of account found"</div>;
         if(accountArray !== null && accountArray.length > 0)
         {
-            console.log(accountArray);
             account = accountArray[0];
 
             if (this.props.userType.length > 0 && account !== null) {
@@ -103,7 +106,6 @@ class Profile extends Component {
                     selectedOption = <ProfileAddress onAddressChange={this.handleAddressChange} data={profile.address}/>
                 else if(this.state.selected === "Change Password")
                     selectedOption = <ProfilePassword onPasswordChange={this.handlePasswordChange}/>
-                console.log(profile);
             }
         }
         else

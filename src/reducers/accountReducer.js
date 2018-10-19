@@ -11,7 +11,7 @@ import {
     SERVER_NOT_FOUND,
     AUTHENTICATING_USER_SUCCESSFUL,
     AUTHENTICATE_USER,
-    AUTHENTICATE_USER_REJECTED
+    AUTHENTICATE_USER_REJECTED, RESET_USER_ACCOUNT
 
 } from "../CONSTANTS";
 
@@ -105,6 +105,23 @@ export default function reducer(state=initialState, action){
               fetching: false,
             error: action.payload
           }
+        }
+        case RESET_USER_ACCOUNT: {
+            return{
+                ...state,
+                accounts: [],
+                token : {},
+                fetching: false,
+                fetched: false,
+                authenticating: false,
+                authenticated: false,
+                error: [],
+                createAccountError: [],
+                tokenError: [],
+                loggedInUser: null,
+                userType: "",
+                continueLogin: false,
+            }
         }
         default:
             return state;

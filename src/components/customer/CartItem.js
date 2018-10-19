@@ -13,7 +13,7 @@ class CartItem extends React.Component {
         {
             if(this.props.userType === NORMAL_USER)
             {
-                accountId = this.props.loggedInUser.id;
+                accountId = this.props.loggedInUser.idAccount;
                 const cart = { "idAccountForeign": accountId, "items": [ { "idItem": this.props.cartItemObject.idItem, "total": this.props.cartItemObject.total} ] };
                 console.log("Came to fetch");
                 this.props.deleteItemFromCart(cart);

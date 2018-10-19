@@ -9,14 +9,19 @@ import Checkout from "./customer/Checkout";
 import OrderConfirmation from "./customer/OrderConfirmation";
 import NotFound from "./shared/NotFound.js";
 import Profile from "./customer/Profile/Profile";
-
+import { connect } from 'react-redux';
 
 class Main extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <main>
                 <Switch>
                     <Route exact path='/' component={Home}/>
+                    <Route path={'/home'} component={Home}/>
                     <Route path='/items/all' component={Items} />
                     <Route path='/category/:categoryName'  component={Items}/>
                     <Route path='/items/:id' component={EachProduct}/>
@@ -34,4 +39,9 @@ class Main extends Component {
     }
 }
 
-export default Main;
+// const mapStateToProps = state => ({
+//     loggedInUser: state.accounts.loggedInUser,
+//     userType : state.accounts.userType,
+// });
+
+export default (Main);
