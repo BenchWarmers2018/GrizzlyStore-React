@@ -148,8 +148,8 @@ class EachItem extends Component {
                                         <div>
                                             {
                                                 (this.state.count > 1 && item.itemStockLevel >= 1) ? (
-                                                    <button className="btn btn-primary" onClick={(e) => this.handleClickDec(e)}>-</button>):(
-                                                    <button disabled className="btn btn-primary" onClick={(e) => this.handleClickDec(e)}>-</button>
+                                                    <button className="btn btn-primary" onClick={(e) => this.handleClickDec(e)}><div className="btn-enlarge">-</div></button>):(
+                                                    <button disabled className="btn btn-primary" onClick={(e) => this.handleClickDec(e)}><div className="btn-enlarge">-</div></button>
                                                 )
                                             }
                                         </div>
@@ -160,8 +160,8 @@ class EachItem extends Component {
                                             {/* "quantity-buttons-disabled" class disabled and used bootstrap "btn btn-dark"*/}
                                             {
                                                 (this.state.count >= 1 && this.state.count < item.itemStockLevel) ? (
-                                                    <button className="btn btn-primary" onClick={(e) => this.handleClickInc(e)}>+</button>):(
-                                                    <button disabled className=" btn btn-primary" onClick={(e) => this.handleClickInc(e)}>+</button>
+                                                    <button className="btn btn-primary" onClick={(e) => this.handleClickInc(e)}><div className="btn-enlarge">+</div></button>):(
+                                                    <button disabled className=" btn btn-primary" onClick={(e) => this.handleClickInc(e)}><div className="btn-enlarge">+</div></button>
                                                 )
                                             }
                                         </div>
