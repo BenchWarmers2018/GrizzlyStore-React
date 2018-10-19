@@ -5,6 +5,8 @@ import {
     FETCH_ITEMS_REJECTED,
     FETCH_ITEMS_FULFILLED,
     URL_ITEM,
+    ADD_ITEM, ADD_ITEM_FULFILLED, ADD_ITEM_REJECTED,
+    DELETE_ITEM, DELETE_ITEM_FULFILLED, DELETE_ITEM_REJECTED,
     FETCH_SINGLE_ITEM,
     FETCH_SINGLE_ITEM_FULFILLED,
     FETCH_SINGLE_ITEM_REJECTED,
@@ -19,10 +21,10 @@ import {
 } from "../CONSTANTS";
 
 export function fetchItems() {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch({type: FETCH_ITEMS});
 
-        axios.get(URL_ITEM + "/items/all")
+        axios.get("http://localhost:10005/items/all")
             .then((response) => {
                 dispatch({type: "FETCH_ITEMS_FULFILLED", payload: response.data.entities})
             })
@@ -47,7 +49,7 @@ export function fetchSingleItem(id) {
 }
 
 export function fetchHomeItemsPage(page, size) {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch({type: FETCH_HOME_ITEMS});
         page = page - 1;
         axios.get(URL_ITEM + "/items/page?page=" + page + "&size=" + size)
@@ -201,7 +203,7 @@ const popularArr = [
 
 export function fetchPopularItems() {
     return {
-        payload:popularArr
+        payload: popularArr
     }
 }
 
@@ -223,34 +225,52 @@ export function addItem(itemName, itemDescription, itemImage, itemPrice, itemSto
         data.append('item', JSON.stringify(item));
         data.append('category', itemCategory);
 
-        dispatch({type: "ADD_ITEM"}); //
-        axios.post(URL_ITEM + '/items/addItem', data, {headers: header}).then((response) => {
+        dispatch({type: ADD_ITEM}); //
+        axios.post(URL_ITEM + "/items/addItem", data, {headers: header}).then((response) => {
             console.log("TESTING " + response.data.entities);
-            dispatch({type: "ADD_ITEM_FULFILLED", payload: response.data})
+            dispatch({type: ADD_ITEM_FULFILLED, payload: response.data})
         })
             .catch((err) => {
-                dispatch({type: "ADD_ITEM_REJECTED", payload: err})
+                dispatch({type: ADD_ITEM_REJECTED, payload: err})
             })
     }
 }
 
 export function updateItem(formData) {
     return function (dispatch) {
-      dispatch({type: UPDATE_ITEM});
+        dispatch({type: UPDATE_ITEM});
 
-      axios.post(URL_ITEM + "/items/edit", formData)
-        .then(result => {
-          dispatch({type: UPDATE_ITEM_SUCCESSFUL, payload: result.data.entities[0]})
-        })
-        .catch((error) => {
-          if (error.message === "Network Error" )
-            dispatch({type: SERVER_NOT_FOUND, payload: 'The server is currently offline. Please try again later.'})
-          else
-            dispatch({type: UPDATE_ITEM_REJECTED, payload: error.response.data.errors})
-        })
+        axios.post(URL_ITEM + "/items/edit", formData)
+            .then(result => {
+                dispatch({type: UPDATE_ITEM_SUCCESSFUL, payload: result.data.entities[0]})
+            })
+            .catch((error) => {
+                if (error.message === "Network Error")
+                    dispatch({
+                        type: SERVER_NOT_FOUND,
+                        payload: 'The server is currently offline. Please try again later.'
+                    })
+                else
+                    dispatch({type: UPDATE_ITEM_REJECTED, payload: error.response.data.errors})
+            })
     }
 }
 
-export function deleteItem(idItem) {
-    return {type: 'DELETE_ITEM', payload: idItem}
+export function deleteItem(itemID) {
+    return function (dispatch) {
+
+        let item = {
+            idItem: itemID,
+        };
+
+        dispatch({type: DELETE_ITEM}); //
+        axios.post(URL_ITEM + "/items/remove", item).then((response) => {
+            console.log("TESTING " + response.data.entities);
+            response.data = {...response.data, idItem: itemID};
+            dispatch({type: DELETE_ITEM_FULFILLED, payload: response.data})
+        })
+            .catch((err) => {
+                dispatch({type: DELETE_ITEM_REJECTED, payload: err})
+            })
+    }
 }
