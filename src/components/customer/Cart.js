@@ -10,6 +10,7 @@ import { mdiTrashCanOutline } from '@mdi/js';
 import { Button, notification } from 'antd';
 import {deleteCart} from "../../actions/cartAction";
 import Cart_CartItem from "./Cart_CartItem";
+import { Redirect } from 'react-router-dom'
 import {successNotification} from "../microComponents/Notifications";
 
 class Cart extends Component {
@@ -39,7 +40,7 @@ class Cart extends Component {
         let accountId = null;
         if(this.props.userType === NORMAL_USER)
         {
-            accountId = this.props.loggedInUser.id;
+            accountId = this.props.loggedInUser.idAccount;
             this.props.fetchCart(accountId);
         }
     }
@@ -51,7 +52,7 @@ class Cart extends Component {
             if(this.props.userType === NORMAL_USER)
             {
                 console.log("Not equal");
-                accountId = this.props.loggedInUser.id;
+                accountId = this.props.loggedInUser.idAccount;
                 this.props.fetchCart(accountId);
             }
         }
@@ -62,8 +63,14 @@ class Cart extends Component {
 
 
     render() {
-        const item = this.props.cartItemObject;
+        if(this.props.loggedInUser === null)
+        {
+            return(
+                <Redirect to="/"/>
+                )
+        }
 
+        const item = this.props.cartItemObject;
         let cartItems = null;
         const cart = this.props.cart;
         if(cart !== null || typeof cart !== "undefined")
