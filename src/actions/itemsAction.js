@@ -27,7 +27,7 @@ export function fetchItems() {
     return function (dispatch) {
         dispatch({type: FETCH_ITEMS});
 
-        axios.get("http://localhost:10005/items/all")
+        axios.get(URL_ITEM + "/items/all")
             .then((response) => {
                 dispatch({type: "FETCH_ITEMS_FULFILLED", payload: response.data.entities})
             })
