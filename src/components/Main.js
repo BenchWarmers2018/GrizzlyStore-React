@@ -9,7 +9,7 @@ import Checkout from "./customer/Checkout";
 import OrderConfirmation from "./customer/OrderConfirmation";
 import NotFound from "./shared/NotFound.js";
 import Profile from "./customer/Profile/Profile";
-import { connect } from 'react-redux';
+import ComingSoon from "./shared/ComingSoon.js";
 
 class Main extends Component {
     constructor(props) {
@@ -27,6 +27,7 @@ class Main extends Component {
                     <Route path='/items/:id' component={EachProduct}/>
                     <Route path='/search/:searchText' component={Items} />
                     <Route path='/search/' component={Items} />
+                    <Route path='/sales' component={ComingSoon} />
                     <Route path='/cart' component={Cart} />
                     <Route path='/checkout' component={Checkout}/>
                     <Route path='/confirmation' component={OrderConfirmation}/>
@@ -39,9 +40,5 @@ class Main extends Component {
     }
 }
 
-// const mapStateToProps = state => ({
-//     loggedInUser: state.accounts.loggedInUser,
-//     userType : state.accounts.userType,
-// });
 
 export default (Main);

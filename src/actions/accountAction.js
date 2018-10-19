@@ -11,7 +11,14 @@ import {
     SERVER_NOT_FOUND,
     AUTHENTICATE_USER_REJECTED,
     CREATE_ACCOUNT_FULFILLED,
-    CREATE_ACCOUNT_REJECTED, FETCH_PROFILE, FETCH_PROFILE_FULFILLED, FETCH_PROFILE_REJECTED, RESET_USER_ACCOUNT
+    CREATE_ACCOUNT_REJECTED,
+    FETCH_PROFILE,
+    FETCH_PROFILE_FULFILLED,
+    FETCH_PROFILE_REJECTED,
+    RESET_USER_ACCOUNT,
+      GET_ALL_USERS,
+      GET_ALL_USERS_REJECTED,
+      GET_ALL_USERS_SUCCESSFUL
 } from "../CONSTANTS";
 
 
@@ -111,11 +118,30 @@ export function authenticateUser(loginData) {
   }
 }
 
+
 export function resetUserStore() {
     return function (dispatch) {
-        dispatch ({type: RESET_USER_ACCOUNT});
+        dispatch({type: RESET_USER_ACCOUNT});
 
     }
+}
+
+export function getAllUsers() {
+  return function (dispatch) {
+      dispatch({type: GET_ALL_USERS});
+
+      axios.get(URL_USER + "/account/all")
+        .then(result => {
+          dispatch({type: GET_ALL_USERS_SUCCESSFUL, payload: result.data.entities})
+        })
+        .catch((error) => {
+          if (error.message === "Network Error" )
+            dispatch({type: SERVER_NOT_FOUND, payload: 'The server is currently offline. Please try again later.'})
+          else
+            dispatch({type: GET_ALL_USERS_REJECTED, payload: error.response.data.errors})
+        })
+  }
+
 }
 
 export function loginRequired() {
