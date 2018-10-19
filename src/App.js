@@ -10,7 +10,6 @@ import AdminMain from "./components/admin/adminMain"
 import {connect} from 'react-redux';
 import {getCurrentUser} from "./actions/accountAction"
 import {BrowserRouter} from "react-router-dom";
-import Spinner from "./components/microComponents/Spinner";
 
 
 class App extends Component {
@@ -80,19 +79,11 @@ class App extends Component {
                              data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
                             <AdminHeader/>
                             <SideBar/>
-                            {(this.props.fetching) ?
-                                <Spinner/>
-                                :
-                                <AdminMain/>
-                            }
+                                <AdminMain />
                         </div> :
                         <div>
-                            <Header data={this.props.loggedInUser} type={this.props.userType}/>
-                            {(this.props.fetching) ?
-                                <Spinner/>
-                                :
+                            <Header data={this.props.loggedInUser} type={this.props.userType} />
                                 <Main/>
-                            }
                             <Newsletter/>
                         </div>
                     }
