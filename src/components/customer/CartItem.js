@@ -7,7 +7,6 @@ import connect from "react-redux/es/connect/connect";
 class CartItem extends React.Component {
 
     deleteFromCart = () => {
-        console.log("Clicked delete");
         let accountId = null;
         if(typeof this.props.loggedInUser !== "undefined")
         {
@@ -15,7 +14,6 @@ class CartItem extends React.Component {
             {
                 accountId = this.props.loggedInUser.id;
                 const cart = { "idAccountForeign": accountId, "items": [ { "idItem": this.props.cartItemObject.idItem, "total": this.props.cartItemObject.total} ] };
-                console.log("Came to fetch");
                 this.props.deleteItemFromCart(cart);
                 successNotification("Successfully Deleted an Item");
             }
