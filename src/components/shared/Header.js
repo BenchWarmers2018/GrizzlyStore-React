@@ -137,7 +137,7 @@ class Header extends Component {
                                 <NavLink to="/items/all">ITEMS</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink to="/sale">SALE</NavLink>
+                                <NavLink to="/sales">SALE</NavLink>
                             </NavItem>
                             <NavItem>
                                 <Dropdown>
