@@ -8,7 +8,7 @@ import Banner from "../microComponents/Banner";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
 import {NORMAL_USER} from "../../CONSTANTS";
 import {Icon, notification} from "antd";
-import {successNotification} from "../microComponents/Notifications";
+import {successNotification, errorNotification} from "../microComponents/Notifications";
 
 
 class EachItem extends Component {
@@ -58,9 +58,10 @@ class EachItem extends Component {
         }
     }
 
+    // Adding item to cart
     addToCart = () => {
         let accountId = null;
-        console.log(this.props.loggedInUser.id);
+        // console.log(this.props.loggedInUser.id);
         if(typeof this.props.loggedInUser !== "undefined")
         {
             if(this.props.userType === NORMAL_USER)
@@ -75,7 +76,7 @@ class EachItem extends Component {
         }
         else
         {
-
+            // errorNotification("It would seem you're not loggedin in", "Please log in to add item to your cart");
         }
 
     };
