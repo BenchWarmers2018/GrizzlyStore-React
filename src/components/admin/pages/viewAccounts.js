@@ -8,18 +8,18 @@ class ViewAccounts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            accounts: this.props.accounts
+            userAccounts: this.props.userAccounts
         }
     }
 
     componentDidMount() {
-      // this.props.dispatch(getAllUsers());
+      this.props.dispatch(getAllUsers());
     }
 
     componentDidUpdate(prevProps) {
-      if(prevProps.accounts !== this.props.accounts)
+      if(prevProps.userAccounts !== this.props.userAccounts)
       {
-        this.setState({accounts: this.props.accounts})
+        this.setState({userAccounts: this.props.userAccounts})
       }
     }
 
@@ -44,7 +44,7 @@ class ViewAccounts extends Component {
                 <div className="container-fluid">
                     <h1>View Accounts</h1>
                     <ViewAccountsTable
-                        accountData={this.state.accounts}
+                        accountData={this.state.userAccounts}
                     />
                 </div>
             </div>
@@ -53,7 +53,7 @@ class ViewAccounts extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    accounts: state.accounts.accounts
+    userAccounts: state.accounts.userAccounts
 });
 
 export default connect(mapStateToProps)(ViewAccounts);

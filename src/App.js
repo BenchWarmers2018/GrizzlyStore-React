@@ -10,14 +10,13 @@ import AdminMain from "./components/admin/adminMain"
 import { connect } from 'react-redux';
 import { getCurrentUser } from "./actions/accountAction"
 import {BrowserRouter} from "react-router-dom";
-import Spinner from "./components/microComponents/Spinner";
 
 
 class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-            isAdmin : false,
+            isAdmin : true,
 
             currentUser: null,
             isAuthenticated: false,
@@ -82,19 +81,11 @@ class App extends Component {
                         <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
                             <AdminHeader/>
                             <SideBar/>
-                            {(this.props.fetching) ?
-                                <Spinner/>
-                                :
                                 <AdminMain />
-                            }
                         </div> :
                         <div>
                             <Header data={this.props.loggedInUser} type={this.props.userType} />
-                            {(this.props.fetching) ?
-                            <Spinner/>
-                                :
                                 <Main/>
-                            }
                             <Newsletter/>
                         </div>
                     }

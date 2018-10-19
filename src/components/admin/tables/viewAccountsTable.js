@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-import { Container, Row, Col, Input, Button, Fa, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
+import { Container, Row, Col, Input, Button, Fa } from 'mdbreact';
 
 class ViewAccountsTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: props.accountData,
+      data: this.props.accountData,
       rowData: []
     };
   }
@@ -32,15 +32,26 @@ class ViewAccountsTable extends Component {
                   Header: "Account ID",
                   id: "idAccount",
                   accessor: d => d.idAccount,
-                  width: 75
+                  width: 200
                 },
                 {
                   Header: "Email Address",
-                  accessor: "accountEmailAddress"
+                  accessor: "accountEmailAddress",
+                  width: 450
                 },
                 {
                   Header: "Administrator Status",
                   accessor: "accountIsAdmin",
+                  width: 350
+                },
+                {
+                  Header: "Toggle Status",
+                  Cell: row => (
+                    <div className="text-center">
+                      <Button><Fa icon="smile-o" size="2x"/></Button>
+                    </div>
+                  ),
+                  width: 150
                 }
               ]
             }

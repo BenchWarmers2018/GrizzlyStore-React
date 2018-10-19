@@ -104,8 +104,8 @@ export function authenticateUser(loginData) {
 export function getAllUsers() {
   return function (dispatch) {
       dispatch({type: GET_ALL_USERS});
-      
-      axios.post(URL_USER + "/account/all")
+
+      axios.get(URL_USER + "/account/all")
         .then(result => {
           dispatch({type: GET_ALL_USERS_SUCCESSFUL, payload: result.data.entities})
         })

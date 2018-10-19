@@ -20,6 +20,7 @@ import {
 
 const initialState = {
     accounts: [],
+    userAccounts: [],
     token : {},
     fetching: false,
     fetched: false,
@@ -113,7 +114,7 @@ export default function reducer(state=initialState, action){
             ...state,
             fetching: false,
             fetched: true,
-            accounts: action.payload
+            userAccounts: action.payload
           }
         }
         case SERVER_NOT_FOUND: {
