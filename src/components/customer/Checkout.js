@@ -5,9 +5,20 @@ import {fetchFilteredItems, getVisibleItems} from "../../selectors/itemsSelector
 import {fetchCategories} from "../../actions/categoriesAction";
 import {category, filterText, maxPrice, minPrice, page, sortBy} from "../../actions/filterActions";
 import { connect } from "react-redux";
+import CheckoutItems from "./CheckoutItems";
+import {Link} from "react-router-dom";
 
 class Checkout extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            cart : this.props.cart,
+        }
+    }
+
     render() {
+        console.log(this.props.cart);
+
         const cartid = this.props.match.params.id;
 
         const onSuccess = (payment) =>
@@ -40,6 +51,7 @@ class Checkout extends Component {
                             <div className="col-lg-6">
                                 <div className="billing checkout_section">
                                     <div className="section_title">Billing Address</div>
+                                    <div className="section-subtitle">Please update your address on your profile before continuing</div>
                                     {/*<div className="section_subtitle">Enter your address info</div>*/}
                                     {/*<div className="checkout_form_container">*/}
                                         {/*<form action="#" id="checkout_form" className="checkout_form">*/}
@@ -169,16 +181,20 @@ class Checkout extends Component {
                                         <div
                                             className="order_list_bar d-flex flex-row align-items-center justify-content-start">
                                             <div className="order_list_title">Product</div>
+                                            <div className="order_list_value ml-auto">Quantity</div>
                                             <div className="order_list_value ml-auto">Total</div>
                                         </div>
                                         <ul className="order_list">
-                                            <li className="d-flex flex-row align-items-center justify-content-start">
-                                                <div className="order_list_title">Cocktail Yellow dress</div>
-                                                <div className="order_list_value ml-auto">$59.90</div>
-                                            </li>
+                                            {(this.props.cart !== null || typeof this.props.cart !== "undefined") ?
+                                                this.props.cart.items.map(cartItem=>
+                                                    <CheckoutItems data={cartItem} />
+                                                )
+                                                :
+                                                <div>"Hello No items here."</div>
+                                            }
                                             <li className="d-flex flex-row align-items-center justify-content-start">
                                                 <div className="order_list_title">Subtotal</div>
-                                                <div className="order_list_value ml-auto">$59.90</div>
+                                                <div className="order_list_value ml-auto">{this.props.cart.total}</div>
                                             </li>
                                             <li className="d-flex flex-row align-items-center justify-content-start">
                                                 <div className="order_list_title">Shipping</div>
@@ -186,10 +202,11 @@ class Checkout extends Component {
                                             </li>
                                             <li className="d-flex flex-row align-items-center justify-content-start">
                                                 <div className="order_list_title">Total</div>
-                                                <div className="order_list_value ml-auto">$59.90</div>
+                                                <div className="order_list_value ml-auto">{this.props.cart.total}</div>
                                             </li>
                                         </ul>
                                     </div>
+                                    <button><Link to="/confirmation">Click</Link></button>
 
                                     <PaypalExpressBtn
                                         env={env}
@@ -212,7 +229,8 @@ class Checkout extends Component {
 }
 
 const mapStateToProps = state => ({
-
+    cart : state.cart.cart,
+    cartItems: state.cart.cartItems
 });
 
 const mapDispatchToProps = {

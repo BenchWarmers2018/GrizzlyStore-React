@@ -39,11 +39,11 @@ class Home extends Component {
                 <div className="home">
                     <div className="home_slider_container">
                         <Carousel className="carousel_container" autoPlay={true} infiniteLoop={true} transitionTime={1000}
-                        showStatus={false} showIndicators={false}>
+                                  showStatus={false} showIndicators={false}>
                             <div className="carousel_slide_div slide_bearwave_1">
                                 <img src={Slider1} />
                                 <p className="legend legend1">Welcome to the shop <br/>of
-                                BEAR necessities!</p>
+                                    BEAR necessities!</p>
                             </div>
                             <div className="carousel_slide_div">
                                 <img src={Slider2} />
@@ -63,9 +63,10 @@ class Home extends Component {
                     <div className="container">
                         <h1 className="pad-top">
                             Popular Items
-                            <small className="text-muted"> Beary popular</small>
+                            <small className="text-muted beary-popular-title">Beary popular</small>
                         </h1>
-                        <hr/>
+                        <hr className="hr-popular-item-home"/>
+
                         <div className="row row-home">
                             {items.map(item =>
                                 <ItemSmartHome key={item.idItem} data={item}/>

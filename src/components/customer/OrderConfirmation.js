@@ -5,6 +5,8 @@ import {fetchFilteredItems, getVisibleItems} from "../../selectors/itemsSelector
 import {fetchCategories} from "../../actions/categoriesAction";
 import {category, filterText, maxPrice, minPrice, page, sortBy} from "../../actions/filterActions";
 import LogoLarge from "../../images/images_sublime/GrizzlyStoreLogo.png"
+import CheckoutItems from "./CheckoutItems";
+import OrderConfirmationItem from "../OrderConfirmationItem";
 
 class OrderConfirmation extends Component {
     constructor(props){
@@ -27,7 +29,7 @@ class OrderConfirmation extends Component {
                                 </div>
 
                                 <div className="col-md-6 text-right">
-                                    <p className="font-weight-bold mb-1">Invoice </p>
+                                    <p className="font-weight-bold mb-1">Invoice number: </p>
                                 </div>
                             </div>
 
@@ -37,10 +39,9 @@ class OrderConfirmation extends Component {
                                     <div className="col-md-6">
                                         <p className="font-weight-bold mb-4">Client Information</p>
                                         <p className="mb-1">Grizzlystore</p>
-                                        <p>13 Bear St
+                                        <p>13 Bear St,
                                             Mordialloc</p>
-                                        <p className="mb-1">Victoria, Australia</p>
-                                        <p className="mb-1">6781 45P</p>
+                                        <p className="mb-1">Victoria, 3195</p>
                                     </div>
 
                                     <div className="col-md-6 text-right">
@@ -66,30 +67,14 @@ class OrderConfirmation extends Component {
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Software</td>
-                                                <td>LTS Versions</td>
-                                                <td>21</td>
-                                                <td>$321</td>
-                                                <td>$3452</td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Software</td>
-                                                <td>Support</td>
-                                                <td>234</td>
-                                                <td>$6356</td>
-                                                <td>$23423</td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Software</td>
-                                                <td>Sofware Collection</td>
-                                                <td>4534</td>
-                                                <td>$354</td>
-                                                <td>$23434</td>
-                                            </tr>
+
+                                            {(this.props.cart !== null || typeof this.props.cart !== "undefined") ?
+                                                this.props.cart.items.map(cartItem =>
+                                                    <OrderConfirmationItem data={cartItem}/>
+                                                )
+                                                :
+                                                <tr>"Hello No items here."</tr>
+                                            }
                                             </tbody>
                                         </table>
                                     </div>
@@ -102,8 +87,8 @@ class OrderConfirmation extends Component {
                                     </div>
 
                                     <div className="py-3 px-5 text-right">
-                                        <div className="mb-2">Discount</div>
-                                        <div className="h2 font-weight-light">10%</div>
+                                        <div className="mb-2">Shipping fee</div>
+                                        <div className="h2 font-weight-light">FREE</div>
                                     </div>
 
                                     <div className="py-3 px-5 text-right">
@@ -116,9 +101,6 @@ class OrderConfirmation extends Component {
                 </div>
             </div>
 
-            <div className="text-light mt-5 mb-5 text-center small">by : <a className="text-light" target="_blank"
-                                                                            href="http://totoprayogo.com">totoprayogo.com</a>
-            </div>
 
         </div>
 
@@ -130,6 +112,8 @@ class OrderConfirmation extends Component {
 
 const mapStateToProps = state => ({
     orders: state.orders.processedOrder,
+    cartItems : state.cart.cartItems,
+    cart : state.cart.cart,
 });
 
 const mapDispatchToProps = {

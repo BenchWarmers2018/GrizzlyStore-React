@@ -61,15 +61,20 @@
 
 }
 
-.search-bar-small{
-  display: none;
-}
+/*.search-bar-small{*/
+/*display: none;*/
+/*}*/
 
 .cart-icon-small{
   display: none;
 }
 
-@media only screen and (max-width: 1140px) and (min-width: 770px){
+@media only screen and (min-width: 770px){
+  .nav-link{
+    text-align: center;
+    display: block;
+  }
+
   .header_logo_small{
     display: block;
     max-height: 60px;
@@ -122,7 +127,7 @@
   }
   .search__field:focus {
     border-bottom-color: #ccc;
-    width: 35vw;
+    width: 20vw;
     color: #2b2b2b;
     cursor: default;
   }
@@ -146,57 +151,13 @@
     display: inline-block;
     -webkit-transition: background-color 0.2s ease-in-out;
     transition: background-color 0.2s ease-in-out;
-
   }
   .search__field::-webkit-input-placeholder {
     position: relative;
-    top: 50%;
+    /*top: 50%;*/
     left: 0;
-    -webkit-transition-property: top, color;
-    transition-property: top, color;
-    -webkit-transition-duration: .1s;
-    transition-duration: .1s;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-perspective: 1000px;
-    perspective: 1000px;
-  }
-  .search__field:-moz-placeholder {
-    position: relative;
-    top: 50%;
-    left: 0;
-    -webkit-transition-property: top, color;
-    transition-property: top, color;
-    -webkit-transition-duration: .1s;
-    transition-duration: .1s;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-perspective: 1000px;
-    perspective: 1000px;
-  }
-  .search__field::-moz-placeholder {
-    position: relative;
-    top: 50%;
-    left: 0;
-    -webkit-transition-property: top, color;
-    transition-property: top, color;
-    -webkit-transition-duration: .1s;
-    transition-duration: .1s;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-perspective: 1000px;
-    perspective: 1000px;
-  }
-  .search__field:-ms-input-placeholder {
-    position: relative;
-    top: 50%;
-    left: 0;
+    color: lightgrey!important;
+    /*top: -5px;*/
     -webkit-transition-property: top, color;
     transition-property: top, color;
     -webkit-transition-duration: .1s;
@@ -209,33 +170,9 @@
     perspective: 1000px;
   }
   .search__field::-webkit-input-placeholder[style*=hidden] {
-    color: darkgrey!important;
+    color: lightgrey!important;
     font-size: .65em;
-    font-weight: normal;
-    top: -20px;
-    opacity: 1;
-    visibility: visible !important;
-  }
-  .search__field:-moz-placeholder[style*=hidden] {
-    color: darkgrey !important;
-    font-size: .65em;
-    font-weight: normal;
-    top: -20px;
-    opacity: 1;
-    visibility: visible !important;
-  }
-  .search__field::-moz-placeholder[style*=hidden] {
-    color: darkgrey !important;
-    font-size: .65em;
-    font-weight: normal;
-    top: -20px;
-    opacity: 1;
-    visibility: visible !important;
-  }
-  .search__field:-ms-input-placeholder[style*=hidden] {
-    color: darkgrey !important;
-    font-size: .65em;
-    font-weight: normal;
+    font-weight: lighter;
     top: -20px;
     opacity: 1;
     visibility: visible !important;
@@ -375,6 +312,7 @@
   flex: 0 0 25%;
   align-self: center;
   position: relative;
+  min-height: 380px;
 }
 
 @media only screen and (max-width: 520px)
@@ -409,7 +347,7 @@
   width: 100%;
   background: #FFFFFF;
   z-index: 2;
-  padding-top: 89px;
+  /*padding-top: 20px;*/
 }
 
 /*********************************************************/
@@ -487,6 +425,27 @@ hr{
   padding: 60px 20px 20px 20px;
 }
 
+#notfound{
+  background-image: url('./images/404Bear.jpg') !important;
+  background-size: cover;
+  /*background-repeat: no-repeat;*/
+  /*height: 100vh;*/
+  margin: 0 !important;
+  background-size: 100% 100%;
+}
+
+@media only screen and (max-width: 620px) {
+  #notfound{
+    background-image: url('./images/404Bear.jpg') !important;
+    background-size: contain;
+    background-repeat: no-repeat;
+    /*height: 100vh;*/
+    margin: 0 !important;
+    text-align: center;
+    background-size: 170% 100%;
+  }
+}
+
 
 .page-wrapper{
   background-color: #FAFCFD;
@@ -501,5 +460,21 @@ hr{
   text-transform: uppercase;
 }
 
+.col-lg-4-popular{
+  min-height: 380px !important;
+}
 
+.hr-popular-item-home{
+  /*margin-top: 10px;*/
+  margin-bottom: 20px;
+}
+.beary-popular-title{
+  margin-left: 20px;
+  font-weight: lighter;
+}
+.container-fluid{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-top: 0 !important;
+}
 

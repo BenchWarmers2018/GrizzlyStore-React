@@ -6,6 +6,8 @@ import { connect } from "react-redux"
 import { editCategory } from "../../../actions/categoriesAction"
 import { notification } from 'antd';
 import { Button, ModalFooter } from 'mdbreact';
+import './sharedFormStyling.css';
+import { successNotification } from '../../microComponents/Notifications.js';
 
 class EditCategoryForm extends React.Component {
 
@@ -28,9 +30,7 @@ class EditCategoryForm extends React.Component {
 
       if(this.props.categoryStatusUpdated && (prevProps.categories != this.props.categories))
       {
-        notification.success({
-            message: 'Category Edited Successfully!'
-        });
+        successNotification('Category edited successfully!');
       }
     }
 
@@ -46,32 +46,34 @@ class EditCategoryForm extends React.Component {
       } = this.props;
 
       return(
-        <Form>
-          <h1 className="text-center has-padding">Edit Category</h1>
-          <form className = "form">
+        <div>
+          <h1 className="text-center has-padding title">Edit Category</h1>
+          <Form>
+            <form className = "form">
 
-            {/* Display Error/Success Message */}
-            <div className={(this.props.editCategoryMessage != "") ? (this.props.categoryStatusUpdated == true ? "alert alert-success" : "alert alert-danger") : null}>{this.props.editCategoryMessage}</div>
+              {/* Display Error/Success Message */}
+              <div className={(this.props.editCategoryMessage != "") ? (this.props.categoryStatusUpdated == true ? "alert alert-success" : "alert alert-danger") : null}>{this.props.editCategoryMessage}</div>
 
-            {/* Name Field */}
-            <p className="fieldset">
-              <label htmlFor="categoryName">Name</label>
-              <Field className="full-width has-padding has-border" name="categoryName" type="text" placeholder="Category Name" value={values.categoryName} onChange={handleChange} onBlur={handleBlur}/>
-              {touched.categoryName && errors.categoryName && <span><p className="text-danger">{errors.categoryName}</p></span>}
-            </p>
+              {/* Name Field */}
+              <p className="fieldset">
+                <label htmlFor="categoryName">Name</label>
+                <Field className="full-width has-padding has-border" name="categoryName" type="text" placeholder="Category Name" value={values.categoryName} onChange={handleChange} onBlur={handleBlur}/>
+                {touched.categoryName && errors.categoryName && <span><p className="text-danger">{errors.categoryName}</p></span>}
+              </p>
 
-            {/* Description Field */}
-            <p className="fieldset">
-              <label htmlFor="categoryDescription">Description</label>
-              <Field className="full-width has-padding has-border" name="categoryDescription" component="textarea" placeholder="Category Description" value={values.categoryDescription} onChange={handleChange} onBlur={handleBlur}/>
-              {touched.categoryDescription && errors.categoryDescription && <span><p className="text-danger">{errors.categoryDescription}</p></span>}
-            </p>
+              {/* Description Field */}
+              <p className="fieldset">
+                <label htmlFor="categoryDescription">Description</label>
+                <Field className="full-width has-padding has-border" name="categoryDescription" component="textarea" placeholder="Category Description" value={values.categoryDescription} onChange={handleChange} onBlur={handleBlur}/>
+                {touched.categoryDescription && errors.categoryDescription && <span><p className="text-danger">{errors.categoryDescription}</p></span>}
+              </p>
 
-            <ModalFooter className="justify-content-center">
-                <Button size="lg" color="danger" type="submit">Save Changes</Button>
-            </ModalFooter>
-          </form>
-        </Form>
+              <ModalFooter className="justify-content-center">
+                  <Button size="lg" color="danger" type="submit">Save Changes</Button>
+              </ModalFooter>
+            </form>
+          </Form>
+        </div>
       )
     }
 };
