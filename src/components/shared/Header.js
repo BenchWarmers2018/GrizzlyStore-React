@@ -87,7 +87,7 @@ class Header extends Component {
 
             if(!!user)
             {
-                const googleUser = {googleAccountEmailAddress: user.email};
+                const googleUser = {"accountEmailAddress": user.email};
                 this.props.dispatch(fetchGoogleAccounts(googleUser));
             }
         });
@@ -107,7 +107,7 @@ class Header extends Component {
         {
             if(this.props.type === GOOGLE_USER)
             {
-                name = this.props.data.googleAccountEmailAddress;
+                name = this.props.data.accountEmailAddress;
             }
             else if (this.props.type === NORMAL_USER)
             {
@@ -137,7 +137,7 @@ class Header extends Component {
                                 <NavLink to="/items/all">ITEMS</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink to="/sale">SALE</NavLink>
+                                <NavLink to="/sales">SALE</NavLink>
                             </NavItem>
                             <NavItem>
                                 <Dropdown>
