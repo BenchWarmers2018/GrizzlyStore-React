@@ -100,7 +100,7 @@ class Cart extends Component {
                                     <div className="col">
                                         <div
                                             className="cart_buttons d-flex flex-lg-row flex-column align-items-start justify-content-start">
-                                            <button type="button" className="btn btn-dark"><Link to='/'>Continue shopping</Link></button>
+                                            <button type="button" className="btn btn-dark"><Link to='/' className="btn-no-decoration">Continue shopping</Link></button>
                                             <div className="cart_buttons_right ml-lg-auto">
                                                 <button type="button" className="btn btn-dark" onClick={this.deleteAllFromCart}>Clear cart</button>
                                                 <button type="button" className="btn btn-dark">Update cart</button>
