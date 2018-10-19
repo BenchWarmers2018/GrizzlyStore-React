@@ -8,14 +8,30 @@ import SAMPLE from "../../images/images_sublime/cart_1.jpg";
 import Icon from '@mdi/react';
 import { mdiTrashCanOutline } from '@mdi/js';
 import { Button, notification } from 'antd';
-import CartItem from "./CartItem";
+import {deleteCart} from "../../actions/cartAction";
 import Cart_CartItem from "./Cart_CartItem";
+import {successNotification} from "../microComponents/Notifications";
 
 class Cart extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
             cart : null,
+        }
+    }
+
+    deleteAllFromCart = () => {
+        let accountId = null;
+        if(typeof this.props.loggedInUser !== "undefined")
+        {
+            if(this.props.userType === NORMAL_USER)
+            {
+                console.log("yay");
+                accountId = this.props.loggedInUser.id;
+                const cart = { "idAccountForeign": accountId};
+                this.props.deleteCart(cart);
+                successNotification("Successfully Deleted Cart");
+            }
         }
     }
 
@@ -46,6 +62,8 @@ class Cart extends Component {
 
 
     render() {
+        const item = this.props.cartItemObject;
+
         let cartItems = null;
         const cart = this.props.cart;
         if(cart !== null || typeof cart !== "undefined")
@@ -82,11 +100,10 @@ class Cart extends Component {
                                     <div className="col">
                                         <div
                                             className="cart_buttons d-flex flex-lg-row flex-column align-items-start justify-content-start">
-                                            <div className="button cart_button"><Link to='/'>Continue shopping</Link>
-                                            </div>
+                                            <button type="button" className="btn btn-dark"><Link to='/'>Continue shopping</Link></button>
                                             <div className="cart_buttons_right ml-lg-auto">
-                                                <div className="button cart_button"><a href="#">Clear cart</a></div>
-                                                <div className="button cart_button"><a href="#">Update cart</a></div>
+                                                <button type="button" className="btn btn-dark" onClick={this.deleteAllFromCart}>Clear cart</button>
+                                                <button type="button" className="btn btn-dark">Update cart</button>
                                             </div>
                                         </div>
                                     </div>
@@ -155,6 +172,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     fetchCart,
+    deleteCart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
