@@ -1,17 +1,24 @@
 import axios from 'axios';
 import { API_BASE_URL, ACCESS_TOKEN } from '../';
 import {
-  GET_CURRENT_USER,
-  GET_CURRENT_USER_FULFILLED,
-  GET_CURRENT_USER_REJECTED,
-  URL_USER,
-  AUTHENTICATE_USER,
-  CREATE_ACCOUNT,
-  AUTHENTICATING_USER_SUCCESSFUL,
-  SERVER_NOT_FOUND,
-  AUTHENTICATE_USER_REJECTED,
-  CREATE_ACCOUNT_FULFILLED,
-  CREATE_ACCOUNT_REJECTED
+    GET_CURRENT_USER,
+    GET_CURRENT_USER_FULFILLED,
+    GET_CURRENT_USER_REJECTED,
+    URL_USER,
+    AUTHENTICATE_USER,
+    CREATE_ACCOUNT,
+    AUTHENTICATING_USER_SUCCESSFUL,
+    SERVER_NOT_FOUND,
+    AUTHENTICATE_USER_REJECTED,
+    CREATE_ACCOUNT_FULFILLED,
+    CREATE_ACCOUNT_REJECTED,
+    FETCH_PROFILE,
+    FETCH_PROFILE_FULFILLED,
+    FETCH_PROFILE_REJECTED,
+    RESET_USER_ACCOUNT,
+      GET_ALL_USERS,
+      GET_ALL_USERS_REJECTED,
+      GET_ALL_USERS_SUCCESSFUL
 } from "../CONSTANTS";
 
 
@@ -61,7 +68,20 @@ export function getCurrentUser()
             };
 
             axios.get(URL_USER +"/login/user", config)
-                .then(result => {
+                .then((result) =>{
+
+                    // dispatch({type: FETCH_PROFILE});
+                    // const account = { "idAccount" : result.data.id }
+
+                    // axios.post(URL_USER+"/user/profile", account)
+                    //     .then((response) => {
+                    //         dispatch({type: FETCH_PROFILE_FULFILLED, payload: response.data})
+                    //     })
+                    //     .catch((err) => {
+                    //         dispatch({type: FETCH_PROFILE_REJECTED, payload: err.response.data})
+                    //     })
+
+
                     dispatch({type: GET_CURRENT_USER_FULFILLED, payload: result.data})
                 }).catch(err =>
                 dispatch({type: GET_CURRENT_USER_REJECTED, payload: err})
@@ -98,9 +118,36 @@ export function authenticateUser(loginData) {
   }
 }
 
+
+export function resetUserStore() {
+    return function (dispatch) {
+        dispatch({type: RESET_USER_ACCOUNT});
+
+    }
+}
+
+export function getAllUsers() {
+  return function (dispatch) {
+      dispatch({type: GET_ALL_USERS});
+
+      axios.get(URL_USER + "/account/all")
+        .then(result => {
+          dispatch({type: GET_ALL_USERS_SUCCESSFUL, payload: result.data.entities})
+        })
+        .catch((error) => {
+          if (error.message === "Network Error" )
+            dispatch({type: SERVER_NOT_FOUND, payload: 'The server is currently offline. Please try again later.'})
+          else
+            dispatch({type: GET_ALL_USERS_REJECTED, payload: error.response.data.errors})
+        })
+  }
+
+}
+
 export function loginRequired() {
   return {
     type: "LOGIN_REQUIRED",
     payload: "You must be logged in to perform this action."
   };
 }
+

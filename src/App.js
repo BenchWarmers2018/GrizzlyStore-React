@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import Header from "./components/shared/Header";
 import Footer from "./components/shared/Footer";
@@ -7,116 +7,93 @@ import Main from "./components/Main";
 import AdminHeader from "./components/admin/pages/adminHeader";
 import SideBar from "./components/admin/pages/sidebar";
 import AdminMain from "./components/admin/adminMain"
-import { connect } from 'react-redux';
-import { getCurrentUser } from "./actions/accountAction"
+import {connect} from 'react-redux';
+import {getCurrentUser} from "./actions/accountAction"
 import {BrowserRouter} from "react-router-dom";
 import Spinner from "./components/microComponents/Spinner";
 
 
 class App extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            isAdmin : false,
+            isAdmin: false,
 
             currentUser: null,
             isAuthenticated: false,
             isLoading: false,
 
-            isSignedIn : false,
+            isSignedIn: false,
             user: null
 
         }
     }
 
-    componentDidMount()
-    {
+    componentDidMount() {
         this.props.getCurrentUser();
     }
 
+
     componentWillReceiveProps(nextProps)
     {
-        if(nextProps.continueLogin !== this.props.continueLogin)
-        {
-            this.props.getCurrentUser();
-        }
+        // if(nextProps.continueLogin !== this.props.continueLogin)
+        // {
+        //     this.props.getCurrentUser();
+        // }
 
     }
 
     render()
     {
-        // if(this.props.loggedInUser !== null)
-        // {
-        //     if(typeof this.props.loggedInUser !== "undefined")
-        //     {
-        //         if(this.props.loggedInUser.admin === true)
-        //         {
-        //             return (
-        //                 <BrowserRouter>
-        //                     <div className="super_container">
-        //
-        //
-        //                             <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
-        //                                 <AdminHeader/>
-        //                                 <SideBar/>
-        //                                 {(this.props.fetching) ?
-        //                                     <Spinner/>
-        //                                     :
-        //                                     <AdminMain />
-        //                                 }
-        //                             </div>
-        //                         <Footer/>
-        //                     </div>
-        //                 </BrowserRouter>
-        //
-        //             );
-        //         }
-        //
-        //     }
-        // }
+        if(this.props.loggedInUser !== null)
+        {
+            if(typeof this.props.loggedInUser !== "undefined")
+            {
+                if(this.props.loggedInUser.accountIsAdmin === true)
+                {
+                    return (
+                        <BrowserRouter>
+                            <div className="super_container">
+                                    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+                                        <AdminHeader/>
+                                        <SideBar/>
+                                        <AdminMain />
+                                    </div>
+                                <Footer/>
+                            </div>
+                        </BrowserRouter>
+
+                    );
+                }
+
+            }
+        }
         return (
             <BrowserRouter>
                 <div className="super_container">
-
-                    {this.state.isAdmin ?
-                        <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
-                            <AdminHeader/>
-                            <SideBar/>
-                            {(this.props.fetching) ?
-                                <Spinner/>
-                                :
-                                <AdminMain />
-                            }
-                        </div> :
                         <div>
                             <Header data={this.props.loggedInUser} type={this.props.userType} />
-                            {(this.props.fetching) ?
-                            <Spinner/>
-                                :
-                                <Main/>
-                            }
+                            <Main/>
                             <Newsletter/>
                         </div>
-                    }
                     <Footer/>
                 </div>
             </BrowserRouter>
 
-            );
-        }
+        );
     }
+}
 
 
 const mapStateToProps = state => ({
-    tokenObject: state.accounts.token,
     loggedInUser: state.accounts.loggedInUser,
     continueLogin: state.accounts.continueLogin,
-    userType : state.accounts.userType,
-    fetching : state.accounts.fetching,
+    userType: state.accounts.userType,
+    fetching: state.accounts.fetching,
 });
 
 const mapDispatchToProps = {
     getCurrentUser,
 };
 
-export default connect (mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

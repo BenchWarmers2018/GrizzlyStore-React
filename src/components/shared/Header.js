@@ -6,7 +6,7 @@ import LogoLarge from "../../images/images_sublime/GrizzlyStoreLogo.png";
 import LogoSmall from "../../images/images_sublime/bearlogo.png";
 import LoginForm from "../shared/login/LoginForm.js";
 import { connect } from "react-redux"
-import { fetchAccounts } from "../../actions/accountAction"
+import { fetchAccounts, resetUserStore } from "../../actions/accountAction"
 import { createAccount } from "../../actions/accountAction";
 import {ACCESS_TOKEN} from "../../index";
 import firebase from "firebase";
@@ -37,6 +37,7 @@ class Header extends Component {
         });
     }
 
+
     handleSearch = (e) =>
     {
         e.preventDefault();
@@ -55,7 +56,7 @@ class Header extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const user = {accountEmailAddress: this.state.emailAddress, accountPassword: this.state.password, admin: true};
+        const user = {accountEmailAddress: this.state.emailAddress, accountPassword: this.state.password, accountIsAdmin: false};
         this.props.dispatch(createAccount(user));
     }
 
@@ -63,7 +64,7 @@ class Header extends Component {
         this.authListener();
     }
 
-    componentWillReceiveProps(prevProps){
+    componentDidUpdate(prevProps){
         if(prevProps.continueLogin !== this.props.continueLogin)
         {
             window.location.reload();
@@ -99,6 +100,7 @@ class Header extends Component {
         } else {
             localStorage.removeItem(ACCESS_TOKEN);
         }
+        this.props.dispatch(resetUserStore());
     }
 
     render() {
@@ -111,7 +113,7 @@ class Header extends Component {
             }
             else if (this.props.type === NORMAL_USER)
             {
-                name = this.props.data.username;
+                name = this.props.data.accountEmailAddress;
             }
         }
 
@@ -137,7 +139,7 @@ class Header extends Component {
                                 <NavLink to="/items/all">ITEMS</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink to="/sale">SALE</NavLink>
+                                <NavLink to="/sales">SALE</NavLink>
                             </NavItem>
                             <NavItem>
                                 <Dropdown>
@@ -190,7 +192,7 @@ class Header extends Component {
                                     <DropdownMenu>
                                         <DropdownItem><Link to="/profile">Profile</Link></DropdownItem>
                                         <hr/>
-                                        <DropdownItem className="header-user-logout" href="/" onClick={this.logUserOut}>Log out</DropdownItem>
+                                        <DropdownItem onClick={this.logUserOut}><Link to="/">Log out</Link></DropdownItem>
                                     </DropdownMenu>
                                 </Dropdown>
                             }
@@ -219,7 +221,7 @@ class Header extends Component {
                         </div>
 
                         <div id="signup">
-                            <form className="form" onSubmit={this.handleSubmit}>
+                            <form className="form is-visible" onSubmit={this.handleSubmit}>
                                 <p className="fieldset">
                                     <label className="image-replace email" htmlFor="signup-email">E-mail</label>
                                     <input className="full-width has-padding has-border" id="signup-email" type="email"
@@ -283,8 +285,6 @@ class Header extends Component {
 
 
 const mapStateToProps = state => ({
-    accounts:state.accounts.accounts,
-    userAccount: state.accounts.userAccount,
     error: state.accounts.error,
     createAccountError: state.accounts.createAccountError,
     continueLogin: state.accounts.continueLogin,
