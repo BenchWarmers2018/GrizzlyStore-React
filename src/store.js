@@ -12,7 +12,7 @@ const persistConfig = {
     storage,
 }
 const middleware = applyMiddleware(promise(), thunk, createLogger())
-
+//Persistor for data persistence.
 const persistedReducer = persistReducer(persistConfig, reducer)
 
 export const store = createStore(persistedReducer, middleware);
