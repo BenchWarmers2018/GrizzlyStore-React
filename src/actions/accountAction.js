@@ -1,6 +1,18 @@
 import axios from 'axios';
 import { API_BASE_URL, ACCESS_TOKEN } from '../';
-import {GET_CURRENT_USER, GET_CURRENT_USER_FULFILLED, GET_CURRENT_USER_REJECTED, URL_USER} from "../CONSTANTS";
+import {
+  GET_CURRENT_USER,
+  GET_CURRENT_USER_FULFILLED,
+  GET_CURRENT_USER_REJECTED,
+  URL_USER,
+  AUTHENTICATE_USER,
+  CREATE_ACCOUNT,
+  AUTHENTICATING_USER_SUCCESSFUL,
+  SERVER_NOT_FOUND,
+  AUTHENTICATE_USER_REJECTED,
+  CREATE_ACCOUNT_FULFILLED,
+  CREATE_ACCOUNT_REJECTED
+} from "../CONSTANTS";
 
 
 export function createAccount(user) {
@@ -12,19 +24,19 @@ export function createAccount(user) {
                 axios.post(URL_USER +"/login/authenticate", user)
                     .then(result => {
                         localStorage.setItem(ACCESS_TOKEN, result.data.accessToken);
-                        dispatch({type: "AUTHENTICATING_USER_SUCCESSFUL", payload: result.data.accessToken})
+                        dispatch({type: AUTHENTICATING_USER_SUCCESSFUL, payload: result.data.accessToken})
                     })
                     .catch((error) => {
                         if (error.message === "Network Error" )
-                            dispatch({type: "SERVER_NOT_FOUND", payload: 'The server is currently offline. Please try again later.'});
+                            dispatch({type: SERVER_NOT_FOUND, payload: 'The server is currently offline. Please try again later.'});
                         else
-                            dispatch({type: "AUTHENTICATE_USER_REJECTED", payload: error.response.data.errors})
+                            dispatch({type: AUTHENTICATE_USER_REJECTED, payload: error.response.data.errors})
                     })
 
-                dispatch({type: "CREATE_ACCOUNT_FULFILLED", payload: res.data.entities})
+                dispatch({type: CREATE_ACCOUNT_FULFILLED, payload: res.data.entities})
             })
                     .catch((error) => {
-                    dispatch({type: "CREATE_ACCOUNT_REJECTED", payload: error.response.data.errors})
+                    dispatch({type: CREATE_ACCOUNT_REJECTED, payload: error.response.data.errors})
             })
 
     }
@@ -62,18 +74,26 @@ export function getCurrentUser()
 
 export function authenticateUser(loginData) {
   return function (dispatch) {
-    dispatch({type: "AUTHENTICATE_USER"});
+    dispatch({type: AUTHENTICATE_USER});
 
-    axios.post(URL_USER +"/login/authenticate", loginData)
+    axios.post(URL_USER + "/login/authenticate", loginData)
       .then(result => {
           localStorage.setItem(ACCESS_TOKEN, result.data.accessToken);
-          dispatch({type: "AUTHENTICATING_USER_SUCCESSFUL", payload: result.data.accessToken})
+          dispatch({type: AUTHENTICATING_USER_SUCCESSFUL, payload: result.data.accessToken})
       })
       .catch((error) => {
-        if (error.message === "Network Error" )
-          dispatch({type: "SERVER_NOT_FOUND", payload: 'The server is currently offline. Please try again later.'});
+        if (error.response.status == 406 || error.response.status == 401)
+        {
+          dispatch({type: AUTHENTICATE_USER_REJECTED, payload: 'Email address or password is incorrect!'})
+        }
+        else if (error.message === "Network Error" )
+        {
+          dispatch({type: SERVER_NOT_FOUND, payload: 'The server is currently offline. Please try again later.'});
+        }
         else
-          dispatch({type: "AUTHENTICATE_USER_REJECTED", payload: error.response.data.errors})
+        {
+          dispatch({type: AUTHENTICATE_USER_REJECTED, payload: error.response.data.errors})
+        }
       })
   }
 }

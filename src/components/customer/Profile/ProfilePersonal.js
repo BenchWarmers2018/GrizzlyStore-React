@@ -1,32 +1,20 @@
 import React, {Component} from 'react';
-import {connect} from "react-redux";
-import PropTypes from 'prop-types';
-import {fetchProfile, submitPersonalDetails} from "../../../actions/profileActions";
 import {Formik, Field} from 'formik';
-import {withRouter} from 'react-router';
 import Dropzone from 'react-dropzone'
 
 class ProfilePersonal extends Component {
     constructor(props) {
         super(props);
-        this.validatePhone = this.validatePhone.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.onDrop = this.onDrop.bind(this);
-        this.onSelect = this.onSelect.bind(this);
-        this.getPostValues = this.getPostValues.bind(this);
-        this.FileListItem = this.FileListItem.bind(this);
         this.state = {
             success: "",
             empty: false,
-            firstName: '',
-            lastName: '',
-            phone: '',
             image: null,
             imageName: ''
         };
     }
 
-    onSelect(file) {
+    /**** Start of upload image functions ****/
+    onSelect = (file) => {
         console.log(file[0].name);
         this.setState({
             image: file[0],
@@ -34,7 +22,7 @@ class ProfilePersonal extends Component {
         });
     }
 
-    onDrop(file) {
+    onDrop = (file) => {
         console.log('Coming from Dropzone');
         this.setState({
             image: file[0],
@@ -43,65 +31,49 @@ class ProfilePersonal extends Component {
         this.fileUpload.files = new this.FileListItem(file);
     }
 
-    getPostValues(values) {
-        var data = {
-            phone: '',
-            lastName: '',
-            firstName: '',
-            image: this.state.image,
-            imageName: this.state.imageName
-        };
-        values.firstName.length === 0 ? data.firstName = this.state.firstName : data.firstName = values.firstName;
-        values.lastName.length === 0 ? data.lastName = this.state.lastName : data.lastName = values.lastName;
-        values.phone.toString().length === 0 ? data.phone = this.state.phone : data.phone = values.phone;
-
-        return data;
-    }
-
     // Create a FileList object from an array of File objects.
-    FileListItem(a) {
+    FileListItem = (a) => {
         a = [].slice.call(Array.isArray(a) ? a : arguments);
         for (var c, b = c = a.length, d = !0; b-- && d;) d = a[b] instanceof File
         if (!d) throw new TypeError("expected argument to FileList is File or array of File objects");
         for (b = (new ClipboardEvent("")).clipboardData || new DataTransfer; c--;) b.items.add(a[c])
         return b.files
     }
-
-
-    componentDidMount() {
-        //this.props.fetchProfile();
+    /**** End of upload image functions ****/
+    getPostValues = (values) => {
+        var data = {
+            phone: values.phone.length === 0 ? this.props.data.profilePhoneNumber : values.phone,
+            lastName: values.lastName.length === 0 ? this.props.data.profileLastName : values.lastName,
+            firstName: values.firstName.length === 0 ? this.props.data.profileFirstName : values.firstName,
+            image: this.state.image,
+            imageName: this.state.imageName
+        };
+        return data;
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.profile !== this.props.profile) {
-            this.setState(
-                {
-                    phone: this.props.profile[0].profile.profilePhoneNumber,
-                    firstName: this.props.profile[0].profile.profileFirstName,
-                    lastName: this.props.profile[0].profile.profileLastName,
-                    image: null,
-                    imageName: ''
-                });
-        }
-    }
 
     validatePhone = (phone) => {
-        let re = /^\d{10}$/;
-        console.log(re.test(phone));
+        let re = /^\d{10}$|^$/;
         return re.test(phone);
     };
+    validateName = (name) => {
+        let reg = /^([A-Za-z]+[\-\']?)*([A-Za-z]+)?$/
+        return reg.test(name);
+    }
 
-    handleSubmit(values, formikBag) {
+    handleSubmit = (values, formikBag) => {
         console.log('IMAGE HERE ' + values.image);
         if (!((this.state.image === null) && (values.phone.toString().length === 0) && (values.firstName.length === 0) && (values.lastName.length === 0))) {
             this.setState({empty: false});
             console.log(values);
+            //Getting values for posting
             const submissionValues = this.getPostValues(values);
-            this.props.submitPersonalDetails(submissionValues);
+
+
+            //Passing values to parent component
+            this.props.onProfileChange(submissionValues);
+
             formikBag.setSubmitting(false);
-            //this.props.fetchProfile();
-            this.setState({success: this.props.updates}); // Get update message back from Spring
-            console.log("SUCCESS " + JSON.stringify(this.props.profile[0]) + " " + this.state.success);
         }
         else {
             console.log('Need to enter at least one value for submission');
@@ -110,6 +82,7 @@ class ProfilePersonal extends Component {
     }
 
     render() {
+        const profile = this.props.data;
         if (this.props.file !== undefined)
             this.setState({imageName: this.props.file[0].name});
         return (
@@ -122,11 +95,17 @@ class ProfilePersonal extends Component {
                     validate={(values) => {
                         if (this.state.image !== null)
                             values.image = this.state.image;
-                        console.log(values);
                         let errors = {};
+                        console.log(values.firstName);
                         // VALIDATION
-                        if (values.phone.toString().length > 0 && !this.validatePhone(values.phone)) {
+                        if (!this.validatePhone(values.phone)) {
                             errors.phone = "Phone numbers can only be 10 digits long!"
+                        }
+                        if(!this.validateName(values.firstName)){
+                            errors.firstName = "Please enter a valid name!"
+                        }
+                        if(!this.validateName(values.lastName)){
+                            errors.lastName = "Please enter a valid name!"
                         }
                         return errors;
                     }}
@@ -145,9 +124,11 @@ class ProfilePersonal extends Component {
                                 <label className="col-md-12 text-muted label-padding-left">FIRST NAME</label>
                                 <div className="col-md-12">
                                     <Field type="text" name="firstName"
-                                           placeholder={this.state.firstName}
+                                           placeholder={profile.profileFirstName}
                                            className="form-control form-control-line" onChange={handleChange}
                                            onBlur={handleBlur}/>
+                                    {touched.firstName && errors.firstName &&
+                                    <span className="text-danger">{errors.firstName}</span>}
                                 </div>
                             </div>
 
@@ -155,17 +136,19 @@ class ProfilePersonal extends Component {
                                 <label className="col-md-12 text-muted label-padding-left">LAST NAME</label>
                                 <div className="col-md-12">
                                     <Field type="text" name="lastName"
-                                           placeholder={this.state.lastName}
+                                           placeholder={profile.profileLastName}
                                            className="form-control form-control-line" onChange={handleChange}
                                            onBlur={handleBlur}/>
+                                    {touched.lastName && errors.lastName &&
+                                    <span className="text-danger">{errors.lastName}</span>}
                                 </div>
                             </div>
 
                             <div className="form-group form-group-personal">
                                 <label className="col-md-12 text-muted label-padding-left">PHONE NUMBER</label>
                                 <div className="col-md-12">
-                                    <Field type="number" name="phone"
-                                           placeholder={this.state.phone}
+                                    <Field type="text" name="phone"
+                                           placeholder={profile.profilePhoneNumber}
                                            className="form-control form-control-line" onChange={handleChange}
                                            onBlur={handleBlur}/>
                                     {touched.phone && errors.phone &&
@@ -228,29 +211,5 @@ class ProfilePersonal extends Component {
     }
 }
 
-ProfilePersonal.propTypes = {
-    submitPersonalDetails: PropTypes.func.isRequired,
-    fetchProfile: PropTypes.func.isRequired,
-    fetched: PropTypes.bool.isRequired,
-    submitting: PropTypes.bool.isRequired,
-    updates: PropTypes.string.isRequired,
-    submitted: PropTypes.bool.isRequired,
-    fetching: PropTypes.bool.isRequired,
-};
 
-const mapStateToProps = state => ({
-    fetched: state.profiles.fetched,
-    updates: state.profiles.updates,
-    profile: state.profiles.profile,
-    fetching: state.profiles.fetching,
-    submitting: state.profiles.submitting,
-    submitted: state.profiles.submitted,
-    error: state.profiles.error
-});
-
-const mapDispatchToProps = {
-    submitPersonalDetails,
-    fetchProfile
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProfilePersonal));
+export default (ProfilePersonal);

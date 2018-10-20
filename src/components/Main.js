@@ -20,6 +20,8 @@ class Main extends Component {
                     <Route path='/items/all' component={Items} />
                     <Route path='/category/:categoryName'  component={Items}/>
                     <Route path='/items/:id' component={EachProduct}/>
+                    <Route path='/search/:searchText' component={Items} />
+                    <Route path='/search/' component={Items} />
                     <Route path='/cart' component={Cart} />
                     <Route path='/checkout' component={Checkout}/>
                     <Route path='/confirmation' component={OrderConfirmation}/>

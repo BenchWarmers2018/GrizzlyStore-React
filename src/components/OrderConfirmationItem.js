@@ -5,6 +5,16 @@ class OrderConfirmationItem extends Component {
         super(props);
     }
 
+    function roundPrice(item){
+        let num = item.itemPrice - (item.itemPrice * item.itemSalePercentage/100);
+        return num.toFixed(2);
+    }
+
+    function twoDecimalPlace(item){
+        let num = item.itemPrice
+        return num.toFixed(2);
+    }
+
     render() {
         const cartItem = this.props.data;
         return (

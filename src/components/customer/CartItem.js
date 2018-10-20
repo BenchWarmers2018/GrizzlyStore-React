@@ -1,8 +1,24 @@
-import SAMPLE from "../../images/images_sublime/cart_1.jpg";
 import React from "react";
+import {NORMAL_USER} from "../../CONSTANTS";
+import {successNotification} from "../microComponents/Notifications";
 import {deleteItemFromCart} from "../../actions/cartAction";
+import connect from "react-redux/es/connect/connect";
 
 class CartItem extends React.Component {
+
+    deleteFromCart = () => {
+        let accountId = null;
+        if(typeof this.props.loggedInUser !== "undefined")
+        {
+            if(this.props.userType === NORMAL_USER)
+            {
+                accountId = this.props.loggedInUser.id;
+                const cart = { "idAccountForeign": accountId, "items": [ { "idItem": this.props.cartItemObject.idItem, "total": this.props.cartItemObject.total} ] };
+                this.props.deleteItemFromCart(cart);
+                successNotification("Successfully Deleted an Item");
+            }
+        }
+    };
 
     render() {
         const item = this.props.cartItemObject;
@@ -42,7 +58,7 @@ class CartItem extends React.Component {
 
                         <div className="cart_item_total">${item.total}</div>
                         <div className="cart_item_actions">
-                            <button className="btn btn-sm btn-danger" onClick={this.deleteItemFromCart}><i
+                            <button className="btn btn-sm btn-danger" onClick={this.deleteFromCart}><i
                                 className="fa fa-trash fa-2x"></i></button></div>
                     </div>
 
@@ -51,5 +67,12 @@ class CartItem extends React.Component {
         )
     }
 }
+const mapStateToProps = state => ({
+    loggedInUser : state.accounts.loggedInUser,
+    userType: state.accounts.userType,
+});
+const mapDispatchToProps = {
+    deleteItemFromCart,
+};
 
-export default CartItem;
+export default connect(mapStateToProps, mapDispatchToProps)(CartItem);

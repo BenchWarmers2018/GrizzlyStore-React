@@ -2,13 +2,18 @@ import axios from "axios";
 import {
     ADD_TO_CART,
     ADD_TO_CART_FULFILLED,
-    ADD_TO_CART_REJECTED, DELETE_ITEM_FROM_CART,
+    ADD_TO_CART_REJECTED, DELETE_CART,
+    DELETE_CART_FULFILLED, DELETE_CART_REJECTED,
+    DELETE_ITEM_FROM_CART,
+    DELETE_ITEM_FROM_CART_FULFILLED,
+    DELETE_ITEM_FROM_CART_REJECTED,
     FETCH_CART,
     FETCH_CART_FULFILLED,
     FETCH_CART_REJECTED,
     FETCH_SINGLE_CART_ITEM,
     FETCH_SINGLE_CART_ITEM_FULFILLED,
-    FETCH_SINGLE_CART_ITEM_REJECTED, REMOVE_FETCHED_ITEMS_FOR_CART,
+    FETCH_SINGLE_CART_ITEM_REJECTED,
+    REMOVE_FETCHED_ITEMS_FOR_CART,
     URL_ITEM,
     URL_ORDER
 } from "../CONSTANTS";
@@ -66,7 +71,32 @@ export function removeFetchedItemsForCart() {
     }
 }
 
-//idCartItem
-export function deleteItemFromCart(idCartItem) {
-    return {TYPE: DELETE_ITEM_FROM_CART, payload: idCartItem}
+export function deleteItemFromCart(cart) {
+    return function (dispatch) {
+        dispatch({type: DELETE_ITEM_FROM_CART});
+        axios.post(URL_ORDER + "/cart/deleteitem", cart)
+            .then(result => {
+                console.log(result.data);
+                dispatch({type: DELETE_ITEM_FROM_CART_FULFILLED, payload: result.data})
+            })
+            .catch((error) => {
+                console.log(error);
+                dispatch({type: DELETE_ITEM_FROM_CART_REJECTED, payload: error})
+            })
     }
+}
+
+export function deleteCart(cart) {
+    return function (dispatch) {
+        dispatch({type: DELETE_CART});
+        axios.post(URL_ORDER + "/cart/deletecart", cart)
+            .then(result => {
+                console.log(result.data);
+                dispatch({type: DELETE_CART_FULFILLED, payload: result.data})
+            })
+            .catch((error) => {
+                console.log(error);
+                dispatch({type: DELETE_CART_REJECTED, payload: error})
+            })
+    }
+}

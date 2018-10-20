@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Route, Switch} from "react-router-dom";
-import Profile from "./pages/profile"
+import Profile from "../customer/Profile/Profile"
 import NotFound from "../shared/NotFound";
 import Dashboard from "./pages/dashboard";
 import ViewCategories from "./pages/viewCategories"
