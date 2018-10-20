@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import Product from "../../images/images_sublime/details_1.jpg";
+import Product from "../../../images/images_sublime/details_1.jpg";
 import { connect } from 'react-redux';
-import { fetchSingleItem } from '../../actions/itemsAction'
-import { fetchCategoriesforItem } from '../../actions/categoriesAction'
-import {addItemToCart, deleteItemFromCart} from '../../actions/cartAction';
-import Banner from "../microComponents/Banner";
+import { fetchSingleItem } from '../../../actions/itemsAction'
+import { fetchCategoriesforItem } from '../../../actions/categoriesAction'
+import {addItemToCart, deleteItemFromCart} from '../../../actions/cartAction';
+import Banner from "../../microComponents/Banner";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
-import {NORMAL_USER} from "../../CONSTANTS";
+import {NORMAL_USER} from "../../../CONSTANTS";
 import {Icon, notification} from "antd";
-import {errorNotification, successNotification} from "../microComponents/Notifications";
+import {errorNotification, successNotification} from "../../microComponents/Notifications";
 
 class EachItem extends Component {
     constructor(props) {

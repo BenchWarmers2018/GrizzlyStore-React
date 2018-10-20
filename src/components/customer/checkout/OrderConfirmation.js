@@ -1,22 +1,75 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux"
-import {fetchFilteredItems, getVisibleItems} from "../../selectors/itemsSelector";
-import {fetchCategories} from "../../actions/categoriesAction";
-import {category, filterText, maxPrice, minPrice, page, sortBy} from "../../actions/filterActions";
-import LogoLarge from "../../images/images_sublime/GrizzlyStoreLogo.png"
-import CheckoutItems from "./CheckoutItems";
-import OrderConfirmationItem from "../OrderConfirmationItem";
+import LogoLarge from "../../../images/images_sublime/GrizzlyStoreLogo.png"
+import OrderConfirmationItem from "./OrderConfirmationItem";
+import Spinner from "../../microComponents/Spinner";
+import { withRouter } from "react-router";
+import {errorNotification} from "../../microComponents/Notifications";
+import { resetOrder } from "../../../actions/orderActions";
 
 class OrderConfirmation extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            processing: this.props.processing,
+            processed: this.props.processed,
+            order: this.props.order,
+        }
+    }
+
+    componentDidUpdate(prevprops){
+        if(prevprops.order !== this.props.order){
+            this.setState({
+                processing: this.props.processing,
+                processed: this.props.processed,
+                order: this.props.order})
+        }
+    }
+
+    componentWillUnmount(){
+        this.props.resetOrder();
     }
 
 
 
     render() {
-        var testOrder = {orderTotal: 20.2, orderID: "20", orderItems: {itemNo: 3, itemQuantity: 2, itemPrice: 20.2},  }
+        let products = null;
+        let items = null;
+        let checkoutRows = [];
+        if(this.state.processing)
+        {
+            return(
+                <Spinner/>
+            )
+        }
+        else
+        {
+            if(!this.state.processed){
+                errorNotification("Something went wrong", "Please try again...!");
+                this.props.history.push('/cart');
+            }
+            else{
+                if(this.props.order !== null)
+                {
+                    products = this.props.cartItems;
+                    items = this.props.order.items;
+                    console.log(products);
+                    console.log(items);
+                    products.forEach(function(product) {
+                        items.forEach(function(item) {
+                            if(product.idItem === item.idItem)
+                            {
+                                checkoutRows.push(<OrderConfirmationItem cartItemObject={item} productObject={product} />)
+                            }
+                        });
+                    });
+                    console.log(checkoutRows);
+                }
+            }
+        }
+        //var testOrder = {orderTotal: 20.2, orderID: "20", orderItems: {itemNo: 3, itemQuantity: 2, itemPrice: 20.2},  }
+
         return (
         <div className="container">
             <div className="row">
@@ -58,7 +111,6 @@ class OrderConfirmation extends Component {
                                             <tr>
                                                 <th className="border-0 text-uppercase small font-weight-bold">ID</th>
                                                 <th className="border-0 text-uppercase small font-weight-bold">Item</th>
-                                                <th className="border-0 text-uppercase small font-weight-bold">Description</th>
                                                 <th className="border-0 text-uppercase small font-weight-bold">Quantity</th>
                                                 <th className="border-0 text-uppercase small font-weight-bold">Unit
                                                     Cost
@@ -67,23 +119,17 @@ class OrderConfirmation extends Component {
                                             </tr>
                                             </thead>
                                             <tbody>
-
-                                            {(this.props.cart !== null || typeof this.props.cart !== "undefined") ?
-                                                this.props.cart.items.map(cartItem =>
-                                                    <OrderConfirmationItem data={cartItem}/>
-                                                )
-                                                :
-                                                <tr>"Hello No items here."</tr>
-                                            }
+                                                {checkoutRows}
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
 
+                            {(this.state.order!==null) &&
                                 <div className="d-flex flex-row-reverse bg-dark text-white p-4">
                                     <div className="py-3 px-5 text-right">
                                         <div className="mb-2">Grand Total</div>
-                                        <div className="h2 font-weight-light">$234,234</div>
+                                        <div className="h2 font-weight-light">{this.state.order.order_Total}</div>
                                     </div>
 
                                     <div className="py-3 px-5 text-right">
@@ -93,9 +139,11 @@ class OrderConfirmation extends Component {
 
                                     <div className="py-3 px-5 text-right">
                                         <div className="mb-2">Sub - Total amount</div>
-                                        <div className="h2 font-weight-light">$32,432</div>
+                                        <div className="h2 font-weight-light">{this.state.order.order_Total}</div>
                                     </div>
                                 </div>
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -111,13 +159,14 @@ class OrderConfirmation extends Component {
 
 
 const mapStateToProps = state => ({
-    orders: state.orders.processedOrder,
+    order: state.orders.processedOrder,
     cartItems : state.cart.cartItems,
-    cart : state.cart.cart,
+    processing: state.orders.processing,
+    processed: state.orders.processed,
 });
 
 const mapDispatchToProps = {
-
+    resetOrder,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderConfirmation);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(OrderConfirmation));

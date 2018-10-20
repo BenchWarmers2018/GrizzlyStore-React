@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import PaginationComponent from '../microComponents/PaginationComponent'
+import PaginationComponent from '../../microComponents/PaginationComponent'
 import PropTypes from 'prop-types';
 import { connect } from "react-redux"
-import { fetchCategories } from "../../actions/categoriesAction"
-import { filterText, category, minPrice, maxPrice, sortBy, page } from '../../actions/filterActions';
-import { getVisibleItems, fetchFilteredItems } from "../../selectors/itemsSelector";
+import { fetchCategories } from "../../../actions/categoriesAction"
+import { filterText, category, minPrice, maxPrice, sortBy, page } from '../../../actions/filterActions';
+import { getVisibleItems, fetchFilteredItems } from "../../../selectors/itemsSelector";
 import ItemsChild from "./ItemsChild"
 import InputRange from 'react-input-range';
-import '../../../node_modules/react-input-range/lib/css/index.css';
-import Categories from "../microComponents/Categories";
-import Banner from "../microComponents/Banner";
-import {ITEM_PAGE_SIZE} from "../../CONSTANTS";
-import Spinner from "../microComponents/Spinner";
+import '../../../../node_modules/react-input-range/lib/css/index.css';
+import Categories from "../../microComponents/Categories";
+import Banner from "../../microComponents/Banner";
+import {ITEM_PAGE_SIZE} from "../../../CONSTANTS";
+import Spinner from "../../microComponents/Spinner";
 
 class Items extends Component {
 
@@ -38,6 +38,9 @@ class Items extends Component {
             this.props.category(this.props.match.params.categoryName);
             //this.props.fetchFilteredItems(this.props.sortAndFilter.text, this.props.sortAndFilter.minPrice, this.props.sortAndFilter.maxPrice, this.props.sortAndFilter.sortBy, this.props.sortAndFilter.category, this.props.sortAndFilter.page, ITEM_PAGE_SIZE);
         }
+        else {
+            this.props.category("");
+        }
         if(typeof this.props.match.params.searchText !== "undefined")
         {
             this.props.minPrice(0);
@@ -62,37 +65,39 @@ class Items extends Component {
 
     componentDidUpdate(prevProps) {
         console.log("I tried atleast " , this.props.match.params.categoryName);
+
         if(
             prevProps.sortAndFilter !== this.props.sortAndFilter ||
             prevProps.match.params.categoryName !== this.props.match.params.categoryName ||
             prevProps.match.params.searchText !== this.props.match.params.searchText)
-        {
-            if(prevProps.match.params.categoryName !== this.props.match.params.categoryName)
             {
-                this.props.category(this.props.match.params.categoryName);
+                if(prevProps.match.params.categoryName !== this.props.match.params.categoryName)
+                {
+                    if(typeof this.props.match.params.categoryName !== "undefined"){
+                        this.props.category(this.props.match.params.categoryName);
+                    }
+                }
+                if(prevProps.match.params.searchText !== this.props.match.params.searchText)
+                {
+                    this.props.minPrice(0);
+                    this.props.maxPrice(0);
+                    this.props.filterText(this.props.match.params.searchText);
+                }
+                this.props.fetchFilteredItems(
+                    this.props.sortAndFilter.text,
+                    this.props.sortAndFilter.minPrice,
+                    this.props.sortAndFilter.maxPrice,
+                    this.props.sortAndFilter.sortBy,
+                    this.props.sortAndFilter.category,
+                    this.props.sortAndFilter.page,
+                    ITEM_PAGE_SIZE
+                );
+                console.log("Category in items " , this.props.sortAndFilter.category);
+                console.log("Sort in items " , this.props.sortAndFilter.sortBy);
+                console.log("Min in items " , this.props.sortAndFilter.minPrice);
+                console.log("Max in items " , this.props.sortAndFilter.maxPrice);
+                console.log("search text in items " , this.props.sortAndFilter.text);
             }
-            if(prevProps.match.params.searchText !== this.props.match.params.searchText)
-            {
-                this.props.minPrice(0);
-                this.props.maxPrice(0);
-                this.props.filterText(this.props.match.params.searchText);
-            }
-
-            this.props.fetchFilteredItems(
-                this.props.sortAndFilter.text,
-                this.props.sortAndFilter.minPrice,
-                this.props.sortAndFilter.maxPrice,
-                this.props.sortAndFilter.sortBy,
-                this.props.sortAndFilter.category,
-                this.props.sortAndFilter.page,
-                ITEM_PAGE_SIZE
-            );
-            console.log("Category in items " , this.props.sortAndFilter.category);
-            console.log("Sort in items " , this.props.sortAndFilter.sortBy);
-            console.log("Min in items " , this.props.sortAndFilter.minPrice);
-            console.log("Max in items " , this.props.sortAndFilter.maxPrice);
-            console.log("search text in items " , this.props.sortAndFilter.text);
-        }
 
 
         if(this.props.leastItemPrice !== prevProps.leastItemPrice || this.props.mostItemPrice !== prevProps.mostItemPrice)
@@ -172,10 +177,15 @@ class Items extends Component {
             <div className="container-fluid">
 
                 {/* Banner component */}
-                {(this.props.sortAndFilter.category.length > 0) ?
-                    <Banner data={this.props.sortAndFilter.category}/> :
-                    <Banner data="All Items"/>
-                }
+                    { (typeof this.props.sortAndFilter.category !== "undefined") &&
+                        <div>
+                        {(this.props.sortAndFilter.category.length > 0) ?
+                            <Banner data={this.props.sortAndFilter.category}/> :
+                            <Banner data="All Items"/>
+                        }
+                        </div>
+                    }
+
                 {/*Banner component end*/}
 
                 <section className="shop_grid_area section-padding-80">
@@ -255,14 +265,14 @@ class Items extends Component {
                                                     {/*this.props.minPrice(0);*/}
                                                     {/*this.props.maxPrice(0);*/}
                                                     {/*}}/>*/}
-                                                    <form className="form-inline md-form mr-auto mb-4" onSubmit={this.handleSearch}>
-                                                        <input className="form-control mr-sm-2" type="text"
-                                                               placeholder="Search..." aria-label="Search" value={this.state.searchText}
-                                                               onChange={(e) => {
-                                                                   this.setState({searchText: e.target.value});
+                                                    {/*<form className="form-inline md-form mr-auto mb-4" onSubmit={this.handleSearch}>*/}
+                                                        {/*<input className="form-control mr-sm-2" type="text"*/}
+                                                               {/*placeholder="Search..." aria-label="Search" value={this.state.searchText}*/}
+                                                               {/*onChange={(e) => {*/}
+                                                                   {/*this.setState({searchText: e.target.value});*/}
 
-                                                               }}/>
-                                                    </form>
+                                                               {/*}}/>*/}
+                                                    {/*</form>*/}
                                                 </div>
 
 
@@ -342,7 +352,6 @@ Items.propTypes= {
 };
 
 const mapStateToProps = state => ({
-    items: getVisibleItems(state.items.pagedItems, state.sortAndFilter),
     filteredPagedItems: state.items.pagedItems,
     categories: state.category.categories,
     sortAndFilter: state.sortAndFilter,

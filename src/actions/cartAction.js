@@ -65,11 +65,6 @@ export function fetchSingleItemForCart(ids) {
     }
 }
 
-export function removeFetchedItemsForCart() {
-    return function(dispatch) {
-        dispatch({type: REMOVE_FETCHED_ITEMS_FOR_CART});
-    }
-}
 
 export function deleteItemFromCart(cart) {
     return function (dispatch) {

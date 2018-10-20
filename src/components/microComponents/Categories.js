@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
-import ItemsChild from "../customer/ItemsChild";
+import ItemsChild from "../customer/shop/ItemsChild";
 
 class Categories extends Component {
 

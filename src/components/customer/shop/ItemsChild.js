@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { fetchSingleItem } from "../../actions/itemsAction";
+import { fetchSingleItem } from "../../../actions/itemsAction";
 import { connect } from 'react-redux';
 
 class ItemsChild extends Component {
