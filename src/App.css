@@ -491,3 +491,6 @@ hr{
   color: inherit;
 }
 
+.btn-enlarge {
+  font-size: 16px;
+}
