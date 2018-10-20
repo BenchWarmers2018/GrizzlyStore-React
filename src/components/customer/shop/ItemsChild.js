@@ -29,7 +29,7 @@ class ItemsChild extends Component {
 
 
         return (
-                    <div className="col-6 col-12 col-sm-6 col-lg-4" >
+                    <div className="col-6 col-sm-4 col-md-4 col-lg-4" >
                         <Link onClick={this.handleItemClicked} value={item.idItem} to={'/items/'+ item.idItem}>
                         <div className="single-product-wrapper rounded ">
 
