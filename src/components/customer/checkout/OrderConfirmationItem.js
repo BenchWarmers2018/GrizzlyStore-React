@@ -16,13 +16,14 @@ class OrderConfirmationItem extends Component {
     // }
 
     render() {
-        const cartItem = this.props.data;
+        const cartItem = this.props.cartItemObject;
+        const product = this.props.productObject;
+        console.log(cartItem);
+        console.log(product)
         return (
-
                 <tr>
                     <td>{cartItem.idItem}</td>
-                    <td>NAME</td>
-                    <td>DESCRIPTION</td>
+                    <td>{product.itemName}</td>
                     <td>{cartItem.itemQuantity}</td>
                     <td>{cartItem.itemPrice}</td>
                     <td>{cartItem.total}</td>

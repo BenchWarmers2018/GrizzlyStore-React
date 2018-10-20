@@ -1,7 +1,7 @@
 import React from "react";
-import {NORMAL_USER} from "../../CONSTANTS";
-import {successNotification} from "../microComponents/Notifications";
-import {deleteItemFromCart} from "../../actions/cartAction";
+import {NORMAL_USER} from "../../../CONSTANTS";
+import {successNotification} from "../../microComponents/Notifications";
+import {deleteItemFromCart} from "../../../actions/cartAction";
 import connect from "react-redux/es/connect/connect";
 
 class CartItem extends React.Component {
@@ -43,14 +43,14 @@ class CartItem extends React.Component {
                             <div>
                                 <div className="product_quantity clearfix">
                                     <span>Qty</span>
-                                    <input type="text" pattern="[0-9]*" defaultValue={item.itemQuantity}/>
+                                    <input type="text" disabled defaultValue={item.itemQuantity}/>
                                     <div className="quantity_buttons">
-                                        <div id="quantity_inc_button"
-                                             className="quantity_inc quantity_control"><i
-                                            className="fa fa-chevron-up" aria-hidden="true"></i></div>
-                                        <div id="quantity_dec_button"
-                                             className="quantity_dec quantity_control"><i
-                                            className="fa fa-chevron-down" aria-hidden="true"></i></div>
+                                        {/*<div id="quantity_inc_button"*/}
+                                             {/*className="quantity_inc quantity_control"><i*/}
+                                            {/*className="fa fa-chevron-up" aria-hidden="true"></i></div>*/}
+                                        {/*<div id="quantity_dec_button"*/}
+                                             {/*className="quantity_dec quantity_control"><i*/}
+                                            {/*className="fa fa-chevron-down" aria-hidden="true"></i></div>*/}
                                     </div>
                                 </div>
                             </div>

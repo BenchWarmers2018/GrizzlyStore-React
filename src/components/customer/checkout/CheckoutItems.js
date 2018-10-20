@@ -10,10 +10,11 @@ class CheckoutItems extends Component {
     }
 
     render() {
-        const cartItem = this.props.data;
+        const cartItem = this.props.cartItemObject;
+        const product = this.props.productObject;
         return (
             <li className="d-flex flex-row align-items-center justify-content-start">
-                <div className="order_list_title">Product{}</div>
+                <div className="order_list_title">{product.itemName}</div>
                 <div className="order_list_value ml-auto">{cartItem.itemQuantity}</div>
                 <div className="order_list_value ml-auto">{cartItem.total}</div>
             </li>

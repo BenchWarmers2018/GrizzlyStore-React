@@ -16,7 +16,7 @@ import {
     from "../CONSTANTS";
 
 const InitialState = {
-    cart: [],
+    cart: null,
     fetching : false,
     fetched : false,
     errors : [],
