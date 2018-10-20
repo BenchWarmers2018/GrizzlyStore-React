@@ -285,11 +285,13 @@ class Items extends Component {
 
                                     {/* This is products child class that displays all the items*/}
 
-                                    { this.props.filteredPagedItems.length === 0 ? <h2>No items to diplay</h2> :
-                                        <div className="row">
-                                            {items.map(item =>
-                                                <ItemsChild key={item.idItem} data={item}/>
-                                            )}
+
+                                { this.props.filteredPagedItems.length === 0 ? <h2>No items to display</h2> :
+                                    <div className="row">
+                                        {items.map(item =>
+                                        <ItemsChild key={item.idItem} data={item}/>
+                                        )}
+
 
                                         </div>}
 
