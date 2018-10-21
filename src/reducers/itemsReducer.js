@@ -144,7 +144,7 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 updates: "Item successfully added",
-                items: [...state.items, action.payload[0]],
+                items: [...state.items, action.payload],
                 added: true,
                 adding: false,
                 error: null

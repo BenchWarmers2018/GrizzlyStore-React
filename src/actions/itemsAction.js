@@ -212,11 +212,25 @@ export function fetchPopularItems() {
 }
 
 
-export function addItem(data) {
+export function addItem(itemName, itemDescription, itemImage, itemPrice, itemStock, itemSales, itemCategory) {
     return function (dispatch) {
-        dispatch({type: ADD_ITEM});
-        axios.post(URL_ITEM + "/items/addItem", data)
-        .then((response) => {
+        let data = new FormData();
+        let header = {
+            'Content-Type': 'multipart/form-data'
+        };
+        let item = {
+            itemName: itemName,
+            itemPrice: itemPrice,
+            itemStockLevel: itemStock,
+            itemSalePercentage: itemSales,
+            itemDescription: itemDescription
+        };
+        data.append('file', itemImage);
+        data.append('item', JSON.stringify(item));
+        data.append('category', itemCategory);
+
+        dispatch({type: ADD_ITEM}); //
+        axios.post(URL_ITEM + "/items/addItem", data, {headers: header}).then((response) => {
             console.log("TESTING " + response.data.entities);
             dispatch({type: ADD_ITEM_FULFILLED, payload: response.data})
         })
