@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { fetchSingleItem } from "../../actions/itemsAction";
+import { fetchSingleItem } from "../../../actions/itemsAction";
 import { connect } from 'react-redux';
 
 class ItemsChild extends Component {
@@ -29,7 +29,7 @@ class ItemsChild extends Component {
 
 
         return (
-                    <div className="col-12 col-sm-6 col-lg-4" >
+                    <div className="col-6 col-sm-4 col-md-4 col-lg-4" >
                         <Link onClick={this.handleItemClicked} value={item.idItem} to={'/items/'+ item.idItem}>
                         <div className="single-product-wrapper rounded ">
 
