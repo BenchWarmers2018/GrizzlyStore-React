@@ -66,19 +66,18 @@ class sidebar extends Component {
                                 className="sidebar-link waves-effect waves-dark sidebar-link"
                                 aria-expanded="false"><Icon path={mdiViewDashboard} size={1.5}/><span
                                 className="hide-menu">Dashboard</span></a></Link></li>
-                            <li className="sidebar-item"><a onClick={this.toggleCategoryModal} href="javascript:void(0)"
-                                                            className="sidebar-link waves-effect waves-dark sidebar-link">
+                            <li className="sidebar-item">
+                              <a onClick={this.toggleCategoryModal} href="javascript:void(0)"
+                                className="sidebar-link waves-effect waves-dark sidebar-link">
                                 <Icon path={mdiPlusBox} size={1.5}/>
                                 <span className="hide-menu m-l-5">Add New Category</span>
                             </a></li>
-                            <li className="sidebar-item"><
-                                a onClick={this.toggleItemModal} href="javascript:void(0)"
+                            <li className="sidebar-item"><a onClick={this.toggleItemModal} href="javascript:void(0)"
                                   className="sidebar-link waves-effect waves-dark sidebar-link">
                                 <Icon path={mdiPlusBox} size={1.5}/>
                                 <span className="hide-menu m-l-5">Add New Item</span>
                             </a></li>
-                            <li className="sidebar-item"><Link
-                                to={{pathname: "/viewcategories", state: this.state.categories}}><a
+                            <li className="sidebar-item"><Link to="/viewcategories"><a
                                 className="sidebar-link waves-effect waves-dark sidebar-link"
                                 aria-expanded="false"><Icon path={mdiBorderAll} size={1.5}/><span
                                 className="hide-menu">View Categories</span></a></Link></li>
@@ -94,11 +93,9 @@ class sidebar extends Component {
 
                     </nav>
                 </div>
-
                 <Modal isOpen={this.state.itemModal} toggle={this.toggleItemModal} className="cascading-modal">
                     <AddItemForm categories={this.state.categories} toggle={this.toggleItemModal}/>
                 </Modal>
-
                 <Modal isOpen={this.state.categoryModal} toggle={this.toggleCategoryModal} className="cascading-modal">
                     <AddCategoryForm />
                 </Modal>
@@ -108,9 +105,7 @@ class sidebar extends Component {
 }
 
 const mapStateToProps = state => ({
-    categories: state.category.categories,
-    addCategoryMessage: state.category.messages,
-    categoryStatusAdded: state.category.added
+    categories: state.category.categories
 });
 
 export default connect(mapStateToProps)(sidebar);
