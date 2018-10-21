@@ -17,7 +17,7 @@ class AddItemForm extends React.Component {
         this.state = {
             image: null,
             message: "",
-            type: 'GREEN' // GREEN for success message, RED for error message - After form submission
+            type: '' // GREEN for success message, RED for error message - After form submission
         };
     }
 
