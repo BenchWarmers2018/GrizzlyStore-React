@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ViewItemsTable from '../tables/viewItemsTable.js';
 import { connect } from "react-redux";
-import { fetchItems } from "../../../actions/itemsAction";
+import { fetchItems, addItem } from "../../../actions/itemsAction";
 
 class ViewItems extends Component {
 

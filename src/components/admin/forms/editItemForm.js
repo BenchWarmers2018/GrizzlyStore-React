@@ -47,9 +47,6 @@ class EditItemForm extends Component {
         {
             successNotification("Item updated successfully!");
         }
-        if (prevProps.items !== this.props.items && this.props.removed) {
-            successNotification(this.props.updates);
-        }
     }
 
     onPreviewDrop = (acceptedFiles) => {
@@ -154,9 +151,6 @@ class EditItemForm extends Component {
 
                         <ModalFooter className="justify-content-center">
                             <Button size="md" color="success" type="submit">Save Changes</Button>
-                            <Button size="md" color="danger" type="button"
-                                    onClick={() => this.props.remove(this.state.rowData.idItem)}>Remove
-                                Item</Button>
                         </ModalFooter>
                     </form>
                 </Form>

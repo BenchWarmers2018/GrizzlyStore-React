@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import {connect} from "react-redux"
 import {Button, Fa, Input, Modal, ModalBody, ModalFooter, Label, InputNumeric} from "mdbreact";
 import Dropzone from "react-dropzone";
-import {addItem} from "../../../actions/itemsAction";
+import {addItem, fetchItems} from "../../../actions/itemsAction";
 
 
 class AddItemForm extends React.Component {
@@ -17,7 +17,7 @@ class AddItemForm extends React.Component {
         this.state = {
             image: null,
             message: "",
-            type: 'GREEN' // GREEN for success message, RED for error message - After form submission
+            type: '' // GREEN for success message, RED for error message - After form submission
         };
     }
 
@@ -51,6 +51,10 @@ class AddItemForm extends React.Component {
 
         console.log('CATEGORIES: ' + this.props.categories);
         const categories = this.props.categories;
+        if (this.state.type === 'GREEN') {
+            this.props.dispatch.fetchItems();
+        }
+        this.props.dispatch(fetchItems());
         return (
             <div className="item-submission imageName">
                 <div className="modal-header primary-color white-text">
