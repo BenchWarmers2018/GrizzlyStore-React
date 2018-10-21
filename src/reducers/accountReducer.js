@@ -14,8 +14,10 @@ import {
     AUTHENTICATE_USER_REJECTED, RESET_USER_ACCOUNT,
     GET_ALL_USERS,
     GET_ALL_USERS_REJECTED,
-    GET_ALL_USERS_SUCCESSFUL
-
+    GET_ALL_USERS_SUCCESSFUL,
+    TOGGLE_USER_ADMIN,
+    TOGGLE_USER_ADMIN_REJECTED,
+    TOGGLE_USER_ADMIN_SUCCESSFUL
 
 } from "../CONSTANTS";
 
@@ -33,6 +35,10 @@ const initialState = {
     loggedInUser: null,
     userType: "",
     continueLogin: false,
+    togglingAdminStatus: false,
+    toggledAdminStatus: false,
+    toggleStatusError: [],
+    toggleStatusMessage: []
 }
 
 export default function reducer(state=initialState, action){
@@ -141,6 +147,26 @@ export default function reducer(state=initialState, action){
                 userType: "",
                 continueLogin: false,
             }
+        }
+        case TOGGLE_USER_ADMIN: {
+          return {...state, togglingAdminStatus: true}
+        }
+        case TOGGLE_USER_ADMIN_REJECTED: {
+          return {...state, toggledAdminStatus: false, toggleStatusError: action.payload}
+        }
+        case TOGGLE_USER_ADMIN_SUCCESSFUL: {
+          const { idAccount, accountEmailAddress, accountIsAdmin, lastModified } = action.payload
+          const newAccounts = [...state.userAccounts]
+          const accountToUpdate = newAccounts.findIndex(account => account.accountEmailAddress === accountEmailAddress)
+          newAccounts[accountToUpdate] = action.payload;
+
+          return {
+              ...state,
+              togglingAdminStatus: false,
+              toggledAdminStatus: true,
+              toggleStatusMessage: "Account status updated successfully!",
+              userAccounts: newAccounts,
+          }
         }
         default:
             return state;
