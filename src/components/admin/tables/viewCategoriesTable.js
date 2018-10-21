@@ -3,6 +3,8 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import { Container, Row, Col, Input, Button, Fa, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
 import EditCategoryForm from "../forms/editCategoryForm.js";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'
 
 class ViewCategoriesTable extends Component {
   constructor(props) {
@@ -14,11 +16,19 @@ class ViewCategoriesTable extends Component {
     };
 
     this.toggle = this.toggle.bind(this);
+    this.deleteCategory = this.deleteCategory.bind(this);
   }
 
-  toggle() {
+  toggle(state, rowInfo) {
       this.setState({
-          modal: !this.state.modal
+        modal: !this.state.modal },
+        () => {
+          if (typeof rowInfo !== "undefined")
+          {
+            this.setState({
+              rowData: rowInfo.original
+            })
+          }
       });
   }
 
@@ -27,6 +37,18 @@ class ViewCategoriesTable extends Component {
     {
       this.setState({data: this.props.categoryData})
     }
+  }
+
+  deleteCategory() {
+    confirmAlert({
+      title: 'Confirm to submit',                        // Title dialog
+      message: 'Are you sure to do this.',               // Message dialog
+      childrenElement: () => <div>Custom UI</div>,       // Custom UI or Component
+      confirmLabel: 'Confirm',                           // Text button confirm
+      cancelLabel: 'Cancel',                             // Text button cancel
+      onConfirm: () => alert('Action after Confirm'),    // Action after Confirm
+      onCancel: () => alert('Action after Cancel'),      // Action after Cancel
+    })
   }
 
   render() {
@@ -51,24 +73,43 @@ class ViewCategoriesTable extends Component {
                 {
                   Header: "Category Description",
                   accessor: "categoryDescription",
+                },
+                ,
+                {
+                  Header: "Edit",
+                  Cell: row => (
+                    <div className="text-center">
+                      <Button onClick={this.toggle.bind(this)}><Fa icon="pencil" size="2x"/></Button>
+                    </div>
+                  ),
+                  width: 150
+                },
+                {
+                  Header: "Delete",
+                  Cell: row => (
+                    <div className="text-center">
+                      <Button onClick={e => this.deleteCategory.bind(this)}><Fa icon="trash" size="2x"/></Button>
+                    </div>
+                  ),
+                  width: 150
                 }
               ]
             }
           ]}
           defaultPageSize={10}
           className="-striped -highlight"
-
-          getTdProps={(state, rowInfo, column, instance) => {
-            return {
-              onClick: (e, handleOriginal) => {
-                if (typeof rowInfo !== "undefined")
-                {
-                  this.state.rowData = rowInfo.original;
-                  this.toggle();
-                }
-              }
-            };
-          }}
+          //
+          // getTdProps={(state, rowInfo, column, instance) => {
+          //   return {
+          //     onClick: (e, handleOriginal) => {
+          //       if (typeof rowInfo !== "undefined" && !this.state.show)
+          //       {
+          //         this.state.rowData = rowInfo.original;
+          //         this.toggle();
+          //       }
+          //     }
+          //   };
+          // }}
         />
 
         <Modal isOpen={this.state.modal} toggle={this.toggle} className="cascading-modal">
