@@ -1,4 +1,22 @@
-import { FETCH_CATEGORIES, FETCH_CATEGORIES_REJECTED, FETCH_CATEGORIES_FULFILLED, FETCH_ITEM_CATEGORY_REJECTED, FETCH_ITEM_CATEGORY_FULFILLED, FETCH_ITEM_CATEGORY, ADD_CATEGORY, ADD_CATEGORY_REJECTED, ADD_CATEGORY_SUCCESSFUL, SERVER_NOT_FOUND, EDIT_CATEGORY, EDIT_CATEGORY_REJECTED, EDIT_CATEGORY_SUCCESSFUL} from "../CONSTANTS";
+import {
+  FETCH_ITEM_CATEGORY,
+  FETCH_ITEM_CATEGORY_FULFILLED,
+  FETCH_ITEM_CATEGORY_REJECTED,
+  FETCH_CATEGORIES,
+  FETCH_CATEGORIES_FULFILLED,
+  FETCH_CATEGORIES_REJECTED,
+  URL_ITEM,
+  ADD_CATEGORY,
+  ADD_CATEGORY_REJECTED,
+  ADD_CATEGORY_SUCCESSFUL,
+  EDIT_CATEGORY,
+  EDIT_CATEGORY_REJECTED,
+  EDIT_CATEGORY_SUCCESSFUL,
+  SERVER_NOT_FOUND,
+  DELETE_CATEGORY,
+  DELETE_CATEGORY_REJECTED,
+  DELETE_CATEGORY_SUCCESSFUL
+} from '../CONSTANTS'
 
 const InitialState = {
     categories : [],
@@ -11,7 +29,12 @@ const InitialState = {
     added : false,
     updating: false,
     updated: false,
-    editMessages: []
+    editMessages: [],
+    deleting: false,
+    deleted: false,
+    deleteSuccessMessage: [],
+    deleteErrorMessage: [],
+    deletedCategory: null
 }
 
 export default function reducer(state=InitialState, action) {
@@ -56,7 +79,7 @@ export default function reducer(state=InitialState, action) {
           return {...state, updating: true }
         case (EDIT_CATEGORY_REJECTED):
               return {...state, updated: false, updating: false, editMessages: action.payload}
-        case (EDIT_CATEGORY_SUCCESSFUL):
+        case (EDIT_CATEGORY_SUCCESSFUL): {
               const { idCategory, categoryName, categoryDescription, last_modified } = action.payload
               const newCategories = [...state.categories]
               const categoryToUpdate = newCategories.findIndex(category => category.idCategory === idCategory)
@@ -69,6 +92,27 @@ export default function reducer(state=InitialState, action) {
                   editMessages: "Category updated successfully!",
                   categories: newCategories,
               }
+        }
+        case (DELETE_CATEGORY):
+              return {...state, deleting: true }
+        case (DELETE_CATEGORY_REJECTED):
+              return {...state, deleted: false, deleting: false, deleteErrorMessage: action.payload}
+        case (DELETE_CATEGORY_SUCCESSFUL): {
+              const { idCategory, categoryName, categoryDescription, last_modified } = action.payload
+              const newCategories = [...state.categories]
+              const categoryToDelete = newCategories.findIndex(category => category.idCategory === idCategory)
+              newCategories.splice(categoryToDelete, 1)
+
+              return {
+                  ...state,
+                  deleting: false,
+                  deleted: true,
+                  deletedCategory: action.payload,
+                  deleteSuccessMessage: "Category deleted successfully!",
+                  categories: newCategories,
+              }
+        }
+
         default:
             return state;
     }
