@@ -70,6 +70,7 @@ class Cart extends Component {
     render() {
         if(this.props.loggedInUser === null)
         {
+            successNotification("Please login to access Cart.")
             return(
                 <Redirect to="/"/>
                 )
