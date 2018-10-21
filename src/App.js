@@ -17,7 +17,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isAdmin: true,
+            isAdmin: false,
 
             currentUser: null,
             isAuthenticated: false,
@@ -45,7 +45,11 @@ class App extends Component {
 
     render()
     {
-        if(this.state.isAdmin === true)
+        if(this.props.loggedInUser !== null)
+        {
+            if(typeof this.props.loggedInUser !== "undefined")
+            {
+                if(this.props.loggedInUser.accountIsAdmin === true)
                 {
                     return (
                         <BrowserRouter>
@@ -62,8 +66,8 @@ class App extends Component {
                     );
                 }
 
-
-
+            }
+        }
         return (
             <BrowserRouter>
                 <div className="super_container">
