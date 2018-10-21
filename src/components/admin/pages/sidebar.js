@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import User from '../../../images/admin_images/users/1.jpg'
 import Icon from '@mdi/react';
-import {mdiViewDashboard, mdiAccountNetwork, mdiBorderAll, mdiPlusBox} from '@mdi/js';
+import {mdiAccountCircle, mdiAccountMultiple, mdiViewGrid,
+    mdiViewList, mdiFolderPlus, mdiLibraryPlus} from '@mdi/js';
 import {Link} from 'react-router-dom';
 import {connect} from "react-redux"
 import {Container, Row, Col, Input, Button, Fa, Modal, ModalBody, ModalHeader, ModalFooter} from 'mdbreact';
@@ -19,6 +19,7 @@ class sidebar extends Component {
         };
         this.toggleCategoryModal = this.toggleCategoryModal.bind(this);
         this.toggleItemModal = this.toggleItemModal.bind(this);
+
     }
 
     toggleCategoryModal() {
@@ -49,46 +50,64 @@ class sidebar extends Component {
                 <div className="scroll-sidebar">
                     <nav className="sidebar-nav">
                         <ul id="sidebarnav">
-                            <li>
-                                <div className="user-profile d-flex no-block dropdown m-t-20">
-                                    <div className="user-pic"><img src={User} alt="users"
-                                                                   className="rounded-circle" width="40"/></div>
-                                    <div className="user-content hide-menu m-l-10">
-                                        <a href="javascript:void(0)" className="" id="Userdd" role="button"
-                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <h5 className="m-b-0 user-name font-medium">Steave Jobs</h5>
-                                            <span className="op-5 user-email">varun@gmail.com</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li className="sidebar-item"><Link to="/"><a
-                                className="sidebar-link waves-effect waves-dark sidebar-link"
-                                aria-expanded="false"><Icon path={mdiViewDashboard} size={1.5}/><span
-                                className="hide-menu">Dashboard</span></a></Link></li>
+
+                            {/*View Profile*/}
                             <li className="sidebar-item">
-                              <a onClick={this.toggleCategoryModal} href="javascript:void(0)"
-                                className="sidebar-link waves-effect waves-dark sidebar-link">
-                                <Icon path={mdiPlusBox} size={1.5}/>
-                                <span className="hide-menu m-l-5">Add New Category</span>
-                            </a></li>
-                            <li className="sidebar-item"><a onClick={this.toggleItemModal} href="javascript:void(0)"
+                                <Link to="/profile">
+                                    <a className="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
+                                        <Icon className="mdi sidebar-item-icon mdi-light" path={mdiAccountCircle} size={1.5}/>
+                                        <span className="sidebar-heading hide-menu">Admin Profile</span>
+                                    </a>
+                                </Link>
+                            </li>
+
+                            {/*Toggle Add Category*/}
+                            <li className="sidebar-item">
+                                <a onClick={this.toggleCategoryModal} href="javascript:void(0)"
+                                   className="sidebar-link waves-effect waves-dark sidebar-link">
+                                    <Icon path={mdiFolderPlus} size={1.5}/>
+                                    <span className="sidebar-heading hide-menu m-l-5">Add New Category</span>
+                                </a>
+                            </li>
+
+                            {/*Toggle Add Item*/}
+                            <li className="sidebar-item">
+                                <a onClick={this.toggleItemModal} href="javascript:void(0)"
                                   className="sidebar-link waves-effect waves-dark sidebar-link">
-                                <Icon path={mdiPlusBox} size={1.5}/>
-                                <span className="hide-menu m-l-5">Add New Item</span>
-                            </a></li>
-                            <li className="sidebar-item"><Link to="/viewcategories"><a
-                                className="sidebar-link waves-effect waves-dark sidebar-link"
-                                aria-expanded="false"><Icon path={mdiBorderAll} size={1.5}/><span
-                                className="hide-menu">View Categories</span></a></Link></li>
-                            <li className="sidebar-item"><Link to="/viewitems"><a
-                                className="sidebar-link waves-effect waves-dark sidebar-link"
-                                aria-expanded="false"><Icon path={mdiBorderAll} size={1.5}/><span
-                                className="hide-menu">View Items</span></a></Link></li>
-                            <li className="sidebar-item"><Link to="/viewaccounts"><a
-                                className="sidebar-link waves-effect waves-dark sidebar-link"
-                                aria-expanded="false"><Icon path={mdiBorderAll} size={1.5}/><span
-                                className="hide-menu">View Accounts</span></a></Link></li>
+                                    <Icon path={mdiLibraryPlus} size={1.5}/>
+                                    <span className="sidebar-heading hide-menu m-l-5">Add New Item</span>
+                                </a>
+                            </li>
+
+                            {/*View Categories*/}
+                            <li className="sidebar-item">
+                                <Link to={{pathname: "/viewcategories", state: this.state.categories}}>
+                                    <a className="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
+                                        <Icon path={mdiViewList} size={1.5}/>
+                                        <span className="sidebar-heading hide-menu">View Categories</span>
+                                    </a>
+                                </Link>
+                            </li>
+
+                            {/*View Items*/}
+                            <li className="sidebar-item">
+                                <Link to="/viewitems">
+                                    <a className="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
+                                        <Icon path={mdiViewGrid} size={1.5}/>
+                                        <span className="sidebar-heading hide-menu">View Items</span>
+                                    </a>
+                                </Link>
+                            </li>
+
+                            {/*View Accounts*/}
+                            <li className="sidebar-item">
+                                <Link to="/viewaccounts">
+                                    <a className="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
+                                        <Icon path={mdiAccountMultiple} size={1.5}/>
+                                        <span className="sidebar-heading hide-menu">View Accounts</span>
+                                    </a>
+                                </Link>
+                            </li>
                         </ul>
 
                     </nav>

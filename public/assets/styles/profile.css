@@ -138,10 +138,15 @@ outline: 0 !important;
 
 .profile-img-name {
     display: block;
-    margin: auto;
+    margin: 0 auto;
     text-align: center !important;
 }
 
+.profile-img-name div {
+    display: block;
+    margin: 0 auto;
+    text-align: center !important;
+}
 .col-lg-4.col-xlg-3.col-md-5 {
     min-width: 300px;
 }
