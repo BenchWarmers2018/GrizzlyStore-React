@@ -136,7 +136,7 @@ class Header extends Component {
                                 <NavLink to="/">HOME</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink to="/items/all">ITEMS</NavLink>
+                                <NavLink to="/category/all">ITEMS</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink to="/sales">SALE</NavLink>

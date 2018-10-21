@@ -31,16 +31,21 @@ class Items extends Component {
 
     componentDidMount() {
 
-        console.log("I start here");
         this.props.fetchCategories();
         if(typeof this.props.match.params.categoryName !== "undefined")
         {
-            this.props.category(this.props.match.params.categoryName);
-            //this.props.fetchFilteredItems(this.props.sortAndFilter.text, this.props.sortAndFilter.minPrice, this.props.sortAndFilter.maxPrice, this.props.sortAndFilter.sortBy, this.props.sortAndFilter.category, this.props.sortAndFilter.page, ITEM_PAGE_SIZE);
+            if(this.props.match.params.categoryName === "all")
+            {
+                this.props.category("");
+            }
+            else
+            {
+                this.props.category(this.props.match.params.categoryName);
+            }
+            this.props.minPrice(0);
+            this.props.maxPrice(0);
         }
-        else {
-            this.props.category("");
-        }
+
         if(typeof this.props.match.params.searchText !== "undefined")
         {
             this.props.minPrice(0);
@@ -64,7 +69,6 @@ class Items extends Component {
 
 
     componentDidUpdate(prevProps) {
-        console.log("I tried atleast " , this.props.match.params.categoryName);
 
         if(
             prevProps.sortAndFilter !== this.props.sortAndFilter ||
@@ -74,7 +78,17 @@ class Items extends Component {
                 if(prevProps.match.params.categoryName !== this.props.match.params.categoryName)
                 {
                     if(typeof this.props.match.params.categoryName !== "undefined"){
-                        this.props.category(this.props.match.params.categoryName);
+
+                        if(this.props.match.params.categoryName === "all")
+                        {
+                            this.props.category("");
+                        }
+                        else
+                        {
+                            this.props.category(this.props.match.params.categoryName);
+                        }
+                        this.props.minPrice(0);
+                        this.props.maxPrice(0);
                     }
                 }
                 if(prevProps.match.params.searchText !== this.props.match.params.searchText)
@@ -83,39 +97,49 @@ class Items extends Component {
                     this.props.maxPrice(0);
                     this.props.filterText(this.props.match.params.searchText);
                 }
-                this.props.fetchFilteredItems(
-                    this.props.sortAndFilter.text,
-                    this.props.sortAndFilter.minPrice,
-                    this.props.sortAndFilter.maxPrice,
-                    this.props.sortAndFilter.sortBy,
-                    this.props.sortAndFilter.category,
-                    this.props.sortAndFilter.page,
-                    ITEM_PAGE_SIZE
-                );
-                console.log("Category in items " , this.props.sortAndFilter.category);
-                console.log("Sort in items " , this.props.sortAndFilter.sortBy);
-                console.log("Min in items " , this.props.sortAndFilter.minPrice);
-                console.log("Max in items " , this.props.sortAndFilter.maxPrice);
-                console.log("search text in items " , this.props.sortAndFilter.text);
+                if(prevProps.sortAndFilter !== this.props.sortAndFilter){
+                    this.props.fetchFilteredItems(
+                        this.props.sortAndFilter.text,
+                        this.props.sortAndFilter.minPrice,
+                        this.props.sortAndFilter.maxPrice,
+                        this.props.sortAndFilter.sortBy,
+                        this.props.sortAndFilter.category,
+                        this.props.sortAndFilter.page,
+                        ITEM_PAGE_SIZE
+                    );
+                }
             }
 
 
-        if(this.props.leastItemPrice !== prevProps.leastItemPrice || this.props.mostItemPrice !== prevProps.mostItemPrice)
+        if(this.props.leastItemPrice !== prevProps.leastItemPrice || this.props.mostItemPrice !== prevProps.mostItemPrice || this.state.times===0)
         {
             console.log("previous: ",prevProps.sortAndFilter.category, " Now is :", this.props.sortAndFilter.category);
             const chosenVal = { min: this.props.leastItemPrice, max: this.props.mostItemPrice }
-            if(this.props.sortAndFilter.text !== prevProps.sortAndFilter.text ||
-                this.props.sortAndFilter.category !== prevProps.sortAndFilter.category || this.state.times === 0)
+
+            if(this.props.sortAndFilter.minPrice === 0 && this.props.sortAndFilter.maxPrice === 0)
             {
-                console.log("changin all 4 price values")
-                this.setState(
-                    {chosenVal: chosenVal, leastPrice: this.props.leastItemPrice, mostPrice: this.props.mostItemPrice, times:1});
+                console.log("changin all 4 price values this");
+                    this.setState(
+                        {chosenVal: chosenVal, leastPrice: this.props.leastItemPrice, mostPrice: this.props.mostItemPrice, times:1});
+
             }
             else {
                 console.log("changin only 2 price values")
                 this.setState(
-                    {chosenVal: chosenVal});
+                         {chosenVal: chosenVal});
             }
+            // if(this.props.sortAndFilter.text !== prevProps.sortAndFilter.text ||
+            //     this.props.sortAndFilter.category !== prevProps.sortAndFilter.category || this.state.times === 0)
+            // {
+            //     console.log("changin all 4 price values")
+            //     this.setState(
+            //         {chosenVal: chosenVal, leastPrice: this.props.leastItemPrice, mostPrice: this.props.mostItemPrice, times:1});
+            // }
+            // else {
+            //     console.log("changin only 2 price values")
+            //     this.setState(
+            //         {chosenVal: chosenVal});
+            // }
         }
     }
 
@@ -127,7 +151,6 @@ class Items extends Component {
     }
 
     handleCategoryChange = (catName) => {
-        console.log("Category in items " , catName);
         this.props.category(catName);
 
         //Setting price range to default
@@ -137,7 +160,6 @@ class Items extends Component {
     }
 
     resetCategory = (e) => {
-        console.log("Category in items " , e.target.value);
         this.props.category(e.target.value);
 
         //Setting price range to default
@@ -153,7 +175,6 @@ class Items extends Component {
     }
 
     handleSearch = (e) => {
-        console.log("I was clicked with value " + this.state.searchText);
         e.preventDefault();
         //Setting price range to default
         this.props.minPrice(0);
@@ -165,8 +186,6 @@ class Items extends Component {
 
         const items = this.props.filteredPagedItems;
         const categories = this.props.categories;
-        console.log(items);
-
 
         if(this.props.fetching === true){
             return(
