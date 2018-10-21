@@ -26,6 +26,7 @@ import {
 
 const initialState = {
     items: [],
+    addedItem: [],
     addedItems: [],
     updates: "",
     homePageItems: [],
@@ -140,14 +141,14 @@ export default function reducer(state = initialState, action) {
         }
 
         case ADD_ITEM_FULFILLED: {
-            console.log("HERE NOW!!");
             return {
                 ...state,
                 updates: "Item successfully added",
                 addedItems: [...state.items, action.payload[0]],
                 added: true,
                 adding: false,
-                error: null
+                error: null,
+                addedItem: action.payload
             }
         }
 
@@ -205,7 +206,6 @@ export default function reducer(state = initialState, action) {
             }
         }
         case DELETE_ITEM_REJECTED: {
-            console.log(JSON.stringify(action));
             return {
                 ...state,
                 removing: false,
