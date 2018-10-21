@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {fetchPopularItems} from "../../actions/itemsAction"
+import {fetchPopularItems} from "../../../actions/itemsAction"
 import {Link} from "react-router-dom";
 
 class ItemSmart extends Component {

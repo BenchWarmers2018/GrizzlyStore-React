@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import {connect} from "react-redux"
 import {Button, Fa, Input, Modal, ModalBody, ModalFooter, Label, InputNumeric} from "mdbreact";
 import Dropzone from "react-dropzone";
-import {addItem} from "../../../actions/itemsAction";
+import {addItem, fetchItems} from "../../../actions/itemsAction";
 
 
 class AddItemForm extends React.Component {
@@ -17,7 +17,7 @@ class AddItemForm extends React.Component {
         this.state = {
             image: null,
             message: "",
-            type: 'GREEN' // GREEN for success message, RED for error message - After form submission
+            type: '' // GREEN for success message, RED for error message - After form submission
         };
     }
 
@@ -42,12 +42,23 @@ class AddItemForm extends React.Component {
     }
 
     render() {
+        const dropZoneStyle = {
+            padding: '16px 50px 16px',
+            width: '100%',
+            textAlignVertical: 'center',
+            alignItems: 'center'
+        };
+
         console.log('CATEGORIES: ' + this.props.categories);
         const categories = this.props.categories;
+        if (this.state.type === 'GREEN') {
+            this.props.dispatch.fetchItems();
+        }
+        this.props.dispatch(fetchItems());
         return (
             <div className="item-submission imageName">
                 <div className="modal-header primary-color white-text">
-                    <h4 className="title">
+                    <h4 className="title" style={{'color': 'white'}}>
                         <Fa className="fa fa-pencil"/> Add new ITEM</h4>
                     <button type="button" className="close" onClick={this.props.toggle}>
                         <span aria-hidden="true">×</span>
@@ -145,7 +156,7 @@ class AddItemForm extends React.Component {
                                 <span className="fa fa-photo" style={{'fontSize': '20px', 'paddingTop': '20px'}}/>
                                 <span style={{'fontSize': '15px', 'color': '#757575'}}> Image</span>
                                 <Dropzone accept="image/*" id='itemImage' name='itemImage' label='Image Upload'
-                                          style={{textAlignVertical: 'center', alignItems: 'center',}}
+                                          style={dropZoneStyle}
                                           className="dropzone col-md-12" onDrop={this.onDrop}>
                                     <p className="textDrop">
                                         {this.state.image === null ?

@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Banner from "../microComponents/Banner";
+import Banner from "../../microComponents/Banner";
 import connect from "react-redux/es/connect/connect";
-import { fetchCart } from '../../actions/cartAction';
-import {NORMAL_USER} from "../../CONSTANTS";
-import SAMPLE from "../../images/images_sublime/cart_1.jpg";
+import { fetchCart } from '../../../actions/cartAction';
+import {NORMAL_USER} from "../../../CONSTANTS";
+import SAMPLE from "../../../images/images_sublime/cart_1.jpg";
 import Icon from '@mdi/react';
 import { mdiTrashCanOutline } from '@mdi/js';
 import { Button, notification } from 'antd';
-import {deleteCart} from "../../actions/cartAction";
+import {deleteCart} from "../../../actions/cartAction";
 import Cart_CartItem from "./Cart_CartItem";
-import {successNotification} from "../microComponents/Notifications";
+import { Redirect } from 'react-router-dom'
+import {errorNotification, successNotification} from "../../microComponents/Notifications";
 
 class Cart extends Component {
     constructor(props, context) {
@@ -22,12 +23,12 @@ class Cart extends Component {
 
     deleteAllFromCart = () => {
         let accountId = null;
-        if(typeof this.props.loggedInUser !== "undefined")
+        if(typeof this.props.loggedInUser !== "undefined" && this.props.loggedInUser !== null)
         {
             if(this.props.userType === NORMAL_USER)
             {
                 console.log("yay");
-                accountId = this.props.loggedInUser.id;
+                accountId = this.props.loggedInUser.idAccount;
                 const cart = { "idAccountForeign": accountId};
                 this.props.deleteCart(cart);
                 successNotification("Successfully Deleted Cart");
@@ -35,11 +36,16 @@ class Cart extends Component {
         }
     }
 
+    proceedError = () =>
+    {
+        errorNotification("Could not proceed", "Please add items to your cart first")
+    }
+
     componentDidMount() {
         let accountId = null;
         if(this.props.userType === NORMAL_USER)
         {
-            accountId = this.props.loggedInUser.id;
+            accountId = this.props.loggedInUser.idAccount;
             this.props.fetchCart(accountId);
         }
     }
@@ -51,7 +57,7 @@ class Cart extends Component {
             if(this.props.userType === NORMAL_USER)
             {
                 console.log("Not equal");
-                accountId = this.props.loggedInUser.id;
+                accountId = this.props.loggedInUser.idAccount;
                 this.props.fetchCart(accountId);
             }
         }
@@ -62,8 +68,15 @@ class Cart extends Component {
 
 
     render() {
-        const item = this.props.cartItemObject;
+        if(this.props.loggedInUser === null)
+        {
+            successNotification("Please login to access Cart.")
+            return(
+                <Redirect to="/"/>
+                )
+        }
 
+        //const item = this.props.cartItemObject;
         let cartItems = null;
         const cart = this.props.cart;
         if(cart !== null || typeof cart !== "undefined")
@@ -100,10 +113,10 @@ class Cart extends Component {
                                     <div className="col">
                                         <div
                                             className="cart_buttons d-flex flex-lg-row flex-column align-items-start justify-content-start">
-                                            <button type="button" className="btn btn-dark"><Link to='/' className="btn-no-decoration">Continue shopping</Link></button>
+                                            <Link to='/' className="btn-no-decoration"><button type="button" className="btn btn-dark">Continue shopping</button></Link>
                                             <div className="cart_buttons_right ml-lg-auto">
                                                 <button type="button" className="btn btn-dark" onClick={this.deleteAllFromCart}>Clear cart</button>
-                                                <button type="button" className="btn btn-dark">Update cart</button>
+                                                {/*<button type="button" className="btn btn-dark" onClick={this.updateCart}>Update cart</button>*/}
                                             </div>
                                         </div>
                                     </div>
@@ -147,7 +160,13 @@ class Cart extends Component {
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div className="button checkout_button" style={{"width" : "100%"}}><a>Proceed to checkout</a></div>
+
+                                        {this.props.cart.items.length > 0 ?
+                                            <div className="button checkout_button" style={{"width": "100%"}}><Link
+                                                to="/checkout">Proceed to checkout</Link></div>
+                                            :
+                                            <div onClick={this.proceedError} className="button checkout_button" style={{"width" : "100%"}}><a>Proceed to checkout</a></div>
+                                        }
                                     </div>
                                 </div>
                             </div>

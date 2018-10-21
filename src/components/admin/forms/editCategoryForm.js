@@ -9,6 +9,7 @@ import { Button, ModalFooter } from 'mdbreact';
 import './sharedFormStyling.css';
 import { successNotification } from '../../microComponents/Notifications.js';
 
+
 class EditCategoryForm extends React.Component {
 
     constructor(props) {
@@ -69,7 +70,7 @@ class EditCategoryForm extends React.Component {
               </p>
 
               <ModalFooter className="justify-content-center">
-                  <Button size="lg" color="danger" type="submit">Save Changes</Button>
+                  <Button size="lg" color="success" type="submit">Save Changes</Button>
               </ModalFooter>
             </form>
           </Form>

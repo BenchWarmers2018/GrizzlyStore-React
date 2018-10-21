@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import PaginationComponent from '../microComponents/PaginationComponent'
+import PaginationComponent from '../../microComponents/PaginationComponent'
 import PropTypes from 'prop-types';
 import { connect } from "react-redux"
-import { fetchCategories } from "../../actions/categoriesAction"
-import { filterText, category, minPrice, maxPrice, sortBy, page } from '../../actions/filterActions';
-import { getVisibleItems, fetchFilteredItems } from "../../selectors/itemsSelector";
+import { fetchCategories } from "../../../actions/categoriesAction"
+import { filterText, category, minPrice, maxPrice, sortBy, page } from '../../../actions/filterActions';
+import { getVisibleItems, fetchFilteredItems } from "../../../selectors/itemsSelector";
 import ItemsChild from "./ItemsChild"
 import InputRange from 'react-input-range';
-import '../../../node_modules/react-input-range/lib/css/index.css';
-import Categories from "../microComponents/Categories";
-import Banner from "../microComponents/Banner";
-import {ITEM_PAGE_SIZE} from "../../CONSTANTS";
-import Spinner from "../microComponents/Spinner";
+import '../../../../node_modules/react-input-range/lib/css/index.css';
+import Categories from "../../microComponents/Categories";
+import Banner from "../../microComponents/Banner";
+import {ITEM_PAGE_SIZE} from "../../../CONSTANTS";
+import Spinner from "../../microComponents/Spinner";
 
 class Items extends Component {
 
@@ -31,13 +31,21 @@ class Items extends Component {
 
     componentDidMount() {
 
-        console.log("I start here");
         this.props.fetchCategories();
         if(typeof this.props.match.params.categoryName !== "undefined")
         {
-            this.props.category(this.props.match.params.categoryName);
-            //this.props.fetchFilteredItems(this.props.sortAndFilter.text, this.props.sortAndFilter.minPrice, this.props.sortAndFilter.maxPrice, this.props.sortAndFilter.sortBy, this.props.sortAndFilter.category, this.props.sortAndFilter.page, ITEM_PAGE_SIZE);
+            if(this.props.match.params.categoryName === "all")
+            {
+                this.props.category("");
+            }
+            else
+            {
+                this.props.category(this.props.match.params.categoryName);
+            }
+            this.props.minPrice(0);
+            this.props.maxPrice(0);
         }
+
         if(typeof this.props.match.params.searchText !== "undefined")
         {
             this.props.minPrice(0);
@@ -61,56 +69,77 @@ class Items extends Component {
 
 
     componentDidUpdate(prevProps) {
-        console.log("I tried atleast " , this.props.match.params.categoryName);
+
         if(
             prevProps.sortAndFilter !== this.props.sortAndFilter ||
             prevProps.match.params.categoryName !== this.props.match.params.categoryName ||
             prevProps.match.params.searchText !== this.props.match.params.searchText)
-        {
-            if(prevProps.match.params.categoryName !== this.props.match.params.categoryName)
             {
-                this.props.category(this.props.match.params.categoryName);
+                if(prevProps.match.params.categoryName !== this.props.match.params.categoryName)
+                {
+                    if(typeof this.props.match.params.categoryName !== "undefined"){
+
+                        if(this.props.match.params.categoryName === "all")
+                        {
+                            this.props.category("");
+                        }
+                        else
+                        {
+                            this.props.category(this.props.match.params.categoryName);
+                        }
+                        this.props.minPrice(0);
+                        this.props.maxPrice(0);
+                    }
+                }
+                if(prevProps.match.params.searchText !== this.props.match.params.searchText)
+                {
+                    this.props.minPrice(0);
+                    this.props.maxPrice(0);
+                    this.props.filterText(this.props.match.params.searchText);
+                }
+                if(prevProps.sortAndFilter !== this.props.sortAndFilter){
+                    this.props.fetchFilteredItems(
+                        this.props.sortAndFilter.text,
+                        this.props.sortAndFilter.minPrice,
+                        this.props.sortAndFilter.maxPrice,
+                        this.props.sortAndFilter.sortBy,
+                        this.props.sortAndFilter.category,
+                        this.props.sortAndFilter.page,
+                        ITEM_PAGE_SIZE
+                    );
+                }
             }
-            if(prevProps.match.params.searchText !== this.props.match.params.searchText)
-            {
-                this.props.minPrice(0);
-                this.props.maxPrice(0);
-                this.props.filterText(this.props.match.params.searchText);
-            }
-
-            this.props.fetchFilteredItems(
-                this.props.sortAndFilter.text,
-                this.props.sortAndFilter.minPrice,
-                this.props.sortAndFilter.maxPrice,
-                this.props.sortAndFilter.sortBy,
-                this.props.sortAndFilter.category,
-                this.props.sortAndFilter.page,
-                ITEM_PAGE_SIZE
-            );
-            console.log("Category in items " , this.props.sortAndFilter.category);
-            console.log("Sort in items " , this.props.sortAndFilter.sortBy);
-            console.log("Min in items " , this.props.sortAndFilter.minPrice);
-            console.log("Max in items " , this.props.sortAndFilter.maxPrice);
-            console.log("search text in items " , this.props.sortAndFilter.text);
-        }
 
 
-        if(this.props.leastItemPrice !== prevProps.leastItemPrice || this.props.mostItemPrice !== prevProps.mostItemPrice)
+        if(this.props.leastItemPrice !== prevProps.leastItemPrice || this.props.mostItemPrice !== prevProps.mostItemPrice || this.state.times===0)
         {
             console.log("previous: ",prevProps.sortAndFilter.category, " Now is :", this.props.sortAndFilter.category);
             const chosenVal = { min: this.props.leastItemPrice, max: this.props.mostItemPrice }
-            if(this.props.sortAndFilter.text !== prevProps.sortAndFilter.text ||
-                this.props.sortAndFilter.category !== prevProps.sortAndFilter.category || this.state.times === 0)
+
+            if(this.props.sortAndFilter.minPrice === 0 && this.props.sortAndFilter.maxPrice === 0)
             {
-                console.log("changin all 4 price values")
-                this.setState(
-                    {chosenVal: chosenVal, leastPrice: this.props.leastItemPrice, mostPrice: this.props.mostItemPrice, times:1});
+                console.log("changin all 4 price values this");
+                    this.setState(
+                        {chosenVal: chosenVal, leastPrice: this.props.leastItemPrice, mostPrice: this.props.mostItemPrice, times:1});
+
             }
             else {
                 console.log("changin only 2 price values")
                 this.setState(
-                    {chosenVal: chosenVal});
+                         {chosenVal: chosenVal});
             }
+            // if(this.props.sortAndFilter.text !== prevProps.sortAndFilter.text ||
+            //     this.props.sortAndFilter.category !== prevProps.sortAndFilter.category || this.state.times === 0)
+            // {
+            //     console.log("changin all 4 price values")
+            //     this.setState(
+            //         {chosenVal: chosenVal, leastPrice: this.props.leastItemPrice, mostPrice: this.props.mostItemPrice, times:1});
+            // }
+            // else {
+            //     console.log("changin only 2 price values")
+            //     this.setState(
+            //         {chosenVal: chosenVal});
+            // }
         }
     }
 
@@ -122,7 +151,6 @@ class Items extends Component {
     }
 
     handleCategoryChange = (catName) => {
-        console.log("Category in items " , catName);
         this.props.category(catName);
 
         //Setting price range to default
@@ -132,7 +160,6 @@ class Items extends Component {
     }
 
     resetCategory = (e) => {
-        console.log("Category in items " , e.target.value);
         this.props.category(e.target.value);
 
         //Setting price range to default
@@ -148,7 +175,6 @@ class Items extends Component {
     }
 
     handleSearch = (e) => {
-        console.log("I was clicked with value " + this.state.searchText);
         e.preventDefault();
         //Setting price range to default
         this.props.minPrice(0);
@@ -160,8 +186,6 @@ class Items extends Component {
 
         const items = this.props.filteredPagedItems;
         const categories = this.props.categories;
-        console.log(items);
-
 
         if(this.props.fetching === true){
             return(
@@ -172,10 +196,15 @@ class Items extends Component {
             <div className="container-fluid">
 
                 {/* Banner component */}
-                {(this.props.sortAndFilter.category.length > 0) ?
-                    <Banner data={this.props.sortAndFilter.category}/> :
-                    <Banner data="All Items"/>
-                }
+                    { (typeof this.props.sortAndFilter.category !== "undefined") &&
+                        <div>
+                        {(this.props.sortAndFilter.category.length > 0) ?
+                            <Banner data={this.props.sortAndFilter.category}/> :
+                            <Banner data="All Items"/>
+                        }
+                        </div>
+                    }
+
                 {/*Banner component end*/}
 
                 <section className="shop_grid_area section-padding-80">
@@ -255,14 +284,14 @@ class Items extends Component {
                                                     {/*this.props.minPrice(0);*/}
                                                     {/*this.props.maxPrice(0);*/}
                                                     {/*}}/>*/}
-                                                    <form className="form-inline md-form mr-auto mb-4" onSubmit={this.handleSearch}>
-                                                        <input className="form-control mr-sm-2" type="text"
-                                                               placeholder="Search..." aria-label="Search" value={this.state.searchText}
-                                                               onChange={(e) => {
-                                                                   this.setState({searchText: e.target.value});
+                                                    {/*<form className="form-inline md-form mr-auto mb-4" onSubmit={this.handleSearch}>*/}
+                                                        {/*<input className="form-control mr-sm-2" type="text"*/}
+                                                               {/*placeholder="Search..." aria-label="Search" value={this.state.searchText}*/}
+                                                               {/*onChange={(e) => {*/}
+                                                                   {/*this.setState({searchText: e.target.value});*/}
 
-                                                               }}/>
-                                                    </form>
+                                                               {/*}}/>*/}
+                                                    {/*</form>*/}
                                                 </div>
 
 
@@ -285,11 +314,13 @@ class Items extends Component {
 
                                     {/* This is products child class that displays all the items*/}
 
-                                    { this.props.filteredPagedItems.length === 0 ? <h2>No items to diplay</h2> :
-                                        <div className="row">
-                                            {items.map(item =>
-                                                <ItemsChild key={item.idItem} data={item}/>
-                                            )}
+
+                                { this.props.filteredPagedItems.length === 0 ? <h2>No items to display</h2> :
+                                    <div className="row">
+                                        {items.map(item =>
+                                        <ItemsChild key={item.idItem} data={item}/>
+                                        )}
+
 
                                         </div>}
 
@@ -340,7 +371,6 @@ Items.propTypes= {
 };
 
 const mapStateToProps = state => ({
-    items: getVisibleItems(state.items.pagedItems, state.sortAndFilter),
     filteredPagedItems: state.items.pagedItems,
     categories: state.category.categories,
     sortAndFilter: state.sortAndFilter,
