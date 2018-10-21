@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import User from '../../../images/admin_images/users/1.jpg'
 import Icon from '@mdi/react';
 import {mdiAccountCircle, mdiAccountMultiple, mdiViewGrid,
     mdiViewList, mdiFolderPlus, mdiLibraryPlus} from '@mdi/js';
@@ -113,11 +112,9 @@ class sidebar extends Component {
 
                     </nav>
                 </div>
-
                 <Modal isOpen={this.state.itemModal} toggle={this.toggleItemModal} className="cascading-modal">
                     <AddItemForm categories={this.state.categories} toggle={this.toggleItemModal}/>
                 </Modal>
-
                 <Modal isOpen={this.state.categoryModal} toggle={this.toggleCategoryModal} className="cascading-modal">
                     <AddCategoryForm />
                 </Modal>
@@ -127,9 +124,7 @@ class sidebar extends Component {
 }
 
 const mapStateToProps = state => ({
-    categories: state.category.categories,
-    addCategoryMessage: state.category.messages,
-    categoryStatusAdded: state.category.added
+    categories: state.category.categories
 });
 
 export default connect(mapStateToProps)(sidebar);

@@ -46,7 +46,7 @@ class ViewItemsTable extends Component {
 
     removeItem(row) {
         console.log("ITEM ID: " + row.original.idItem);
-        this.props.deleteItem(row.original.d);
+        this.props.deleteItem(row.original);
     }
 
     componentDidUpdate(prevProps) {
