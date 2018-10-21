@@ -24,7 +24,7 @@ import {
 const initialState = {
     accounts: [],
     userAccounts: [],
-    token : {},
+    token: {},
     fetching: false,
     fetched: false,
     authenticating: false,
@@ -41,7 +41,7 @@ const initialState = {
     toggleStatusMessage: []
 }
 
-export default function reducer(state=initialState, action){
+export default function reducer(state = initialState, action) {
 
     switch (action.type) {
         case CREATE_ACCOUNT: {
@@ -61,8 +61,7 @@ export default function reducer(state=initialState, action){
         case GET_CURRENT_USER: {
             return {...state}
         }
-        case GET_CURRENT_USER_REJECTED:
-        {
+        case GET_CURRENT_USER_REJECTED: {
             return {
                 ...state,
                 tokenError: action.payload,
@@ -94,48 +93,48 @@ export default function reducer(state=initialState, action){
         }
 
         case AUTHENTICATE_USER: {
-          return {...state, fetching: true, authenticating: true}
+            return {...state, fetching: true, authenticating: true}
         }
         case AUTHENTICATE_USER_REJECTED: {
-          return {...state, fetching: false, authenticating: false, error: action.payload}
+            return {...state, fetching: false, authenticating: false, error: action.payload}
         }
         case AUTHENTICATING_USER_SUCCESSFUL: {
-          return {
-            ...state,
-              fetching: false,
-              fetched: true,
-            authenticating: false,
-            authenticated: true,
-            continueLogin: true,
-            token: action.payload,
-          }
+            return {
+                ...state,
+                fetching: false,
+                fetched: true,
+                authenticating: false,
+                authenticated: true,
+                continueLogin: true,
+                token: action.payload,
+            }
         }
         case GET_ALL_USERS: {
-          return {...state, fetching: true}
+            return {...state, fetching: true}
         }
         case GET_ALL_USERS_REJECTED: {
-          return {...state, fetching: false, error: action.payload}
+            return {...state, fetching: false, error: action.payload}
         }
         case GET_ALL_USERS_SUCCESSFUL: {
-          return {
-            ...state,
-            fetching: false,
-            fetched: true,
-            userAccounts: action.payload
-          }
+            return {
+                ...state,
+                fetching: false,
+                fetched: true,
+                userAccounts: action.payload
+            }
         }
         case SERVER_NOT_FOUND: {
-          return {
-            ...state,
-              fetching: false,
-            error: action.payload
-          }
+            return {
+                ...state,
+                fetching: false,
+                error: action.payload
+            }
         }
         case RESET_USER_ACCOUNT: {
-            return{
+            return {
                 ...state,
                 accounts: [],
-                token : {},
+                token: {},
                 fetching: false,
                 fetched: false,
                 authenticating: false,
@@ -149,24 +148,24 @@ export default function reducer(state=initialState, action){
             }
         }
         case TOGGLE_USER_ADMIN: {
-          return {...state, togglingAdminStatus: true}
+            return {...state, togglingAdminStatus: true}
         }
         case TOGGLE_USER_ADMIN_REJECTED: {
-          return {...state, toggledAdminStatus: false, toggleStatusError: action.payload}
+            return {...state, toggledAdminStatus: false, toggleStatusError: action.payload}
         }
         case TOGGLE_USER_ADMIN_SUCCESSFUL: {
-          const { idAccount, accountEmailAddress, accountIsAdmin, lastModified } = action.payload
-          const newAccounts = [...state.userAccounts]
-          const accountToUpdate = newAccounts.findIndex(account => account.accountEmailAddress === accountEmailAddress)
-          newAccounts[accountToUpdate] = action.payload;
+            const {idAccount, accountEmailAddress, accountIsAdmin, lastModified} = action.payload
+            const newAccounts = [...state.userAccounts]
+            const accountToUpdate = newAccounts.findIndex(account => account.accountEmailAddress === accountEmailAddress)
+            newAccounts[accountToUpdate] = action.payload;
 
-          return {
-              ...state,
-              togglingAdminStatus: false,
-              toggledAdminStatus: true,
-              toggleStatusMessage: "Account status updated successfully!",
-              userAccounts: newAccounts,
-          }
+            return {
+                ...state,
+                togglingAdminStatus: false,
+                toggledAdminStatus: true,
+                toggleStatusMessage: "Account status updated successfully!",
+                userAccounts: newAccounts,
+            }
         }
         default:
             return state;

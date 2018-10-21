@@ -103,7 +103,6 @@ export default function reducer(state = initialState, action) {
         }
 
 
-
         case FETCH_ITEMS_PAGE: {
             return {...state, fetching: true}
         }
@@ -134,7 +133,6 @@ export default function reducer(state = initialState, action) {
         case ADD_ITEM: {
             return {
                 ...state,
-                items: [...state.items, action.payload],
                 adding: true
             }
         }
@@ -144,7 +142,7 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 updates: "Item successfully added",
-                items: [...state.items, action.payload],
+                items: [...state.items, action.payload.entities[0]],
                 added: true,
                 adding: false,
                 error: null
@@ -165,11 +163,7 @@ export default function reducer(state = initialState, action) {
         case (UPDATE_ITEM_REJECTED):
             return {...state, updated: false, updating: false, updateItemMessages: action.payload}
         case (UPDATE_ITEM_SUCCESSFUL): {
-            const
-            {
-                idItem, itemName, itemDescription, itemImage, itemPrice, itemSalePercentage, last_modified
-            }
-            = action.payload;
+            const {idItem} = action.payload;
             const newItems = [...state.items];
             const itemToUpdate = newItems.findIndex(item => item.idItem === idItem);
             newItems[itemToUpdate] = action.payload;
@@ -190,17 +184,16 @@ export default function reducer(state = initialState, action) {
             }
         }
         case DELETE_ITEM_FULFILLED: {
-            const { idItem } = action.payload
-            const newItems = [...state.items]
-            const itemToDelete = newItems.findIndex(item => item.idItem === idItem)
-            newItems.splice(itemToDelete, 1)
+            const {idItem} = action.payload;
+            const newItems = [...state.items];
+            const itemToDelete = newItems.findIndex(item => item.idItem === idItem);
+            newItems.splice(itemToDelete, 1);
 
             return {
                 ...state,
                 items: newItems,
                 removed: true,
                 removing: false,
-                deletedItem: action.payload,
                 updates: "Item " + action.payload.idItem.toString() + " successfully removed!"
             }
         }

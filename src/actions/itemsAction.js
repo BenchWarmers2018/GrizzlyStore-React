@@ -264,14 +264,18 @@ export function deleteItem(item) {
     return function (dispatch) {
         dispatch({type: DELETE_ITEM}); //
         axios.post(URL_ITEM + "/items/remove", item)
-          .then((response) => {
-              dispatch({type: DELETE_ITEM_FULFILLED, payload: response.data.entities[0]})
-          })
-          .catch((err) => {
-            if (err.message === "Network Error" )
-              dispatch({type: SERVER_NOT_FOUND, payload: 'The server is currently offline. Please try again later.'})
-            else
-              dispatch({type: DELETE_ITEM_REJECTED, payload: err.response.data.errors})
-          })
+            .then((response) => {
+                response.data = {...response.data, idItem: item.idItem};
+                dispatch({type: DELETE_ITEM_FULFILLED, payload: response.data})
+            })
+            .catch((err) => {
+                if (err.message === "Network Error")
+                    dispatch({
+                        type: SERVER_NOT_FOUND,
+                        payload: 'The server is currently offline. Please try again later.'
+                    })
+                else
+                    dispatch({type: DELETE_ITEM_REJECTED, payload: err.response.data.errors})
+            })
     }
 }

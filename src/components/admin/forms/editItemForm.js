@@ -20,7 +20,7 @@ class EditItemForm extends Component {
             editItemMessage: this.props.editItemMessage,
             imageThumbnail: this.props.rowData.itemImage,
             confirmDialog: false,
-        }
+        };
 
         this.props.values.idItem = this.state.rowData.idItem
         this.props.values.itemName = this.state.rowData.itemName
@@ -43,8 +43,7 @@ class EditItemForm extends Component {
         if (prevProps.rowData !== this.props.rowData) {
             this.setState({rowData: this.props.rowData})
         }
-        if(this.props.itemStatusUpdated && prevProps.items !== this.props.items)
-        {
+        if (this.props.itemStatusUpdated && prevProps.items !== this.props.items) {
             successNotification("Item updated successfully!");
         }
     }
