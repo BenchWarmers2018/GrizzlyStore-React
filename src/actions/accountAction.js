@@ -16,9 +16,12 @@ import {
     FETCH_PROFILE_FULFILLED,
     FETCH_PROFILE_REJECTED,
     RESET_USER_ACCOUNT,
-      GET_ALL_USERS,
-      GET_ALL_USERS_REJECTED,
-      GET_ALL_USERS_SUCCESSFUL
+    GET_ALL_USERS,
+    GET_ALL_USERS_REJECTED,
+    GET_ALL_USERS_SUCCESSFUL,
+    TOGGLE_USER_ADMIN,
+    TOGGLE_USER_ADMIN_REJECTED,
+    TOGGLE_USER_ADMIN_SUCCESSFUL
 } from "../CONSTANTS";
 
 
@@ -144,10 +147,26 @@ export function getAllUsers() {
 
 }
 
+export function toggleAdminStatus(account) {
+  return function (dispatch) {
+    dispatch({type: TOGGLE_USER_ADMIN});
+
+    axios.post(URL_USER + "/account/toggleStatus", account)
+    .then(result => {
+      dispatch({type: TOGGLE_USER_ADMIN_SUCCESSFUL, payload: result.data.entities[0]})
+    })
+    .catch((error) => {
+      if (error.message === "Network Error" )
+        dispatch({type: SERVER_NOT_FOUND, payload: 'The server is currently offline. Please try again later.'})
+      else
+        dispatch({type: TOGGLE_USER_ADMIN_REJECTED, payload: error.response.data.errors})
+    })
+  }
+}
+
 export function loginRequired() {
   return {
     type: "LOGIN_REQUIRED",
     payload: "You must be logged in to perform this action."
   };
 }
-

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import { Container, Row, Col, Input, Button, Fa } from 'mdbreact';
+import {connect} from "react-redux";
+import { toggleAdminStatus } from "../../../actions/accountAction"
 
 class ViewAccountsTable extends Component {
   constructor(props) {
@@ -10,6 +12,8 @@ class ViewAccountsTable extends Component {
       data: this.props.accountData,
       rowData: []
     };
+
+    this.handleToggle = this.handleToggle.bind(this)
   }
 
   componentDidUpdate(prevProps){
@@ -17,6 +21,15 @@ class ViewAccountsTable extends Component {
     {
       this.setState({data: this.props.accountData})
     }
+
+    if(prevProps.accounts !== this.props.accounts)
+    {
+      this.setState({data: this.props.accounts})
+    }
+  }
+
+  handleToggle(row) {
+    this.props.dispatch(toggleAdminStatus(row.original))
   }
 
   render() {
@@ -32,7 +45,7 @@ class ViewAccountsTable extends Component {
                   Header: "Account ID",
                   id: "idAccount",
                   accessor: d => d.idAccount,
-                  width: 200
+                  width: 400
                 },
                 {
                   Header: "Email Address",
@@ -42,16 +55,14 @@ class ViewAccountsTable extends Component {
                 {
                   Header: "Administrator Status",
                   accessor: "accountIsAdmin",
-                  width: 350
-                },
-                {
-                  Header: "Toggle Status",
                   Cell: row => (
-                    <div className="text-center">
-                      <Button><Fa icon="smile-o" size="2x"/></Button>
+                    <div class="text-center">
+                      <Button color={row.original.accountIsAdmin ? "success" : "danger"} onClick={() => this.handleToggle(row)}>
+                        {row.original.accountIsAdmin ? <Fa icon="toggle-on" size="2x"/> : <Fa icon="toggle-off" size="2x"/>}
+                      </Button>
                     </div>
                   ),
-                  width: 150
+                  width: 350
                 }
               ]
             }
@@ -64,4 +75,8 @@ class ViewAccountsTable extends Component {
   }
 }
 
-export default ViewAccountsTable;
+const mapStateToProps = state => ({
+  accounts: state.accounts.userAccounts,
+});
+
+export default connect(mapStateToProps)(ViewAccountsTable);
