@@ -4,6 +4,8 @@ import "react-table/react-table.css";
 import { Container, Row, Col, Input, Button, Fa } from 'mdbreact';
 import {connect} from "react-redux";
 import { toggleAdminStatus } from "../../../actions/accountAction"
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'
 
 class ViewAccountsTable extends Component {
   constructor(props) {
@@ -29,7 +31,26 @@ class ViewAccountsTable extends Component {
   }
 
   handleToggle(row) {
-    this.props.dispatch(toggleAdminStatus(row.original))
+    if (row.original.accountEmailAddress == this.props.loggedInUser.accountEmailAddress)
+    {
+      confirmAlert({
+        title: "Toggle Administrator Status",
+        message: 'Are you sure you want to toggle your own administrator status?',
+        buttons: [
+          {
+            label: 'Yes',
+            onClick: () => this.props.dispatch(toggleAdminStatus(row.original))
+          },
+          {
+            label: 'No',
+          }
+        ],
+      })
+    }
+    else
+    {
+      this.props.dispatch(toggleAdminStatus(row.original))
+    }
   }
 
   render() {
@@ -77,6 +98,7 @@ class ViewAccountsTable extends Component {
 
 const mapStateToProps = state => ({
   accounts: state.accounts.userAccounts,
+  loggedInUser: state.accounts.loggedInUser
 });
 
 export default connect(mapStateToProps)(ViewAccountsTable);
