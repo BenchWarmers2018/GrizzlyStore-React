@@ -81,7 +81,10 @@ class EachItem extends Component {
 
     notAllowed = () =>
     {
-        errorNotification("No Account Detected", "Please login to add items to your cart.")
+        if(this.props.loggedInUser=== null)
+            errorNotification("No Account Detected", "Please login to add items to your cart.")
+        else
+            errorNotification("No Stock Available", "Please try again after some time.")
     }
 
 

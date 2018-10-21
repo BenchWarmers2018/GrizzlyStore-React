@@ -21,7 +21,7 @@ import {
     GET_ALL_USERS_SUCCESSFUL,
     TOGGLE_USER_ADMIN,
     TOGGLE_USER_ADMIN_REJECTED,
-    TOGGLE_USER_ADMIN_SUCCESSFUL
+    TOGGLE_USER_ADMIN_SUCCESSFUL, RESET_USER_PROFILE
 } from "../CONSTANTS";
 
 
@@ -125,6 +125,7 @@ export function authenticateUser(loginData) {
 export function resetUserStore() {
     return function (dispatch) {
         dispatch({type: RESET_USER_ACCOUNT});
+        dispatch({type:RESET_USER_PROFILE});
 
     }
 }

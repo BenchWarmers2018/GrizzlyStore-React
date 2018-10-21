@@ -2,7 +2,7 @@ import {
     FETCH_PROFILE,
     FETCH_PROFILE_FULFILLED,
     FETCH_PROFILE_REJECTED,
-    RESET_PROFILE_ERRORS,
+    RESET_PROFILE_ERRORS, RESET_USER_PROFILE,
     UPDATE_PROFILE_ADDRESS,
     UPDATE_PROFILE_ADDRESS_FULFILLED,
     UPDATE_PROFILE_ADDRESS_REJECTED,
@@ -115,6 +115,19 @@ export default function reducer(state = initialState, action) {
             return{
                 ...state,
                 errors:[],
+                status:"",
+            }
+        }
+        case RESET_USER_PROFILE: {
+            return{
+                ...state,
+                loggedInAccount : [],
+                errors: [],
+                fetching: false,
+                fetched: false,
+                submitting: false,
+                submitted:false,
+                error: null,
                 status:"",
             }
         }
