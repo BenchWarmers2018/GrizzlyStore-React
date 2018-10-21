@@ -26,6 +26,7 @@ import {
 
 const initialState = {
     items: [],
+    addedItems: [],
     updates: "",
     homePageItems: [],
     singleItem: [],
@@ -50,7 +51,7 @@ const initialState = {
     removed: false,
     updating: false,
     updated: false,
-    updateItemMessages: [],
+    updateItemMessages: null,
     messages: []
 }
 
@@ -153,13 +154,13 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 updates: "Unable to add item!",
-                added: true,
+                added: false,
                 adding: false,
-                error: action.payload.response.errors
+                error: action.payload
             }
         }
         case (UPDATE_ITEM):
-            return {...state, updating: true}
+            return {...state, updating: true, updated: false, updateItemMessages: null}
         case (UPDATE_ITEM_REJECTED):
             return {...state, updated: false, updating: false, updateItemMessages: action.payload}
         case (UPDATE_ITEM_SUCCESSFUL): {
@@ -177,6 +178,7 @@ export default function reducer(state = initialState, action) {
             }
         }
         case DELETE_ITEM: {
+            console.log("COMING HERE")
             return {
                 ...state,
                 removing: true,

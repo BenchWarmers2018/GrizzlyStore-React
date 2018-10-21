@@ -8,6 +8,7 @@ import {deleteItem} from "../../../actions/itemsAction";
 import {confirmAlert} from 'react-confirm-alert';
 import {connect} from "react-redux";
 import {deleteCategory} from "../../../actions/categoriesAction";
+import {DELETE_ITEM} from "../../../CONSTANTS";
 
 class ViewItemsTable extends Component {
 
@@ -46,7 +47,7 @@ class ViewItemsTable extends Component {
 
     removeItem(row) {
         console.log("ITEM ID: " + row.original.idItem);
-        this.props.deleteItem(row.original);
+        this.props.dispatch(deleteItem(row.original));
     }
 
     componentDidUpdate(prevProps) {
@@ -147,7 +148,7 @@ class ViewItemsTable extends Component {
     }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
     return {
         error: state.items.error,
         updates: state.items.updates,
@@ -156,4 +157,4 @@ function mapStateToProps(state) {
     }
 };
 
-export default connect(mapStateToProps, {deleteItem})(ViewItemsTable);
+export default connect(mapStateToProps)(ViewItemsTable);
