@@ -490,3 +490,58 @@ hr{
   text-decoration: none;
   color: inherit;
 }
+
+
+/****************************ADMIN****************************/
+.left-sidebar{
+  margin-top: 89px !important;
+  padding: 0 !important;
+  background-color: black !important;
+}
+.scroll-sidebar, #sidebarnav{
+  background-color: #071944 !important;
+}
+#main-wrapper{
+  margin: 0px !important;
+}
+.rounded-circle{
+  margin: 0 auto !important;
+}
+.admin-profile-li{
+  top: 25% !important;
+  margin: 0 auto !important;
+}
+.admin-container-fluid{
+  padding: 20px !important;
+}
+.breadcrumb_admin:after{
+  z-index: 5!important;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.sidebar-item-icon svg{
+  color: blue;
+  fill: blue !important;
+}
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+
+svg:not(:root){
+  fill: white !important;
+}
+.sidebar-heading{
+  padding-left: 15px;
+  font-size: 13px;
+  color: white;
+}
+.page-wrapper-admin{
+  background-color: #ECFAFE;
+}
+.dropzone{
+  margin: 20px 0 20px 0 !important;
+}
+/*.add-item-padding{*/
+  /*margin-top: 30px !important;*/
+  /*margin-bottom: 20px !important;*/
+/*}*/
+.md-form-category{
+  margin-top: 0 !important;
+}
