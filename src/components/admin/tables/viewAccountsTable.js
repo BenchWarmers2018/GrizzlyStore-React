@@ -71,7 +71,7 @@ class ViewAccountsTable extends Component {
                 {
                   Header: "Email Address",
                   accessor: "accountEmailAddress",
-                  width: 450
+                  width: 350
                 },
                 {
                   Header: "Administrator Status",
@@ -83,7 +83,7 @@ class ViewAccountsTable extends Component {
                       </Button>
                     </div>
                   ),
-                  width: 350
+                  width: 250
                 }
               ]
             }

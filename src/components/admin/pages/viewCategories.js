@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ViewCategoriesTable from '../tables/viewCategoriesTable.js';
 import { connect } from "react-redux";
 import { fetchCategories } from "../../../actions/categoriesAction";
+import Background from "../../../images/images_essence/bg-img/breadcrumbAdmin.jpg";
 
 class ViewCategories extends Component {
 
@@ -26,23 +27,18 @@ class ViewCategories extends Component {
   render() {
     return (
       <div className="page-wrapper">
-          <div className="page-breadcrumb">
-              <div className="row align-items-center">
-                  <div className="col-5">
-                      <h4 className="page-title">View Categories</h4>
-                      <div className="d-flex align-items-center">
-                          <nav aria-label="breadcrumb">
-                              <ol className="breadcrumb">
-                                  <li className="breadcrumb-item"><a href="/">Home</a></li>
-                                  <li className="breadcrumb-item active" aria-current="page">View Categories</li>
-                              </ol>
-                          </nav>
+          <div className="breadcumb_area breadcrumb_admin bg-img" style={{backgroundImage: "url(" + Background + ")"}}>
+              <div className="container h-100">
+                  <div className="row h-100 align-items-center">
+                      <div className="col-12">
+                          <div className="page-title text-center">
+                              <h2>View Accounts</h2>
+                          </div>
                       </div>
                   </div>
               </div>
           </div>
-          <div className="container-fluid">
-            <h1>View Categories</h1>
+          <div className="container-fluid admin-container-fluid">
             <ViewCategoriesTable
               categoryData={this.state.categories}
             />
