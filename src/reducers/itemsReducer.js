@@ -26,6 +26,7 @@ import {
 
 const initialState = {
     items: [],
+    addedItems: [],
     updates: "",
     homePageItems: [],
     singleItem: [],
@@ -134,7 +135,6 @@ export default function reducer(state = initialState, action) {
         case ADD_ITEM: {
             return {
                 ...state,
-                items: [...state.items, action.payload],
                 adding: true
             }
         }
@@ -144,7 +144,7 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 updates: "Item successfully added",
-                items: [...state.items, action.payload],
+                addedItems: [...state.items, action.payload[0]],
                 added: true,
                 adding: false,
                 error: null
@@ -155,9 +155,9 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 updates: "Unable to add item!",
-                added: true,
+                added: false,
                 adding: false,
-                error: action.payload.response.errors
+                error: action.payload
             }
         }
         case (UPDATE_ITEM):
