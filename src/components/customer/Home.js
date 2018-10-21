@@ -9,9 +9,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Slider1 from '../../images/grizzlywave.jpg';
 import Slider3 from '../../images/pandawave.jpg';
 import Slider2 from '../../images/polarwave.jpg';
-import ItemSmartHome from './itemSmartHome';
+import ItemSmartHome from './shop/itemSmartHome';
 import Images from '../../images/images_sublime/product_1.jpg';
-import ItemsChild from "./ItemsChild";
+import ItemsChild from "./shop/ItemsChild";
 
 
 class Home extends Component {

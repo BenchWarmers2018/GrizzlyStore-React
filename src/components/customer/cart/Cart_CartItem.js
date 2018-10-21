@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { fetchSingleItemForCart } from "../../actions/cartAction";
+import { fetchSingleItemForCart } from "../../../actions/cartAction";
 import connect from "react-redux/es/connect/connect";
 import CartItem from "./CartItem";
 

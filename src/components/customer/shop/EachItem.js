@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import Product from "../../images/images_sublime/details_1.jpg";
+import Product from "../../../images/images_sublime/details_1.jpg";
 import { connect } from 'react-redux';
-import { fetchSingleItem } from '../../actions/itemsAction'
-import { fetchCategoriesforItem } from '../../actions/categoriesAction'
-import {addItemToCart, deleteItemFromCart} from '../../actions/cartAction';
-import Banner from "../microComponents/Banner";
+import { fetchSingleItem } from '../../../actions/itemsAction'
+import { fetchCategoriesforItem } from '../../../actions/categoriesAction'
+import {addItemToCart, deleteItemFromCart} from '../../../actions/cartAction';
+import Banner from "../../microComponents/Banner";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
-import {NORMAL_USER} from "../../CONSTANTS";
+import {NORMAL_USER} from "../../../CONSTANTS";
 import {Icon, notification} from "antd";
-import {successNotification} from "../microComponents/Notifications";
-
+import {errorNotification, successNotification} from "../../microComponents/Notifications";
 
 class EachItem extends Component {
     constructor(props) {
@@ -58,14 +57,15 @@ class EachItem extends Component {
         }
     }
 
+    // Adding item to cart
     addToCart = () => {
         let accountId = null;
-        console.log(this.props.loggedInUser.id);
+        console.log(this.props.loggedInUser.idAccount);
         if(typeof this.props.loggedInUser !== "undefined")
         {
             if(this.props.userType === NORMAL_USER)
             {
-                accountId = this.props.loggedInUser.id;
+                accountId = this.props.loggedInUser.idAccount;
                 const item = this.props.singleItem[0];
 
                 const cart = { "idAccountForeign": accountId, "items": [{ "idItem": item.idItem, "itemQuantity": this.state.count, "itemPrice": item.itemPrice}]};
@@ -75,10 +75,14 @@ class EachItem extends Component {
         }
         else
         {
-
+            
         }
-
     };
+
+    notAllowed = () =>
+    {
+        errorNotification("No Account Detected", "Please login to add items to your cart.")
+    }
 
 
     render() {
@@ -148,8 +152,8 @@ class EachItem extends Component {
                                         <div>
                                             {
                                                 (this.state.count > 1 && item.itemStockLevel >= 1) ? (
-                                                    <button className="btn btn-primary" onClick={(e) => this.handleClickDec(e)}>-</button>):(
-                                                    <button disabled className="btn btn-primary" onClick={(e) => this.handleClickDec(e)}>-</button>
+                                                    <button className="btn btn-primary" onClick={(e) => this.handleClickDec(e)}><div className="btn-enlarge">-</div></button>):(
+                                                    <button disabled className="btn btn-primary" onClick={(e) => this.handleClickDec(e)}><div className="btn-enlarge">-</div></button>
                                                 )
                                             }
                                         </div>
@@ -160,17 +164,17 @@ class EachItem extends Component {
                                             {/* "quantity-buttons-disabled" class disabled and used bootstrap "btn btn-dark"*/}
                                             {
                                                 (this.state.count >= 1 && this.state.count < item.itemStockLevel) ? (
-                                                    <button className="btn btn-primary" onClick={(e) => this.handleClickInc(e)}>+</button>):(
-                                                    <button disabled className=" btn btn-primary" onClick={(e) => this.handleClickInc(e)}>+</button>
+                                                    <button className="btn btn-primary" onClick={(e) => this.handleClickInc(e)}><div className="btn-enlarge">+</div></button>):(
+                                                    <button disabled className=" btn btn-primary" onClick={(e) => this.handleClickInc(e)}><div className="btn-enlarge">+</div></button>
                                                 )
                                             }
                                         </div>
 
                                         {
-                                            (item.itemStockLevel >= 1) ? (
-                                                <button className="btn btn-dark" onClick={this.addToCart}><h9>Add to cart</h9></button>
+                                            (item.itemStockLevel >= 1 && this.props.loggedInUser!== null) ? (
+                                                <div className="button cart_button" onClick={this.addToCart}><h9>Add to cart</h9></div>
                                             ):(
-                                                <button disabled className="btn btn-dark"><h9>Add to cart</h9></button>
+                                                <div onClick={this.notAllowed} disabled className="button cart_button_disabled"><h9>Add to cart</h9></div>
                                             )
                                         }
                                     </div>

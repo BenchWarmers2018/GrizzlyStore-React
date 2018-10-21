@@ -5,9 +5,10 @@
 // export const URL_GOOGLE_USER = "http://localhost:10006";
 
 // /***URL_ITEM's for the server. Please uncomment before pushing to git ***/
-export const URL_ITEM = "http://bw.ausgrads.academy:8765/grizzlystore-item_service";
+
 export const URL_USER = "http://bw.ausgrads.academy:8765/grizzlystore-user_service";
 export const URL_ORDER = "http://bw.ausgrads.academy:8765/grizzlystore-order_service";
+export const URL_ITEM = "http://bw.ausgrads.academy:8765/grizzlystore-item_service";
 export const URL_GOOGLE_USER = "http://bw.ausgrads.academy:8765/grizzlystore-googleuser_service";
 
 export const FETCH_CATEGORIES_FULFILLED = "FETCH_CATEGORIES_FULFILLED";
@@ -103,6 +104,15 @@ export const UPDATE_PROFILE_DETAILS_FULFILLED = "UPDATE_PROFILE_DETAILS_FULFILLE
 
 
 export const RESET_PROFILE_ERRORS = "RESET_PROFILE_ERRORS";
+
+
+export const PROCESSING_ORDER = "PROCESSING_ORDER";
+export const PROCESSING_ORDER_SUCCESSFUL = "PROCESSING_ORDER_SUCCESSFUL";
+export const PROCESS_ORDER_UNSUCCESSFUL = "PROCESS_ORDER_UNSUCCESSFUL";
+
+export const RESET_USER_ACCOUNT = "RESET_USER_ACCOUNT";
+export const RESET_ORDER = "RESET_ORDER";
+
 
 export const CREATE_ACCOUNT = "CREATE_ACCOUNT";
 export const CREATE_ACCOUNT_REJECTED = "CREATE_ACCOUNT_REJECTED";
