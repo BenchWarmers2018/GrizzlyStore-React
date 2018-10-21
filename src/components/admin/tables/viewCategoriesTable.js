@@ -5,6 +5,9 @@ import { Container, Row, Col, Input, Button, Fa, Modal, ModalBody, ModalHeader, 
 import EditCategoryForm from "../forms/editCategoryForm.js";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'
+import {connect} from "react-redux";
+import { deleteCategory } from "../../../actions/categoriesAction"
+import { successNotification, errorNotification } from '../../microComponents/Notifications.js';
 
 class ViewCategoriesTable extends Component {
   constructor(props) {
@@ -16,38 +19,49 @@ class ViewCategoriesTable extends Component {
     };
 
     this.toggle = this.toggle.bind(this);
-    this.deleteCategory = this.deleteCategory.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
-  toggle(state, rowInfo) {
+  handleEdit(row) {
       this.setState({
-        modal: !this.state.modal },
-        () => {
-          if (typeof rowInfo !== "undefined")
-          {
-            this.setState({
-              rowData: rowInfo.original
-            })
-          }
-      });
+        modal: !this.state.modal,
+        rowData: row.original
+      })
   }
 
-  componentDidUpdate(prevProps){
-    if(prevProps.categoryData !== this.props.categoryData)
+  handleDelete(row) {
+    confirmAlert({
+      title: row.original.categoryName,
+      message: 'Are you sure you want to delete this category?' +
+               ' This will also delete ALL items in this category too!',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => this.props.dispatch(deleteCategory(row.original))
+        },
+        {
+          label: 'No',
+        }
+      ],
+    })
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.categories !== this.props.categories)
     {
-      this.setState({data: this.props.categoryData})
+      this.setState({data: this.props.categories})
+
+      if(prevProps.deletedCategory !== this.props.deletedCategory && this.props.categoryStatusDeleted)
+      {
+          successNotification(this.props.categorySuccessMessage);
+      }
     }
   }
 
-  deleteCategory() {
-    confirmAlert({
-      title: 'Confirm to submit',                        // Title dialog
-      message: 'Are you sure to do this.',               // Message dialog
-      childrenElement: () => <div>Custom UI</div>,       // Custom UI or Component
-      confirmLabel: 'Confirm',                           // Text button confirm
-      cancelLabel: 'Cancel',                             // Text button cancel
-      onConfirm: () => alert('Action after Confirm'),    // Action after Confirm
-      onCancel: () => alert('Action after Cancel'),      // Action after Cancel
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
     })
   }
 
@@ -73,43 +87,31 @@ class ViewCategoriesTable extends Component {
                 {
                   Header: "Category Description",
                   accessor: "categoryDescription",
-                },
-                ,
-                {
-                  Header: "Edit",
-                  Cell: row => (
-                    <div className="text-center">
-                      <Button onClick={this.toggle.bind(this)}><Fa icon="pencil" size="2x"/></Button>
-                    </div>
-                  ),
-                  width: 150
+                  width: 500
                 },
                 {
-                  Header: "Delete",
+                  Header: 'Edit',
                   Cell: row => (
-                    <div className="text-center">
-                      <Button onClick={e => this.deleteCategory.bind(this)}><Fa icon="trash" size="2x"/></Button>
-                    </div>
+                      <div className="text-center">
+                          <Button onClick={() => this.handleEdit(row)} color="info" size="sm"><Fa icon="pencil" size="2x"/></Button>
+                      </div>
                   ),
-                  width: 150
+                  width: 100
+                },
+                {
+                  Header: 'Delete',
+                  Cell: row => (
+                      <div className="text-center">
+                          <Button onClick={() => this.handleDelete(row)} color="danger" size="sm"><Fa icon="trash" size="2x"/></Button>
+                      </div>
+                  ),
+                  width: 100
                 }
               ]
             }
           ]}
           defaultPageSize={10}
           className="-striped -highlight"
-          //
-          // getTdProps={(state, rowInfo, column, instance) => {
-          //   return {
-          //     onClick: (e, handleOriginal) => {
-          //       if (typeof rowInfo !== "undefined" && !this.state.show)
-          //       {
-          //         this.state.rowData = rowInfo.original;
-          //         this.toggle();
-          //       }
-          //     }
-          //   };
-          // }}
         />
 
         <Modal isOpen={this.state.modal} toggle={this.toggle} className="cascading-modal">
@@ -121,4 +123,11 @@ class ViewCategoriesTable extends Component {
   }
 }
 
-export default ViewCategoriesTable;
+const mapStateToProps = state => ({
+  categoryStatusDeleted: state.category.deleted,
+  categories: state.category.categories,
+  categorySuccessMessage: state.category.deleteSuccessMessage,
+  deletedCategory: state.category.deletedCategory
+});
+
+export default connect(mapStateToProps)(ViewCategoriesTable);
