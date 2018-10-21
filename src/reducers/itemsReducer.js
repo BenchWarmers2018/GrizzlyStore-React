@@ -144,7 +144,7 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 updates: "Item successfully added",
-                items: [...state.items, action.payload],
+                items: [...state.items, action.payload[0]],
                 added: true,
                 adding: false,
                 error: null
@@ -190,11 +190,17 @@ export default function reducer(state = initialState, action) {
             }
         }
         case DELETE_ITEM_FULFILLED: {
+            const { idItem } = action.payload
+            const newItems = [...state.items]
+            const itemToDelete = newItems.findIndex(item => item.idItem === idItem)
+            newItems.splice(itemToDelete, 1)
+
             return {
                 ...state,
-                items: state.items.filter(item => item.idItem !== action.payload.idItem),
+                items: newItems,
                 removed: true,
                 removing: false,
+                deletedItem: action.payload,
                 updates: "Item " + action.payload.idItem.toString() + " successfully removed!"
             }
         }

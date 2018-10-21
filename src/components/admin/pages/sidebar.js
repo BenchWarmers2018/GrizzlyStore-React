@@ -3,19 +3,16 @@ import User from '../../../images/admin_images/users/1.jpg'
 import Icon from '@mdi/react';
 import {mdiViewDashboard, mdiAccountNetwork, mdiBorderAll, mdiPlusBox} from '@mdi/js';
 import {Link} from 'react-router-dom';
-import {connect} from "react-redux"
 import {Container, Row, Col, Input, Button, Fa, Modal, ModalBody, ModalHeader, ModalFooter} from 'mdbreact';
 import AddCategoryForm from '../forms/addCategoryForm.js';
 import AddItemForm from '../forms/addItemForm.js';
-import {fetchCategories} from "../../../actions/categoriesAction";
 
 class sidebar extends Component {
     constructor(props) {
         super(props);
         this.state = {
             itemModal: false,
-            categoryModal: false,
-            categories: this.props.categories
+            categoryModal: false
         };
         this.toggleCategoryModal = this.toggleCategoryModal.bind(this);
         this.toggleItemModal = this.toggleItemModal.bind(this);
@@ -31,16 +28,6 @@ class sidebar extends Component {
         this.setState({
             itemModal: !this.state.itemModal
         });
-    }
-
-    componentDidMount() {
-      this.props.dispatch(fetchCategories());
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.categories !== this.props.categories) {
-            this.setState({categories: this.props.categories})
-        }
     }
 
     render() {
@@ -66,19 +53,18 @@ class sidebar extends Component {
                                 className="sidebar-link waves-effect waves-dark sidebar-link"
                                 aria-expanded="false"><Icon path={mdiViewDashboard} size={1.5}/><span
                                 className="hide-menu">Dashboard</span></a></Link></li>
-                            <li className="sidebar-item"><a onClick={this.toggleCategoryModal} href="javascript:void(0)"
-                                                            className="sidebar-link waves-effect waves-dark sidebar-link">
+                            <li className="sidebar-item">
+                              <a onClick={this.toggleCategoryModal} href="javascript:void(0)"
+                                className="sidebar-link waves-effect waves-dark sidebar-link">
                                 <Icon path={mdiPlusBox} size={1.5}/>
                                 <span className="hide-menu m-l-5">Add New Category</span>
                             </a></li>
-                            <li className="sidebar-item"><
-                                a onClick={this.toggleItemModal} href="javascript:void(0)"
-                                  className="sidebar-link waves-effect waves-dark sidebar-link">
+                            <li className="sidebar-item"><a onClick={this.toggleItemModal} href="javascript:void(0)"
+                                className="sidebar-link waves-effect waves-dark sidebar-link">
                                 <Icon path={mdiPlusBox} size={1.5}/>
                                 <span className="hide-menu m-l-5">Add New Item</span>
                             </a></li>
-                            <li className="sidebar-item"><Link
-                                to={{pathname: "/viewcategories", state: this.state.categories}}><a
+                            <li className="sidebar-item"><Link to="/viewcategories"><a
                                 className="sidebar-link waves-effect waves-dark sidebar-link"
                                 aria-expanded="false"><Icon path={mdiBorderAll} size={1.5}/><span
                                 className="hide-menu">View Categories</span></a></Link></li>
@@ -96,7 +82,7 @@ class sidebar extends Component {
                 </div>
 
                 <Modal isOpen={this.state.itemModal} toggle={this.toggleItemModal} className="cascading-modal">
-                    <AddItemForm categories={this.state.categories} toggle={this.toggleItemModal}/>
+                    <AddItemForm toggle={this.toggleItemModal}/>
                 </Modal>
 
                 <Modal isOpen={this.state.categoryModal} toggle={this.toggleCategoryModal} className="cascading-modal">
@@ -107,10 +93,4 @@ class sidebar extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    categories: state.category.categories,
-    addCategoryMessage: state.category.messages,
-    categoryStatusAdded: state.category.added
-});
-
-export default connect(mapStateToProps)(sidebar);
+export default sidebar;

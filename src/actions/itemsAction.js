@@ -212,25 +212,11 @@ export function fetchPopularItems() {
 }
 
 
-export function addItem(itemName, itemDescription, itemImage, itemPrice, itemStock, itemSales, itemCategory) {
+export function addItem(data) {
     return function (dispatch) {
-        let data = new FormData();
-        let header = {
-            'Content-Type': 'multipart/form-data'
-        };
-        let item = {
-            itemName: itemName,
-            itemPrice: itemPrice,
-            itemStockLevel: itemStock,
-            itemSalePercentage: itemSales,
-            itemDescription: itemDescription
-        };
-        data.append('file', itemImage);
-        data.append('item', JSON.stringify(item));
-        data.append('category', itemCategory);
-
-        dispatch({type: ADD_ITEM}); //
-        axios.post(URL_ITEM + "/items/addItem", data, {headers: header}).then((response) => {
+        dispatch({type: ADD_ITEM});
+        axios.post(URL_ITEM + "/items/addItem", data)
+        .then((response) => {
             console.log("TESTING " + response.data.entities);
             dispatch({type: ADD_ITEM_FULFILLED, payload: response.data})
         })
@@ -260,21 +246,18 @@ export function updateItem(formData) {
     }
 }
 
-export function deleteItem(itemID) {
+export function deleteItem(item) {
     return function (dispatch) {
-
-        let item = {
-            idItem: itemID,
-        };
-
         dispatch({type: DELETE_ITEM}); //
-        axios.post(URL_ITEM + "/items/remove", item).then((response) => {
-            console.log("TESTING " + response.data.entities);
-            response.data = {...response.data, idItem: itemID};
-            dispatch({type: DELETE_ITEM_FULFILLED, payload: response.data})
-        })
-            .catch((err) => {
-                dispatch({type: DELETE_ITEM_REJECTED, payload: err})
-            })
+        axios.post(URL_ITEM + "/items/remove", item)
+          .then((response) => {
+              dispatch({type: DELETE_ITEM_FULFILLED, payload: response.data.entities[0]})
+          })
+          .catch((err) => {
+            if (err.message === "Network Error" )
+              dispatch({type: SERVER_NOT_FOUND, payload: 'The server is currently offline. Please try again later.'})
+            else
+              dispatch({type: DELETE_ITEM_REJECTED, payload: err.response.data.errors})
+          })
     }
 }

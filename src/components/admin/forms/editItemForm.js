@@ -43,7 +43,7 @@ class EditItemForm extends Component {
         if (prevProps.rowData !== this.props.rowData) {
             this.setState({rowData: this.props.rowData})
         }
-        if(prevProps.items !== this.props.items && !this.props.removed)
+        if(this.props.itemStatusUpdated && prevProps.items !== this.props.items)
         {
             successNotification("Item updated successfully!");
         }
@@ -199,8 +199,6 @@ const mapStateToProps = (state) => ({
     editItemMessage: state.items.updateItemMessages,
     itemStatusUpdated: state.items.updated,
     items: state.items.items,
-    removed: state.items.removed,
-    updates: state.items.updates,
 });
 
 export default connect(mapStateToProps)(FormikApp)
