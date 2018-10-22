@@ -33,7 +33,7 @@ class AddItemForm extends React.Component {
             this.props.error === null ? this.setState({type: 'GREEN'}) : this.setState({type: 'RED'});
         }
 
-        if (prevProps.itemAdded && (prevProps.addedItem !== this.props.addedItem) ) {
+        if (this.props.itemAdded && (prevProps.addedItem !== this.props.addedItem) ) {
             successNotification(this.props.updates);
         }
     }
