@@ -45,7 +45,6 @@ class ViewItemsTable extends Component {
     }
 
     removeItem(row) {
-        console.log("ITEM ID: " + row.original.idItem);
         this.props.deleteItem(row.original);
     }
 
@@ -53,7 +52,7 @@ class ViewItemsTable extends Component {
         if (prevProps.itemData !== this.props.itemData) {
             this.setState({data: this.props.itemData})
         }
-        if (prevProps.items !== this.props.items && this.props.removed) {
+        if (this.props.removed && (prevProps.deletedItem !== this.props.deletedItem)) {
             successNotification(this.props.updates);
         }
     }
@@ -153,6 +152,7 @@ function mapStateToProps(state) {
         updates: state.items.updates,
         items: state.items.items,
         removed: state.items.removed,
+        deletedItem: state.items.deletedItem
     }
 };
 

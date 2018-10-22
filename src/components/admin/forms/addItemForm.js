@@ -6,7 +6,7 @@ import {connect} from "react-redux"
 import {Button, Fa, Input, Modal, ModalBody, ModalFooter, Label, InputNumeric} from "mdbreact";
 import Dropzone from "react-dropzone";
 import {addItem} from "../../../actions/itemsAction";
-
+import {successNotification} from '../../microComponents/Notifications.js';
 
 class AddItemForm extends React.Component {
 
@@ -22,7 +22,6 @@ class AddItemForm extends React.Component {
     }
 
     onDrop(file) {
-        console.log('Coming from Dropzone');
         this.setState({
             image: file[0]
         });
@@ -32,6 +31,10 @@ class AddItemForm extends React.Component {
         if (prevProps !== this.props) {
             this.setState({message: this.props.updates});
             this.props.error === null ? this.setState({type: 'GREEN'}) : this.setState({type: 'RED'});
+        }
+
+        if (prevProps.itemAdded && (prevProps.addedItem !== this.props.addedItem) ) {
+            successNotification(this.props.updates);
         }
     }
 
@@ -49,7 +52,6 @@ class AddItemForm extends React.Component {
             alignItems: 'center'
         };
 
-        console.log('CATEGORIES: ' + this.props.categories);
         const categories = this.props.categories;
         return (
             <div className="item-submission imageName">
@@ -66,7 +68,6 @@ class AddItemForm extends React.Component {
                     validate={(values) => {
                         if (this.state.image !== null)
                             values.itemImage = this.state.image;
-                        console.log(values);
                         let errors = {};
                         // VALIDATION
                         if (!values.itemName.length > 0)
@@ -190,6 +191,8 @@ function mapStateToProps(state) {
     return {
         error: state.items.error,
         updates: state.items.updates,
+        itemAdded: state.items.added,
+        addedItem: state.items.addedItem
     }
 };
 
