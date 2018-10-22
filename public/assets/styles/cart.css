@@ -1378,9 +1378,9 @@ label
 }
 
 .border {
-	border-radius: 15px;
+	border-radius: 10px;
 }
 
 .border-space {
-	padding-bottom: 20px;
+	margin-bottom: 20px;
 }
