@@ -26,7 +26,7 @@ class CartItem extends React.Component {
         const product = this.props.productObject;
 
             return (
-            <div className="row cart_items_row">
+            <div className="row cart_items_row border border-space">
                 <div className="col">
                     <div className="cart_item d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
 
@@ -63,9 +63,9 @@ class CartItem extends React.Component {
                             <button className="btn btn-sm btn-danger" onClick={this.deleteFromCart}><i
                                 className="fa fa-trash fa-2x"></i></button></div>
                     </div>
-
                 </div>
             </div>
+
         )
     }
 }

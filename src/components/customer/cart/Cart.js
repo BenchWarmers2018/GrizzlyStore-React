@@ -108,6 +108,7 @@ class Cart extends Component {
                                     </div>
                                 </div>
                             </div>
+                        <br/>
 
 
                             <div>
@@ -123,7 +124,6 @@ class Cart extends Component {
                                             <Link to='/' className="btn-no-decoration"><button type="button" className="btn btn-dark">Continue shopping</button></Link>
                                             <div className="cart_buttons_right ml-lg-auto">
                                                 <button type="button" className="btn btn-dark" onClick={this.deleteAllFromCart}>Clear cart</button>
-                                                {/*<button type="button" className="btn btn-dark" onClick={this.updateCart}>Update cart</button>*/}
                                             </div>
                                         </div>
                                     </div>

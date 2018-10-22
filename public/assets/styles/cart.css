@@ -1394,6 +1394,13 @@ label
 {
 	color: #FFFFFF;
 }
+.border {
+	border-radius: 10px;
+}
+
+.border-space {
+    margin-bottom: 20px;
+}
 
 .payment-total-cart-div{
 	background-color: #F3F7FE;
