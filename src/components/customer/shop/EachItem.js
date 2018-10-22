@@ -177,7 +177,7 @@ class EachItem extends Component {
                                             (item.itemStockLevel >= 1 && this.props.loggedInUser!== null) ? (
                                                 <div className="btn btn-dark" onClick={this.addToCart}><h9>Add to cart</h9></div>
                                             ):(
-                                                <div onClick={this.notAllowed} className="btn btn-dark disabled" disabled><h9>Add to cart</h9></div>
+                                                <div onClick={this.notAllowed} className="btn btn-light" disabled><h9>Add to cart</h9></div>
                                             )
                                         }
                                     </div>
