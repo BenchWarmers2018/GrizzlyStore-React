@@ -25,7 +25,7 @@ class CartItem extends React.Component {
         const product = this.props.productObject;
 
             return (
-            <div className="row cart_items_row">
+            <div className="row cart_items_row border">
                 <div className="col">
                     <div className="cart_item d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
                                     <div className="cart_item_product d-flex flex-row align-items-center justify-content-start">

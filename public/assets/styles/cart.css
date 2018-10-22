@@ -1376,3 +1376,11 @@ label
 {
 	color: #FFFFFF;
 }
+
+.border {
+	border-radius: 15px;
+}
+
+.border-space {
+	padding-bottom: 20px;
+}
