@@ -10,6 +10,7 @@ import './editItemForm.css';
 import './sharedFormStyling.css';
 import Dropzone from 'react-dropzone';
 import {successNotification} from '../../microComponents/Notifications.js';
+import {UPDATE_ITEM} from "../../../CONSTANTS";
 
 class EditItemForm extends Component {
 
@@ -17,10 +18,10 @@ class EditItemForm extends Component {
         super(props);
         this.state = {
             rowData: this.props.rowData,
-            editItemMessage: this.props.editItemMessage,
+            editItemMessage: null,
             imageThumbnail: this.props.rowData.itemImage,
             confirmDialog: false,
-        }
+        };
 
         this.props.values.idItem = this.state.rowData.idItem
         this.props.values.itemName = this.state.rowData.itemName
@@ -43,9 +44,9 @@ class EditItemForm extends Component {
         if (prevProps.rowData !== this.props.rowData) {
             this.setState({rowData: this.props.rowData})
         }
-        if(this.props.itemStatusUpdated && prevProps.items !== this.props.items)
-        {
-            successNotification("Item updated successfully!");
+        if (this.props.itemStatusUpdated && prevProps.items !== this.props.items && !this.props.removed) {
+            successNotification("Item " + this.props.values.idItem.toString() + " updated successfully!");
+            this.setState({editItemMessage: this.props.editItemMessage})
         }
     }
 
@@ -89,7 +90,7 @@ class EditItemForm extends Component {
 
                         {/* Display Error/Success Message */}
                         <div
-                            className={(this.props.editItemMessage != "") ? (this.props.itemStatusUpdated == true ? "alert alert-success" : "alert alert-danger") : null}>{this.props.editItemMessage}</div>
+                            className={(this.state.editItemMessage !== null) ? (this.props.itemStatusUpdated === true ? "alert alert-success" : "alert alert-danger") : null}>{this.state.editItemMessage}</div>
 
                         {/* Item Image */}
                         <p className="fieldset">
@@ -199,6 +200,7 @@ const mapStateToProps = (state) => ({
     editItemMessage: state.items.updateItemMessages,
     itemStatusUpdated: state.items.updated,
     items: state.items.items,
+    removed: state.items.removed,
 });
 
 export default connect(mapStateToProps)(FormikApp)
