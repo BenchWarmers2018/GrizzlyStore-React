@@ -143,7 +143,7 @@ class Profile extends Component {
 
                                         {
                                             profile.profileImage != null ? (
-                                                <Image src={(profile.profileImage)} width={150} height={180}/>
+                                                <Image className="yes-profile-pic" src={(profile.profileImage)} width={150} height={180}/>
                                             ): (
                                                 <Image className="no-profile-pic" src={(NoProfilePic)} width={150} height={180}/>)
                                         }

@@ -369,8 +369,9 @@ outline: 0 !important;
 .no-profile-pic{
   opacity: 0.20 !important;
 }
-.profile-img-name img{
-  opacity: 0.2 !important;
+
+.yes-profile-pic{
+    opacity: 1 !important;
 }
 .profile-name-nav{
   padding-bottom: 20px;
