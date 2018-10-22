@@ -1,7 +1,7 @@
 import {
     FETCH_PROFILE,
-    FETCH_PROFILE_FULFILLED,
-    FETCH_PROFILE_REJECTED,
+    FETCH_PROFILE_FULFILLED, FETCH_PROFILE_FULFILLED_AT_STARTUP,
+    FETCH_PROFILE_REJECTED, FETCH_PROFILE_REJECTED_AT_STARTUP,
     RESET_PROFILE_ERRORS, RESET_USER_PROFILE,
     UPDATE_PROFILE_ADDRESS,
     UPDATE_PROFILE_ADDRESS_FULFILLED,
@@ -44,6 +44,20 @@ export default function reducer(state = initialState, action) {
                 fetching: false,
                 error: action.payload.errors,
                 status: action.payload.status,
+            }
+        }
+        case FETCH_PROFILE_FULFILLED_AT_STARTUP: {
+            return {
+                ...state,
+                fetching: false,
+                fetched: true,
+                loggedInAccount: action.payload.entities,
+            }
+        }
+        case FETCH_PROFILE_REJECTED_AT_STARTUP: {
+            return {
+                ...state,
+                fetching: false,
             }
         }
 

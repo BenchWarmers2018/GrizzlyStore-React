@@ -3,6 +3,7 @@ import {NORMAL_USER} from "../../../CONSTANTS";
 import {successNotification} from "../../microComponents/Notifications";
 import {deleteItemFromCart} from "../../../actions/cartAction";
 import connect from "react-redux/es/connect/connect";
+import { Link } from 'react-router-dom';
 
 class CartItem extends React.Component {
 
@@ -28,15 +29,16 @@ class CartItem extends React.Component {
             <div className="row cart_items_row">
                 <div className="col">
                     <div className="cart_item d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
+
                                     <div className="cart_item_product d-flex flex-row align-items-center justify-content-start">
+
                                         <div className="cart_item_image">
-                                            <div><img src={product.itemImage} alt="image"/></div>
+                                            <div><Link to={"/items/"+item.idItem}><img src={product.itemImage} alt="image"/></Link></div>
                                         </div>
                                         <div className="cart_item_name_container">
-                                            <div className="cart_item_name"><a>{product.itemName}</a></div>
+                                            <div className="cart_item_name"><Link to={"/items/"+item.idItem}>{product.itemName}</Link></div>
                                         </div>
                                     </div>
-
                         <div className="cart_item_price">${item.itemPrice}</div>
 
                         <div className="cart_item_quantity">
