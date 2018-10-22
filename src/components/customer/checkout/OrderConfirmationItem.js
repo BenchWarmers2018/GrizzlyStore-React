@@ -20,13 +20,19 @@ class OrderConfirmationItem extends Component {
         const product = this.props.productObject;
         console.log(cartItem);
         console.log(product)
+        // Rounding price to 2 decimal points
+
+        function roundPrice(num){
+            return num.toFixed(2);
+        }
+
         return (
                 <tr>
                     <td>{cartItem.idItem}</td>
                     <td>{product.itemName}</td>
                     <td>{cartItem.itemQuantity}</td>
-                    <td>{cartItem.itemPrice}</td>
-                    <td>{cartItem.total}</td>
+                    <td>${roundPrice(cartItem.itemPrice)}</td>
+                    <td>${roundPrice(cartItem.total)}</td>
                 </tr>
         );
     }

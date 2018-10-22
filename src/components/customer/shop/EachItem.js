@@ -157,7 +157,7 @@ class EachItem extends Component {
                                             {
                                                 (this.state.count > 1 && item.itemStockLevel >= 1) ? (
                                                     <button className="btn btn-primary" onClick={(e) => this.handleClickDec(e)}><div className="btn-enlarge">-</div></button>):(
-                                                    <button disabled className="btn btn-primary" onClick={(e) => this.handleClickDec(e)}><div className="btn-enlarge">-</div></button>
+                                                    <button disabled className="btn btn-primary btn-disabled-eachitem" onClick={(e) => this.handleClickDec(e)}><div className="btn-enlarge">-</div></button>
                                                 )
                                             }
                                         </div>
@@ -169,7 +169,7 @@ class EachItem extends Component {
                                             {
                                                 (this.state.count >= 1 && this.state.count < item.itemStockLevel) ? (
                                                     <button className="btn btn-primary" onClick={(e) => this.handleClickInc(e)}><div className="btn-enlarge">+</div></button>):(
-                                                    <button disabled className=" btn btn-primary" onClick={(e) => this.handleClickInc(e)}><div className="btn-enlarge">+</div></button>
+                                                    <button disabled className=" btn btn-primary btn-disabled-eachitem" onClick={(e) => this.handleClickInc(e)}><div className="btn-enlarge">+</div></button>
                                                 )
                                             }
                                         </div>
@@ -238,7 +238,7 @@ class EachItem extends Component {
                             <div className="description_title_container">
                                 <div className="description_title"><strong>Description</strong></div>
                             </div>
-                            <p>{item.itemDescription}
+                            <p className="eachitem-description">{item.itemDescription}
                                 <br/>
                                 <br/>
                                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod

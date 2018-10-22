@@ -185,7 +185,7 @@ class ProfilePersonal extends Component {
                             </div>
 
                             <div className="form-group">
-                                <div className="col-sm-12">
+                                <div className="col-sm-12 " >
                                     <button type="submit" className="btn btn-success-muted">UPDATE DETAILS</button>
                                     <button type="button" onClick={() => {
                                         this.setState({image: null, imageName: ''});

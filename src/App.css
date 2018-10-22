@@ -491,6 +491,12 @@ hr{
   color: inherit;
 }
 
+.submit-address-button{
+  margin-top: 30px;
+}
+.update-password-submit{
+  padding-top: 10px;
+}
 
 /****************************ADMIN****************************/
 .left-sidebar{
@@ -544,4 +550,9 @@ svg:not(:root){
 /*}*/
 .md-form-category{
   margin-top: 0 !important;
+}
+
+.ant-notification-notice{
+  top: 73px;
+  z-index: -5;
 }

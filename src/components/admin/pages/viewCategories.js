@@ -32,7 +32,7 @@ class ViewCategories extends Component {
                   <div className="row h-100 align-items-center">
                       <div className="col-12">
                           <div className="page-title text-center">
-                              <h2>View Accounts</h2>
+                              <h2>View Categories</h2>
                           </div>
                       </div>
                   </div>
