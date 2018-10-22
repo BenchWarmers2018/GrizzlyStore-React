@@ -8,6 +8,7 @@ export const successNotification = (message) =>
             message: message,
             icon: <Icon type="smile" style={{ color: '#108ee9' }} />,
             style: {
+                backgroundColor: '#108ee9'
             },
         })
     );
@@ -21,6 +22,7 @@ export const errorNotification = (message, desc) =>
             description: desc,
             icon: <Icon type="frown" style={{ color: '#FF4957' }} />,
             style: {
+                backgroundColor: '#FF4957'
             },
         })
     );
