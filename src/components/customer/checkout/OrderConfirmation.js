@@ -82,7 +82,9 @@ class OrderConfirmation extends Component {
                                 </div>
 
                                 <div className="col-md-6 text-right">
-                                    <p className="font-weight-bold mb-1">Invoice number: </p>
+                                    {this.props.order!==null ||  typeof this.props.order !== "undefined" &&
+                                     <p className="font-weight-bold mb-1">Invoice number: {this.props.order.idTransaction}</p>
+                                    }
                                 </div>
                             </div>
 
@@ -100,7 +102,7 @@ class OrderConfirmation extends Component {
                                     <div className="col-md-6 text-right">
                                         <p className="font-weight-bold mb-4">Payment Details</p>
                                         <p className="mb-1"><span className="text-muted">Payment Type: </span>PayPal </p>
-                                        <p className="mb-1"><span className="text-muted">Name: </span> </p>
+                                        <p className="mb-1"><span className="text-muted">Name: {this.props.loggedInUser.accountEmailAddress}</span> </p>
                                     </div>
                                 </div>
 
@@ -163,6 +165,7 @@ const mapStateToProps = state => ({
     cartItems : state.cart.cartItems,
     processing: state.orders.processing,
     processed: state.orders.processed,
+    loggedInUser: state.accounts.loggedInUser,
 });
 
 const mapDispatchToProps = {

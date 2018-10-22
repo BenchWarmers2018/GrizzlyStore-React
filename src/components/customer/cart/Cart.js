@@ -162,7 +162,7 @@ class Cart extends Component {
                                         </div>
 
                                         {this.props.cart.items.length > 0 ?
-                                            <div className="button checkout_button" style={{"width": "100%"}}><Link
+                                            <div className="button order_button" style={{"width": "100%"}}><Link
                                                 to="/checkout">Proceed to checkout</Link></div>
                                             :
                                             <div onClick={this.proceedError} className="button checkout_button" style={{"width" : "100%"}}><a>Proceed to checkout</a></div>
