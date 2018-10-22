@@ -12,11 +12,11 @@ hr {
     width: 100% !important;
     height: 100px;
     display: block !important;
-    border-radius: 25px;
+    border-radius: 10px;
     /*margin: 0 25% 0 25% !important;*/
     border: 1px dashed black;
     color: black;
-    background: #C1CAD0;
+    background: #F3F3F3;
 }
 
 .item-submission, .item-submission #item-modal#image {

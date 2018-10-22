@@ -12,7 +12,8 @@ class adminMain extends Component {
             <div>
                 <main>
                     <Switch>
-                        <Route exact path='/profile' component={Profile}/>
+                        <Route exact path='/' component={Profile}/>
+                        <Route path='/profile' component={Profile}/>
                         <Route path='/viewcategories' component={ViewCategories}/>
                         <Route path='/viewitems' component={ViewItems}/>
                         <Route path='/viewaccounts' component={ViewAccounts}/>

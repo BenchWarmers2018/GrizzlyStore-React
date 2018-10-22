@@ -7,12 +7,14 @@ import { withRouter } from "react-router";
 import {errorNotification, successNotification} from "../../microComponents/Notifications";
 import { processOrder } from "../../../actions/orderActions";
 import {Redirect} from "react-router-dom";
+import PropTypes from "prop-types";
 
 class Checkout extends Component {
     constructor(props) {
         super(props);
         this.state = {
             cart : this.props.cart,
+            data: this.props.data,
         }
     }
 
@@ -34,6 +36,7 @@ class Checkout extends Component {
 
 
     render() {
+        const address = this.props.data;
         if(this.props.loggedInUser === null)
         {
             return(
@@ -95,183 +98,86 @@ class Checkout extends Component {
 
                 <div className="checkout">
                     <div className="container">
-                        <div className="row">
 
 
-                            <div className="col-lg-4">
-                                <div className="billing checkout_section">
-                                    <div className="section_title">Billing Address</div>
-                                    <div className="section-subtitle">Please update your address on your profile before continuing</div>
-                                    {/*<div className="section_subtitle">Enter your address info</div>*/}
-                                    {/*<div className="checkout_form_container">*/}
-                                        {/*<form action="#" id="checkout_form" className="checkout_form">*/}
-                                            {/*<div className="row">*/}
-                                                {/*<div className="col-xl-6">*/}
 
-                                                    {/*<label htmlFor="checkout_name">First Name*</label>*/}
-                                                    {/*<input type="text" id="checkout_name" className="checkout_input"*/}
-                                                           {/*required="required"/>*/}
-                                                {/*</div>*/}
-                                                {/*<div className="col-xl-6 last_name_col">*/}
 
-                                                    {/*<label htmlFor="checkout_last_name">Last Name*</label>*/}
-                                                    {/*<input type="text" id="checkout_last_name"*/}
-                                                           {/*className="checkout_input" required="required"/>*/}
-                                                {/*</div>*/}
-                                            {/*</div>*/}
-                                            {/*<div>*/}
 
-                                                {/*<label htmlFor="checkout_company">Company</label>*/}
-                                                {/*<input type="text" id="checkout_company" className="checkout_input"/>*/}
-                                            {/*</div>*/}
-                                            {/*<div>*/}
+                        <div className=" row">
+                            <div className="order checkout_section">
+                                <div className="section_title">Your order</div>
+                                <div className="section_subtitle">Order details</div>
 
-                                                {/*<label htmlFor="checkout_country">Country*</label>*/}
-                                                {/*<select name="checkout_country" id="checkout_country"*/}
-                                                        {/*className="dropdown_item_select checkout_input"*/}
-                                                        {/*require="required">*/}
-                                                    {/*<option></option>*/}
-                                                    {/*<option>Lithuania</option>*/}
-                                                    {/*<option>Sweden</option>*/}
-                                                    {/*<option>UK</option>*/}
-                                                    {/*<option>Italy</option>*/}
-                                                {/*</select>*/}
-                                            {/*</div>*/}
-                                            {/*<div>*/}
 
-                                                {/*<label htmlFor="checkout_address">Address*</label>*/}
-                                                {/*<input type="text" id="checkout_address" className="checkout_input"*/}
-                                                       {/*required="required"/>*/}
-                                                    {/*<input type="text" id="checkout_address_2"*/}
-                                                           {/*className="checkout_input checkout_address_2"*/}
-                                                           {/*required="required"/>*/}
-                                            {/*</div>*/}
-                                            {/*<div>*/}
+                                <div className="order_list_container">
+                                    <div className="order_list_bar d-flex flex-row align-items-center justify-content-start">
+                                        <div className="order_list_title col-lg-7 col-md-7 col-xs-7 col-sm-7">Product</div>
+                                        <div className="order_list_value ml-auto col-lg-3 col-md-3 col-xs-3 col-sm-3 centered">Quantity</div>
+                                        <div className="order_list_value ml-auto col-lg-3 col-md-3 col-xs-3 col-sm-3">Total</div>
+                                    </div>
 
-                                                {/*<label htmlFor="checkout_zipcode">Zipcode*</label>*/}
-                                                {/*<input type="text" id="checkout_zipcode" className="checkout_input"*/}
-                                                       {/*required="required"/>*/}
-                                            {/*</div>*/}
-                                            {/*<div>*/}
+                                    <div className="checkout-rows-order">
+                                        {checkoutRows}
+                                    </div>
 
-                                                {/*<label htmlFor="checkout_city">City/Town*</label>*/}
-                                                {/*<select name="checkout_city" id="checkout_city"*/}
-                                                        {/*className="dropdown_item_select checkout_input"*/}
-                                                        {/*require="required">*/}
-                                                    {/*<option></option>*/}
-                                                    {/*<option>City</option>*/}
-                                                    {/*<option>City</option>*/}
-                                                    {/*<option>City</option>*/}
-                                                    {/*<option>City</option>*/}
-                                                {/*</select>*/}
-                                            {/*</div>*/}
-                                            {/*<div>*/}
 
-                                                {/*<label htmlFor="checkout_province">Province*</label>*/}
-                                                {/*<select name="checkout_province" id="checkout_province"*/}
-                                                        {/*className="dropdown_item_select checkout_input"*/}
-                                                        {/*require="required">*/}
-                                                    {/*<option></option>*/}
-                                                    {/*<option>Province</option>*/}
-                                                    {/*<option>Province</option>*/}
-                                                    {/*<option>Province</option>*/}
-                                                    {/*<option>Province</option>*/}
-                                                {/*</select>*/}
-                                            {/*</div>*/}
-                                            {/*<div>*/}
-
-                                                {/*<label htmlFor="checkout_phone">Phone no*</label>*/}
-                                                {/*<input type="phone" id="checkout_phone" className="checkout_input"*/}
-                                                       {/*required="required"/>*/}
-                                            {/*</div>*/}
-                                            {/*<div>*/}
-
-                                                {/*<label htmlFor="checkout_email">Email Address*</label>*/}
-                                                {/*<input type="phone" id="checkout_email" className="checkout_input"*/}
-                                                       {/*required="required"/>*/}
-                                            {/*</div>*/}
-                                            {/*<div className="checkout_extra">*/}
-                                                {/*<div>*/}
-                                                    {/*<input type="checkbox" id="checkbox_terms" name="regular_checkbox"*/}
-                                                           {/*className="regular_checkbox" checked="checked"/>*/}
-                                                        {/*<label htmlFor="checkbox_terms"><img src="images/check.png"*/}
-                                                                                             {/*alt=""/></label>*/}
-                                                        {/*<span className="checkbox_title">Terms and conditions</span>*/}
-                                                {/*</div>*/}
-                                                {/*<div>*/}
-                                                    {/*<input type="checkbox" id="checkbox_account" name="regular_checkbox"*/}
-                                                           {/*className="regular_checkbox"/>*/}
-                                                        {/*<label htmlFor="checkbox_account"><img src="images/check.png"*/}
-                                                                                               {/*alt=""/></label>*/}
-                                                        {/*<span className="checkbox_title">Create an account</span>*/}
-                                                {/*</div>*/}
-                                                {/*<div>*/}
-                                                    {/*<input type="checkbox" id="checkbox_newsletter"*/}
-                                                           {/*name="regular_checkbox" className="regular_checkbox"/>*/}
-                                                        {/*<label htmlFor="checkbox_newsletter"><img src="images/check.png"*/}
-                                                                                                  {/*alt=""/></label>*/}
-                                                        {/*<span*/}
-                                                            {/*className="checkbox_title">Subscribe to our newsletter</span>*/}
-                                                {/*</div>*/}
-                                            {/*</div>*/}
-                                        {/*</form>*/}
-                                    {/*</div>*/}
                                 </div>
+
+
                             </div>
+                        </div>
 
+                        <div className="row">
+                        <div className=" billing checkout_section">
+                            <div className="billing-section-div col-lg-8 col-md-8 col-xs-8 col-sm-8">
+                                <div className="billing-address">
+                                    <div className="section_title billing-address-div">Billing Address</div>
+                                    <div className="section-subtitle"><b>Please update your address on your profile before continuing</b></div>
+                                    <br/>
+                                    <div className="section-subtitle correct-address muted"><i>Please ensure your address is correct</i></div>
 
+                                </div>
+                                <div className="billing-payment col-lg-8 col-md-8 col-xs-8 col-sm-8">
+                                    <div className="section_title">Total</div>
+                                    <ul className="order_list">
+                                        <li className="d-flex flex-row align-items-center justify-content-start">
+                                            <div className="order_list_title col-lg-2 col-md-2 col-xs-2 col-sm-2"><b>Subtotal</b></div>
+                                            <div className="order_list_value ml-auto col-lg-2 col-md-2 col-xs-2 col-sm-2">${this.props.cart.total}</div>
+                                        </li>
+                                        <li className="d-flex flex-row align-items-center justify-content-start">
+                                            <div className="order_list_title col-lg-2 col-md-2 col-xs-2 col-sm-2"><b>Shipping</b></div>
+                                            <div className="order_list_value ml-auto col-lg-2 col-md-2 col-xs-2 col-sm-2"><i>Free</i></div>
+                                        </li>
+                                        <li className="d-flex flex-row align-items-center justify-content-start">
+                                            <div className="order_list_title col-lg-2 col-md-2 col-xs-2 col-sm-2"><b>Total</b></div>
+                                            <div className="order_list_value ml-auto col-lg-2 col-md-2 col-xs-2 col-sm-2">${this.props.cart.total}</div>
+                                        </li>
+                                    </ul>
 
-                            <div className="col-lg-8">
-                                <div className="order checkout_section">
-                                    <div className="section_title">Your order</div>
-                                    <div className="section_subtitle">Order details</div>
-
-
-                                    <div className="order_list_container">
-                                        <div
-                                            className="order_list_bar d-flex flex-row align-items-center justify-content-start row">
-                                            <div className="order_list_title col-lg-8 col-md-8 col-xs-8 col-sm-8">Product</div>
-                                            <div className="order_list_value ml-auto col-lg-3 col-md-3 col-xs-3 col-sm-3">Quantity</div>
-                                            <div className="order_list_value ml-auto col-lg-1 col-md-1 col-xs-1 col-sm-1">Total</div>
-                                        </div>
-
-                                        <ul className="order_list">
-                                            {checkoutRows}
-                                            <li className="d-flex flex-row align-items-center justify-content-start mt-100">
-                                                <div className="order_list_title">Subtotal</div>
-                                                <div className="order_list_value ml-auto">{this.props.cart.total}</div>
-                                            </li>
-                                            <li className="d-flex flex-row align-items-center justify-content-start">
-                                                <div className="order_list_title">Shipping</div>
-                                                <div className="order_list_value ml-auto">Free</div>
-                                            </li>
-                                            <li className="d-flex flex-row align-items-center justify-content-start">
-                                                <div className="order_list_title">Total</div>
-                                                <div className="order_list_value ml-auto">{this.props.cart.total}</div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div style={{width: "90%"}}>
-                                        <PaypalExpressBtn
-                                            env={env}
-                                            client={client}
-                                            currency={currency}
-                                            total={total}
-                                            onError={this.onError}
-                                            onSuccess={this.onSuccess}
-                                            onCancel={this.onCancel}
-                                            style={{
-                                            label: 'checkout',
-                                            size: 'responsive',    // small | medium | large | responsive
-                                            shape: 'rect',     // pill | rect
-                                            color: 'black',// gold | blue | silver | black
-                                                    }}
-                                        />
-                                    </div>
 
                                 </div>
                             </div>
                         </div>
+                        </div>
+
+                        <div className="paypal-button" style={{width: "50%"}}>
+                            <PaypalExpressBtn
+                                env={env}
+                                client={client}
+                                currency={currency}
+                                total={total}
+                                onError={this.onError}
+                                onSuccess={this.onSuccess}
+                                onCancel={this.onCancel}
+                                style={{
+                                    label: 'checkout',
+                                    size: 'responsive',    // small | medium | large | responsive
+                                    shape: 'rect',     // pill | rect
+                                    color: 'blue',// gold | blue | silver | black
+                                }}
+                            />
+                        </div>
+
                     </div>
                 </div>
             </div>

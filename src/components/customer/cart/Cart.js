@@ -93,11 +93,13 @@ class Cart extends Component {
                             <div className="row">
                                 <div className="col">
                                     <div className="cart_info_columns clearfix">
-                                        <div className="cart_info_col cart_info_col_product">Product</div>
-                                        <div className="cart_info_col cart_info_col_price">Price</div>
-                                        <div className="cart_info_col cart_info_col_quantity">Quantity</div>
-                                        <div className="cart_info_col cart_info_col_total">Total</div>
-                                        <div className="cart_info_col cart_info_col_actions">ACTIONS</div>
+
+                                        <div className="cart_info_col cart_info_col_image"><h9>Image</h9></div>
+                                        <div className="cart_info_col cart_info_col_product"><h9>Product</h9></div>
+                                        <div className="cart_info_col cart_info_col_price"><h9>Price</h9></div>
+                                        <div className="cart_info_col cart_info_col_quantity"><h9>Quantity</h9></div>
+                                        <div className="cart_info_col cart_info_col_total"><h9>Total</h9></div>
+                                        <div className="cart_info_col cart_info_col_actions"><h9>Remove</h9></div>
                                     </div>
                                 </div>
                             </div>
@@ -126,12 +128,12 @@ class Cart extends Component {
                             <br/>
                             <br/>
 
-                            <div className="row row_extra">
-                                <div className="col-lg-4">
-                                    <div className="delivery">
+                            <div className="row row_extra payment-total-cart-div">
+                                <div className="col-lg-4 ">
+                                    <div className="delivery ">
                                         <div className="section_title">Payment Method</div>
-                                        <div className="section_subtitle">Select the one you want</div>
-                                        <div className="delivery_options">
+                                        <div className="section_subtitle">Select payment option</div>
+                                        <div className="delivery_options ">
                                             <label className="delivery_option clearfix">Paypal
                                                 <input type="radio" checked="checked" name="radio"/>
                                                 <span className="checkmark"></span>
@@ -147,15 +149,15 @@ class Cart extends Component {
                                         <div className="cart_total_container">
                                             <ul>
                                                 <li className="d-flex flex-row align-items-center justify-content-start">
-                                                    <div className="cart_total_title">Subtotal</div>
+                                                    <div className="cart_total_title"><b>Subtotal</b></div>
                                                     <div className="cart_total_value ml-auto">${cart.total}</div>
                                                 </li>
                                                 <li className="d-flex flex-row align-items-center justify-content-start">
-                                                    <div className="cart_total_title">Shipping</div>
-                                                    <div className="cart_total_value ml-auto">Free</div>
+                                                    <div className="cart_total_title"><b>Shipping</b></div>
+                                                    <div className="cart_total_value ml-auto"><i>Free</i></div>
                                                 </li>
                                                 <li className="d-flex flex-row align-items-center justify-content-start">
-                                                    <div className="cart_total_title">Total</div>
+                                                    <div className="cart_total_title"><b>Total</b></div>
                                                     <div className="cart_total_value ml-auto">${cart.total}</div>
                                                 </li>
                                             </ul>

@@ -87,7 +87,7 @@ class ProfilePassword extends Component {
                             </div>
 
                             <div className="form-group">
-                                <div className="col-sm-12">
+                                <div className="col-sm-12" >
                                     <button type="submit" className="btn btn-success-muted">UPDATE PASSWORD</button>
                                 </div>
                                 {Object.keys(errors).length === 0 &&

@@ -15,6 +15,7 @@ class OrderConfirmation extends Component {
             processing: this.props.processing,
             processed: this.props.processed,
             order: this.props.order,
+            data: this.props.data,
         }
     }
 

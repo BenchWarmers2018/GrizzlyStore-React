@@ -885,7 +885,7 @@ section
 {
 	width: 100%;
 	padding-top: 98px;
-	padding-bottom: 99px;
+	padding-bottom: 30px;
 	background: #FFFFFF;
 	z-index: 2;
 }
@@ -893,10 +893,34 @@ section
 {
 	width: 100%;
 	padding-top: 44px;
+	margin: 0 auto;
 }
-.billing
+.paypal-button{
+
+	margin: 40px auto;
+	text-align: center;
+}
+.billing-section-div{
+	margin: 0 auto;
+	width: 70%;
+}
+.correct-address{
+	bottom: -30%;
+}
+.billing-address-div{
+	margin-bottom: 30px;
+}
+.billing-address
 {
-	
+	width: 35% !important;
+	margin-right: 20%;
+	display: inline-block;
+	height: 100%;
+	top: 0;
+}
+.billing-payment{
+	width: 35% !important;
+	display: inline-block;
 }
 .section_title
 {
@@ -1020,6 +1044,14 @@ section
 	vertical-align: middle;
 	padding-left: 12px;
 }
+.billing{
+	background: #EFF9FF;
+	padding-left: 60px;
+	padding-bottom: 53px;
+	padding-right: 58px;
+	width: 100%;
+	margin-top: 40px;
+}
 .order
 {
 	width: 100%;
@@ -1034,7 +1066,14 @@ section
 }
 .order_list_bar
 {
-	margin-bottom: 59px;
+	background-color: #6F7593;
+	color: white;
+	padding: 10px;
+}
+.order_list_bar div{
+	font-weight: bold;
+	font-size: larger;
+	color: white;
 }
 .order_list_title,
 .order_list_value
@@ -1045,7 +1084,16 @@ section
 }
 .order_list li:not(:last-child)
 {
-	margin-bottom: 53px;
+	margin-bottom: 30px;
+}
+.order_list{
+	margin-top: 30px;
+}
+.checkout-rows-order{
+	background-color: white;
+}
+.row-of-item{
+	padding: 13px 10px 13px 10px;
 }
 .payment_options
 {

@@ -178,6 +178,7 @@ class AddItemForm extends React.Component {
                                     :
                                     <span><p className="text-danger">{this.state.message}</p></span>}
                             </ModalFooter>
+
                         </form>
                     )}>
                 </Formik>
