@@ -17,7 +17,7 @@ class AddItemForm extends React.Component {
         this.state = {
             image: null,
             message: "",
-            type: 'GREEN' // GREEN for success message, RED for error message - After form submission
+            addedItemMessage: ""
         };
     }
 
@@ -29,12 +29,11 @@ class AddItemForm extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps !== this.props) {
-            this.setState({message: this.props.updates});
-            this.props.error === null ? this.setState({type: 'GREEN'}) : this.setState({type: 'RED'});
+            this.setState({message: this.props.addedItemMessage});
         }
 
         if (prevProps.itemAdded && (prevProps.addedItem !== this.props.addedItem) ) {
-            successNotification(this.props.updates);
+            successNotification(this.props.addedItemMessage);
         }
     }
 
@@ -100,86 +99,91 @@ class AddItemForm extends React.Component {
                                  handleSubmit,
                                  setFieldValue
                              }) => (
-                        <form onSubmit={handleSubmit}>
-                            <h1 className="text-center title">Add New Item</h1>
-                            <ModalBody className="grey-text" id="item-modal">
+                        <div>
+                          {/* Display Error/Success Message */}
+                          <div
+                              className={(this.state.addedItemMessage != "") ? (this.props.itemAdded == true ? "alert alert-success" : "alert alert-danger") : null}>{this.state.addedItemMessage}
+                          </div>
 
-                        {/*Name*/}
-                                <Input size="sm" label="Name" group type="text" validate
-                                       error="wrong" success="right" name="itemName" onChange={handleChange}
-                                       onBlur={handleBlur}/>
-                                {touched.itemName && errors.itemName &&
-                                <span><p className="text-danger">{errors.itemName}</p></span>}
+                          <h1 className="text-center has-padding title">Add Item</h1>
 
-                        {/*Description*/}
-                                <Input size="sm" label="Description" group type="textarea" validate
-                                       error="wrong" success="right" name="itemDesc" onChange={handleChange}
-                                       onBlur={handleBlur}/>
-                                {touched.itemDesc && errors.itemDesc &&
-                                <span><p className="text-danger">{errors.itemDesc}</p></span>}
+                          <form onSubmit={handleSubmit}>
 
-                        {/*Stock Level*/}
-                                <Input size="sm" min={0} label="Stock" group type="number" validate
-                                       error="wrong"
-                                       success="right" name="itemStock" onChange={handleChange}
-                                       onBlur={handleBlur}/>
-                                {touched.itemStock && errors.itemStock &&
-                                <span><p className="text-danger">{errors.itemStock}</p></span>}
+                              <ModalBody className="grey-text" id="item-modal">
 
-                        {/*Sales Percentage*/}
-                                <Input size="sm" label="Sales Percentage" group type="number" validate
-                                       error="wrong" className="no-spinner"
-                                       success="right" name="itemSales" onChange={handleChange}
-                                       onBlur={handleBlur}/>
-                                {touched.itemSales && errors.itemSales &&
-                                <span><p className="text-danger">{errors.itemSales}</p></span>}
+                                  {/*Name*/}
+                                  <Input size="sm" label="Name" group type="text" validate
+                                         error="wrong" success="right" name="itemName" onChange={handleChange}
+                                         onBlur={handleBlur}/>
+                                  {touched.itemName && errors.itemName &&
+                                  <span><p className="text-danger">{errors.itemName}</p></span>}
 
-                        {/*Price*/}
-                                <Input size="sm" type="text" rows="2" label="Price" name="itemPrice"
-                                       onChange={handleChange}
-                                       onBlur={handleBlur}/>
-                                {touched.itemPrice && errors.itemPrice &&
-                                <span><p className="text-danger">{errors.itemPrice}</p></span>}
+                                  {/*Description*/}
+                                  <Input size="sm" label="Description" group type="textarea" validate
+                                         error="wrong" success="right" name="itemDesc" onChange={handleChange}
+                                         onBlur={handleBlur}/>
+                                  {touched.itemDesc && errors.itemDesc &&
+                                  <span><p className="text-danger">{errors.itemDesc}</p></span>}
 
-                        {/*Category*/}
-                                <div>
-                                    <span style={{'fontSize': '15px', 'color': '#757575'}}> Category Type</span>
-                                    <select className="form-control form-control-line md-form md-form-category"
-                                            value={values.itemCategory} name="itemCategory"
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}>
-                                        <option value="--" selected="selected">--</option>
-                                        {categories.map(category => <option
-                                            value={category.categoryName}>{category.categoryName}</option>)}
-                                    </select>
-                                    {touched.itemCategory && errors.itemCategory &&
-                                    <span><p className="text-danger">{errors.itemCategory}</p></span>}
-                                </div>
+                                  {/*Stock Level*/}
+                                  <Input size="sm" min={0} label="Stock" group type="number" validate
+                                         error="wrong"
+                                         success="right" name="itemStock" onChange={handleChange}
+                                         onBlur={handleBlur}/>
+                                  {touched.itemStock && errors.itemStock &&
+                                  <span><p className="text-danger">{errors.itemStock}</p></span>}
 
-                        {/*Image*/}
-                                <span style={{'fontSize': '15px', 'color': '#757575'}} className="add-item-padding md-form"> Image</span>
-                                <Dropzone accept="image/*" id='itemImage' name='itemImage' label='Image Upload'
-                                          style={dropZoneStyle}
-                                          className="dropzone col-md-12" onDrop={this.onDrop}>
-                                    <p className="textDrop">
-                                        {this.state.image === null ?
-                                            <b>Click to Upload new Item Image</b> : <b>{this.state.image.name}</b>}
-                                    </p>
-                                </Dropzone>
-                                {touched.itemImage && errors.itemImage &&
-                                <span><p className="text-danger">{errors.itemImage}</p></span>}
+                                  {/*Sales Percentage*/}
+                                  <Input size="sm" label="Sales Percentage" group type="number" validate
+                                         error="wrong" className="no-spinner"
+                                         success="right" name="itemSales" onChange={handleChange}
+                                         onBlur={handleBlur}/>
+                                  {touched.itemSales && errors.itemSales &&
+                                  <span><p className="text-danger">{errors.itemSales}</p></span>}
 
-                            </ModalBody>
+                                  {/*Price*/}
+                                  <Input size="sm" type="text" rows="2" label="Price" name="itemPrice"
+                                         onChange={handleChange}
+                                         onBlur={handleBlur}/>
+                                  {touched.itemPrice && errors.itemPrice &&
+                                  <span><p className="text-danger">{errors.itemPrice}</p></span>}
 
-                            <ModalFooter id="footer" className='imageName'>
-                                <Button type="submit" value="addItem" id="button" color="primary">ADD ITEM</Button>
-                                <br/>
-                                {this.state.type === 'GREEN' ?
-                                    <span><p className="text-success">{this.state.message}</p></span>
-                                    :
-                                    <span><p className="text-danger">{this.state.message}</p></span>}
-                            </ModalFooter>
-                        </form>
+                                  {/*Category*/}
+                                  <div>
+                                      <span style={{'fontSize': '15px', 'color': '#757575'}}> Category Type</span>
+                                      <select className="form-control form-control-line md-form md-form-category"
+                                              value={values.itemCategory} name="itemCategory"
+                                              onChange={handleChange}
+                                              onBlur={handleBlur}>
+                                          <option value="--" selected="selected">--</option>
+                                          {categories.map(category => <option
+                                              value={category.categoryName}>{category.categoryName}</option>)}
+                                      </select>
+                                      {touched.itemCategory && errors.itemCategory &&
+                                      <span><p className="text-danger">{errors.itemCategory}</p></span>}
+                                  </div>
+
+                                  {/*Image*/}
+                                  <span style={{'fontSize': '15px', 'color': '#757575'}} className="add-item-padding md-form"> Image</span>
+                                  <Dropzone accept="image/*" id='itemImage' name='itemImage' label='Image Upload'
+                                            style={dropZoneStyle}
+                                            className="dropzone col-md-12" onDrop={this.onDrop}>
+                                      <p className="textDrop">
+                                          {this.state.image === null ?
+                                              <b>Click to Upload new Item Image</b> : <b>{this.state.image.name}</b>}
+                                      </p>
+                                  </Dropzone>
+                                  {touched.itemImage && errors.itemImage &&
+                                  <span><p className="text-danger">{errors.itemImage}</p></span>}
+
+                              </ModalBody>
+
+                              <ModalFooter id="footer" className='imageName'>
+                                  <Button type="submit" value="addItem" id="button" color="primary">ADD ITEM</Button>
+                              </ModalFooter>
+
+                          </form>
+                        </div>
                     )}>
                 </Formik>
             </div>
@@ -190,7 +194,7 @@ class AddItemForm extends React.Component {
 function mapStateToProps(state) {
     return {
         error: state.items.error,
-        updates: state.items.updates,
+        addedItemMessage: state.items.addedItemMessage,
         itemAdded: state.items.added,
         addedItem: state.items.addedItem
     }

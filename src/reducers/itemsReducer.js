@@ -53,6 +53,7 @@ const initialState = {
     updating: false,
     updated: false,
     updateItemMessages: [],
+    addedItemMessage: [],
     messages: []
 }
 
@@ -143,7 +144,7 @@ export default function reducer(state = initialState, action) {
         case ADD_ITEM_FULFILLED: {
             return {
                 ...state,
-                updates: "Item successfully added",
+                addedItemMessage: "Item successfully added",
                 addedItems: [...state.items, action.payload[0]],
                 added: true,
                 adding: false,

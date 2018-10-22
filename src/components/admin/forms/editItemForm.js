@@ -18,8 +18,7 @@ class EditItemForm extends Component {
         this.state = {
             rowData: this.props.rowData,
             editItemMessage: this.props.editItemMessage,
-            imageThumbnail: this.props.rowData.itemImage,
-            confirmDialog: false,
+            imageThumbnail: this.props.rowData.itemImage
         }
 
         this.props.values.idItem = this.state.rowData.idItem
@@ -31,12 +30,6 @@ class EditItemForm extends Component {
         this.props.values.itemStockLevel = this.state.rowData.itemStockLevel
 
         this.onPreviewDrop = this.onPreviewDrop.bind(this);
-        this.confirmDelete = this.confirmDelete.bind(this);
-    }
-
-    confirmDelete() {
-        this.setState({confirmDialog: true});
-        console.log("CONFIRM ITEM DELETE");
     }
 
     componentDidUpdate(prevProps) {
@@ -89,7 +82,8 @@ class EditItemForm extends Component {
 
                         {/* Display Error/Success Message */}
                         <div
-                            className={(this.props.editItemMessage != "") ? (this.props.itemStatusUpdated == true ? "alert alert-success" : "alert alert-danger") : null}>{this.props.editItemMessage}</div>
+                            className={(this.props.editItemMessage != "") ? (this.props.itemStatusUpdated == true ? "alert alert-success" : "alert alert-danger") : null}>{this.props.editItemMessage}
+                        </div>
 
                         {/* Item Image */}
                         <p className="fieldset">
@@ -168,7 +162,7 @@ const FormikApp = withFormik({
         itemStockLevel: itemStockLevel || '',
     }),
     validationSchema: Yup.object().shape({
-        itemName: Yup.string().matches(/^[a-zA-Z]+( [a-zA-Z]+)*$/, "Item names may only contain letters and spaces!").required('A name is required for the item!'),
+        itemName: Yup.string().matches(/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/, "Item names may only contain letters and spaces!").required('A name is required for the item!'),
         itemDescription: Yup.string().required('A description is required for the item!'),
         itemPrice: Yup.string().matches(/^\d+\.?\d{1,2}$/, "Item prices may only be a whole or decimal number!").required('A price is required for the item!'),
         itemSalePercentage: Yup.string().matches(/^[0-9]$|^[1-9][0-9]$|^(100)$/, "Sale percentages must be a whole number that is less than 100!").required('A sale percentage is required for the item!'),
