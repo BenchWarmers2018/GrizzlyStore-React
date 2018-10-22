@@ -489,6 +489,7 @@ hr{
 .btn-no-decoration {
   text-decoration: none;
   color: inherit;
+  text-decoration-color: white;
 }
 
 
