@@ -68,7 +68,7 @@ class EachItem extends Component {
                 accountId = this.props.loggedInUser.idAccount;
                 const item = this.props.singleItem[0];
 
-                const cart = { "idAccountForeign": accountId, "items": [{ "idItem": item.idItem, "itemQuantity": this.state.count, "itemPrice": item.itemPrice}]};
+                const cart = { "idAccountForeign": accountId, "items": [{ "idItem": item.idItem, "itemQuantity": this.state.count, "itemPrice": this.discountPrice(item)}]};
                 this.props.addItemToCart(cart);
                 successNotification("Successfully Added to Cart");
             }
@@ -81,9 +81,16 @@ class EachItem extends Component {
 
     notAllowed = () =>
     {
-        errorNotification("No Account Detected", "Please login to add items to your cart.")
+        if(this.props.loggedInUser=== null)
+            errorNotification("No Account Detected", "Please login to add items to your cart.")
+        else
+            errorNotification("No Stock Available", "Please try again after some time.")
     }
 
+    discountPrice = (item) => {
+        let num = item.itemPrice - (item.itemPrice * item.itemSalePercentage/100);
+        return num.toFixed(2);
+    }
 
     render() {
         const item = this.props.singleItem[0];
@@ -93,10 +100,7 @@ class EachItem extends Component {
             return <h2>No item Found. Please try again later.</h2>
         }
 
-        function discountPrice(item){
-            let num = item.itemPrice - (item.itemPrice * item.itemSalePercentage/100);
-            return num.toFixed(2);
-        }
+
 
         function originalPrice(item){
             let num = item.itemPrice;
@@ -136,7 +140,7 @@ class EachItem extends Component {
                                                 item.itemSalePercentage > 0 &&
                                                 <div className="price-div">
                                                     <div className="details_discount">${originalPrice(item)}</div>
-                                                    <div className="details_price">${discountPrice(item)}</div>
+                                                    <div className="details_price">${this.discountPrice(item)}</div>
                                                 </div>
                                             }
                                             {
@@ -153,7 +157,7 @@ class EachItem extends Component {
                                             {
                                                 (this.state.count > 1 && item.itemStockLevel >= 1) ? (
                                                     <button className="btn btn-primary" onClick={(e) => this.handleClickDec(e)}><div className="btn-enlarge">-</div></button>):(
-                                                    <button disabled className="btn btn-primary" onClick={(e) => this.handleClickDec(e)}><div className="btn-enlarge">-</div></button>
+                                                    <button disabled className="btn btn-primary btn-disabled-eachitem" onClick={(e) => this.handleClickDec(e)}><div className="btn-enlarge">-</div></button>
                                                 )
                                             }
                                         </div>
@@ -165,16 +169,16 @@ class EachItem extends Component {
                                             {
                                                 (this.state.count >= 1 && this.state.count < item.itemStockLevel) ? (
                                                     <button className="btn btn-primary" onClick={(e) => this.handleClickInc(e)}><div className="btn-enlarge">+</div></button>):(
-                                                    <button disabled className=" btn btn-primary" onClick={(e) => this.handleClickInc(e)}><div className="btn-enlarge">+</div></button>
+                                                    <button disabled className=" btn btn-primary btn-disabled-eachitem" onClick={(e) => this.handleClickInc(e)}><div className="btn-enlarge">+</div></button>
                                                 )
                                             }
                                         </div>
 
                                         {
                                             (item.itemStockLevel >= 1 && this.props.loggedInUser!== null) ? (
-                                                <div className="button cart_button" onClick={this.addToCart}><h9>Add to cart</h9></div>
+                                                <div className="button cart_button" onClick={this.addToCart}><a>Add to cart</a></div>
                                             ):(
-                                                <div onClick={this.notAllowed} disabled className="button cart_button_disabled"><h9>Add to cart</h9></div>
+                                                <div onClick={this.notAllowed} disabled className="button cart_button_disabled"><a>Add to cart</a></div>
                                             )
                                         }
                                     </div>
@@ -234,7 +238,7 @@ class EachItem extends Component {
                             <div className="description_title_container">
                                 <div className="description_title"><strong>Description</strong></div>
                             </div>
-                            <p>{item.itemDescription}
+                            <p className="eachitem-description">{item.itemDescription}
                                 <br/>
                                 <br/>
                                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod

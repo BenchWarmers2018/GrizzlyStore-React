@@ -36,7 +36,6 @@ class Checkout extends Component {
 
 
     render() {
-        const address = this.props.data;
         if(this.props.loggedInUser === null)
         {
             return(
@@ -55,7 +54,7 @@ class Checkout extends Component {
         }
 
         let env = 'sandbox'; // you can set here to 'production' for production
-        let currency = 'USD'; // or you can set this value from your props or state
+        let currency = 'AUD'; // or you can set this value from your props or state
         let total = this.props.cart.total; // same as above, this is the total amount (based on currency) to be paid by using Paypal express checkout
         // Document on Paypal's currency code: https://developer.paypal.com/docs/classic/api/currency_codes/
         const client = {
@@ -72,6 +71,14 @@ class Checkout extends Component {
         //     :
         //     <div>"Hello No items here."</div>
         // }
+
+        const accountArray = this.props.loggedInAccount;
+        let account = null;
+        let address = null;
+        if(accountArray !== null && accountArray.length > 0) {
+            account = accountArray[0];
+            address = account.profile.address;
+        }
 
         let products = null;
         let items = null;
@@ -90,6 +97,10 @@ class Checkout extends Component {
             });
         }
 
+        // Rounding price to 2 decimal points
+        function roundPrice(num) {
+            return num.toFixed(2);
+        }
 
         return (
             <div className="doNotRemoveDiv">
@@ -98,10 +109,6 @@ class Checkout extends Component {
 
                 <div className="checkout">
                     <div className="container">
-
-
-
-
 
                         <div className=" row">
                             <div className="order checkout_section">
@@ -120,10 +127,7 @@ class Checkout extends Component {
                                         {checkoutRows}
                                     </div>
 
-
                                 </div>
-
-
                             </div>
                         </div>
 
@@ -132,9 +136,22 @@ class Checkout extends Component {
                             <div className="billing-section-div col-lg-8 col-md-8 col-xs-8 col-sm-8">
                                 <div className="billing-address">
                                     <div className="section_title billing-address-div">Billing Address</div>
-                                    <div className="section-subtitle"><b>Please update your address on your profile before continuing</b></div>
-                                    <br/>
-                                    <div className="section-subtitle correct-address muted"><i>Please ensure your address is correct</i></div>
+
+
+                                    {address === null ?
+                                        <div className="section-subtitle">Please update your address on your profile before continuing</div>
+                                        :
+                                        <div className="checkout_form_container">
+                                            <h6 className="profile-overview-field">
+                                                {(address.addressUnitNo !== null) ? address.addressUnitNo+"/" : ""}
+                                                {address.addressStreetNo} {address.addressStreet} {address.addressStreetType}<br/>
+                                                {address.addressCity}, {address.addressState}<br/>
+                                                {address.addressCountry} {address.addressPostcode}
+                                            </h6>
+                                            <div className="section-subtitle correct-address muted red-text"><i>Please ensure your address is
+                                                correct before proceeding to checkout</i></div>
+                                        </div>
+                                    }
 
                                 </div>
                                 <div className="billing-payment col-lg-8 col-md-8 col-xs-8 col-sm-8">
@@ -142,7 +159,7 @@ class Checkout extends Component {
                                     <ul className="order_list">
                                         <li className="d-flex flex-row align-items-center justify-content-start">
                                             <div className="order_list_title col-lg-2 col-md-2 col-xs-2 col-sm-2"><b>Subtotal</b></div>
-                                            <div className="order_list_value ml-auto col-lg-2 col-md-2 col-xs-2 col-sm-2">${this.props.cart.total}</div>
+                                            <div className="order_list_value ml-auto col-lg-2 col-md-2 col-xs-2 col-sm-2">${roundPrice(this.props.cart.total)}</div>
                                         </li>
                                         <li className="d-flex flex-row align-items-center justify-content-start">
                                             <div className="order_list_title col-lg-2 col-md-2 col-xs-2 col-sm-2"><b>Shipping</b></div>
@@ -150,7 +167,7 @@ class Checkout extends Component {
                                         </li>
                                         <li className="d-flex flex-row align-items-center justify-content-start">
                                             <div className="order_list_title col-lg-2 col-md-2 col-xs-2 col-sm-2"><b>Total</b></div>
-                                            <div className="order_list_value ml-auto col-lg-2 col-md-2 col-xs-2 col-sm-2">${this.props.cart.total}</div>
+                                            <div className="order_list_value ml-auto col-lg-2 col-md-2 col-xs-2 col-sm-2">${roundPrice(this.props.cart.total)}</div>
                                         </li>
                                     </ul>
 
@@ -161,6 +178,7 @@ class Checkout extends Component {
                         </div>
 
                         <div className="paypal-button" style={{width: "50%"}}>
+                            {address !== null ?
                             <PaypalExpressBtn
                                 env={env}
                                 client={client}
@@ -176,6 +194,9 @@ class Checkout extends Component {
                                     color: 'blue',// gold | blue | silver | black
                                 }}
                             />
+                            :
+                            <button type="button" className="btn btn-dark btn-lg btn-block">Please add an address in Profile to proceed.</button>
+                            }
                         </div>
 
                     </div>
@@ -189,6 +210,7 @@ const mapStateToProps = state => ({
     cart : state.cart.cart,
     cartItems: state.cart.cartItems,
     loggedInUser: state.accounts.loggedInUser,
+    loggedInAccount: state.profiles.loggedInAccount,
 });
 
 const mapDispatchToProps = {

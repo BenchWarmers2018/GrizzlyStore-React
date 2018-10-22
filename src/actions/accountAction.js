@@ -21,7 +21,10 @@ import {
     GET_ALL_USERS_SUCCESSFUL,
     TOGGLE_USER_ADMIN,
     TOGGLE_USER_ADMIN_REJECTED,
-    TOGGLE_USER_ADMIN_SUCCESSFUL
+    TOGGLE_USER_ADMIN_SUCCESSFUL,
+    RESET_USER_PROFILE,
+    FETCH_PROFILE_FULFILLED_AT_STARTUP,
+    FETCH_PROFILE_REJECTED_AT_STARTUP
 } from "../CONSTANTS";
 
 
@@ -73,16 +76,16 @@ export function getCurrentUser()
             axios.get(URL_USER +"/login/user", config)
                 .then((result) =>{
 
-                    // dispatch({type: FETCH_PROFILE});
-                    // const account = { "idAccount" : result.data.id }
+                    dispatch({type: FETCH_PROFILE});
+                    const account = { "idAccount" : result.data.idAccount }
 
-                    // axios.post(URL_USER+"/user/profile", account)
-                    //     .then((response) => {
-                    //         dispatch({type: FETCH_PROFILE_FULFILLED, payload: response.data})
-                    //     })
-                    //     .catch((err) => {
-                    //         dispatch({type: FETCH_PROFILE_REJECTED, payload: err.response.data})
-                    //     })
+                    axios.post(URL_USER+"/user/profile", account)
+                        .then((response) => {
+                            dispatch({type: FETCH_PROFILE_FULFILLED_AT_STARTUP, payload: response.data})
+                        })
+                        .catch((err) => {
+                            dispatch({type: FETCH_PROFILE_REJECTED_AT_STARTUP, payload: err.response.data})
+                        })
 
 
                     dispatch({type: GET_CURRENT_USER_FULFILLED, payload: result.data})
@@ -125,6 +128,7 @@ export function authenticateUser(loginData) {
 export function resetUserStore() {
     return function (dispatch) {
         dispatch({type: RESET_USER_ACCOUNT});
+        dispatch({type:RESET_USER_PROFILE});
 
     }
 }

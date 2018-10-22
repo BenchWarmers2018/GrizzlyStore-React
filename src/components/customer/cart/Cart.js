@@ -84,6 +84,11 @@ class Cart extends Component {
             cartItems = cart.items;
         }
 
+        // Rounding price to 2 decimal points
+        function roundPrice(num){
+            return num.toFixed(2);
+        }
+
         return (
             <div>
                 <Banner data="Shopping Cart"/>
@@ -96,7 +101,7 @@ class Cart extends Component {
 
                                         <div className="cart_info_col cart_info_col_image"><h9>Image</h9></div>
                                         <div className="cart_info_col cart_info_col_product"><h9>Product</h9></div>
-                                        <div className="cart_info_col cart_info_col_price"><h9>Price</h9></div>
+                                        <div className="cart_info_col cart_info_col_price "><h9>Price</h9></div>
                                         <div className="cart_info_col cart_info_col_quantity"><h9>Quantity</h9></div>
                                         <div className="cart_info_col cart_info_col_total"><h9>Total</h9></div>
                                         <div className="cart_info_col cart_info_col_actions"><h9>Remove</h9></div>
@@ -150,7 +155,7 @@ class Cart extends Component {
                                             <ul>
                                                 <li className="d-flex flex-row align-items-center justify-content-start">
                                                     <div className="cart_total_title"><b>Subtotal</b></div>
-                                                    <div className="cart_total_value ml-auto">${cart.total}</div>
+                                                    <div className="cart_total_value ml-auto">${roundPrice(cart.total)}</div>
                                                 </li>
                                                 <li className="d-flex flex-row align-items-center justify-content-start">
                                                     <div className="cart_total_title"><b>Shipping</b></div>
@@ -158,13 +163,13 @@ class Cart extends Component {
                                                 </li>
                                                 <li className="d-flex flex-row align-items-center justify-content-start">
                                                     <div className="cart_total_title"><b>Total</b></div>
-                                                    <div className="cart_total_value ml-auto">${cart.total}</div>
+                                                    <div className="cart_total_value ml-auto">${roundPrice(cart.total)}</div>
                                                 </li>
                                             </ul>
                                         </div>
 
                                         {this.props.cart.items.length > 0 ?
-                                            <div className="button checkout_button" style={{"width": "100%"}}><Link
+                                            <div className="button order_button" style={{"width": "100%"}}><Link
                                                 to="/checkout">Proceed to checkout</Link></div>
                                             :
                                             <div onClick={this.proceedError} className="button checkout_button" style={{"width" : "100%"}}><a>Proceed to checkout</a></div>

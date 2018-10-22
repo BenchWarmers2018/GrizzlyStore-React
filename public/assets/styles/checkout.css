@@ -908,15 +908,18 @@ section
 	bottom: -30%;
 }
 .billing-address-div{
-	margin-bottom: 30px;
+	margin-bottom: 10px;
 }
 .billing-address
 {
-	width: 35% !important;
+	width: 45% !important;
 	margin-right: 20%;
 	display: inline-block;
 	height: 100%;
 	top: 0;
+	background-color: white;
+	border: 1px #1b1e21 dashed;
+	padding: 30px;
 }
 .billing-payment{
 	width: 35% !important;
@@ -938,7 +941,6 @@ section
 .checkout_form_container
 {
 	width: 100%;
-	margin-top: 46px;
 }
 .checkout_form > div:not(:last-child)
 {
@@ -1159,7 +1161,15 @@ section
 .order_button
 {
 	width: 100%;
-	margin-top: 83px;
+	margin-top: 20px;
+	background-color: #3b5998!important;
+}
+.order_button a{
+
+	color: white !important;
+}
+.order_button::after{
+	background-color: black !important;
 }
 
 /*********************************

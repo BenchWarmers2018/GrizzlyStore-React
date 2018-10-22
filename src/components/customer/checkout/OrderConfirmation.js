@@ -71,6 +71,11 @@ class OrderConfirmation extends Component {
         }
         //var testOrder = {orderTotal: 20.2, orderID: "20", orderItems: {itemNo: 3, itemQuantity: 2, itemPrice: 20.2},  }
 
+        // Rounding price to 2 decimal points
+        function roundPrice(num){
+            return num.toFixed(2);
+        }
+
         return (
         <div className="container">
             <div className="row">
@@ -83,7 +88,9 @@ class OrderConfirmation extends Component {
                                 </div>
 
                                 <div className="col-md-6 text-right">
-                                    <p className="font-weight-bold mb-1">Invoice number: </p>
+                                    {this.props.order!==null ||  typeof this.props.order !== "undefined" &&
+                                     <p className="font-weight-bold mb-1">Invoice number: {this.props.order.idTransaction}</p>
+                                    }
                                 </div>
                             </div>
 
@@ -101,7 +108,7 @@ class OrderConfirmation extends Component {
                                     <div className="col-md-6 text-right">
                                         <p className="font-weight-bold mb-4">Payment Details</p>
                                         <p className="mb-1"><span className="text-muted">Payment Type: </span>PayPal </p>
-                                        <p className="mb-1"><span className="text-muted">Name: </span> </p>
+                                        <p className="mb-1"><span className="text-muted">Name: {this.props.loggedInUser.accountEmailAddress}</span> </p>
                                     </div>
                                 </div>
 
@@ -130,7 +137,7 @@ class OrderConfirmation extends Component {
                                 <div className="d-flex flex-row-reverse bg-dark text-white p-4">
                                     <div className="py-3 px-5 text-right">
                                         <div className="mb-2">Grand Total</div>
-                                        <div className="h2 font-weight-light">{this.state.order.order_Total}</div>
+                                        <div className="h2 font-weight-light">${roundPrice(this.state.order.order_Total)}</div>
                                     </div>
 
                                     <div className="py-3 px-5 text-right">
@@ -140,7 +147,7 @@ class OrderConfirmation extends Component {
 
                                     <div className="py-3 px-5 text-right">
                                         <div className="mb-2">Sub - Total amount</div>
-                                        <div className="h2 font-weight-light">{this.state.order.order_Total}</div>
+                                        <div className="h2 font-weight-light">${roundPrice(this.state.order.order_Total)}</div>
                                     </div>
                                 </div>
                             }
@@ -164,6 +171,7 @@ const mapStateToProps = state => ({
     cartItems : state.cart.cartItems,
     processing: state.orders.processing,
     processed: state.orders.processed,
+    loggedInUser: state.accounts.loggedInUser,
 });
 
 const mapDispatchToProps = {

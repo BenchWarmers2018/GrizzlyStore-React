@@ -22,6 +22,11 @@ class ViewItems extends Component {
         {
             this.setState({items: this.props.items})
         }
+
+        // Fetch items again if a new item was added
+        if (prevProps.itemAdded && (prevProps.addedItem !== this.props.addedItem) ) {
+            this.props.dispatch(fetchItems());
+        }
     }
 
     render() {
@@ -49,7 +54,9 @@ class ViewItems extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    items: state.items.items
+    items: state.items.items,
+    itemAdded: state.items.added,
+    addedItem: state.items.addedItem
 });
 
 export default connect(mapStateToProps)(ViewItems);
