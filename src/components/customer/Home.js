@@ -75,10 +75,7 @@ class Home extends Component {
                                 <ItemSmartHome key={item.idItem} data={item}/>
                             )}
                         </div>
-                        }
-                        {/*<ItemSmartHome/>*/}
                     </div>
-
                 </div>
             </div>
 

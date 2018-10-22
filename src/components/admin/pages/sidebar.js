@@ -61,19 +61,20 @@ class sidebar extends Component {
                                 </Link>
                             </li>
 
-                            {/*Toggle Add Category*/}
+                            {/*View Items*/}
                             <li className="sidebar-item">
-                                <a onClick={this.toggleCategoryModal} href="javascript:void(0)"
-                                   className="sidebar-link waves-effect waves-dark sidebar-link">
-                                    <Icon path={mdiFolderPlus} size={1.5}/>
-                                    <span className="sidebar-heading hide-menu m-l-5">Add New Category</span>
-                                </a>
+                                <Link to="/viewitems">
+                                    <a className="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
+                                        <Icon path={mdiViewGrid} size={1.5}/>
+                                        <span className="sidebar-heading hide-menu">View Items</span>
+                                    </a>
+                                </Link>
                             </li>
 
                             {/*Toggle Add Item*/}
                             <li className="sidebar-item">
                                 <a onClick={this.toggleItemModal} href="javascript:void(0)"
-                                  className="sidebar-link waves-effect waves-dark sidebar-link">
+                                   className="sidebar-link waves-effect waves-dark sidebar-link">
                                     <Icon path={mdiLibraryPlus} size={1.5}/>
                                     <span className="sidebar-heading hide-menu m-l-5">Add New Item</span>
                                 </a>
@@ -89,14 +90,13 @@ class sidebar extends Component {
                                 </Link>
                             </li>
 
-                            {/*View Items*/}
+                            {/*Toggle Add Category*/}
                             <li className="sidebar-item">
-                                <Link to="/viewitems">
-                                    <a className="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
-                                        <Icon path={mdiViewGrid} size={1.5}/>
-                                        <span className="sidebar-heading hide-menu">View Items</span>
-                                    </a>
-                                </Link>
+                                <a onClick={this.toggleCategoryModal} href="javascript:void(0)"
+                                   className="sidebar-link waves-effect waves-dark sidebar-link">
+                                    <Icon path={mdiFolderPlus} size={1.5}/>
+                                    <span className="sidebar-heading hide-menu m-l-5">Add New Category</span>
+                                </a>
                             </li>
 
                             {/*View Accounts*/}

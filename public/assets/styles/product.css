@@ -1913,3 +1913,9 @@ h9{
 .pagination-items{
 	text-align:center;
 }
+.btn-disabled-eachitem:disabled{
+	background-color: #6c6a74 !important;
+}
+.eachitem-description{
+	padding-bottom: 60px;
+}

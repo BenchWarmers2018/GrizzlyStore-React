@@ -15,6 +15,7 @@ class OrderConfirmation extends Component {
             processing: this.props.processing,
             processed: this.props.processed,
             order: this.props.order,
+            data: this.props.data,
         }
     }
 
@@ -69,6 +70,11 @@ class OrderConfirmation extends Component {
             }
         }
         //var testOrder = {orderTotal: 20.2, orderID: "20", orderItems: {itemNo: 3, itemQuantity: 2, itemPrice: 20.2},  }
+
+        // Rounding price to 2 decimal points
+        function roundPrice(num){
+            return num.toFixed(2);
+        }
 
         return (
         <div className="container">
@@ -131,7 +137,7 @@ class OrderConfirmation extends Component {
                                 <div className="d-flex flex-row-reverse bg-dark text-white p-4">
                                     <div className="py-3 px-5 text-right">
                                         <div className="mb-2">Grand Total</div>
-                                        <div className="h2 font-weight-light">{this.state.order.order_Total}</div>
+                                        <div className="h2 font-weight-light">${roundPrice(this.state.order.order_Total)}</div>
                                     </div>
 
                                     <div className="py-3 px-5 text-right">
@@ -141,7 +147,7 @@ class OrderConfirmation extends Component {
 
                                     <div className="py-3 px-5 text-right">
                                         <div className="mb-2">Sub - Total amount</div>
-                                        <div className="h2 font-weight-light">{this.state.order.order_Total}</div>
+                                        <div className="h2 font-weight-light">${roundPrice(this.state.order.order_Total)}</div>
                                     </div>
                                 </div>
                             }

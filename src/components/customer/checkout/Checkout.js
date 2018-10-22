@@ -7,12 +7,14 @@ import { withRouter } from "react-router";
 import {errorNotification, successNotification} from "../../microComponents/Notifications";
 import { processOrder } from "../../../actions/orderActions";
 import {Redirect} from "react-router-dom";
+import PropTypes from "prop-types";
 
 class Checkout extends Component {
     constructor(props) {
         super(props);
         this.state = {
             cart : this.props.cart,
+            data: this.props.data,
         }
     }
 
@@ -95,6 +97,11 @@ class Checkout extends Component {
             });
         }
 
+        // Rounding price to 2 decimal points
+        function roundPrice(num) {
+            return num.toFixed(2);
+        }
+
         return (
             <div className="doNotRemoveDiv">
 
@@ -102,86 +109,96 @@ class Checkout extends Component {
 
                 <div className="checkout">
                     <div className="container">
-                        <div className="row">
+
+                        <div className=" row">
+                            <div className="order checkout_section">
+                                <div className="section_title">Your order</div>
+                                <div className="section_subtitle">Order details</div>
 
 
-                            <div className="col-lg-4">
-                                <div className="billing order checkout_section">
-                                    <div className="section_title">Billing Address</div>
-                                    {address === null ?
-                                        <div className="section-subtitle">Please update your address on your profile before continuing</div>
-                                        :
-                                        <div className="checkout_form_container">
-                                                    <h5 className="profile-overview-field">
-                                                        {(address.addressUnitNo !== null) ? address.addressUnitNo+"/" : ""}
-                                                        {address.addressStreetNo} {address.addressStreet} {address.addressStreetType}<br/>
-                                                        {address.addressCity}, {address.addressState}<br/>
-                                                        {address.addressCountry} {address.addressPostcode}
-                                                    </h5>
-                                        </div>
-                                    }
-
-
-                                </div>
-                            </div>
-
-                            <div className="col-lg-8">
-                                <div className="order checkout_section">
-                                    <div className="section_title">Your order</div>
-                                    <div className="section_subtitle">Order details</div>
-
-
-                                    <div className="order_list_container">
-                                        <div
-                                            className="order_list_bar d-flex flex-row align-items-center justify-content-start row">
-                                            <div className="order_list_title col-lg-8 col-md-8 col-xs-8 col-sm-8">Product</div>
-                                            <div className="order_list_value ml-auto col-lg-3 col-md-3 col-xs-3 col-sm-3">Quantity</div>
-                                            <div className="order_list_value ml-auto col-lg-1 col-md-1 col-xs-1 col-sm-1">Total</div>
-                                        </div>
-
-                                        <ul className="order_list">
-                                            {checkoutRows}
-                                            <li className="d-flex flex-row align-items-center justify-content-start mt-100">
-                                                <div className="order_list_title">Subtotal</div>
-                                                <div className="order_list_value ml-auto">{this.props.cart.total}</div>
-                                            </li>
-                                            <li className="d-flex flex-row align-items-center justify-content-start">
-                                                <div className="order_list_title">Shipping</div>
-                                                <div className="order_list_value ml-auto">Free</div>
-                                            </li>
-                                            <li className="d-flex flex-row align-items-center justify-content-start">
-                                                <div className="order_list_title">Total</div>
-                                                <div className="order_list_value ml-auto">{this.props.cart.total}</div>
-                                            </li>
-                                        </ul>
+                                <div className="order_list_container">
+                                    <div className="order_list_bar d-flex flex-row align-items-center justify-content-start">
+                                        <div className="order_list_title col-lg-7 col-md-7 col-xs-7 col-sm-7">Product</div>
+                                        <div className="order_list_value ml-auto col-lg-3 col-md-3 col-xs-3 col-sm-3 centered">Quantity</div>
+                                        <div className="order_list_value ml-auto col-lg-3 col-md-3 col-xs-3 col-sm-3">Total</div>
                                     </div>
 
-                                    <div style={{width: "100%"}}>
-                                        {address !== null ?
-                                            <PaypalExpressBtn
-                                                env={env}
-                                                client={client}
-                                                currency={currency}
-                                                total={total}
-                                                onError={this.onError}
-                                                onSuccess={this.onSuccess}
-                                                onCancel={this.onCancel}
-                                                style={{
-                                                    label: 'checkout',
-                                                    size: 'responsive',    // small | medium | large | responsive
-                                                    shape: 'rect',     // pill | rect
-                                                    color: 'black',// gold | blue | silver | black
-                                                }}
-                                            />
-                                            :
-                                            <button type="button" className="btn btn-dark btn-lg btn-block">Please add an address in Profile to proceed.</button>
-                                        }
-
+                                    <div className="checkout-rows-order">
+                                        {checkoutRows}
                                     </div>
 
                                 </div>
                             </div>
                         </div>
+
+                        <div className="row">
+                        <div className=" billing checkout_section">
+                            <div className="billing-section-div col-lg-8 col-md-8 col-xs-8 col-sm-8">
+                                <div className="billing-address">
+                                    <div className="section_title billing-address-div">Billing Address</div>
+
+
+                                    {address === null ?
+                                        <div className="section-subtitle">Please update your address on your profile before continuing</div>
+                                        :
+                                        <div className="checkout_form_container">
+                                            <h6 className="profile-overview-field">
+                                                {(address.addressUnitNo !== null) ? address.addressUnitNo+"/" : ""}
+                                                {address.addressStreetNo} {address.addressStreet} {address.addressStreetType}<br/>
+                                                {address.addressCity}, {address.addressState}<br/>
+                                                {address.addressCountry} {address.addressPostcode}
+                                            </h6>
+                                            <div className="section-subtitle correct-address muted red-text"><i>Please ensure your address is
+                                                correct before proceeding to checkout</i></div>
+                                        </div>
+                                    }
+
+                                </div>
+                                <div className="billing-payment col-lg-8 col-md-8 col-xs-8 col-sm-8">
+                                    <div className="section_title">Total</div>
+                                    <ul className="order_list">
+                                        <li className="d-flex flex-row align-items-center justify-content-start">
+                                            <div className="order_list_title col-lg-2 col-md-2 col-xs-2 col-sm-2"><b>Subtotal</b></div>
+                                            <div className="order_list_value ml-auto col-lg-2 col-md-2 col-xs-2 col-sm-2">${roundPrice(this.props.cart.total)}</div>
+                                        </li>
+                                        <li className="d-flex flex-row align-items-center justify-content-start">
+                                            <div className="order_list_title col-lg-2 col-md-2 col-xs-2 col-sm-2"><b>Shipping</b></div>
+                                            <div className="order_list_value ml-auto col-lg-2 col-md-2 col-xs-2 col-sm-2"><i>Free</i></div>
+                                        </li>
+                                        <li className="d-flex flex-row align-items-center justify-content-start">
+                                            <div className="order_list_title col-lg-2 col-md-2 col-xs-2 col-sm-2"><b>Total</b></div>
+                                            <div className="order_list_value ml-auto col-lg-2 col-md-2 col-xs-2 col-sm-2">${roundPrice(this.props.cart.total)}</div>
+                                        </li>
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div className="paypal-button" style={{width: "50%"}}>
+                            {address !== null ?
+                            <PaypalExpressBtn
+                                env={env}
+                                client={client}
+                                currency={currency}
+                                total={total}
+                                onError={this.onError}
+                                onSuccess={this.onSuccess}
+                                onCancel={this.onCancel}
+                                style={{
+                                    label: 'checkout',
+                                    size: 'responsive',    // small | medium | large | responsive
+                                    shape: 'rect',     // pill | rect
+                                    color: 'blue',// gold | blue | silver | black
+                                }}
+                            />
+                            :
+                            <button type="button" className="btn btn-dark btn-lg btn-block">Please add an address in Profile to proceed.</button>
+                            }
+                        </div>
+
                     </div>
                 </div>
             </div>

@@ -900,10 +900,16 @@ section
 	font-size: 14px;
 	font-weight: 400;
 	color: #1b1b1b;
+	text-align: center;
 }
+.cart_info_col_image
+{
+	width: 15%;
+}
+
 .cart_info_col_product
 {
-	width: 50%;
+	width: 35%;
 }
 .cart_info_col_price
 {
@@ -1133,8 +1139,8 @@ section
 }
 .row_extra
 {
-	margin-top: 106px;
-	padding-bottom: 100px;
+	margin-top: 40px;
+	margin-bottom: 20px;
 }
 .delivery
 {
@@ -1155,7 +1161,7 @@ section
 }
 .delivery_options
 {
-	margin-top: 38px;
+	margin-top: 20px;
 }
 .delivery_option
 {
@@ -1261,12 +1267,14 @@ label
 }
 .cart_total_container
 {
-	margin-top: 42px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 	padding-left: 45px;
 	padding-top: 20px;
 	padding-right: 44px;
 	padding-bottom: 19px;
-	background: #f2f4f8;
+	background: white;
+	border-radius: 5px;
 }
 .cart_total_container ul
 {
@@ -1293,7 +1301,17 @@ label
 .checkout_button
 {
 	width: 100%;
+	background-color: #3b5998 !important;
+	color: white !important;
 }
+.checkout_button a{
+	color: white !important;
+}
+
+.checkout_button::after{
+	background-color: black !important;
+}
+
 
 /*********************************
 7. Footer
@@ -1376,11 +1394,15 @@ label
 {
 	color: #FFFFFF;
 }
-
 .border {
 	border-radius: 10px;
 }
 
 .border-space {
-	margin-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.payment-total-cart-div{
+	background-color: #F3F7FE;
+	padding: 30px;
 }

@@ -48,7 +48,7 @@ class ProfileAddress extends Component {
         const address = this.props.data;
 
         return (
-            <div style={{minHeight: "500px"}}>
+            <div>
                 <h3 className="card-subtitle card-subtitle-profile" style={{textAlign: 'center', color: 'black'}}>Edit
                     Address</h3>
                 <br/>
@@ -82,7 +82,7 @@ class ProfileAddress extends Component {
                     />
                 </div>
 
-                <div className="col-sm-12 col-md-12 col-lg-12" style={{bottom : "10%", position: "absolute"}}>
+                <div className="col-sm-12 col-md-12 col-lg-12 submit-address-button" style={{position: "absolute"}}>
                     <button onClick={this.handleUpdate} className="btn btn-success-muted btn-block">UPDATE ADDRESS</button>
                 </div>
             </div>
